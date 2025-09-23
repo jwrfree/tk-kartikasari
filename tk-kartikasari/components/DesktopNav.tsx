@@ -10,7 +10,7 @@ export default function DesktopNav() {
 
   return (
     <nav aria-label="Menu utama" className="hidden flex-1 items-center justify-center lg:flex">
-      <ul className="flex items-center gap-1 text-sm font-medium text-text-muted">
+      <ul className="flex items-center gap-1 text-base font-medium text-text-muted">
         {mainNav.map((item) => {
           const isActive =
             item.href === "/"
