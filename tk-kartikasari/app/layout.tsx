@@ -4,6 +4,8 @@ import site from "@/data/site.json";
 import Link from "next/link";
 import { waLink } from "@/lib/utils";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import MobileNav from "@/components/MobileNav";
+import { mainNav } from "@/data/navigation";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -31,20 +33,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <p className="text-sm text-text-muted">Bulaksari, Bantarsari, Cilacap</p>
                 </div>
               </Link>
-              <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-text-muted">
-                <a href="#program" className="transition hover:text-text">Program</a>
-                <a href="#pengalaman" className="transition hover:text-text">Suasana Belajar</a>
-                <a href="#testimonials" className="transition hover:text-text">Testimoni</a>
-                <a href="#faq" className="transition hover:text-text">FAQ</a>
-                <Link href="/pengumuman" className="transition hover:text-text">
-                  Pengumuman
-                </Link>
-                <Link href="/agenda" className="transition hover:text-text">
-                  Agenda
-                </Link>
-                <Link href="/kontak" className="transition hover:text-text">
-                  Kontak
-                </Link>
+              <nav className="hidden items-center gap-6 text-sm font-medium text-text-muted md:flex">
+                {mainNav.map((item) => (
+                  <Link key={item.href} href={item.href} className="transition hover:text-text">
+                    {item.label}
+                  </Link>
+                ))}
               </nav>
               <div className="flex items-center gap-3">
                 <Link
@@ -65,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 >
                   PPDB
                 </Link>
+                <MobileNav />
               </div>
             </div>
           </header>
