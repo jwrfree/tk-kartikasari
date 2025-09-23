@@ -1,6 +1,8 @@
 import CTAButton from "@/components/CTAButton";
+import PageHeader from "@/components/PageHeader";
 import PpdbForm from "@/components/PpdbForm";
 import site from "@/data/site.json";
+import { ppdbPageHeader } from "@/data/content";
 
 const steps = [
   "Hubungi Ibu Mintarsih melalui WhatsApp untuk mengatur jadwal kunjungan sekolah.",
@@ -35,14 +37,16 @@ const faqs = [
 export default function Page() {
   return (
     <div className="container py-8 space-y-8">
-      <header className="max-w-3xl space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">PPDB</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">Penerimaan Peserta Didik Baru</h1>
-        <p className="text-text-muted">
-          Kami menyambut keluarga baru yang ingin bergabung dengan TK Kartikasari. Silakan ikuti alur pendaftaran berikut atau
-          hubungi langsung kepala sekolah melalui WhatsApp.
-        </p>
-      </header>
+      <PageHeader
+        {...ppdbPageHeader}
+        className="max-w-3xl"
+        actions={
+          <CTAButton
+            label="Chat Kepala Sekolah"
+            message="Halo Bu Mintarsih, saya ingin mendapatkan info lengkap PPDB TK Kartikasari."
+          />
+        }
+      />
 
       <section className="card p-6 space-y-4">
         <div>
@@ -54,12 +58,6 @@ export default function Page() {
             <li key={step}>{step}</li>
           ))}
         </ol>
-        <div className="pt-2">
-          <CTAButton
-            label="Chat Kepala Sekolah"
-            message="Halo Bu Mintarsih, saya ingin mendapatkan info lengkap PPDB TK Kartikasari."
-          />
-        </div>
       </section>
 
       <section className="card p-6 space-y-5">

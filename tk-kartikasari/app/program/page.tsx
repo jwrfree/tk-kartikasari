@@ -1,3 +1,6 @@
+import PageHeader from "@/components/PageHeader";
+import { programPageHeader } from "@/data/content";
+
 const classes = [
   {
     name: "Kelas A • Bintang Kecil",
@@ -77,14 +80,11 @@ const weeklySchedule = [
 export default function Page() {
   return (
     <div className="container py-8 space-y-10">
-      <header className="max-w-3xl space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Program Pembelajaran</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">Program & Kegiatan TK Kartikasari</h1>
-        <p className="text-text-muted">
-          Program dirancang untuk menstimulasi seluruh aspek perkembangan anak usia dini dengan pendekatan bermain yang bermakna
-          dan dukungan kolaboratif antara guru serta orang tua.
-        </p>
-      </header>
+      <PageHeader
+        {...programPageHeader}
+        className="max-w-3xl"
+        descriptionClassName="text-text-muted"
+      />
 
       <section className="grid gap-4 lg:grid-cols-2">
         {classes.map((item) => (
