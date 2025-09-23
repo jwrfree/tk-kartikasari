@@ -1,3 +1,5 @@
+import PageHeader from "@/components/layout/PageHeader";
+import PageSection from "@/components/layout/PageSection";
 import agenda from "@/data/agenda.json";
 
 type AgendaItem = (typeof agenda)[number];
@@ -18,46 +20,45 @@ export default function Page() {
   const hasItems = items.length > 0;
 
   return (
-    <div className="container py-8 space-y-6">
-      <header className="space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Agenda</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">Agenda Kegiatan TK Kartikasari</h1>
-        <p className="max-w-2xl text-text-muted">
-          Agenda disusun untuk melibatkan anak dan orang tua dalam pengalaman belajar yang menyenangkan serta penuh kolaborasi.
-          Simpan tanggal penting berikut di kalender keluarga Anda.
-        </p>
-      </header>
+    <>
+      <PageHeader
+        eyebrow="Agenda"
+        title="Agenda Kegiatan TK Kartikasari"
+        description="Agenda disusun untuk melibatkan anak dan orang tua dalam pengalaman belajar yang menyenangkan serta penuh kolaborasi. Simpan tanggal penting berikut di kalender keluarga Anda."
+      />
 
-      {hasItems ? (
-        <ul className="space-y-3">
-          {items.map((item: AgendaItem) => (
-            <li key={item.id} className="card p-5">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h2 className="text-xl font-semibold text-text">{item.title}</h2>
-                  <p className="text-sm text-text-muted">{formatDate(item.date)}</p>
+      <PageSection padding="tight">
+        {hasItems ? (
+          <ul className="space-y-4">
+            {items.map((item: AgendaItem) => (
+              <li key={item.id} className="card p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <h2 className="text-2xl font-semibold text-text">{item.title}</h2>
+                    <p className="text-base text-text-muted">{formatDate(item.date)}</p>
+                  </div>
+                  <div className="rounded-2xl bg-secondary/10 px-4 py-2 text-base font-semibold text-secondary">
+                    {item.time}
+                  </div>
                 </div>
-                <div className="rounded-2xl bg-secondary/10 px-4 py-2 text-sm font-semibold text-secondary">
-                  {item.time}
+                <div className="mt-4 space-y-2 text-base text-text-muted">
+                  <p>
+                    <strong className="font-semibold text-text">Lokasi:</strong> {item.location}
+                  </p>
+                  <p>{item.description}</p>
                 </div>
-              </div>
-              <div className="mt-3 space-y-2 text-sm text-text-muted">
-                <p>
-                  <strong className="font-semibold text-text">Lokasi:</strong> {item.location}
-                </p>
-                <p>{item.description}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="card border border-border/70 bg-secondary/5 p-6 text-center">
-          <h2 className="text-lg font-semibold text-text">Belum ada agenda terbaru</h2>
-          <p className="mt-2 text-sm text-text-muted">
-            Kami sedang memperbarui jadwal kegiatan. Silakan cek kembali atau hubungi pihak sekolah untuk informasi terbaru.
-          </p>
-        </div>
-      )}
-    </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="card border border-border/70 bg-secondary/5 p-7 text-center">
+            <h2 className="text-2xl font-semibold text-text">Belum ada agenda terbaru</h2>
+            <p className="mt-3 text-base text-text-muted">
+              Kami sedang memperbarui jadwal kegiatan. Silakan cek kembali atau hubungi pihak sekolah untuk informasi terbaru.
+            </p>
+          </div>
+        )}
+      </PageSection>
+    </>
   );
 }

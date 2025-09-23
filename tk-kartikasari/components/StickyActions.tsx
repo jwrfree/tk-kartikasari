@@ -10,8 +10,8 @@ export default function StickyActions() {
       <div className="container pointer-events-auto">
         <div className="flex flex-col gap-4 rounded-3xl border border-border/70 bg-surface/95 px-5 py-5 shadow-soft backdrop-blur sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-semibold text-primary">Siap membantu orang tua baru</p>
-            <p className="text-sm text-text-muted sm:text-base">
+            <p className="text-base font-semibold text-primary">Siap membantu orang tua baru</p>
+            <p className="text-base text-text-muted sm:text-lg">
               Hubungi Bu Mintarsih atau dapatkan petunjuk arah menuju sekolah kami.
             </p>
           </div>

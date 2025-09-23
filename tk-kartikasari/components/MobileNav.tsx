@@ -52,7 +52,7 @@ export default function MobileNav() {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <nav className="flex flex-col gap-1 text-sm font-medium text-text">
+            <nav className="flex flex-col gap-1 text-base font-medium text-text">
               {mainNav.map((item) => {
                 const isActive =
                   item.href === "/"

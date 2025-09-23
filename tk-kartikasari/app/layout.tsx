@@ -65,16 +65,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <img src={site.logo} alt="Logo TK Kartikasari" className="h-12 w-12 rounded-2xl border border-border/80 bg-surface p-2 shadow-soft" />
                   <div>
                     <p className="text-lg font-semibold">{site.schoolName}</p>
-                    <p className="text-sm text-text-muted">Belajar ceria, tumbuh percaya diri.</p>
+                    <p className="text-base text-text-muted">Belajar ceria, tumbuh percaya diri.</p>
                   </div>
                 </Link>
-                <p className="mt-5 max-w-md text-sm leading-relaxed text-text-muted">
+                <p className="mt-5 max-w-md text-base leading-relaxed text-text-muted">
                   Kami mendampingi anak usia dini untuk mengenal dunia dengan rasa ingin tahu, kemandirian, dan karakter baik dalam lingkungan yang hangat.
                 </p>
               </div>
               <div className="space-y-4">
                 <p className="text-sm font-semibold text-text">Navigasi</p>
-                <ul className="space-y-3 text-sm text-text-muted">
+                <ul className="space-y-3 text-base text-text-muted">
                   <li>
                     <a href="#program" className="transition hover:text-primary">
                       Program Unggulan
@@ -99,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               <div className="space-y-4">
                 <p className="text-sm font-semibold text-text">Kontak</p>
-                <ul className="space-y-3 text-sm text-text-muted">
+                <ul className="space-y-3 text-base text-text-muted">
                   <li>{site.address}</li>
                   <li>Jam buka: {site.openingHours}</li>
                   <li>

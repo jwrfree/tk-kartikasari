@@ -1,7 +1,9 @@
-import site from "@/data/site.json";
-import MapEmbed from "@/components/MapEmbed";
 import CTAButton from "@/components/CTAButton";
+import PageHeader from "@/components/layout/PageHeader";
+import PageSection from "@/components/layout/PageSection";
+import MapEmbed from "@/components/MapEmbed";
 import { contactConsultationCTA } from "@/content/cta";
+import site from "@/data/site.json";
 
 const info = [
   { label: "Alamat", value: site.address },
@@ -12,24 +14,21 @@ const info = [
 
 export default function Page() {
   return (
-    <div className="container py-8 space-y-6">
-      <header className="space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Kontak</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">Hubungi TK Kartikasari</h1>
-        <p className="max-w-2xl text-text-muted">
-          Kami siap membantu informasi seputar PPDB, jadwal kunjungan sekolah, maupun kebutuhan administrasi lainnya. Gunakan
-          detail di bawah ini atau langsung hubungi kami melalui WhatsApp.
-        </p>
-      </header>
+    <>
+      <PageHeader
+        eyebrow="Kontak"
+        title="Hubungi TK Kartikasari"
+        description="Kami siap membantu informasi seputar PPDB, jadwal kunjungan sekolah, maupun kebutuhan administrasi lainnya. Gunakan detail di bawah ini atau langsung hubungi kami melalui WhatsApp."
+      />
 
-      <section className="grid gap-4 md:grid-cols-[1.1fr,0.9fr] md:items-start">
-        <div className="card p-6 space-y-4">
-          <h2 className="text-2xl font-semibold">Informasi Sekolah</h2>
-          <ul className="space-y-3 text-sm text-text">
+      <PageSection padding="tight" containerClassName="grid gap-6 md:grid-cols-[1.1fr,0.9fr] md:items-start">
+        <div className="card space-y-5 p-7">
+          <h2 className="text-3xl font-semibold">Informasi Sekolah</h2>
+          <ul className="space-y-4 text-base text-text">
             {info.map((item) => (
               <li key={item.label}>
                 <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
-                <p className="mt-1 text-base font-medium">{item.value}</p>
+                <p className="mt-1 text-lg font-medium">{item.value}</p>
               </li>
             ))}
           </ul>
@@ -37,8 +36,8 @@ export default function Page() {
             <CTAButton config={contactConsultationCTA} className="w-full sm:w-auto" />
           </div>
         </div>
-        <div className="card p-6 space-y-3 bg-secondary/5 text-sm text-text-muted">
-          <h3 className="text-lg font-semibold text-secondary">Cara Berkunjung</h3>
+        <div className="card space-y-4 bg-secondary/5 p-7 text-base text-text-muted">
+          <h3 className="text-xl font-semibold text-secondary">Cara Berkunjung</h3>
           <p>
             Silakan informasikan kedatangan Anda terlebih dahulu agar kami dapat menyiapkan guru pendamping. Parkir tersedia di
             halaman sekolah dan lingkungan sekitar.
@@ -48,15 +47,17 @@ export default function Page() {
             diperlukan.
           </p>
         </div>
-      </section>
+      </PageSection>
 
-      <section className="space-y-3">
-        <h2 className="text-2xl font-semibold">Lokasi di Peta</h2>
-        <p className="max-w-2xl text-sm text-text-muted">
-          Gunakan peta interaktif berikut untuk menentukan rute terbaik menuju TK Kartikasari di Bulaksari, Cilacap.
-        </p>
+      <PageSection padding="tight" containerClassName="space-y-4">
+        <div>
+          <h2 className="text-3xl font-semibold">Lokasi di Peta</h2>
+          <p className="max-w-2xl text-base text-text-muted">
+            Gunakan peta interaktif berikut untuk menentukan rute terbaik menuju TK Kartikasari di Bulaksari, Cilacap.
+          </p>
+        </div>
         <MapEmbed />
-      </section>
-    </div>
+      </PageSection>
+    </>
   );
 }
