@@ -21,17 +21,23 @@ const initialState: FormState = {
 
 export default function PpdbForm() {
   const [form, setForm] = useState(initialState);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle",
+  );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   function handleChange<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
-    if (submitted) {
-      setSubmitted(false);
+    if (status !== "idle") {
+      setStatus("idle");
+      setErrorMessage(null);
     }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setStatus("loading");
+    setErrorMessage(null);
     const message = [
       "Halo Bu Mintarsih, saya ingin mendaftarkan anak ke TK Kartikasari.",
       `Nama anak: ${form.childName || "-"}`,
@@ -44,9 +50,22 @@ export default function PpdbForm() {
       .join("\n");
 
     const url = waLink(message);
-    window.open(url, "_blank", "noopener");
-    setForm(initialState);
-    setSubmitted(true);
+
+    try {
+      const newWindow = window.open(url, "_blank", "noopener");
+
+      if (!newWindow) {
+        throw new Error("Popup blocked");
+      }
+
+      setForm(initialState);
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        "Tidak dapat membuka WhatsApp. Mohon izinkan pop-up pada browser Anda lalu coba lagi.",
+      );
+    }
   }
 
   return (
@@ -108,15 +127,33 @@ export default function PpdbForm() {
         />
       </label>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <button type="submit" className="btn-primary w-full sm:w-auto">
-          Kirim via WhatsApp
+        <button
+          type="submit"
+          className="btn-primary w-full sm:w-auto"
+          disabled={status === "loading"}
+        >
+          {status === "loading" ? "Membuka WhatsApp..." : "Kirim via WhatsApp"}
         </button>
-        {submitted && (
-          <p className="text-sm text-secondary">
-            Terima kasih! WhatsApp baru akan terbuka di tab baru untuk melanjutkan percakapan dengan sekolah.
-          </p>
-        )}
+        <div className="space-y-2" aria-live="polite">
+          {status === "loading" && (
+            <p className="text-sm text-text">Sedang membuka WhatsApp, mohon tunggu...</p>
+          )}
+          {status === "success" && (
+            <p className="text-sm text-secondary">
+              Terima kasih! WhatsApp baru akan terbuka di tab baru untuk melanjutkan percakapan dengan sekolah.
+            </p>
+          )}
+        </div>
       </div>
+      {status === "error" && (
+        <div
+          className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+          role="alert"
+          aria-live="assertive"
+        >
+          {errorMessage}
+        </div>
+      )}
     </form>
   );
 }
