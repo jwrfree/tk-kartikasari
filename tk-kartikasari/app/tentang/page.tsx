@@ -10,13 +10,21 @@ import {
   aboutMission,
   aboutStrengths,
 } from "@/content/about";
+import { officialMilestones, officialProfile } from "@/data/official";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
 
 const profileItems = [
   { label: "Nama Sekolah", value: site.schoolName },
+  { label: "NPSN", value: officialProfile.npsn },
+  { label: "Tanggal Berdiri", value: officialProfile.establishmentDate },
+  { label: "SK Operasional", value: officialProfile.operationalLicense },
+  { label: "Kurikulum", value: officialProfile.curriculum },
+  { label: "Luas Lahan", value: officialProfile.landArea },
   { label: "Alamat", value: site.address },
+  { label: "Wilayah", value: officialProfile.locationArea },
   { label: "Kepala Sekolah", value: site.headmaster },
+  { label: "Email", value: officialProfile.email },
   { label: "WhatsApp", value: site.whatsapp },
   { label: "Jam Buka", value: site.openingHours },
 ];
@@ -32,12 +40,15 @@ export default function Page() {
     <>
       <PageHeader
         eyebrow="Tentang Sekolah"
-        title="Belajar dengan Hati, Tumbuh dengan Percaya Diri"
+        title={`${officialProfile.yearsOperating}+ Tahun Menguatkan Profil Pelajar Pancasila di Bantarsari`}
         description={
           <>
-            TK Kartikasari adalah ruang aman bagi anak usia dini di Bantarsari untuk mengeksplorasi dunia melalui bermain
-            bermakna. Kami menenun rasa ingin tahu, keceriaan, dan nilai hidup sehari-hari agar setiap anak pulang dengan
-            cerita yang membanggakan.
+            TK Kartikasari berdiri pada {officialProfile.establishmentDate} dengan NPSN {officialProfile.npsn} dan SK
+            operasional {officialProfile.operationalLicense}. Kami menjaga akuntabilitas layanan pendidikan anak usia
+            dini melalui tata kelola yang transparan dan lingkungan yang aman.
+            {" "}
+            Saat ini kami menerapkan Kurikulum Merdeka PAUD secara menyeluruh untuk menumbuhkan Profil Pelajar
+            Pancasila melalui projek kolaboratif, pembelajaran terdiferensiasi, dan dukungan erat keluarga.
           </>
         }
       >
@@ -65,17 +76,17 @@ export default function Page() {
           <div className="relative space-y-6">
             <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-secondary">Cerita Kami</p>
-              <h2 className="text-3xl font-semibold text-text">Tumbuh Bersama dalam Suasana Penuh Rasa Ingin Tahu</h2>
+              <h2 className="text-3xl font-semibold text-text">26 Tahun Bertumbuh Bersama Keluarga Bantarsari</h2>
             </div>
             <p className="text-base leading-relaxed text-text-muted">
-              Setiap pagi ruang kelas kami dipenuhi sapaan hangat, lagu ceria, dan sudut bermain yang siap dieksplorasi.
-              Tim pendidik menyiapkan pengalaman yang memadukan rasa ingin tahu alami anak dengan kegiatan tematik yang
-              terstruktur tetapi fleksibel.
+              Sejak 1998 kami menjaga kehangatan kelas, menyapa anak satu per satu, dan memastikan setiap aktivitas
+              berlangsung di ruang yang aman serta sesuai standar Kemendikbudristek. Sentra belajar kami didesain untuk
+              memadukan rasa ingin tahu alami anak dengan tujuan perkembangan yang jelas.
             </p>
             <p className="text-base leading-relaxed text-text-muted">
-              Kami percaya anak belajar paling baik saat merasa aman dan dihargai. Karena itu, ritme kelas kami selalu
-              memberi ruang untuk bergerak, bertanya, dan mencoba hal baru sambil menanamkan kebiasaan baik yang
-              sederhana.
+              Implementasi Kurikulum Merdeka PAUD membuat guru lebih leluasa menyesuaikan strategi dengan kebutuhan
+              tiap anak. Kami menyeimbangkan kegiatan Projek Profil Pelajar Pancasila, pembelajaran terdiferensiasi, dan
+              asesmen autentik agar anak merasa dihargai sekaligus tertantang.
             </p>
             <ul className="grid gap-3 sm:grid-cols-3">
               {aboutExperiencePillars.map((pillar) => (
@@ -94,25 +105,25 @@ export default function Page() {
         </article>
         <div className="space-y-6">
           <div className="card space-y-4 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
-            <h3 className="text-2xl font-semibold text-text">Pendampingan yang Menyentuh Hati</h3>
+            <h3 className="text-2xl font-semibold text-text">Pendampingan berbasis Kurikulum Merdeka</h3>
             <p className="text-base leading-relaxed text-text-muted">
-              Guru melakukan observasi berkala, mendokumentasikan kemajuan kecil, dan menyampaikan catatan positif kepada
-              orang tua. Setiap anak mendapat perhatian personal yang menumbuhkan rasa percaya diri.
+              Guru melakukan observasi berkala, menyusun asesmen autentik, dan menyampaikan catatan positif kepada
+              orang tua. Setiap anak mendapatkan rencana belajar terdiferensiasi yang menumbuhkan rasa percaya diri.
             </p>
             <p className="text-base leading-relaxed text-text-muted">
-              Pendekatan ini membantu kami menyesuaikan strategi pengajaran sehingga anak merasa nyaman dan berani
-              bereksplorasi sesuai tahap perkembangannya.
+              Seluruh catatan perkembangan tersimpan rapi sebagai portofolio sehingga guru dan keluarga dapat
+              memantau kemajuan karakter, literasi, dan numerasi secara terpadu.
             </p>
           </div>
           <div className="card space-y-4 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
             <h3 className="text-2xl font-semibold text-text">Kemitraan Aktif dengan Orang Tua</h3>
             <p className="text-base leading-relaxed text-text-muted">
-              Kami mengundang orang tua untuk terlibat melalui agenda mingguan, sesi berbagi cerita, dan perayaan
-              komunitas. Kolaborasi ini memastikan pesan sekolah berlanjut harmonis di rumah.
+              Kami mengundang orang tua terlibat dalam agenda mingguan, sesi refleksi Projek P5, serta perayaan
+              komunitas. Kolaborasi ini memastikan nilai Profil Pelajar Pancasila terus hidup di rumah.
             </p>
             <p className="text-base leading-relaxed text-text-muted">
-              Informasi harian dibagikan melalui pesan singkat sehingga keluarga selalu tahu cerita yang bisa dilanjutkan
-              bersama anak setelah pulang.
+              Informasi harian dibagikan melalui kanal resmi sehingga keluarga dapat melanjutkan cerita dan kebiasaan
+              baik bersama anak setelah pulang.
             </p>
           </div>
         </div>
@@ -126,8 +137,8 @@ export default function Page() {
         <div className="card space-y-6 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
           <h2 className="text-3xl font-semibold">Profil Sekolah</h2>
           <p className="text-base leading-relaxed text-text-muted">
-            Kami mendampingi anak usia 4–6 tahun dengan pendekatan belajar aktif dan bermain bermakna. Lingkungan sekolah
-            yang aman, nyaman, dan penuh warna membantu anak bebas berekspresi sambil dibimbing guru berpengalaman.
+            Terdaftar di Kemendikbudristek dengan NPSN {officialProfile.npsn} dan lahan {officialProfile.landArea}, kami
+            mendampingi anak usia 4–6 tahun melalui pembelajaran aktif yang aman, nyaman, dan kaya eksplorasi.
           </p>
           <ul className="grid gap-4 sm:grid-cols-2">
             {profileItems.map((item) => (
@@ -140,11 +151,27 @@ export default function Page() {
               </li>
             ))}
           </ul>
+          <div className="rounded-2xl border border-white/60 bg-white/60 p-5 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg">
+            <p className="text-xs font-semibold uppercase tracking-wide text-secondary">Perjalanan Singkat</p>
+            <ul className="mt-3 space-y-2 text-sm text-text-muted">
+              {officialMilestones.map((milestone) => (
+                <li key={milestone.year} className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-secondary/10 text-xs font-semibold text-secondary">
+                    {milestone.year}
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-text">{milestone.title}</p>
+                    <p>{milestone.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="card space-y-5 bg-secondary/5 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
           <h3 className="text-2xl font-semibold text-secondary">Ritme Sehari di TK Kartikasari</h3>
           <p className="text-base leading-relaxed text-text-muted">
-            Rutinitas yang lembut dan konsisten membantu anak merasa aman sekaligus memupuk rasa tanggung jawab kecil.
+            Rutinitas Kurikulum Merdeka yang lembut dan konsisten membantu anak merasa aman sambil memupuk tanggung jawab kecil.
           </p>
           <ul className="space-y-4">
             {aboutDailyRhythm.map((item, index) => (
@@ -170,8 +197,8 @@ export default function Page() {
           <div className="mx-auto max-w-3xl space-y-4 text-center">
             <h2 className="text-3xl font-semibold text-text">Mengapa Orang Tua Memilih TK Kartikasari</h2>
             <p className="text-base leading-relaxed text-text-muted">
-              Kami merancang setiap pengalaman agar anak merasa diterima, tertantang, dan bebas berekspresi. Berikut tiga
-              hal yang paling sering disukai keluarga yang telah bergabung.
+              Legalitas lengkap, pengalaman panjang, dan Kurikulum Merdeka yang konsisten membuat orang tua merasa
+              tenang. Berikut tiga hal yang paling sering diapresiasi keluarga yang telah bergabung.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">

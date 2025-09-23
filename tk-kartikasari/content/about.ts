@@ -16,72 +16,72 @@ export type StrengthItem = {
 };
 
 export const aboutMetaDescription =
-  "TK Kartikasari menghadirkan pendampingan personal, aktivitas tematik bermakna, dan kemitraan hangat dengan orang tua.";
+  "Selama lebih dari dua dekade TK Kartikasari mendampingi anak Bantarsari dengan Kurikulum Merdeka PAUD, projek Profil Pelajar Pancasila, dan kemitraan erat bersama orang tua.";
 
 export const aboutHeaderHighlights: AboutHighlight[] = [
-  "Lingkungan aman & ramah anak",
-  "Guru komunikatif dengan orang tua",
-  "Belajar melalui bermain tematik",
+  "26 tahun terdaftar di Kemendikbudristek",
+  "Pelaksana Kurikulum Merdeka PAUD",
+  "Fokus Projek Profil Pelajar Pancasila",
 ];
 
 export const aboutExperiencePillars: ExperiencePillar[] = [
   {
-    title: "Hangat & Personal",
+    title: "Legalitas & kredibilitas",
     description:
-      "Guru menyapa anak satu per satu sambil mengenali kebiasaan, minat, dan kebutuhan unik mereka.",
+      "Memiliki NPSN 20351273 dan SK operasional resmi sehingga layanan kami akuntabel dan aman bagi keluarga.",
   },
   {
-    title: "Aktivitas Bermakna",
+    title: "Pembelajaran merdeka",
     description:
-      "Proyek tematik, bermain peran, dan eksplorasi alam menumbuhkan rasa percaya diri serta imajinasi.",
+      "Guru menerapkan asesmen autentik, pembelajaran terdiferensiasi, dan projek karakter sesuai fase fondasi.",
   },
   {
-    title: "Karakter Sehari-hari",
+    title: "Kolaborasi orang tua",
     description:
-      "Nilai sopan santun, tanggung jawab, dan empati dipraktikkan melalui rutinitas sederhana yang menyenangkan.",
+      "Komunikasi dua arah, kelas parenting, dan showcase projek memastikan nilai sekolah berlanjut di rumah.",
   },
 ];
 
 export const aboutDailyRhythm: DailyRhythmItem[] = [
   {
-    title: "Sesi Pembuka yang Hangat",
+    title: "Pembiasaan & doa pagi",
     description:
-      "Anak mengikuti doa, lagu, dan berbagi perasaan agar siap memulai hari dengan pikiran positif.",
+      "Anak diajak refleksi syukur, mengecek emosi, dan menyiapkan tujuan belajar harian.",
   },
   {
-    title: "Eksplorasi Sentra & Outdoor",
+    title: "Eksplorasi diferensiasi",
     description:
-      "Kegiatan berpindah antar sentra, eksperimen sains mini, dan bermain di luar menyalurkan energi anak.",
+      "Rotasi sentra literasi, STEAM, seni, dan role play menyesuaikan minat serta kesiapan anak.",
   },
   {
-    title: "Refleksi & Berbagi Cerita",
+    title: "Refleksi Projek P5",
     description:
-      "Anak diajak menceritakan penemuannya, merapikan alat, lalu menutup hari dengan lagu favorit bersama.",
+      "Anak menceritakan temuan, mendokumentasikan karya, lalu menutup hari dengan doa dan pesan karakter.",
   },
 ];
 
 export const aboutStrengths: StrengthItem[] = [
   {
-    title: "Ruang Belajar Tematik",
+    title: "Data resmi & transparansi",
     description:
-      "Sentra literasi, sains mini, dan area seni memancing rasa ingin tahu sekaligus melatih motorik halus.",
+      "NPSN, SK operasional, dan dokumen Kurikulum Merdeka ditampilkan untuk membangun kepercayaan keluarga.",
   },
   {
-    title: "Rutinitas Penuh Makna",
+    title: "Sentra belajar kontekstual",
     description:
-      "Agenda harian menyeimbangkan kegiatan aktif dan tenang sehingga energi anak tetap stabil.",
+      "Ruang belajar indoor-outdoor di lahan 440 m² mengangkat budaya dan lingkungan Cilacap.",
   },
   {
-    title: "Kemitraan dengan Orang Tua",
+    title: "Pendampingan profesional",
     description:
-      "Catatan perkembangan, foto kegiatan, dan temu wicara rutin menjaga keterlibatan keluarga.",
+      "Guru berpengalaman melakukan coaching, asesmen autentik, dan refleksi rutin bersama orang tua.",
   },
 ];
 
 export const aboutMission: string[] = [
-  "Menumbuhkan rasa percaya diri, empati, dan kemandirian melalui kegiatan yang menyenangkan.",
-  "Menyediakan pengalaman tematik yang merangsang kreativitas, bahasa, dan numerasi awal.",
-  "Menguatkan kolaborasi guru dan orang tua melalui komunikasi harian yang bermakna.",
-  "Menghidupkan nilai moral, spiritual, dan cinta lingkungan dalam rutinitas anak.",
-  "Menciptakan lingkungan aman, bersih, dan inklusif yang menghargai keberagaman.",
+  "Menguatkan karakter religius, empati, dan kemandirian melalui pembiasaan harian yang positif.",
+  "Menghadirkan pengalaman Kurikulum Merdeka yang menyenangkan, terdiferensiasi, dan relevan dengan kehidupan anak.",
+  "Mendorong kolaborasi keluarga dalam Projek Profil Pelajar Pancasila dan asesmen autentik.",
+  "Menyediakan lingkungan aman, inklusif, dan kaya stimulasi pada lahan 440 m² yang terkelola baik.",
+  "Mengembangkan literasi, numerasi, STEAM, dan seni sebagai bekal transisi menuju sekolah dasar.",
 ];

@@ -3,11 +3,14 @@ import JsonLd from "@/components/JsonLd";
 import { faqInquiryCTA, heroVisitCTA, visitScheduleCTA } from "@/content/cta";
 import {
   homeFaqs,
+  homeCredentials,
   homeHeroDescription,
   homeHighlights,
   homeJourney,
+  homeCurriculumPillars,
   homePrograms,
   homeStats,
+  homeTimeline,
 } from "@/content/home";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
@@ -31,6 +34,9 @@ export default function Page() {
         programs={homePrograms}
         journey={homeJourney}
         faqs={homeFaqs}
+        credentials={homeCredentials}
+        curriculumPillars={homeCurriculumPillars}
+        timeline={homeTimeline}
         heroCta={heroVisitCTA}
         faqCta={faqInquiryCTA}
         visitCta={visitScheduleCTA}
