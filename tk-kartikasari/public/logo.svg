@@ -1,0 +1,20 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="20" y1="20" x2="140" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF9A62" />
+      <stop offset="1" stop-color="#FF5B9A" />
+    </linearGradient>
+    <linearGradient id="hat" x1="80" y1="36" x2="80" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#FFE6F3" />
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="136" height="136" rx="36" fill="url(#bg)" />
+  <circle cx="80" cy="66" r="30" fill="url(#hat)" stroke="white" stroke-width="6" />
+  <path d="M44 112C44 94.3269 58.3269 80 76 80H84C101.673 80 116 94.3269 116 112V124H44V112Z" fill="#FFFFFF" opacity="0.92" />
+  <path d="M53 117C53 105.954 61.9543 97 73 97H87C98.0457 97 107 105.954 107 117V124H53V117Z" fill="#FFE3EF" />
+  <circle cx="64" cy="68" r="8" fill="#FF6F70" />
+  <circle cx="96" cy="68" r="8" fill="#FF6F70" />
+  <path d="M70 86C70 82.6863 72.6863 80 76 80H84C87.3137 80 90 82.6863 90 86C90 91.5228 85.5228 96 80 96C74.4772 96 70 91.5228 70 86Z" fill="#FF9C6A" />
+  <path d="M54 54C54 48.4772 58.4772 44 64 44C67.9278 44 71.2927 46.3827 72.6036 49.8944C73.142 51.3156 74.858 51.3156 75.3964 49.8944C76.7073 46.3827 80.0722 44 84 44C89.5228 44 94 48.4772 94 54" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+</svg>

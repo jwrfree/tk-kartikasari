@@ -1,9 +1,9 @@
 {
   "schoolName": "TK Kartikasari",
   "address": "Jl. K.H. Syarbini Hasan No.2, Sidadadi, Bulaksari, Kec. Bantarsari, Kabupaten Cilacap, Jawa Tengah 53258",
-  "whatsapp": "+6285227227826",
+  "whatsapp": "085227227826",
   "headmaster": "Ibu Mintarsih",
-  "openingHours": "Senin\u2013Sabtu, 07.00\u201313.00",
+  "openingHours": "Senin–Sabtu, 07.00–13.00",
   "mapsUrl": "https://maps.app.goo.gl/p1Jsf94TxV2Np6ek8",
-  "logo": "/logo-minimal-full.png"
+  "logo": "/logo.svg"
 }

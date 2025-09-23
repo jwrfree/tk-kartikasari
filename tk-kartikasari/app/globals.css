@@ -34,6 +34,10 @@ body {
   @apply btn border border-border/80 bg-white/80 text-text hover:border-primary hover:text-primary;
 }
 
+.input {
+  @apply w-full rounded-2xl border border-border/70 bg-white px-4 py-3 text-sm text-text placeholder:text-text-muted transition focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/40;
+}
+
 ::selection {
   background: rgba(96, 93, 255, 0.15);
 }
