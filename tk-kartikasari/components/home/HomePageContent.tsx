@@ -1,5 +1,6 @@
 "use client";
 
+import FaqAccordion from "@/components/FaqAccordion";
 import CTAButton from "@/components/CTAButton";
 import TestimonialList from "@/components/TestimonialList";
 import PageSection from "@/components/layout/PageSection";
@@ -445,27 +446,13 @@ export default function HomePageContent({
             className="space-y-6"
           >
             <SectionHeader
-              eyebrow="Pertanyaan populer"
+              eyebrow="Sering ditanyakan"
               title="Informasi penting seputar pendaftaran dan kegiatan sekolah"
               description="Jika ada pertanyaan lain, kami dengan senang hati menjawab melalui WhatsApp ataupun ketika Anda berkunjung langsung."
             />
             <CTAButton config={faqCta} className="w-full sm:w-auto" />
           </m.div>
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <m.div
-                key={faq.question}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="card border-white/70 bg-white/70 p-6 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150"
-              >
-                <p className="text-lg font-semibold text-text">{faq.question}</p>
-                <p className="mt-3 text-base leading-relaxed text-text-muted">{faq.answer}</p>
-              </m.div>
-            ))}
-          </div>
+          <FaqAccordion items={faqs} revealOnView className="space-y-4" />
         </PageSection>
 
         <PageSection className="relative pb-36" padding="tight">
