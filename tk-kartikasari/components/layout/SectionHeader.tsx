@@ -16,7 +16,7 @@ type SectionHeaderProps = {
 const eyebrowStyles: Record<NonNullable<SectionHeaderProps["eyebrowVariant"]>, string> = {
   primary: "bg-primary/15 text-primary",
   secondary: "bg-secondary/15 text-secondary",
-  surface: "bg-white/80 text-secondary",
+  surface: "border border-white/60 bg-white/60 text-secondary backdrop-blur-sm backdrop-saturate-150",
   muted: "bg-border/40 text-text",
 };
 

@@ -40,14 +40,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="id">
       <body className="bg-surfaceAlt text-text font-sans">
         <div className="relative min-h-screen">
-          <header className="sticky top-0 z-50 border-b border-white/60 bg-white/90 shadow-sm backdrop-blur">
+          <header className="sticky top-0 z-50 border-b border-white/40 bg-white/60 shadow-lg backdrop-blur-xl backdrop-saturate-150">
             <div className="container">
               <div className="relative flex w-full items-center gap-3 py-3 md:gap-5 md:py-4">
                 <Link
                   href="/"
                   className="flex shrink-0 items-center gap-3 text-text transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/70 bg-white shadow-soft">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/60 bg-white/70 shadow-soft backdrop-blur-sm">
                     <img src={site.logo} alt="Logo TK Kartikasari" className="h-8 w-8 object-contain" />
                   </span>
                   <span className="flex min-w-0 flex-col leading-tight">

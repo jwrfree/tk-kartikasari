@@ -45,7 +45,7 @@ export default function Page() {
           {aboutHeaderHighlights.map((item) => (
             <span
               key={item}
-              className="inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-white/80 px-4 py-2 text-sm font-medium text-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary hover:bg-secondary/10"
+              className="inline-flex items-center gap-2 rounded-full border border-secondary/50 bg-white/60 px-4 py-2 text-sm font-medium text-secondary backdrop-blur-sm backdrop-saturate-150 transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary hover:bg-secondary/10"
             >
               <span className="h-2 w-2 rounded-full bg-secondary" aria-hidden="true" />
               {item}
@@ -81,7 +81,7 @@ export default function Page() {
               {aboutExperiencePillars.map((pillar) => (
                 <li
                   key={pillar.title}
-                  className="group relative overflow-hidden rounded-2xl border border-white/50 bg-white/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
+                  className="group relative overflow-hidden rounded-2xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
                 >
                   <span className="mb-2 inline-flex rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary transition-colors duration-300 group-hover:bg-secondary group-hover:text-white">
                     {pillar.title}
@@ -133,7 +133,7 @@ export default function Page() {
             {profileItems.map((item) => (
               <li
                 key={item.label}
-                className="rounded-2xl border border-border/60 bg-white/90 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-secondary hover:shadow-lg"
+                className="rounded-2xl border border-white/60 bg-white/60 p-5 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary hover:shadow-lg"
               >
                 <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
                 <p className="mt-1 text-base font-medium text-text">{item.value}</p>
@@ -150,7 +150,7 @@ export default function Page() {
             {aboutDailyRhythm.map((item, index) => (
               <li
                 key={item.title}
-                className="group flex gap-4 rounded-2xl border border-transparent bg-white/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
+                className="group flex gap-4 rounded-2xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-sm font-semibold text-secondary transition-colors duration-300 group-hover:bg-secondary group-hover:text-white">
                   {String(index + 1).padStart(2, "0")}
@@ -206,7 +206,7 @@ export default function Page() {
             {aboutMission.map((point) => (
               <li
                 key={point}
-                className="rounded-2xl border border-transparent bg-white/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
+                className="rounded-2xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
               >
                 {point}
               </li>
@@ -231,7 +231,7 @@ export default function Page() {
               </Link>
               <Link
                 href="/kontak"
-                className="btn-outline border-white/80 bg-white/20 text-white hover:border-white hover:bg-white hover:text-secondary"
+                className="btn-outline border-white/70 bg-white/30 text-white backdrop-saturate-150 hover:border-white hover:bg-white/40 hover:text-secondary"
               >
                 Jadwalkan Kunjungan
               </Link>
