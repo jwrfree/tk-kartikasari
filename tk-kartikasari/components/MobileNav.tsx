@@ -13,13 +13,11 @@ const menuVariants: Variants = {
     opacity: 0,
     y: -16,
     scale: 0.96,
-    filter: "blur(12px)",
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    filter: "blur(0px)",
     transition: {
       type: "spring",
       stiffness: 220,
@@ -31,10 +29,9 @@ const menuVariants: Variants = {
     opacity: 0,
     y: -12,
     scale: 0.98,
-    filter: "blur(8px)",
     transition: {
-      duration: 0.18,
-      ease: "easeInOut",
+      duration: 0.24,
+      ease: [0.4, 0, 0.2, 1],
     },
   },
 };
@@ -52,7 +49,7 @@ export default function MobileNav() {
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
         aria-controls="mobile-nav"
-        className="relative z-50 inline-flex items-center justify-center rounded-full border border-white/60 bg-white/50 p-2.5 text-text shadow-soft backdrop-blur-sm backdrop-saturate-150 transition hover:border-primary hover:bg-white/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        className="relative z-50 inline-flex items-center justify-center rounded-full border border-border bg-surface p-2.5 text-text shadow-soft transition hover:border-primary hover:bg-surfaceAlt hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
         whileTap={{ scale: 0.95 }}
       >
         <span className="sr-only">Toggle navigation</span>
@@ -79,7 +76,7 @@ export default function MobileNav() {
           <>
             <motion.div
               key="mobile-nav-backdrop"
-              className="fixed inset-0 z-40 bg-white/80 backdrop-blur-sm"
+              className="fixed inset-0 z-40 bg-surface"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -89,12 +86,12 @@ export default function MobileNav() {
             <motion.div
               key="mobile-nav"
               id="mobile-nav"
-              className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-50 overflow-hidden rounded-3xl border border-white/50 bg-white/60 p-4 shadow-2xl backdrop-blur-xl backdrop-saturate-150"
+              className="absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-border bg-surface p-4 shadow-2xl"
               variants={menuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              style={{ transformOrigin: "top center" }}
+              style={{ transformOrigin: "top right" }}
             >
               <nav className="flex flex-col gap-1 text-base font-medium text-text">
                 {mainNav.map((item, index) => {
@@ -117,7 +114,7 @@ export default function MobileNav() {
                         className={`block rounded-full px-4 py-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
                           isActive
                             ? "bg-primary/10 text-primary"
-                            : "text-text-muted hover:bg-white/60 hover:text-text"
+                            : "text-text-muted hover:bg-surfaceAlt hover:text-text"
                         }`}
                       >
                         {item.label}
