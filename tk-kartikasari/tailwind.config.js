@@ -37,7 +37,7 @@ module.exports = {
         border: "#e6e8f4"
       },
       fontFamily: {
-        sans: ["var(--font-jakarta)", "system-ui", "sans-serif"]
+        sans: ["Satoshi Variable", "system-ui", "sans-serif"]
       },
       borderRadius: {
         xl: "1.25rem",
