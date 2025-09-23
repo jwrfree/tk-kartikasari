@@ -1,56 +1,30 @@
-import site from "@/data/site.json";
-
-const profileItems = [
-  { label: "Nama Sekolah", value: site.schoolName },
-  { label: "Alamat", value: site.address },
-  { label: "Kepala Sekolah", value: site.headmaster },
-  { label: "WhatsApp", value: site.whatsapp },
-  { label: "Jam Buka", value: site.openingHours },
-];
-
-const mission = [
-  "Menyediakan lingkungan belajar yang ramah anak, aman, dan menyenangkan.",
-  "Menumbuhkan rasa ingin tahu, daya cipta, dan kemampuan berkomunikasi.",
-  "Mengembangkan keterampilan sosial, emosional, fisik, dan kognitif melalui bermain bermakna.",
-  "Mendorong kemitraan aktif antara sekolah, orang tua, dan masyarakat.",
-  "Mengintegrasikan nilai-nilai moral dan Pancasila sebagai pedoman perilaku sehari-hari.",
-];
+import { tentangContent } from "@/content/tentang";
 
 export default function Page() {
+  const { hero, greeting, profile, visionMission } = tentangContent;
+
   return (
     <div className="container py-8 space-y-8">
       <header className="max-w-3xl space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Tentang Sekolah</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">TK Kartikasari</h1>
-        <p className="text-text-muted">
-          TK Kartikasari hadir sebagai lingkungan bermain-belajar yang hangat bagi anak usia dini di Bantarsari, Cilacap.
-          Kami berfokus pada stimulasi kemandirian, kreativitas, dan karakter melalui kegiatan tematik yang menyenangkan.
-        </p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">{hero.eyebrow}</p>
+        <h1 className="text-3xl font-bold sm:text-4xl">{hero.title}</h1>
+        <p className="text-text-muted">{hero.description}</p>
       </header>
 
       <section id="sambutan" className="card p-6 space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold">Sambutan Kepala Sekolah</h2>
-          <p className="text-sm text-text-muted">Ibu Mintarsih, Kepala TK Kartikasari</p>
+          <h2 className="text-2xl font-semibold">{greeting.title}</h2>
+          <p className="text-sm text-text-muted">{greeting.subtitle}</p>
         </div>
-        <p className="leading-relaxed text-text">
-          Selamat datang di TK Kartikasari. Kami percaya setiap anak adalah pribadi unik yang layak mendapatkan perhatian dan
-          stimulasi yang tepat. Tim pengajar kami hadir untuk menumbuhkan rasa ingin tahu, kreativitas, dan kemandirian dalam
-          suasana belajar yang hangat dan aman. Kami mendorong komunikasi harian antara orang tua dan guru agar perkembangan
-          anak terpantau dengan baik. Setiap hari di TK Kartikasari adalah kesempatan untuk bermain, bereksplorasi, dan
-          bertumbuh bersama.
-        </p>
+        <p className="leading-relaxed text-text">{greeting.message}</p>
       </section>
 
       <section id="profil" className="grid gap-4 md:grid-cols-[1.2fr,0.8fr] md:items-start">
         <div className="card p-6 space-y-4">
-          <h2 className="text-2xl font-semibold">Profil Sekolah</h2>
-          <p className="text-text-muted">
-            Kami melayani anak usia 4–6 tahun dengan pendekatan belajar aktif. Lingkungan sekolah dibuat aman dan nyaman
-            sehingga anak bebas mengekspresikan diri sambil dibimbing guru berpengalaman.
-          </p>
+          <h2 className="text-2xl font-semibold">{profile.title}</h2>
+          <p className="text-text-muted">{profile.description}</p>
           <ul className="grid gap-4 sm:grid-cols-2">
-            {profileItems.map((item) => (
+            {profile.items.map((item) => (
               <li key={item.label} className="rounded-2xl border border-border bg-white p-4">
                 <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
                 <p className="mt-1 text-sm font-medium text-text">{item.value}</p>
@@ -59,29 +33,24 @@ export default function Page() {
           </ul>
         </div>
         <div className="card p-6 space-y-3 bg-secondary/5">
-          <h3 className="text-lg font-semibold text-secondary">Pendekatan Kami</h3>
-          <p className="text-sm text-text-muted">
-            Guru dan orang tua membangun komunikasi rutin melalui laporan harian. Aktivitas dipadukan dengan nilai moral,
-            pembiasaan ibadah, dan kerja sama kelompok kecil agar setiap anak merasa dihargai.
-          </p>
-          <p className="text-sm text-text-muted">
-            Fasilitas meliputi ruang kelas tematik, area bermain outdoor, dan sentra seni yang mendukung eksplorasi anak.
-          </p>
+          <h3 className="text-lg font-semibold text-secondary">{profile.approachTitle}</h3>
+          {profile.approachParagraphs.map((text) => (
+            <p key={text} className="text-sm text-text-muted">
+              {text}
+            </p>
+          ))}
         </div>
       </section>
 
       <section id="visi-misi" className="grid gap-4 md:grid-cols-2">
         <div className="card p-6">
-          <h2 className="text-2xl font-semibold">Visi</h2>
-          <p className="mt-3 text-text-muted">
-            Menjadi taman kanak-kanak yang hangat, aman, dan inspiratif, yang menumbuhkan kemandirian, kreativitas, serta
-            karakter anak sebagai fondasi pendidikan masa depan.
-          </p>
+          <h2 className="text-2xl font-semibold">{visionMission.visionTitle}</h2>
+          <p className="mt-3 text-text-muted">{visionMission.vision}</p>
         </div>
         <div className="card p-6">
-          <h2 className="text-2xl font-semibold">Misi</h2>
+          <h2 className="text-2xl font-semibold">{visionMission.missionTitle}</h2>
           <ul className="mt-3 list-disc space-y-2 pl-5 text-text-muted">
-            {mission.map((point) => (
+            {visionMission.missionPoints.map((point) => (
               <li key={point}>{point}</li>
             ))}
           </ul>

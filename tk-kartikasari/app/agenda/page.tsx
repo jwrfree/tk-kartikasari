@@ -1,6 +1,4 @@
-import agenda from "@/data/agenda.json";
-
-type AgendaItem = (typeof agenda)[number];
+import { agendaContent, type AgendaItem } from "@/content/agenda";
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("id-ID", {
@@ -12,19 +10,21 @@ function formatDate(value: string) {
 }
 
 export default function Page() {
-  const items = [...agenda].sort(
+  const {
+    hero,
+    items: agendaItems,
+  } = agendaContent;
+
+  const items = [...agendaItems].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   );
 
   return (
     <div className="container py-8 space-y-6">
       <header className="space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Agenda</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">Agenda Kegiatan TK Kartikasari</h1>
-        <p className="max-w-2xl text-text-muted">
-          Agenda disusun untuk melibatkan anak dan orang tua dalam pengalaman belajar yang menyenangkan serta penuh kolaborasi.
-          Simpan tanggal penting berikut di kalender keluarga Anda.
-        </p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">{hero.eyebrow}</p>
+        <h1 className="text-3xl font-bold sm:text-4xl">{hero.title}</h1>
+        <p className="max-w-2xl text-text-muted">{hero.description}</p>
       </header>
 
       <ul className="space-y-3">
