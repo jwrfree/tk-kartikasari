@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="relative min-h-screen">
           <header className="sticky top-0 z-50 border-b border-white/60 bg-white/90 shadow-sm backdrop-blur">
             <div className="container">
-              <div className="flex w-full items-center gap-3 py-3 md:gap-5 md:py-4">
+              <div className="relative flex w-full items-center gap-3 py-3 md:gap-5 md:py-4">
                 <Link
                   href="/"
                   className="flex shrink-0 items-center gap-3 text-text transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </span>
                 </Link>
                 <DesktopNav />
-                <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+                <div className="ml-auto flex flex-1 items-center justify-end gap-2 sm:gap-3 lg:ml-0 lg:flex-none">
                   <Link
                     href="/ppdb"
                     className="hidden rounded-full border border-border/70 px-4 py-2 text-sm font-semibold text-text transition hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:inline-flex"
