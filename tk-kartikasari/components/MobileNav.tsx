@@ -40,7 +40,7 @@ export default function MobileNav() {
       {open ? (
         <div
           id="mobile-nav"
-          className="absolute right-0 top-12 z-50 w-[min(16rem,calc(100vw-3rem))] rounded-3xl border border-border/70 bg-white p-4 shadow-xl"
+          className="absolute right-0 top-12 z-50 w-64 max-w-[calc(100vw-3rem)] rounded-3xl border border-border/70 bg-white p-4 shadow-xl"
         >
           <nav className="flex flex-col gap-1 text-sm font-medium text-text">
             {mainNav.map((item) => {
