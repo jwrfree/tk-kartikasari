@@ -1,9 +1,15 @@
 "use client";
 
-import data from "@/data/testimonials.json";
+import type { HomeTestimonialSection } from "@/content/home";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
-export default function TestimonialList() {
+type TestimonialListProps = {
+  content: HomeTestimonialSection;
+};
+
+export default function TestimonialList({ content }: TestimonialListProps) {
+  const { eyebrow, title, description, items } = content;
+
   return (
     <LazyMotion features={domAnimation}>
       <section id="testimonials" className="relative overflow-hidden py-20">
@@ -20,18 +26,14 @@ export default function TestimonialList() {
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/80 px-4 py-2 text-sm font-semibold text-secondary shadow-soft">
               <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
-              Suara Orang Tua
+              {eyebrow}
             </span>
-            <h2 className="mt-4 text-3xl font-bold leading-tight text-text sm:text-4xl">
-              Mereka melihat anak tumbuh lebih percaya diri dan bahagia
-            </h2>
-            <p className="mt-3 text-lg text-text-muted">
-              Cerita asli dari keluarga yang mempercayakan proses belajar anaknya di TK Kartikasari.
-            </p>
+            <h2 className="mt-4 text-3xl font-bold leading-tight text-text sm:text-4xl">{title}</h2>
+            <p className="mt-3 text-lg text-text-muted">{description}</p>
           </m.div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {data.map((t, index) => (
+            {items.map((t, index) => (
               <m.blockquote
                 key={t.id}
                 initial={{ opacity: 0, y: 40 }}

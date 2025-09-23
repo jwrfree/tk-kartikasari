@@ -28,21 +28,66 @@ export type HomeFaq = {
   answer: string;
 };
 
-export type HomeContent = {
-  hero: {
-    badgeSuffix: string;
+export type HomeHeroScheduleItem = {
+  time: string;
+  activity: string;
+};
+
+export type HomeHeroAside = {
+  schedule: {
+    title: string;
+    badge: string;
+    items: HomeHeroScheduleItem[];
+  };
+  safety: {
     title: string;
     description: string;
-    primaryAction: {
-      label: string;
-      message: string;
+    highlight: {
+      icon: string;
+      text: string;
     };
-    secondaryAction: {
-      label: string;
-      href: string;
-    };
-    stats: HomeStat[];
   };
+  focus: {
+    title: string;
+    description: string;
+  };
+  menu: {
+    title: string;
+    description: string;
+  };
+};
+
+export type HomeHero = {
+  badgeSuffix: string;
+  title: string;
+  description: string;
+  primaryAction: {
+    label: string;
+    message: string;
+  };
+  secondaryAction: {
+    label: string;
+    href: string;
+  };
+  stats: HomeStat[];
+  aside: HomeHeroAside;
+};
+
+export type HomeTestimonial = {
+  id: string;
+  quote: string;
+  author: string;
+};
+
+export type HomeTestimonialSection = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  items: HomeTestimonial[];
+};
+
+export type HomeContent = {
+  hero: HomeHero;
   highlights: {
     eyebrow: string;
     title: string;
@@ -74,6 +119,7 @@ export type HomeContent = {
     };
     items: HomeFaq[];
   };
+  testimonials: HomeTestimonialSection;
   closing: {
     eyebrow: string;
     title: string;
@@ -108,6 +154,34 @@ export const homeContent: HomeContent = {
       { value: "8", label: "Kegiatan tematik kreatif setiap minggu" },
       { value: "100%", label: "Pendampingan perkembangan harian" },
     ],
+    aside: {
+      schedule: {
+        title: "Agenda Hari Ini",
+        badge: "Tema Pelangi",
+        items: [
+          { time: "07.00", activity: "Sambutan pagi & permainan pemanasan" },
+          { time: "08.30", activity: "Eksperimen warna di laboratorium mini" },
+          { time: "10.00", activity: "Bermain air & pasir di taman sensori" },
+        ],
+      },
+      safety: {
+        title: "Lingkungan Aman",
+        description:
+          "Semua area belajar dipantau CCTV, dilengkapi akses kontrol, serta peralatan ramah anak.",
+        highlight: {
+          icon: "😊",
+          text: "Rasio guru : murid 1 : 8",
+        },
+      },
+      focus: {
+        title: "Fokus Harian",
+        description: "Motorik, bahasa, sosial-emosi, dan kemandirian.",
+      },
+      menu: {
+        title: "Menu Sehat",
+        description: "Snack buah segar & susu rendah gula.",
+      },
+    },
   },
   highlights: {
     eyebrow: "Mengapa orang tua memilih kami",
@@ -256,6 +330,39 @@ export const homeContent: HomeContent = {
         question: "Bagaimana keterlibatan orang tua di sekolah?",
         answer:
           "Kami rutin mengadakan kelas parenting singkat, hari kunjungan orang tua, dan kolaborasi proyek sehingga keluarga terlibat aktif dalam proses belajar anak.",
+      },
+    ],
+  },
+  testimonials: {
+    eyebrow: "Suara Orang Tua",
+    title: "Mereka melihat anak tumbuh lebih percaya diri dan bahagia",
+    description:
+      "Cerita asli dari keluarga yang mempercayakan proses belajar anaknya di TK Kartikasari.",
+    items: [
+      {
+        id: "t1",
+        quote: "Guru-gurunya ramah, sabar, dan sangat peduli perkembangan anak.",
+        author: "Ibu Rani — Orang tua Damar",
+      },
+      {
+        id: "t2",
+        quote: "Anak saya jadi percaya diri dan berani tampil di depan teman-temannya.",
+        author: "Pak Surya — Orang tua Lila",
+      },
+      {
+        id: "t3",
+        quote: "Kegiatan sekolahnya kreatif, setiap minggu selalu ada proyek seru yang bisa dibawa pulang.",
+        author: "Ibu Wati — Orang tua Raka",
+      },
+      {
+        id: "t4",
+        quote: "Komunikasi dengan wali kelas sangat mudah dan informatif, kami merasa dilibatkan.",
+        author: "Pak Dedi — Orang tua Salsa",
+      },
+      {
+        id: "t5",
+        quote: "Fasilitasnya bersih, aman, dan anak-anak selalu terlihat ceria ketika dijemput.",
+        author: "Ibu Mira — Orang tua Zahra",
       },
     ],
   },

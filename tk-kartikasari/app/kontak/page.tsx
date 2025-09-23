@@ -17,34 +17,34 @@ export default function Page() {
         <div className="card p-6 space-y-4">
           <h2 className="text-2xl font-semibold">Informasi Sekolah</h2>
           <ul className="space-y-3 text-sm text-text">
-          {info.map((item) => (
-            <li key={item.label}>
-              <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
-              <p className="mt-1 text-base font-medium">{item.value}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="pt-2">
-          <CTAButton
-            label={cta.label}
-            message={cta.message}
-            className="w-full sm:w-auto"
-          />
+            {info.map((item) => (
+              <li key={item.label}>
+                <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
+                <p className="mt-1 text-base font-medium">{item.value}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="pt-2">
+            <CTAButton
+              label={cta.label}
+              message={cta.message}
+              className="w-full sm:w-auto"
+            />
+          </div>
         </div>
-      </div>
-      <div className="card p-6 space-y-3 bg-secondary/5 text-sm text-text-muted">
-        <h3 className="text-lg font-semibold text-secondary">{visit.title}</h3>
-        {visit.paragraphs.map((text) => (
-          <p key={text}>{text}</p>
-        ))}
-      </div>
-    </section>
+        <div className="card space-y-3 bg-secondary/5 p-6 text-sm text-text-muted">
+          <h3 className="text-lg font-semibold text-secondary">{visit.title}</h3>
+          {visit.paragraphs.map((text) => (
+            <p key={text}>{text}</p>
+          ))}
+        </div>
+      </section>
 
-    <section className="space-y-3">
-      <h2 className="text-2xl font-semibold">{map.title}</h2>
-      <p className="max-w-2xl text-sm text-text-muted">{map.description}</p>
-      <MapEmbed />
-    </section>
-  </div>
+      <section className="space-y-3">
+        <h2 className="text-2xl font-semibold">{map.title}</h2>
+        <p className="max-w-2xl text-sm text-text-muted">{map.description}</p>
+        <MapEmbed />
+      </section>
+    </div>
   );
 }

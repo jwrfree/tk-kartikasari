@@ -12,7 +12,8 @@ type HomePageContentProps = {
 };
 
 export default function HomePageContent({ schoolName, content }: HomePageContentProps) {
-  const { hero, highlights, programs, journey, faqs, closing } = content;
+  const { hero, highlights, programs, journey, faqs, testimonials, closing } = content;
+  const { aside } = hero;
 
   return (
     <LazyMotion features={domAnimation}>
@@ -70,56 +71,40 @@ export default function HomePageContent({ schoolName, content }: HomePageContent
               <div className="relative space-y-5">
                 <div className="card overflow-hidden border-white/60 bg-white/90 p-6 shadow-soft">
                   <div className="flex items-center justify-between text-sm font-semibold text-text">
-                    <span>Agenda Hari Ini</span>
+                    <span>{aside.schedule.title}</span>
                     <span className="rounded-full bg-secondary/10 px-3 py-1 text-secondary">
-                      Tema Pelangi
+                      {aside.schedule.badge}
                     </span>
                   </div>
                   <ul className="mt-4 space-y-3 text-sm text-text-muted">
-                    <li className="flex items-start gap-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-sm">
-                        07.00
-                      </span>
-                      Sambutan pagi & permainan pemanasan
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-sm">
-                        08.30
-                      </span>
-                      Eksperimen warna di laboratorium mini
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-sm">
-                        10.00
-                      </span>
-                      Bermain air & pasir di taman sensori
-                    </li>
+                    {aside.schedule.items.map((item) => (
+                      <li key={`${item.time}-${item.activity}`} className="flex items-start gap-3">
+                        <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-sm">
+                          {item.time}
+                        </span>
+                        {item.activity}
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="ml-auto w-[85%] rounded-3xl border border-white/60 bg-white/70 p-6 shadow-soft backdrop-blur">
-                  <p className="text-sm font-semibold text-secondary">Lingkungan Aman</p>
-                  <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                    Semua area belajar dipantau CCTV, dilengkapi akses kontrol, serta peralatan ramah anak.
-                  </p>
+                  <p className="text-sm font-semibold text-secondary">{aside.safety.title}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-text-muted">{aside.safety.description}</p>
                   <div className="mt-4 flex items-center gap-3 text-sm font-semibold text-text">
                     <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg">
-                      😊
+                      {aside.safety.highlight.icon}
                     </span>
-                    Rasio guru : murid 1 : 8
+                    {aside.safety.highlight.text}
                   </div>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="rounded-3xl border border-white/60 bg-white/90 p-5 shadow-soft">
-                    <p className="text-sm font-semibold text-secondary">Fokus Harian</p>
-                    <p className="mt-2 text-sm text-text-muted">
-                      Motorik, bahasa, sosial-emosi, dan kemandirian.
-                    </p>
+                    <p className="text-sm font-semibold text-secondary">{aside.focus.title}</p>
+                    <p className="mt-2 text-sm text-text-muted">{aside.focus.description}</p>
                   </div>
                   <div className="rounded-3xl border border-white/60 bg-white/90 p-5 shadow-soft">
-                    <p className="text-sm font-semibold text-secondary">Menu Sehat</p>
-                    <p className="mt-2 text-sm text-text-muted">
-                      Snack buah segar & susu rendah gula.
-                    </p>
+                    <p className="text-sm font-semibold text-secondary">{aside.menu.title}</p>
+                    <p className="mt-2 text-sm text-text-muted">{aside.menu.description}</p>
                   </div>
                 </div>
               </div>
@@ -274,7 +259,7 @@ export default function HomePageContent({ schoolName, content }: HomePageContent
           </div>
         </section>
 
-        <TestimonialList />
+        <TestimonialList content={testimonials} />
 
         <section id="faq" className="relative py-20">
           <div className="container grid gap-12 lg:grid-cols-[0.9fr,1fr] lg:items-start">
