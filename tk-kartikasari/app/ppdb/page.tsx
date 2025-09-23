@@ -56,7 +56,7 @@ export default function Page() {
 
       <PageSection padding="tight">
         <div className="card space-y-5 p-7">
-          <h2 className="text-3xl font-semibold">FAQ Pendaftaran</h2>
+          <h2 className="text-3xl font-semibold">Sering Ditanyakan</h2>
           <div className="space-y-3">
             {ppdbFaqs.map((item) => (
               <details key={item.question} className="group rounded-2xl border border-border/70 bg-white p-5">
