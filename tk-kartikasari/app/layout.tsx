@@ -4,7 +4,7 @@ import site from "@/data/site.json";
 import Link from "next/link";
 import { waLink } from "@/lib/utils";
 import MobileNav from "@/components/MobileNav";
-import { mainNav } from "@/data/navigation";
+import DesktopNav from "@/components/DesktopNav";
 
 export const metadata: Metadata = {
   title: "TK Kartikasari Bulaksari Bantarsari Cilacap — Taman Kanak-kanak",
@@ -17,42 +17,43 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="id">
       <body className="bg-surfaceAlt text-text font-sans">
         <div className="relative min-h-screen">
-          <header className="sticky top-0 z-40 border-b border-white/40 bg-white/80 backdrop-blur">
-            <div className="container flex h-20 items-center justify-between gap-6">
-              <Link href="/" className="flex items-center gap-3">
-                <img src={site.logo} alt="Logo TK Kartikasari" className="h-12 w-12 rounded-2xl border border-white/70 bg-white p-2 shadow-soft" />
-                <div>
-                  <p className="text-lg font-semibold text-text">{site.schoolName}</p>
-                  <p className="text-sm text-text-muted">Bulaksari, Bantarsari, Cilacap</p>
-                </div>
-              </Link>
-              <nav className="hidden items-center gap-6 text-sm font-medium text-text-muted md:flex">
-                {mainNav.map((item) => (
-                  <Link key={item.href} href={item.href} className="transition hover:text-text">
-                    {item.label}
+          <header className="sticky top-0 z-50 border-b border-white/60 bg-white/90 shadow-sm backdrop-blur">
+            <div className="container">
+              <div className="flex w-full items-center gap-3 py-3 md:gap-5 md:py-4">
+                <Link
+                  href="/"
+                  className="flex shrink-0 items-center gap-3 text-text transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/70 bg-white shadow-soft">
+                    <img src={site.logo} alt="Logo TK Kartikasari" className="h-8 w-8 object-contain" />
+                  </span>
+                  <span className="flex min-w-0 flex-col leading-tight">
+                    <span className="truncate text-base font-semibold md:text-lg">{site.schoolName}</span>
+                    <span className="hidden text-xs text-text-muted sm:inline">Bulaksari, Bantarsari, Cilacap</span>
+                  </span>
+                </Link>
+                <DesktopNav />
+                <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+                  <Link
+                    href="/ppdb"
+                    className="hidden rounded-full border border-border/70 px-4 py-2 text-sm font-semibold text-text transition hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:inline-flex"
+                  >
+                    Info PPDB
                   </Link>
-                ))}
-              </nav>
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/ppdb"
-                  className="hidden rounded-2xl border border-border/80 px-5 py-2.5 text-sm font-semibold text-text hover:border-primary hover:text-primary md:inline-flex"
-                >
-                  Info PPDB
-                </Link>
-                <a
-                  href={waLink("Halo Bu Mintarsih, saya ingin info PPDB TK Kartikasari.")}
-                  className="btn-primary hidden text-sm md:inline-flex"
-                >
-                  Chat WhatsApp
-                </a>
-                <Link
-                  href="/ppdb"
-                  className="inline-flex rounded-2xl border border-border/80 px-4 py-2 text-sm font-semibold text-text hover:border-primary hover:text-primary md:hidden"
-                >
-                  PPDB
-                </Link>
-                <MobileNav />
+                  <a
+                    href={waLink("Halo Bu Mintarsih, saya ingin info PPDB TK Kartikasari.")}
+                    className="hidden rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:brightness-[1.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:inline-flex"
+                  >
+                    Chat WhatsApp
+                  </a>
+                  <Link
+                    href="/ppdb"
+                    className="inline-flex items-center rounded-full border border-border/70 px-3 py-2 text-sm font-semibold text-text transition hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:hidden"
+                  >
+                    PPDB
+                  </Link>
+                  <MobileNav />
+                </div>
               </div>
             </div>
           </header>
