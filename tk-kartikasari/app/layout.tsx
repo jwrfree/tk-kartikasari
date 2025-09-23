@@ -5,11 +5,34 @@ import Link from "next/link";
 import { waLink } from "@/lib/utils";
 import MobileNav from "@/components/MobileNav";
 import DesktopNav from "@/components/DesktopNav";
+import StickyActions from "@/components/StickyActions";
 
 export const metadata: Metadata = {
-  title: "TK Kartikasari Bulaksari Bantarsari Cilacap — Taman Kanak-kanak",
+  metadataBase: new URL(site.siteUrl),
+  title: {
+    default: `${site.schoolName} Bulaksari Bantarsari Cilacap — Taman Kanak-kanak`,
+    template: `%s | ${site.schoolName}`,
+  },
   description:
     "Lingkungan aman, hangat, dan menstimulasi untuk anak usia dini di Bulaksari, Bantarsari, Cilacap. Info PPDB via WhatsApp.",
+  openGraph: {
+    title: `${site.schoolName} Bulaksari Bantarsari Cilacap — Taman Kanak-kanak`,
+    description:
+      "Lingkungan aman, hangat, dan menstimulasi untuk anak usia dini di Bulaksari, Bantarsari, Cilacap. Info PPDB via WhatsApp.",
+    url: site.siteUrl,
+    siteName: site.schoolName,
+    locale: "id_ID",
+    type: "website",
+  },
+  alternates: {
+    canonical: site.siteUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.schoolName} Bulaksari Bantarsari Cilacap — Taman Kanak-kanak`,
+    description:
+      "Lingkungan aman, hangat, dan menstimulasi untuk anak usia dini di Bulaksari, Bantarsari, Cilacap. Info PPDB via WhatsApp.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -112,6 +135,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               © {new Date().getFullYear()} {site.schoolName}. Semua hak cipta dilindungi.
             </div>
           </footer>
+          <StickyActions />
         </div>
       </body>
     </html>

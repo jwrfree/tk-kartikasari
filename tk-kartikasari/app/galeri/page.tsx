@@ -3,8 +3,18 @@ import Link from "next/link";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import data from "@/data/galeri.json";
+import { createPageMetadata } from "@/lib/metadata";
 
 type GaleriItem = (typeof data)[number];
+
+const galeriDescription =
+  "Potret kegiatan anak TK Kartikasari dalam suasana belajar yang hangat, aktif, dan menyenangkan. Semua foto dimuat dengan teknik lazy-load agar halaman tetap ringan.";
+
+export const metadata = createPageMetadata({
+  title: "Galeri",
+  description: galeriDescription,
+  path: "/galeri",
+});
 
 export default function Page() {
   const hasPhotos = data.length > 0;
@@ -14,7 +24,7 @@ export default function Page() {
       <PageHeader
         eyebrow="Galeri"
         title="Galeri Kegiatan Anak"
-        description="Potret kegiatan anak TK Kartikasari dalam suasana belajar yang hangat, aktif, dan menyenangkan. Semua foto dimuat dengan teknik lazy-load agar halaman tetap ringan."
+        description={galeriDescription}
       />
 
       <PageSection padding="tight">

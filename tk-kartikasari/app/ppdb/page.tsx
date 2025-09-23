@@ -3,37 +3,15 @@ import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import PpdbForm from "@/components/PpdbForm";
 import { ppdbHeadmasterCTA } from "@/content/cta";
+import { ppdbFaqs, ppdbMetaDescription, ppdbSteps } from "@/content/ppdb";
 import site from "@/data/site.json";
+import { createPageMetadata } from "@/lib/metadata";
 
-const steps = [
-  "Hubungi Ibu Mintarsih melalui WhatsApp untuk mengatur jadwal kunjungan sekolah.",
-  "Datang ke TK Kartikasari sesuai jadwal yang disepakati untuk observasi singkat.",
-  "Lengkapi formulir data anak dan diskusi kebutuhan khusus bersama guru.",
-  "Lakukan pembayaran administrasi awal sesuai informasi dari sekolah.",
-];
-
-const faqs = [
-  {
-    question: "Kapan pendaftaran dibuka?",
-    answer:
-      "Pendaftaran dibuka sepanjang tahun ajaran berjalan. Kuota terbatas sehingga kami sarankan menghubungi sekolah lebih awal.",
-  },
-  {
-    question: "Dokumen apa saja yang perlu dibawa?",
-    answer:
-      "Fotokopi akta kelahiran anak, kartu keluarga, kartu identitas orang tua, dan buku imunisasi (jika ada).",
-  },
-  {
-    question: "Apakah ada biaya formulir?",
-    answer:
-      "Tidak ada biaya formulir. Pembayaran dilakukan setelah anak dinyatakan diterima dan menyepakati jadwal masuk.",
-  },
-  {
-    question: "Apakah ada program trial class?",
-    answer:
-      "Ada. Orang tua dapat meminta jadwal percobaan satu hari untuk memastikan anak nyaman sebelum resmi bergabung.",
-  },
-];
+export const metadata = createPageMetadata({
+  title: "PPDB",
+  description: ppdbMetaDescription,
+  path: "/ppdb",
+});
 
 export default function Page() {
   return (
@@ -51,7 +29,7 @@ export default function Page() {
             <p className="text-base text-text-muted">Panduan singkat agar proses pendaftaran berjalan lancar.</p>
           </div>
           <ol className="list-decimal space-y-3 pl-5 text-base text-text">
-            {steps.map((step) => (
+            {ppdbSteps.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ol>
@@ -66,8 +44,7 @@ export default function Page() {
           <div className="space-y-2">
             <h2 className="text-3xl font-semibold">Formulir Online</h2>
             <p className="text-base text-text-muted">
-              Isi data singkat berikut untuk mempercepat proses pendaftaran. Setelah dikirim, WhatsApp akan terbuka otomatis dan
-              tim kami akan menindaklanjuti.
+              Isi data singkat berikut untuk mempercepat proses pendaftaran. Setelah dikirim, WhatsApp akan terbuka otomatis dan tim kami akan menindaklanjuti.
             </p>
           </div>
           <PpdbForm />
@@ -81,7 +58,7 @@ export default function Page() {
         <div className="card space-y-5 p-7">
           <h2 className="text-3xl font-semibold">FAQ Pendaftaran</h2>
           <div className="space-y-3">
-            {faqs.map((item) => (
+            {ppdbFaqs.map((item) => (
               <details key={item.question} className="group rounded-2xl border border-border/70 bg-white p-5">
                 <summary className="cursor-pointer text-lg font-semibold text-text">
                   {item.question}
