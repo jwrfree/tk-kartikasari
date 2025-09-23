@@ -4,6 +4,16 @@ import PageSection from "@/components/layout/PageSection";
 import MapEmbed from "@/components/MapEmbed";
 import { contactConsultationCTA } from "@/content/cta";
 import site from "@/data/site.json";
+import { createPageMetadata } from "@/lib/metadata";
+
+const contactDescription =
+  "Kami siap membantu informasi seputar PPDB, jadwal kunjungan sekolah, maupun kebutuhan administrasi lainnya. Gunakan detail di bawah ini atau langsung hubungi kami melalui WhatsApp.";
+
+export const metadata = createPageMetadata({
+  title: "Kontak",
+  description: contactDescription,
+  path: "/kontak",
+});
 
 const info = [
   { label: "Alamat", value: site.address },
@@ -18,7 +28,7 @@ export default function Page() {
       <PageHeader
         eyebrow="Kontak"
         title="Hubungi TK Kartikasari"
-        description="Kami siap membantu informasi seputar PPDB, jadwal kunjungan sekolah, maupun kebutuhan administrasi lainnya. Gunakan detail di bawah ini atau langsung hubungi kami melalui WhatsApp."
+        description={contactDescription}
       />
 
       <PageSection padding="tight" containerClassName="grid gap-6 md:grid-cols-[1.1fr,0.9fr] md:items-start">

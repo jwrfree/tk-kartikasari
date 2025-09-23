@@ -2,7 +2,16 @@ import Link from "next/link";
 
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
+import {
+  aboutDailyRhythm,
+  aboutExperiencePillars,
+  aboutHeaderHighlights,
+  aboutMetaDescription,
+  aboutMission,
+  aboutStrengths,
+} from "@/content/about";
 import site from "@/data/site.json";
+import { createPageMetadata } from "@/lib/metadata";
 
 const profileItems = [
   { label: "Nama Sekolah", value: site.schoolName },
@@ -12,73 +21,11 @@ const profileItems = [
   { label: "Jam Buka", value: site.openingHours },
 ];
 
-const headerHighlights = [
-  "Lingkungan aman & ramah anak",
-  "Guru komunikatif dengan orang tua",
-  "Belajar melalui bermain tematik",
-];
-
-const experiencePillars = [
-  {
-    title: "Hangat & Personal",
-    description:
-      "Guru menyapa anak satu per satu sambil mengenali kebiasaan, minat, dan kebutuhan unik mereka.",
-  },
-  {
-    title: "Aktivitas Bermakna",
-    description:
-      "Proyek tematik, bermain peran, dan eksplorasi alam menumbuhkan rasa percaya diri serta imajinasi.",
-  },
-  {
-    title: "Karakter Sehari-hari",
-    description:
-      "Nilai sopan santun, tanggung jawab, dan empati dipraktikkan melalui rutinitas sederhana yang menyenangkan.",
-  },
-];
-
-const dailyRhythm = [
-  {
-    title: "Sesi Pembuka yang Hangat",
-    description:
-      "Anak mengikuti doa, lagu, dan berbagi perasaan agar siap memulai hari dengan pikiran positif.",
-  },
-  {
-    title: "Eksplorasi Sentra & Outdoor",
-    description:
-      "Kegiatan berpindah antar sentra, eksperimen sains mini, dan bermain di luar menyalurkan energi anak.",
-  },
-  {
-    title: "Refleksi & Berbagi Cerita",
-    description:
-      "Anak diajak menceritakan penemuannya, merapikan alat, lalu menutup hari dengan lagu favorit bersama.",
-  },
-];
-
-const strengths = [
-  {
-    title: "Ruang Belajar Tematik",
-    description:
-      "Sentra literasi, sains mini, dan area seni memancing rasa ingin tahu sekaligus melatih motorik halus.",
-  },
-  {
-    title: "Rutinitas Penuh Makna",
-    description:
-      "Agenda harian menyeimbangkan kegiatan aktif dan tenang sehingga energi anak tetap stabil.",
-  },
-  {
-    title: "Kemitraan dengan Orang Tua",
-    description:
-      "Catatan perkembangan, foto kegiatan, dan temu wicara rutin menjaga keterlibatan keluarga.",
-  },
-];
-
-const mission = [
-  "Menumbuhkan rasa percaya diri, empati, dan kemandirian melalui kegiatan yang menyenangkan.",
-  "Menyediakan pengalaman tematik yang merangsang kreativitas, bahasa, dan numerasi awal.",
-  "Menguatkan kolaborasi guru dan orang tua melalui komunikasi harian yang bermakna.",
-  "Menghidupkan nilai moral, spiritual, dan cinta lingkungan dalam rutinitas anak.",
-  "Menciptakan lingkungan aman, bersih, dan inklusif yang menghargai keberagaman.",
-];
+export const metadata = createPageMetadata({
+  title: "Tentang",
+  description: aboutMetaDescription,
+  path: "/tentang",
+});
 
 export default function Page() {
   return (
@@ -95,7 +42,7 @@ export default function Page() {
         }
       >
         <div className="flex flex-wrap gap-3 pt-4">
-          {headerHighlights.map((item) => (
+          {aboutHeaderHighlights.map((item) => (
             <span
               key={item}
               className="inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-white/80 px-4 py-2 text-sm font-medium text-secondary transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary hover:bg-secondary/10"
@@ -131,7 +78,7 @@ export default function Page() {
               sederhana.
             </p>
             <ul className="grid gap-3 sm:grid-cols-3">
-              {experiencePillars.map((pillar) => (
+              {aboutExperiencePillars.map((pillar) => (
                 <li
                   key={pillar.title}
                   className="group relative overflow-hidden rounded-2xl border border-white/50 bg-white/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
@@ -200,7 +147,7 @@ export default function Page() {
             Rutinitas yang lembut dan konsisten membantu anak merasa aman sekaligus memupuk rasa tanggung jawab kecil.
           </p>
           <ul className="space-y-4">
-            {dailyRhythm.map((item, index) => (
+            {aboutDailyRhythm.map((item, index) => (
               <li
                 key={item.title}
                 className="group flex gap-4 rounded-2xl border border-transparent bg-white/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
@@ -228,7 +175,7 @@ export default function Page() {
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
-            {strengths.map((item) => (
+            {aboutStrengths.map((item) => (
               <article
                 key={item.title}
                 className="card h-full space-y-3 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
@@ -256,7 +203,7 @@ export default function Page() {
         <div className="card space-y-4 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
           <h2 className="text-3xl font-semibold">Misi</h2>
           <ul className="space-y-3 text-base leading-relaxed text-text-muted">
-            {mission.map((point) => (
+            {aboutMission.map((point) => (
               <li
                 key={point}
                 className="rounded-2xl border border-transparent bg-white/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"

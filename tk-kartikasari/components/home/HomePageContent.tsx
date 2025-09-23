@@ -1,50 +1,26 @@
 "use client";
 
 import CTAButton from "@/components/CTAButton";
-import StickyActions from "@/components/StickyActions";
 import TestimonialList from "@/components/TestimonialList";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import type { CTAConfig } from "@/content/cta";
+import type {
+  HomeFaq,
+  HomeHighlight,
+  HomeJourneyItem,
+  HomeProgram,
+  HomeStat,
+} from "@/content/home";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-
-type StatsItem = {
-  value: string;
-  label: string;
-};
-
-type HighlightItem = {
-  icon: string;
-  title: string;
-  description: string;
-};
-
-type ProgramItem = {
-  name: string;
-  age: string;
-  description: string;
-  points: string[];
-};
-
-type JourneyItem = {
-  time: string;
-  title: string;
-  description: string;
-  icon: string;
-};
-
-type FAQItem = {
-  question: string;
-  answer: string;
-};
 
 type HomePageContentProps = {
   schoolName: string;
-  stats: StatsItem[];
-  highlights: HighlightItem[];
-  programs: ProgramItem[];
-  journey: JourneyItem[];
-  faqs: FAQItem[];
+  stats: HomeStat[];
+  highlights: HomeHighlight[];
+  programs: HomeProgram[];
+  journey: HomeJourneyItem[];
+  faqs: HomeFaq[];
   heroCta: CTAConfig;
   faqCta: CTAConfig;
   visitCta: CTAConfig;
@@ -409,8 +385,6 @@ export default function HomePageContent({
             </div>
           </m.div>
         </PageSection>
-
-        <StickyActions />
       </>
     </LazyMotion>
   );

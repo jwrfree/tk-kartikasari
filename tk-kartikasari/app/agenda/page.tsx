@@ -1,6 +1,7 @@
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import agenda from "@/data/agenda.json";
+import { createPageMetadata } from "@/lib/metadata";
 
 type AgendaItem = (typeof agenda)[number];
 
@@ -13,6 +14,15 @@ function formatDate(value: string) {
   });
 }
 
+const agendaDescription =
+  "Agenda disusun untuk melibatkan anak dan orang tua dalam pengalaman belajar yang menyenangkan serta penuh kolaborasi. Simpan tanggal penting berikut di kalender keluarga Anda.";
+
+export const metadata = createPageMetadata({
+  title: "Agenda",
+  description: agendaDescription,
+  path: "/agenda",
+});
+
 export default function Page() {
   const items = [...agenda].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
@@ -24,7 +34,7 @@ export default function Page() {
       <PageHeader
         eyebrow="Agenda"
         title="Agenda Kegiatan TK Kartikasari"
-        description="Agenda disusun untuk melibatkan anak dan orang tua dalam pengalaman belajar yang menyenangkan serta penuh kolaborasi. Simpan tanggal penting berikut di kalender keluarga Anda."
+        description={agendaDescription}
       />
 
       <PageSection padding="tight">

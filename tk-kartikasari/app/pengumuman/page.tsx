@@ -1,6 +1,7 @@
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import data from "@/data/pengumuman.json";
+import { createPageMetadata } from "@/lib/metadata";
 
 type Pengumuman = (typeof data)[number];
 
@@ -16,6 +17,15 @@ function isExternal(url: string) {
   return url.startsWith("http");
 }
 
+const pengumumanDescription =
+  "Pantau kabar terbaru terkait PPDB, agenda orang tua, hingga informasi akademik dan libur sekolah. Daftar berikut akan diperbarui secara berkala.";
+
+export const metadata = createPageMetadata({
+  title: "Pengumuman",
+  description: pengumumanDescription,
+  path: "/pengumuman",
+});
+
 export default function Page() {
   const items = [...data].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
@@ -26,7 +36,7 @@ export default function Page() {
       <PageHeader
         eyebrow="Pengumuman"
         title="Info Resmi TK Kartikasari"
-        description="Pantau kabar terbaru terkait PPDB, agenda orang tua, hingga informasi akademik dan libur sekolah. Daftar berikut akan diperbarui secara berkala."
+        description={pengumumanDescription}
       />
 
       <PageSection padding="tight">
