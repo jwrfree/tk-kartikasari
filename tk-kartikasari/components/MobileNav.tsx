@@ -14,7 +14,7 @@ export default function MobileNav() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <div className="relative lg:hidden">
+    <div className="lg:hidden">
       <motion.button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
@@ -46,7 +46,7 @@ export default function MobileNav() {
         {open ? (
           <motion.div
             id="mobile-nav"
-            className="absolute right-0 top-14 z-50 w-64 rounded-3xl border border-border/70 bg-white/95 p-4 shadow-xl backdrop-blur"
+            className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-50 rounded-3xl border border-border/70 bg-white/95 p-4 shadow-xl backdrop-blur"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -64,7 +64,7 @@ export default function MobileNav() {
                     href={item.href}
                     onClick={closeMenu}
                     aria-current={isActive ? "page" : undefined}
-                    className={`rounded-full px-4 py-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                    className={`block rounded-full px-4 py-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
                       isActive
                         ? "bg-primary/10 text-primary"
                         : "text-text-muted hover:bg-surfaceAlt hover:text-text"
