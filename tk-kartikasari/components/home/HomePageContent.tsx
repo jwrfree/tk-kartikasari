@@ -108,7 +108,7 @@ export default function HomePageContent({
               className="relative"
             >
               <div className="absolute -top-12 right-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl" />
-              <div className="absolute -bottom-8 left-0 h-28 w-28 rounded-full bg-secondary/30 blur-2xl" />
+              <div className="absolute -bottom-4 left-0 h-28 w-28 rounded-full bg-secondary/30 blur-2xl md:-bottom-8" />
               <div className="relative space-y-5">
                 <div className="card overflow-hidden border-white/60 bg-white/90 p-6 shadow-soft">
                   <div className="flex items-center justify-between text-sm font-semibold text-text">
@@ -169,7 +169,7 @@ export default function HomePageContent({
           </div>
         </section>
 
-        <section className="relative border-y border-white/60 bg-white/80 py-20">
+        <section className="relative border-y border-white/60 bg-white/80 py-12 md:py-20">
           <div className="container">
             <m.div
               initial={{ opacity: 0, y: 30 }}
@@ -209,7 +209,7 @@ export default function HomePageContent({
           </div>
         </section>
 
-        <section id="program" className="relative py-20">
+        <section id="program" className="relative py-12 md:py-20">
           <div className="container grid gap-12 lg:grid-cols-[1fr,1fr] lg:items-start">
             <m.div
               initial={{ opacity: 0, y: 40 }}
@@ -288,7 +288,7 @@ export default function HomePageContent({
           </div>
         </section>
 
-        <section id="pengalaman" className="relative overflow-hidden py-20">
+        <section id="pengalaman" className="relative overflow-hidden py-12 md:py-20">
           <div className="absolute inset-0 bg-grid-dots [background-size:24px_24px] opacity-40" />
           <div className="container relative grid gap-12 lg:grid-cols-[0.9fr,1.1fr] lg:items-center">
             <m.div
@@ -342,7 +342,7 @@ export default function HomePageContent({
 
         <TestimonialList />
 
-        <section id="faq" className="relative py-20">
+        <section id="faq" className="relative py-12 md:py-20">
           <div className="container grid gap-12 lg:grid-cols-[0.9fr,1fr] lg:items-start">
             <m.div
               initial={{ opacity: 0, y: 40 }}
