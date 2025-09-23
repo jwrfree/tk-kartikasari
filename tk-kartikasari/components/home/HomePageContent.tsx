@@ -6,11 +6,14 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import type { CTAConfig } from "@/content/cta";
 import type {
+  HomeCredential,
+  HomeCurriculumPillar,
   HomeFaq,
   HomeHighlight,
   HomeJourneyItem,
   HomeProgram,
   HomeStat,
+  HomeTimelineMilestone,
 } from "@/content/home";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
@@ -21,6 +24,9 @@ type HomePageContentProps = {
   programs: HomeProgram[];
   journey: HomeJourneyItem[];
   faqs: HomeFaq[];
+  credentials: HomeCredential[];
+  curriculumPillars: HomeCurriculumPillar[];
+  timeline: HomeTimelineMilestone[];
   heroCta: CTAConfig;
   faqCta: CTAConfig;
   visitCta: CTAConfig;
@@ -33,6 +39,9 @@ export default function HomePageContent({
   programs,
   journey,
   faqs,
+  credentials,
+  curriculumPillars,
+  timeline,
   heroCta,
   faqCta,
   visitCta,
@@ -58,13 +67,13 @@ export default function HomePageContent({
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-secondary shadow-soft backdrop-blur-sm backdrop-saturate-150">
               <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
-              {schoolName} • Bulaksari
+              {schoolName} • Kurikulum Merdeka PAUD
             </span>
             <h1 className="text-balance text-4xl font-bold leading-tight text-text sm:text-5xl">
-              Belajar ceria, tumbuh percaya diri bersama sahabat baru setiap hari
+              TK pertama di Bantarsari dengan {stats[0]?.value ?? "26+"} tahun pengalaman menerapkan Kurikulum Merdeka PAUD
             </h1>
             <p className="max-w-xl text-pretty text-lg text-text-muted sm:text-xl">
-              Lingkungan hangat, fasilitas aman, dan kegiatan tematik yang menumbuhkan rasa ingin tahu anak usia dini di Bantarsari, Cilacap.
+              Membangun Profil Pelajar Pancasila sejak usia dini melalui pembelajaran terdiferensiasi, projek bermakna, dan pendampingan personal yang selaras data resmi Kemendikbudristek.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <CTAButton config={heroCta} className="w-full sm:w-auto" />
@@ -96,9 +105,9 @@ export default function HomePageContent({
             <div className="relative space-y-5">
               <div className="card overflow-hidden border-white/60 bg-white/70 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
                 <div className="flex items-center justify-between text-base font-semibold text-text">
-                  <span>Agenda Hari Ini</span>
+                  <span>Agenda Kurikulum Merdeka</span>
                   <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
-                    Tema Pelangi
+                    Projek Profil Pelajar Pancasila
                   </span>
                 </div>
                 <ul className="mt-4 space-y-3 text-base text-text-muted">
@@ -106,46 +115,99 @@ export default function HomePageContent({
                     <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
                       07.00
                     </span>
-                    Sambutan pagi & permainan pemanasan
+                    Penyambutan hangat, doa, dan pemetaan emosi anak.
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
                       08.30
                     </span>
-                    Eksperimen warna di laboratorium mini
+                    Diskusi nilai Pancasila dan eksplorasi budaya lokal.
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
                       10.00
                     </span>
-                    Bermain air & pasir di taman sensori
+                    Sentra pilihan: STEAM, literasi, seni, atau role play terarah.
                   </li>
                 </ul>
               </div>
               <div className="ml-auto w-[85%] rounded-3xl border border-white/60 bg-white/50 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
-                <p className="text-base font-semibold text-secondary">Lingkungan Aman</p>
+                <p className="text-base font-semibold text-secondary">Lingkungan aman & terdata resmi</p>
                 <p className="mt-3 text-base leading-relaxed text-text-muted">
-                  Semua area belajar dipantau CCTV, dilengkapi akses kontrol, serta peralatan ramah anak.
+                  Terdaftar dengan NPSN {credentials[0]?.value ?? "20351273"}, area 440 m² terpantau, dan peralatan ramah anak untuk belajar yang nyaman.
                 </p>
                 <div className="mt-4 flex items-center gap-3 text-base font-semibold text-text">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg">
                     😊
                   </span>
-                  Rasio guru : murid 1 : 8
+                  Rasio guru : anak {stats[2]?.value ?? "1 : 8"}
                 </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
                   <p className="text-base font-semibold text-secondary">Fokus Harian</p>
                   <p className="mt-2 text-base text-text-muted">
-                    Motorik, bahasa, sosial-emosi, dan kemandirian.
+                    Nilai agama & budi pekerti, jati diri, serta kecakapan literasi sesuai fase fondasi.
                   </p>
                 </div>
                 <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
-                  <p className="text-base font-semibold text-secondary">Menu Sehat</p>
+                  <p className="text-base font-semibold text-secondary">Asesmen Autentik</p>
                   <p className="mt-2 text-base text-text-muted">
-                    Snack buah segar & susu rendah gula.
+                    Jurnal perkembangan, dokumentasi karya, dan umpan balik personal setiap pekan.
                   </p>
+                </div>
+              </div>
+            </div>
+          </m.div>
+        </PageSection>
+
+        <PageSection className="relative" padding="tight">
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            <SectionHeader
+              eyebrow="Data resmi sekolah"
+              eyebrowVariant="secondary"
+              title="Kredensial yang memperkuat kepercayaan orang tua"
+              description="Seluruh informasi sekolah tersimpan di basis data Kemendikbudristek dan diperkuat perjalanan panjang layanan kami untuk keluarga Bantarsari."
+            />
+            <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
+              <div className="card h-full space-y-5 border-white/70 bg-white/70 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150">
+                <h3 className="text-2xl font-semibold text-text">Legalitas & info resmi</h3>
+                <ul className="space-y-4">
+                  {credentials.map((item) => (
+                    <li
+                      key={item.label}
+                      className="rounded-3xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-wide text-secondary">{item.label}</p>
+                      <p className="mt-1 text-lg font-semibold text-text">{item.value}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-text-muted">{item.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="card h-full space-y-5 border-white/70 bg-gradient-to-br from-primary/10 via-white to-secondary/10 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150">
+                <h3 className="text-2xl font-semibold text-text">Perjalanan {stats[0]?.value ?? "26+"} tahun</h3>
+                <div className="relative">
+                  <span className="absolute left-4 top-2 bottom-2 w-px bg-secondary/30" aria-hidden="true" />
+                  <ul className="space-y-6">
+                    {timeline.map((milestone) => (
+                      <li key={`${milestone.year}-${milestone.title}`} className="relative pl-10">
+                        <span className="absolute left-0 top-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 text-sm font-semibold text-secondary">
+                          {milestone.year}
+                        </span>
+                        <div className="space-y-1">
+                          <p className="text-base font-semibold text-text">{milestone.title}</p>
+                          <p className="text-sm leading-relaxed text-text-muted">{milestone.description}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -164,10 +226,10 @@ export default function HomePageContent({
           >
             <SectionHeader
               align="center"
-              eyebrow="Mengapa orang tua memilih kami"
+              eyebrow="Mengapa orang tua mempercayakan anaknya"
               eyebrowVariant="primary"
-              description="Tim pengajar kami merancang pengalaman belajar yang menyeluruh, menyenangkan, dan penuh perhatian."
-              title="Sekolah yang menumbuhkan rasa ingin tahu dan karakter positif sejak dini"
+              description={`Legalitas lengkap, pengalaman ${stats[0]?.value ?? "26+"} tahun, dan implementasi Kurikulum Merdeka menghadirkan rasa aman bagi keluarga.`}
+              title="Legalitas resmi, pembelajaran modern, dan karakter Pancasila dalam satu sekolah"
             />
           </m.div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -191,6 +253,54 @@ export default function HomePageContent({
         </PageSection>
 
         <PageSection
+          id="kurikulum-merdeka"
+          className="bg-gradient-to-br from-secondary/10 via-white to-primary/10"
+          padding="tight"
+        >
+          <m.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            <SectionHeader
+              eyebrow="Implementasi Kurikulum Merdeka"
+              eyebrowVariant="secondary"
+              title="Fase fondasi yang menguatkan Profil Pelajar Pancasila"
+              description="Pembelajaran kami selaras dengan panduan PAUD Merdeka: karakter, jati diri, dan kompetensi dasar tumbuh seimbang melalui projek yang menyenangkan."
+            />
+            <div className="grid gap-6 md:grid-cols-3">
+              {curriculumPillars.map((pillar) => (
+                <m.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.55 }}
+                  className="card h-full border-white/70 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-secondary">
+                    {pillar.subtitle}
+                  </p>
+                  <h3 className="mt-3 text-2xl font-semibold text-text">{pillar.title}</h3>
+                  <ul className="mt-5 space-y-2 text-base text-text-muted">
+                    {pillar.points.map((point) => (
+                      <li key={point} className="flex items-start gap-3">
+                        <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
+                          ✓
+                        </span>
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </m.div>
+              ))}
+            </div>
+          </m.div>
+        </PageSection>
+
+        <PageSection
           id="program"
           padding="tight"
           containerClassName="grid gap-12 lg:grid-cols-[1fr,1fr] lg:items-start"
@@ -203,29 +313,29 @@ export default function HomePageContent({
             className="space-y-6"
           >
             <SectionHeader
-              eyebrow="Program unggulan"
+              eyebrow="Program Kurikulum Merdeka"
               eyebrowVariant="secondary"
-              title="Tiga jalur belajar yang disesuaikan dengan tahap tumbuh kembang anak"
-              description="Setiap kelas dipandu guru inti dan guru pendamping dengan rasio kecil. Kami menyeimbangkan stimulasi akademik, karakter, dan kegiatan bermain bebas."
+              title="Jalur belajar terdiferensiasi sesuai kebutuhan tumbuh kembang anak"
+              description="Guru inti dan guru pendamping berkolaborasi menyeimbangkan karakter, kompetensi dasar, dan kegembiraan bermain melalui projek Profil Pelajar Pancasila."
             />
             <ul className="space-y-3 text-base text-text-muted">
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
                   1
                 </span>
-                Observasi minat dan kebutuhan anak sebelum penempatan kelas.
+                Observasi minat, gaya belajar, serta diskusi orang tua untuk menentukan kebutuhan utama anak.
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
                   2
                 </span>
-                Rencana belajar individual yang dikirim ke orang tua di awal tema.
+                Perumusan tujuan pembelajaran Kurikulum Merdeka dan strategi diferensiasi setiap awal tema.
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
                   3
                 </span>
-                Evaluasi menyenangkan melalui pameran karya dan pertunjukan kecil.
+                Pameran karya, refleksi projek P5, dan laporan portofolio terstruktur di akhir tema.
               </li>
             </ul>
           </m.div>
@@ -283,15 +393,15 @@ export default function HomePageContent({
             className="relative space-y-6"
           >
             <SectionHeader
-              eyebrow="Suasana belajar harian"
+              eyebrow="Ritme fase fondasi"
               eyebrowVariant="surface"
-              title="Jadwal penuh aktivitas yang menstimulasi seluruh aspek perkembangan anak"
-              description="Guru kami menyiapkan transisi yang mulus dari aktivitas indoor ke outdoor sehingga anak tetap bersemangat hingga waktu pulang."
+              title="Transisi lembut yang menjaga rasa aman dan antusiasme anak sepanjang hari"
+              description="Rangkaian kegiatan mengikuti struktur Kurikulum Merdeka PAUD: mulai dari pembiasaan nilai, eksplorasi diferensiasi, hingga refleksi dan asesmen autentik."
             />
             <div className="rounded-3xl border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-lg backdrop-saturate-150">
               <p className="text-base font-semibold text-secondary">Kolaborasi dengan orang tua</p>
               <p className="mt-3 text-base leading-relaxed text-text-muted">
-                Orang tua mendapatkan ringkasan kegiatan dan foto terbaik anak setiap hari melalui kanal komunikasi khusus.
+                Orang tua menerima ringkasan harian, refleksi projek P5, dan rekomendasi penguatan karakter untuk diterapkan di rumah.
               </p>
             </div>
           </m.div>
@@ -371,10 +481,10 @@ export default function HomePageContent({
                 Siap bergabung
               </span>
               <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl">
-                Jadwalkan tur sekolah dan rasakan langsung keceriaan anak-anak TK Kartikasari
+                Jadwalkan tur sekolah dan lihat langsung implementasi Kurikulum Merdeka kami
               </h2>
               <p className="text-base leading-relaxed text-text-muted">
-                Kami membuka sesi kunjungan setiap Senin dan Kamis. Tim kami akan menemani Anda berkeliling kelas, taman bermain, hingga ruang kegiatan khusus.
+                Kami membuka sesi kunjungan setiap Senin dan Kamis. Tim akan menunjukkan sentra belajar, dokumentasi Projek Profil Pelajar Pancasila, dan bukti legalitas sekolah.
               </p>
             </div>
             <div className="flex flex-col gap-3 md:flex-row md:items-center">
