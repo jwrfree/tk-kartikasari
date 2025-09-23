@@ -17,7 +17,8 @@ npm run dev
 - /kontak
 
 ## Content
-- Edit data di folder `/data/*.json`
+- Konten halaman disusun di folder `/content/*.ts` dalam bentuk objek TypeScript bertipe kuat (hero, highlight, FAQ, dsb).
+- Data situs umum seperti alamat sekolah tetap berada di `/data/site.json` dan `/data/navigation.ts`.
 - Gambar galeri sementara pakai URL Pexels. Ganti ke `/public/photos/*.webp` bila sudah siap foto asli.
 
 ## Notes

@@ -1,0 +1,35 @@
+import type { HomeTestimonials } from "./types";
+
+export const testimonials = {
+  eyebrow: "Suara Orang Tua",
+  title: "Mereka melihat anak tumbuh lebih percaya diri dan bahagia",
+  description:
+    "Cerita asli dari keluarga yang mempercayakan proses belajar anaknya di TK Kartikasari.",
+  items: [
+    {
+      id: "t1",
+      quote: "Guru-gurunya ramah, sabar, dan sangat peduli perkembangan anak.",
+      author: "Ibu Rani — Orang tua Damar",
+    },
+    {
+      id: "t2",
+      quote: "Anak saya jadi percaya diri dan berani tampil di depan teman-temannya.",
+      author: "Pak Surya — Orang tua Lila",
+    },
+    {
+      id: "t3",
+      quote: "Kegiatan sekolahnya kreatif, setiap minggu selalu ada proyek seru yang bisa dibawa pulang.",
+      author: "Ibu Wati — Orang tua Raka",
+    },
+    {
+      id: "t4",
+      quote: "Komunikasi dengan wali kelas sangat mudah dan informatif, kami merasa dilibatkan.",
+      author: "Pak Dedi — Orang tua Salsa",
+    },
+    {
+      id: "t5",
+      quote: "Fasilitasnya bersih, aman, dan anak-anak selalu terlihat ceria ketika dijemput.",
+      author: "Ibu Mira — Orang tua Zahra",
+    },
+  ],
+} satisfies HomeTestimonials;

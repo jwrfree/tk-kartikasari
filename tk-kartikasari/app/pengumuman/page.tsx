@@ -1,6 +1,4 @@
-import data from "@/data/pengumuman.json";
-
-type Pengumuman = (typeof data)[number];
+import { pengumumanContent, type PengumumanItem } from "@/content/pengumuman";
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("id-ID", {
@@ -15,28 +13,26 @@ function isExternal(url: string) {
 }
 
 export default function Page() {
-  const items = [...data].sort(
+  const { hero, emptyState, items: pengumumanItems } = pengumumanContent;
+  const items = [...pengumumanItems].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   return (
     <div className="container py-8 space-y-6">
       <header className="space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Pengumuman</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">Info Resmi TK Kartikasari</h1>
-        <p className="max-w-2xl text-text-muted">
-          Pantau kabar terbaru terkait PPDB, agenda orang tua, hingga informasi akademik dan libur sekolah. Daftar berikut akan
-          diperbarui secara berkala.
+        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">
+          {hero.eyebrow}
         </p>
+        <h1 className="text-3xl font-bold sm:text-4xl">{hero.title}</h1>
+        <p className="max-w-2xl text-text-muted">{hero.description}</p>
       </header>
 
       {items.length === 0 ? (
-        <div className="card p-6 text-text-muted">
-          Belum ada pengumuman terkini. Silakan kembali beberapa saat lagi atau hubungi sekolah melalui WhatsApp.
-        </div>
+        <div className="card p-6 text-text-muted">{emptyState}</div>
       ) : (
         <div className="space-y-3">
-          {items.map((item: Pengumuman) => {
+          {items.map((item: PengumumanItem) => {
             const external = isExternal(item.url);
             return (
               <a
@@ -47,7 +43,9 @@ export default function Page() {
                 className="group block rounded-3xl border border-border/60 bg-white p-5 transition hover:border-secondary hover:shadow-soft"
               >
                 <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide text-secondary">
-                  <span className="rounded-full bg-secondary/10 px-3 py-1 text-secondary">{item.category}</span>
+                  <span className="rounded-full bg-secondary/10 px-3 py-1 text-secondary">
+                    {item.category}
+                  </span>
                   <time dateTime={item.date} className="text-text-muted">
                     {formatDate(item.date)}
                   </time>
