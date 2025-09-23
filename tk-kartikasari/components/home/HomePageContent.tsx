@@ -3,6 +3,7 @@
 import CTAButton from "@/components/CTAButton";
 import StickyActions from "@/components/StickyActions";
 import TestimonialList from "@/components/TestimonialList";
+import type { CTAConfig } from "@/content/cta";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 type StatsItem = {
@@ -42,6 +43,9 @@ type HomePageContentProps = {
   programs: ProgramItem[];
   journey: JourneyItem[];
   faqs: FAQItem[];
+  heroCta: CTAConfig;
+  faqCta: CTAConfig;
+  visitCta: CTAConfig;
 };
 
 export default function HomePageContent({
@@ -51,6 +55,9 @@ export default function HomePageContent({
   programs,
   journey,
   faqs,
+  heroCta,
+  faqCta,
+  visitCta,
 }: HomePageContentProps) {
   return (
     <LazyMotion features={domAnimation}>
@@ -79,11 +86,7 @@ export default function HomePageContent({
                 Lingkungan hangat, fasilitas aman, dan kegiatan tematik yang menumbuhkan rasa ingin tahu anak usia dini di Bantarsari, Cilacap.
               </p>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                <CTAButton
-                  label="Daftar PPDB & Tur Sekolah"
-                  className="w-full sm:w-auto"
-                  message="Halo Bu Mintarsih, saya ingin menjadwalkan kunjungan dan mendapatkan info PPDB TK Kartikasari."
-                />
+                <CTAButton config={heroCta} className="w-full sm:w-auto" />
                 <a href="#program" className="btn-outline w-full sm:w-auto">
                   Lihat program unggulan
                 </a>
@@ -360,11 +363,7 @@ export default function HomePageContent({
               <p className="text-lg leading-relaxed text-text-muted">
                 Jika ada pertanyaan lain, kami dengan senang hati menjawab melalui WhatsApp ataupun ketika Anda berkunjung langsung.
               </p>
-              <CTAButton
-                label="Tanya langsung via WhatsApp"
-                className="w-full sm:w-auto"
-                message="Halo Bu Mintarsih, saya ingin menanyakan informasi mengenai TK Kartikasari."
-              />
+              <CTAButton config={faqCta} className="w-full sm:w-auto" />
             </m.div>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
@@ -405,11 +404,7 @@ export default function HomePageContent({
                 </p>
               </div>
               <div className="flex flex-col gap-3 md:flex-row md:items-center">
-                <CTAButton
-                  label="Jadwalkan kunjungan"
-                  className="w-full md:w-auto"
-                  message="Halo Bu Mintarsih, saya ingin menjadwalkan tur sekolah TK Kartikasari."
-                />
+                <CTAButton config={visitCta} className="w-full md:w-auto" />
                 <a href="#program" className="btn-outline w-full md:w-auto">
                   Lihat program kembali
                 </a>

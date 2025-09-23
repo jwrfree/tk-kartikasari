@@ -1,20 +1,38 @@
 "use client";
 
+import { generalInquiryCTA, type CTAConfig, type CTAKey, ctaConfigs } from "@/content/cta";
 import { waLink } from "@/lib/utils";
 
+const variantClassNames = {
+  primary: "btn-primary",
+  outline: "btn-outline",
+} as const;
+
 type Props = {
+  config?: CTAConfig;
+  configKey?: CTAKey;
   label?: string;
   message?: string;
   className?: string;
+  variant?: CTAConfig["variant"];
 };
 
 export default function CTAButton({
-  label = "Chat via WhatsApp",
-  message = "Halo Bu Mintarsih, saya ingin info PPDB TK Kartikasari.",
+  config,
+  configKey,
+  label,
+  message,
   className,
+  variant,
 }: Props) {
+  const resolvedConfig = config ?? (configKey ? ctaConfigs[configKey] : undefined);
+  const finalLabel = label ?? resolvedConfig?.label ?? generalInquiryCTA.label;
+  const finalMessage = message ?? resolvedConfig?.message ?? generalInquiryCTA.message;
+  const finalVariant = variant ?? resolvedConfig?.variant ?? generalInquiryCTA.variant ?? "primary";
+  const variantClass = variantClassNames[finalVariant] ?? variantClassNames.primary;
+
   const classes = [
-    "btn-primary",
+    variantClass,
     "group",
     "hover:-translate-y-0.5",
     "focus-visible:outline-none",
@@ -26,7 +44,7 @@ export default function CTAButton({
     .join(" ");
 
   return (
-    <a href={waLink(message)} className={classes}>
+    <a href={waLink(finalMessage)} className={classes}>
       <span className="flex items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/20 text-white transition group-hover:bg-white/30">
           <svg
@@ -54,7 +72,7 @@ export default function CTAButton({
             />
           </svg>
         </span>
-        <span className="text-base">{label}</span>
+        <span className="text-base">{finalLabel}</span>
       </span>
     </a>
   );
