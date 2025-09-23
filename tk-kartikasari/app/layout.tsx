@@ -3,15 +3,8 @@ import "./globals.css";
 import site from "@/data/site.json";
 import Link from "next/link";
 import { waLink } from "@/lib/utils";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import MobileNav from "@/components/MobileNav";
 import { mainNav } from "@/data/navigation";
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-jakarta",
-});
 
 export const metadata: Metadata = {
   title: "TK Kartikasari Bulaksari Bantarsari Cilacap — Taman Kanak-kanak",
@@ -22,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
-      <body className={`${jakarta.variable} bg-surfaceAlt text-text`}>
+      <body className="bg-surfaceAlt text-text font-sans">
         <div className="relative min-h-screen">
           <header className="sticky top-0 z-40 border-b border-white/40 bg-white/80 backdrop-blur">
             <div className="container flex h-20 items-center justify-between gap-6">
