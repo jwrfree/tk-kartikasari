@@ -1,6 +1,8 @@
-import site from "@/data/site.json";
-import MapEmbed from "@/components/MapEmbed";
 import CTAButton from "@/components/CTAButton";
+import MapEmbed from "@/components/MapEmbed";
+import PageHeader from "@/components/PageHeader";
+import site from "@/data/site.json";
+import { kontakPageHeader } from "@/data/content";
 
 const info = [
   { label: "Alamat", value: site.address },
@@ -12,14 +14,7 @@ const info = [
 export default function Page() {
   return (
     <div className="container py-8 space-y-6">
-      <header className="space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Kontak</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">Hubungi TK Kartikasari</h1>
-        <p className="max-w-2xl text-text-muted">
-          Kami siap membantu informasi seputar PPDB, jadwal kunjungan sekolah, maupun kebutuhan administrasi lainnya. Gunakan
-          detail di bawah ini atau langsung hubungi kami melalui WhatsApp.
-        </p>
-      </header>
+      <PageHeader {...kontakPageHeader} />
 
       <section className="grid gap-4 md:grid-cols-[1.1fr,0.9fr] md:items-start">
         <div className="card p-6 space-y-4">

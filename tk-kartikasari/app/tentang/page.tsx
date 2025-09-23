@@ -1,4 +1,6 @@
+import PageHeader from "@/components/PageHeader";
 import site from "@/data/site.json";
+import { tentangPageHeader } from "@/data/content";
 
 const profileItems = [
   { label: "Nama Sekolah", value: site.schoolName },
@@ -19,14 +21,11 @@ const mission = [
 export default function Page() {
   return (
     <div className="container py-8 space-y-8">
-      <header className="max-w-3xl space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-secondary">Tentang Sekolah</p>
-        <h1 className="text-3xl font-bold sm:text-4xl">TK Kartikasari</h1>
-        <p className="text-text-muted">
-          TK Kartikasari hadir sebagai lingkungan bermain-belajar yang hangat bagi anak usia dini di Bantarsari, Cilacap.
-          Kami berfokus pada stimulasi kemandirian, kreativitas, dan karakter melalui kegiatan tematik yang menyenangkan.
-        </p>
-      </header>
+      <PageHeader
+        {...tentangPageHeader}
+        className="max-w-3xl"
+        descriptionClassName="text-text-muted"
+      />
 
       <section id="sambutan" className="card p-6 space-y-4">
         <div>
