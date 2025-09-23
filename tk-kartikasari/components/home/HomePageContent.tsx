@@ -3,55 +3,17 @@
 import CTAButton from "@/components/CTAButton";
 import StickyActions from "@/components/StickyActions";
 import TestimonialList from "@/components/TestimonialList";
+import type { HomeContent } from "@/content/home";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-
-type StatsItem = {
-  value: string;
-  label: string;
-};
-
-type HighlightItem = {
-  icon: string;
-  title: string;
-  description: string;
-};
-
-type ProgramItem = {
-  name: string;
-  age: string;
-  description: string;
-  points: string[];
-};
-
-type JourneyItem = {
-  time: string;
-  title: string;
-  description: string;
-  icon: string;
-};
-
-type FAQItem = {
-  question: string;
-  answer: string;
-};
 
 type HomePageContentProps = {
   schoolName: string;
-  stats: StatsItem[];
-  highlights: HighlightItem[];
-  programs: ProgramItem[];
-  journey: JourneyItem[];
-  faqs: FAQItem[];
+  content: HomeContent;
 };
 
-export default function HomePageContent({
-  schoolName,
-  stats,
-  highlights,
-  programs,
-  journey,
-  faqs,
-}: HomePageContentProps) {
+export default function HomePageContent({ schoolName, content }: HomePageContentProps) {
+  const { hero, highlights, programs, journey, faqs, closing } = content;
+
   return (
     <LazyMotion features={domAnimation}>
       <>
@@ -70,26 +32,22 @@ export default function HomePageContent({
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/80 px-4 py-2 text-sm font-semibold text-secondary shadow-soft">
                 <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
-                {schoolName} • Bulaksari
+                {schoolName} {hero.badgeSuffix}
               </span>
-              <h1 className="text-4xl font-bold leading-tight text-text sm:text-5xl">
-                Belajar ceria, tumbuh percaya diri bersama sahabat baru setiap hari
-              </h1>
-              <p className="max-w-xl text-lg leading-relaxed text-text-muted">
-                Lingkungan hangat, fasilitas aman, dan kegiatan tematik yang menumbuhkan rasa ingin tahu anak usia dini di Bantarsari, Cilacap.
-              </p>
+              <h1 className="text-4xl font-bold leading-tight text-text sm:text-5xl">{hero.title}</h1>
+              <p className="max-w-xl text-lg leading-relaxed text-text-muted">{hero.description}</p>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                 <CTAButton
-                  label="Daftar PPDB & Tur Sekolah"
+                  label={hero.primaryAction.label}
                   className="w-full sm:w-auto"
-                  message="Halo Bu Mintarsih, saya ingin menjadwalkan kunjungan dan mendapatkan info PPDB TK Kartikasari."
+                  message={hero.primaryAction.message}
                 />
-                <a href="#program" className="btn-outline w-full sm:w-auto">
-                  Lihat program unggulan
+                <a href={hero.secondaryAction.href} className="btn-outline w-full sm:w-auto">
+                  {hero.secondaryAction.label}
                 </a>
               </div>
               <dl className="grid gap-6 pt-6 sm:grid-cols-3">
-                {stats.map((item) => (
+                {hero.stats.map((item) => (
                   <div
                     key={item.label}
                     className="rounded-3xl border border-white/60 bg-white/80 p-5 text-left shadow-soft"
@@ -179,17 +137,13 @@ export default function HomePageContent({
               className="mx-auto max-w-2xl text-center"
             >
               <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
-                Mengapa orang tua memilih kami
+                {highlights.eyebrow}
               </span>
-              <h2 className="mt-4 text-3xl font-bold leading-tight text-text sm:text-4xl">
-                Sekolah yang menumbuhkan rasa ingin tahu dan karakter positif sejak dini
-              </h2>
-              <p className="mt-3 text-lg text-text-muted">
-                Tim pengajar kami merancang pengalaman belajar yang menyeluruh, menyenangkan, dan penuh perhatian.
-              </p>
+              <h2 className="mt-4 text-3xl font-bold leading-tight text-text sm:text-4xl">{highlights.title}</h2>
+              <p className="mt-3 text-lg text-text-muted">{highlights.description}</p>
             </m.div>
             <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {highlights.map((item, index) => (
+              {highlights.items.map((item, index) => (
                 <m.div
                   key={item.title}
                   initial={{ opacity: 0, y: 40 }}
@@ -219,37 +173,23 @@ export default function HomePageContent({
               className="space-y-6"
             >
               <span className="inline-flex items-center gap-2 rounded-full bg-secondary/10 px-4 py-2 text-sm font-semibold text-secondary">
-                Program unggulan
+                {programs.eyebrow}
               </span>
-              <h2 className="text-3xl font-bold leading-tight text-text sm:text-4xl">
-                Tiga jalur belajar yang disesuaikan dengan tahap tumbuh kembang anak
-              </h2>
-              <p className="text-lg leading-relaxed text-text-muted">
-                Setiap kelas dipandu guru inti dan guru pendamping dengan rasio kecil. Kami menyeimbangkan stimulasi akademik, karakter, dan kegiatan bermain bebas.
-              </p>
+              <h2 className="text-3xl font-bold leading-tight text-text sm:text-4xl">{programs.title}</h2>
+              <p className="text-lg leading-relaxed text-text-muted">{programs.description}</p>
               <ul className="space-y-3 text-sm text-text-muted">
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
-                    1
-                  </span>
-                  Observasi minat dan kebutuhan anak sebelum penempatan kelas.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
-                    2
-                  </span>
-                  Rencana belajar individual yang dikirim ke orang tua di awal tema.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
-                    3
-                  </span>
-                  Evaluasi menyenangkan melalui pameran karya dan pertunjukan kecil.
-                </li>
+                {programs.guidelines.map((guideline, index) => (
+                  <li key={guideline} className="flex items-start gap-3">
+                    <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
+                      {index + 1}
+                    </span>
+                    {guideline}
+                  </li>
+                ))}
               </ul>
             </m.div>
             <div className="grid gap-6">
-              {programs.map((program, index) => (
+              {programs.items.map((program, index) => (
                 <m.div
                   key={program.name}
                   initial={{ opacity: 0, y: 40 }}
@@ -299,23 +239,17 @@ export default function HomePageContent({
               className="space-y-6"
             >
               <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm font-semibold text-primary">
-                Suasana belajar harian
+                {journey.eyebrow}
               </span>
-              <h2 className="text-3xl font-bold leading-tight text-text sm:text-4xl">
-                Jadwal penuh aktivitas yang menstimulasi seluruh aspek perkembangan anak
-              </h2>
-              <p className="text-lg leading-relaxed text-text-muted">
-                Guru kami menyiapkan transisi yang mulus dari aktivitas indoor ke outdoor sehingga anak tetap bersemangat hingga waktu pulang.
-              </p>
+              <h2 className="text-3xl font-bold leading-tight text-text sm:text-4xl">{journey.title}</h2>
+              <p className="text-lg leading-relaxed text-text-muted">{journey.description}</p>
               <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-soft">
-                <p className="text-sm font-semibold text-secondary">Kolaborasi dengan orang tua</p>
-                <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                  Orang tua mendapatkan ringkasan kegiatan dan foto terbaik anak setiap hari melalui kanal komunikasi khusus.
-                </p>
+                <p className="text-sm font-semibold text-secondary">{journey.noteTitle}</p>
+                <p className="mt-3 text-sm leading-relaxed text-text-muted">{journey.noteDescription}</p>
               </div>
             </m.div>
             <div className="space-y-4">
-              {journey.map((item, index) => (
+              {journey.items.map((item, index) => (
                 <m.div
                   key={item.title}
                   initial={{ opacity: 0, y: 40 }}
@@ -352,22 +286,18 @@ export default function HomePageContent({
               className="space-y-6"
             >
               <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
-                Pertanyaan populer
+                {faqs.eyebrow}
               </span>
-              <h2 className="text-3xl font-bold leading-tight text-text sm:text-4xl">
-                Informasi penting seputar pendaftaran dan kegiatan sekolah
-              </h2>
-              <p className="text-lg leading-relaxed text-text-muted">
-                Jika ada pertanyaan lain, kami dengan senang hati menjawab melalui WhatsApp ataupun ketika Anda berkunjung langsung.
-              </p>
+              <h2 className="text-3xl font-bold leading-tight text-text sm:text-4xl">{faqs.title}</h2>
+              <p className="text-lg leading-relaxed text-text-muted">{faqs.description}</p>
               <CTAButton
-                label="Tanya langsung via WhatsApp"
+                label={faqs.cta.label}
                 className="w-full sm:w-auto"
-                message="Halo Bu Mintarsih, saya ingin menanyakan informasi mengenai TK Kartikasari."
+                message={faqs.cta.message}
               />
             </m.div>
             <div className="space-y-4">
-              {faqs.map((faq, index) => (
+              {faqs.items.map((faq, index) => (
                 <m.div
                   key={faq.question}
                   initial={{ opacity: 0, y: 40 }}
@@ -395,23 +325,19 @@ export default function HomePageContent({
             >
               <div className="max-w-xl space-y-3">
                 <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-secondary">
-                  Siap bergabung
+                  {closing.eyebrow}
                 </span>
-                <h2 className="text-3xl font-semibold text-text sm:text-4xl">
-                  Jadwalkan tur sekolah dan rasakan langsung keceriaan anak-anak TK Kartikasari
-                </h2>
-                <p className="text-sm leading-relaxed text-text-muted">
-                  Kami membuka sesi kunjungan setiap Senin dan Kamis. Tim kami akan menemani Anda berkeliling kelas, taman bermain, hingga ruang kegiatan khusus.
-                </p>
+                <h2 className="text-3xl font-semibold text-text sm:text-4xl">{closing.title}</h2>
+                <p className="text-sm leading-relaxed text-text-muted">{closing.description}</p>
               </div>
               <div className="flex flex-col gap-3 md:flex-row md:items-center">
                 <CTAButton
-                  label="Jadwalkan kunjungan"
+                  label={closing.primaryAction.label}
                   className="w-full md:w-auto"
-                  message="Halo Bu Mintarsih, saya ingin menjadwalkan tur sekolah TK Kartikasari."
+                  message={closing.primaryAction.message}
                 />
-                <a href="#program" className="btn-outline w-full md:w-auto">
-                  Lihat program kembali
+                <a href={closing.secondaryAction.href} className="btn-outline w-full md:w-auto">
+                  {closing.secondaryAction.label}
                 </a>
               </div>
             </m.div>
