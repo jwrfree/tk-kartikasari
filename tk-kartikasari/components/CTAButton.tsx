@@ -46,7 +46,7 @@ export default function CTAButton({
   return (
     <a href={waLink(finalMessage)} className={classes}>
       <span className="flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/20 text-white transition group-hover:bg-white/30">
+        <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/50 bg-white/20 text-white backdrop-blur-sm backdrop-saturate-150 transition group-hover:bg-white/30">
           <svg
             width="20"
             height="20"

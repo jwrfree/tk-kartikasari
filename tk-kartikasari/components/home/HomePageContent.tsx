@@ -56,7 +56,7 @@ export default function HomePageContent({
             transition={{ duration: 0.6 }}
             className="relative space-y-8"
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/80 px-4 py-2 text-sm font-semibold text-secondary shadow-soft">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-secondary shadow-soft backdrop-blur-sm backdrop-saturate-150">
               <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
               {schoolName} • Bulaksari
             </span>
@@ -76,7 +76,7 @@ export default function HomePageContent({
               {stats.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-3xl border border-white/60 bg-white/80 p-5 text-left shadow-soft"
+                  className="rounded-3xl border border-white/60 bg-white/60 p-5 text-left shadow-soft backdrop-blur-lg backdrop-saturate-150"
                 >
                   <dt className="text-3xl font-bold text-text">{item.value}</dt>
                   <dd className="mt-1 text-base text-text-muted">{item.label}</dd>
@@ -94,7 +94,7 @@ export default function HomePageContent({
             <div className="absolute -top-12 right-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl" />
             <div className="absolute -bottom-4 left-0 h-28 w-28 rounded-full bg-secondary/30 blur-2xl md:-bottom-8" />
             <div className="relative space-y-5">
-              <div className="card overflow-hidden border-white/60 bg-white/90 p-6 shadow-soft">
+              <div className="card overflow-hidden border-white/60 bg-white/70 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
                 <div className="flex items-center justify-between text-base font-semibold text-text">
                   <span>Agenda Hari Ini</span>
                   <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
@@ -122,7 +122,7 @@ export default function HomePageContent({
                   </li>
                 </ul>
               </div>
-              <div className="ml-auto w-[85%] rounded-3xl border border-white/60 bg-white/70 p-6 shadow-soft backdrop-blur">
+              <div className="ml-auto w-[85%] rounded-3xl border border-white/60 bg-white/50 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
                 <p className="text-base font-semibold text-secondary">Lingkungan Aman</p>
                 <p className="mt-3 text-base leading-relaxed text-text-muted">
                   Semua area belajar dipantau CCTV, dilengkapi akses kontrol, serta peralatan ramah anak.
@@ -135,13 +135,13 @@ export default function HomePageContent({
                 </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl border border-white/60 bg-white/90 p-5 shadow-soft">
+                <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
                   <p className="text-base font-semibold text-secondary">Fokus Harian</p>
                   <p className="mt-2 text-base text-text-muted">
                     Motorik, bahasa, sosial-emosi, dan kemandirian.
                   </p>
                 </div>
-                <div className="rounded-3xl border border-white/60 bg-white/90 p-5 shadow-soft">
+                <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
                   <p className="text-base font-semibold text-secondary">Menu Sehat</p>
                   <p className="mt-2 text-base text-text-muted">
                     Snack buah segar & susu rendah gula.
@@ -153,7 +153,7 @@ export default function HomePageContent({
         </PageSection>
 
         <PageSection
-          className="relative border-y border-white/60 bg-white/80"
+          className="relative border-y border-white/50 bg-white/50 backdrop-blur-sm backdrop-saturate-150"
           padding="tight"
         >
           <m.div
@@ -178,7 +178,7 @@ export default function HomePageContent({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="card h-full border-white/60 bg-white/90 p-7 text-left"
+                className="card h-full border-white/60 bg-white/70 p-7 text-left backdrop-blur-xl backdrop-saturate-150"
               >
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-2xl">
                   {item.icon}
@@ -237,7 +237,7 @@ export default function HomePageContent({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="card h-full border-white/70 bg-white/90 p-7 shadow-soft"
+                className="card h-full border-white/70 bg-white/70 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="space-y-3">
@@ -288,7 +288,7 @@ export default function HomePageContent({
               title="Jadwal penuh aktivitas yang menstimulasi seluruh aspek perkembangan anak"
               description="Guru kami menyiapkan transisi yang mulus dari aktivitas indoor ke outdoor sehingga anak tetap bersemangat hingga waktu pulang."
             />
-            <div className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-soft">
+            <div className="rounded-3xl border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-lg backdrop-saturate-150">
               <p className="text-base font-semibold text-secondary">Kolaborasi dengan orang tua</p>
               <p className="mt-3 text-base leading-relaxed text-text-muted">
                 Orang tua mendapatkan ringkasan kegiatan dan foto terbaik anak setiap hari melalui kanal komunikasi khusus.
@@ -303,7 +303,7 @@ export default function HomePageContent({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="grid gap-4 rounded-3xl border border-white/60 bg-white/85 p-6 shadow-soft sm:grid-cols-[auto,1fr] sm:items-center"
+                className="grid gap-4 rounded-3xl border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-lg backdrop-saturate-150 sm:grid-cols-[auto,1fr] sm:items-center"
               >
                 <div className="flex items-center gap-3">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-2xl">
@@ -349,7 +349,7 @@ export default function HomePageContent({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="card border-white/70 bg-white/90 p-6 text-left shadow-soft"
+                className="card border-white/70 bg-white/70 p-6 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150"
               >
                 <p className="text-lg font-semibold text-text">{faq.question}</p>
                 <p className="mt-3 text-base leading-relaxed text-text-muted">{faq.answer}</p>
@@ -367,7 +367,7 @@ export default function HomePageContent({
             className="card flex flex-col gap-6 overflow-hidden border-white/70 bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-10 text-center md:flex-row md:items-center md:justify-between md:text-left"
           >
             <div className="max-w-xl space-y-4">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-secondary">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-secondary backdrop-blur-sm backdrop-saturate-150">
                 Siap bergabung
               </span>
               <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl">
