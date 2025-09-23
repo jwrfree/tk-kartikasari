@@ -88,7 +88,7 @@ export default function HomePageContent({
                   Lihat program unggulan
                 </a>
               </div>
-              <dl className="grid gap-6 pt-6 sm:grid-cols-3">
+              <dl className="grid gap-6 pt-6 sm:grid-cols-2 md:grid-cols-3">
                 {stats.map((item) => (
                   <div
                     key={item.label}
