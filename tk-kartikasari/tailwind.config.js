@@ -8,24 +8,50 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#10b981",
-          600: "#059669"
+          50: "#fff3ec",
+          100: "#ffe0d2",
+          200: "#ffc1ac",
+          400: "#ff9471",
+          500: "#ff7b54",
+          600: "#ff6236",
+          700: "#ff4e1c",
+          DEFAULT: "#ff7b54"
         },
         secondary: {
-          DEFAULT: "#facc15"
+          50: "#f6f5ff",
+          100: "#e4e2ff",
+          200: "#c6c4ff",
+          500: "#605dff",
+          600: "#514bf5",
+          DEFAULT: "#605dff"
+        },
+        accent: {
+          DEFAULT: "#ffc857"
         },
         text: {
-          DEFAULT: "#1f2937",
-          muted: "#4b5563"
+          DEFAULT: "#1b1c1f",
+          muted: "#5b616e"
         },
         surface: "#ffffff",
-        border: "#e5e7eb"
+        surfaceAlt: "#f5f7fb",
+        border: "#e6e8f4"
+      },
+      fontFamily: {
+        sans: ["var(--font-jakarta)", "system-ui", "sans-serif"]
       },
       borderRadius: {
-        xl: "16px"
+        xl: "1.25rem",
+        "2xl": "1.75rem",
+        "3xl": "2.5rem"
       },
       boxShadow: {
-        card: "0 6px 24px rgba(0,0,0,0.06)"
+        card: "0 20px 50px rgba(96,93,255,0.08)",
+        floating: "0 24px 70px rgba(255,123,84,0.25)",
+        soft: "0 18px 45px rgba(15,23,42,0.08)"
+      },
+      backgroundImage: {
+        "grid-dots": "radial-gradient(circle at 1px 1px, rgba(96,93,255,0.15) 1px, transparent 0)",
+        "hero-gradient": "linear-gradient(135deg, rgba(255,123,84,0.16) 0%, rgba(96,93,255,0.14) 40%, rgba(255,200,87,0.2) 100%)"
       }
     },
   },
