@@ -7,6 +7,8 @@ export default function MapEmbed() {
         className="w-full h-[320px]"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
+        title="Lokasi TK Kartikasari"
+        aria-label="Lokasi TK Kartikasari"
       />
     </div>
   )
