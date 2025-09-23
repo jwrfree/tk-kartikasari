@@ -1,7 +1,8 @@
 "use client";
 
+import CTAButton from "@/components/CTAButton";
+import { generalInquiryCTA } from "@/content/cta";
 import site from "@/data/site.json";
-import { waLink } from "@/lib/utils";
 
 export default function StickyActions() {
   return (
@@ -15,12 +16,7 @@ export default function StickyActions() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a
-              href={waLink("Halo Bu Mintarsih, saya ingin info PPDB TK Kartikasari.")}
-              className="btn-primary w-full sm:w-auto"
-            >
-              Chat via WhatsApp
-            </a>
+            <CTAButton config={generalInquiryCTA} className="w-full sm:w-auto" />
             <a
               href={site.mapsUrl}
               target="_blank"

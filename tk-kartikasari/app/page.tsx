@@ -1,4 +1,5 @@
 import HomePageContent from "@/components/home/HomePageContent";
+import { faqInquiryCTA, heroVisitCTA, visitScheduleCTA } from "@/content/cta";
 import site from "@/data/site.json";
 
 const stats = [
@@ -130,6 +131,9 @@ export default function Page() {
       programs={programs}
       journey={journey}
       faqs={faqs}
+      heroCta={heroVisitCTA}
+      faqCta={faqInquiryCTA}
+      visitCta={visitScheduleCTA}
     />
   );
 }

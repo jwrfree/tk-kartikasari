@@ -1,6 +1,7 @@
 import site from "@/data/site.json";
 import MapEmbed from "@/components/MapEmbed";
 import CTAButton from "@/components/CTAButton";
+import { contactConsultationCTA } from "@/content/cta";
 
 const info = [
   { label: "Alamat", value: site.address },
@@ -33,11 +34,7 @@ export default function Page() {
             ))}
           </ul>
           <div className="pt-2">
-            <CTAButton
-              label="Chat via WhatsApp"
-              message="Halo Bu Mintarsih, saya ingin berkonsultasi mengenai TK Kartikasari."
-              className="w-full sm:w-auto"
-            />
+            <CTAButton config={contactConsultationCTA} className="w-full sm:w-auto" />
           </div>
         </div>
         <div className="card p-6 space-y-3 bg-secondary/5 text-sm text-text-muted">

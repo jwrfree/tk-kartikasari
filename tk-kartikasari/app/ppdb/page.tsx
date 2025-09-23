@@ -1,5 +1,6 @@
 import CTAButton from "@/components/CTAButton";
 import PpdbForm from "@/components/PpdbForm";
+import { ppdbHeadmasterCTA } from "@/content/cta";
 import site from "@/data/site.json";
 
 const steps = [
@@ -55,10 +56,7 @@ export default function Page() {
           ))}
         </ol>
         <div className="pt-2">
-          <CTAButton
-            label="Chat Kepala Sekolah"
-            message="Halo Bu Mintarsih, saya ingin mendapatkan info lengkap PPDB TK Kartikasari."
-          />
+          <CTAButton config={ppdbHeadmasterCTA} />
         </div>
       </section>
 
