@@ -4,6 +4,22 @@ import data from "@/data/testimonials.json";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 export default function TestimonialList() {
+  if (data.length === 0) {
+    return (
+      <section id="testimonials" className="py-20">
+        <div className="container">
+          <div className="card mx-auto max-w-3xl border border-border/70 bg-secondary/5 p-8 text-center text-text-muted">
+            <h2 className="text-2xl font-semibold text-text">Testimoni segera hadir</h2>
+            <p className="mt-3 text-sm">
+              Kami sedang menghimpun cerita terbaru dari orang tua murid. Kembali lagi nanti untuk membaca pengalaman mereka
+              bersama TK Kartikasari.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <LazyMotion features={domAnimation}>
       <section id="testimonials" className="relative overflow-hidden py-20">
