@@ -1,49 +1,14 @@
-import type { OfficialTimelineMilestone } from "@/data/official";
 import { officialMilestones, officialProfile } from "@/data/official";
-
-export type HomeStat = {
-  value: string;
-  label: string;
-};
-
-export type HomeHighlight = {
-  icon: string;
-  title: string;
-  description: string;
-};
-
-export type HomeProgram = {
-  name: string;
-  age: string;
-  description: string;
-  points: string[];
-};
-
-export type HomeJourneyItem = {
-  time: string;
-  title: string;
-  description: string;
-  icon: string;
-};
-
-export type HomeFaq = {
-  question: string;
-  answer: string;
-};
-
-export type HomeCredential = {
-  label: string;
-  value: string;
-  description: string;
-};
-
-export type HomeCurriculumPillar = {
-  title: string;
-  subtitle: string;
-  points: string[];
-};
-
-export type HomeTimelineMilestone = OfficialTimelineMilestone;
+import type {
+  HomeCredential,
+  HomeCurriculumPillar,
+  HomeFaq,
+  HomeHighlight,
+  HomeJourneyItem,
+  HomeProgram,
+  HomeStat,
+  HomeTimelineMilestone,
+} from "@/app/types/home";
 
 export const homeHeroDescription =
   "Kami telah membersamai keluarga Bantarsari sejak 1998 dan kini resmi menerapkan Kurikulum Merdeka PAUD untuk membangun Profil Pelajar Pancasila.";
