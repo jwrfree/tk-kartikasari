@@ -23,10 +23,10 @@ export default function Page() {
       />
 
       <PageSection padding="tight">
-        <div className="card space-y-5 p-7">
+        <div className="card space-y-6 p-8">
           <div>
             <h2 className="text-3xl font-semibold">Cara Pendaftaran</h2>
-            <p className="text-base text-text-muted">Panduan singkat agar proses pendaftaran berjalan lancar.</p>
+            <p className="mt-2 text-base text-text-muted">Panduan singkat agar proses pendaftaran berjalan lancar.</p>
           </div>
           <ol className="list-decimal space-y-3 pl-5 text-base text-text">
             {ppdbSteps.map((step) => (
@@ -40,7 +40,7 @@ export default function Page() {
       </PageSection>
 
       <PageSection padding="tight">
-        <div className="card space-y-6 p-7">
+        <div className="card space-y-6 p-8">
           <div className="space-y-2">
             <h2 className="text-3xl font-semibold">Formulir Online</h2>
             <p className="text-base text-text-muted">
@@ -55,9 +55,9 @@ export default function Page() {
       </PageSection>
 
       <PageSection padding="tight">
-        <div className="card space-y-5 p-7">
+        <div className="card space-y-5 p-8">
           <h2 className="text-3xl font-semibold">Sering Ditanyakan</h2>
-          <div className="space-y-3">
+          <div className="mt-4 space-y-3">
             {ppdbFaqs.map((item) => (
               <details key={item.question} className="group rounded-2xl border border-border/70 bg-white p-5">
                 <summary className="cursor-pointer text-lg font-semibold text-text">
@@ -71,7 +71,7 @@ export default function Page() {
       </PageSection>
 
       <PageSection padding="tight">
-        <footer className="rounded-3xl border border-dashed border-secondary/60 bg-secondary/10 p-7 text-base text-secondary">
+        <footer className="rounded-3xl border border-dashed border-secondary/60 bg-secondary/10 p-8 text-base text-secondary">
           <p>
             Alamat sekolah: {site.address}. Kami buka hari {site.openingHours}. Silakan hubungi {site.headmaster} melalui WhatsApp {site.whatsapp} untuk menjadwalkan kunjungan.
           </p>

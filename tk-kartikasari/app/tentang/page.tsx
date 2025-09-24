@@ -1,44 +1,13 @@
-import Link from "next/link";
-
+import CTAButton from "@/components/CTAButton";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
-import {
-  aboutDailyRhythm,
-  aboutExperiencePillars,
-  aboutHeaderHighlights,
-  aboutMetaDescription,
-  aboutMission,
-  aboutStrengths,
-} from "@/content/about";
+import { aboutDailyRhythm, aboutExperiencePillars, aboutHeaderHighlights, aboutMetaDescription, aboutMission, aboutStrengths } from "@/content/about";
+import { homeVisitCTA, ppdbCTA } from "@/content/cta";
 import { officialMilestones, officialProfile } from "@/data/official";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
 import type { Icon as BootstrapIcon } from "react-bootstrap-icons";
-import {
-  Award,
-  CalendarHeart,
-  ChatHeart,
-  ClockHistory,
-  EnvelopeHeart,
-  GeoAlt,
-  HeartPulse,
-  HouseHeart,
-  Icon123,
-  JournalBookmark,
-  JournalCheck,
-  Mortarboard,
-  Palette,
-  PersonBadge,
-  PinMap,
-  Puzzle,
-  RocketTakeoff,
-  ShieldCheck,
-  Sunrise,
-  Tree,
-  Whatsapp,
-  Flag,
-  People,
-} from "react-bootstrap-icons";
+import { Award, CalendarHeart, ChatHeart, ClockHistory, EnvelopeHeart, Flag, GeoAlt, HeartPulse, HouseHeart, Icon123, JournalBookmark, JournalCheck, Mortarboard, Palette, People, PersonBadge, PinMap, Puzzle, RocketTakeoff, ShieldCheck, Sunrise, Tree, Whatsapp } from "react-bootstrap-icons";
 
 type ProfileItem = {
   label: string;
@@ -190,7 +159,7 @@ export default function Page() {
               Kami menyeimbangkan Projek Profil Pelajar Pancasila, pembelajaran terdiferensiasi, dan asesmen autentik
               agar anak merasa dihargai sekaligus tertantang.
             </p>
-            <ul className="grid gap-3 sm:grid-cols-3">
+            <ul className="grid gap-3 pt-2 sm:grid-cols-3">
               {experiencePillarsWithIcons.map(({ title, description, Icon: IconComponent }) => (
                 <li
                   key={title}
@@ -207,7 +176,7 @@ export default function Page() {
           </div>
         </article>
         <div className="space-y-6">
-          <div className="card space-y-4 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+          <div className="card space-y-4 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
             <h3 className="text-2xl font-semibold text-text">Pendampingan berbasis Kurikulum Merdeka</h3>
             <p className="text-base leading-relaxed text-text-muted">
               Guru melakukan observasi berkala, menyusun asesmen autentik, dan menyampaikan catatan positif kepada
@@ -218,7 +187,7 @@ export default function Page() {
               memantau kemajuan karakter, literasi, dan numerasi secara terpadu.
             </p>
           </div>
-          <div className="card space-y-4 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+          <div className="card space-y-4 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
             <h3 className="text-2xl font-semibold text-text">Kemitraan Aktif dengan Orang Tua</h3>
             <p className="text-base leading-relaxed text-text-muted">
               Kami mengundang orang tua terlibat dalam agenda mingguan, sesi refleksi Projek P5, serta perayaan
@@ -255,7 +224,7 @@ export default function Page() {
                       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-secondary">
                         <GroupIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
-                      <h3 className="text-lg font-semibold text-text">{title}</h3>
+                      <h3 className="text-xl font-semibold text-text">{title}</h3>
                     </div>
                     <p className="text-sm text-text-muted sm:text-right">{description}</p>
                   </div>
@@ -322,7 +291,7 @@ export default function Page() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <IconComponent className="h-5 w-5 text-secondary" aria-hidden="true" />
-                    <h4 className="text-base font-semibold text-text">{title}</h4>
+                    <h4 className="font-semibold text-text">{title}</h4>
                   </div>
                   <p className="text-sm text-text-muted">{description}</p>
                 </div>
@@ -345,13 +314,13 @@ export default function Page() {
             {strengthsWithIcons.map(({ title, description, Icon: IconComponent }) => (
               <article
                 key={title}
-                className="card h-full space-y-3 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                className="card h-full space-y-4 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
               >
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-secondary">
                     <IconComponent className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <h3 className="text-left text-xl font-semibold text-text">{title}</h3>
+                  <h3 className="text-xl font-semibold text-text">{title}</h3>
                 </div>
                 <p className="text-base leading-relaxed text-text-muted">{description}</p>
               </article>
@@ -397,16 +366,9 @@ export default function Page() {
                 pertemuan atau mulai proses pendaftaran agar anak dapat tumbuh di lingkungan yang penuh perhatian.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/ppdb" className="btn-primary">
-                Mulai Pendaftaran
-              </Link>
-              <Link
-                href="/kontak"
-                className="btn-outline border-white/70 bg-white/30 text-white backdrop-saturate-150 hover:border-white hover:bg-white/40 hover:text-secondary"
-              >
-                Jadwalkan Kunjungan
-              </Link>
+            <div className="flex flex-wrap items-center gap-4">
+              <CTAButton config={ppdbCTA} />
+              <CTAButton config={homeVisitCTA} />
             </div>
           </div>
         </div>

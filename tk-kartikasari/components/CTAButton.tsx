@@ -1,66 +1,49 @@
-"use client";
+'use client';
 
-import { generalInquiryCTA, type CTAConfig, type CTAKey, ctaConfigs } from "@/content/cta";
-import { waLink } from "@/lib/utils";
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import type { CTA } from '@/content/cta';
+import type { Icon as BootstrapIcon } from 'react-bootstrap-icons';
 
-const variantClassNames = {
-  primary: "btn-primary",
-  outline: "btn-outline",
-} as const;
-
-type Props = {
-  config?: CTAConfig;
-  configKey?: CTAKey;
-  label?: string;
-  message?: string;
+interface CTAButtonProps {
+  config: CTA;
   className?: string;
-  variant?: CTAConfig["variant"];
-};
+}
 
-export default function CTAButton({
-  config,
-  configKey,
-  label,
-  message,
-  className,
-  variant,
-}: Props) {
-  const resolvedConfig = config ?? (configKey ? ctaConfigs[configKey] : undefined);
-  const finalLabel = label ?? resolvedConfig?.label ?? generalInquiryCTA.label;
-  const finalMessage = message ?? resolvedConfig?.message ?? generalInquiryCTA.message;
-  const finalVariant = variant ?? resolvedConfig?.variant ?? generalInquiryCTA.variant ?? "primary";
-  const variantClass = variantClassNames[finalVariant] ?? variantClassNames.primary;
+export default function CTAButton({ config, className }: CTAButtonProps) {
+  const { label, href, variant, icon: Icon } = config;
 
-  const classes = [
-    variantClass,
-    "group",
-    "hover:-translate-y-0.5",
-    "focus-visible:outline-none",
-    "focus-visible:ring-2",
-    "focus-visible:ring-secondary/60",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const baseClasses =
+    'inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-base font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
+
+  const variantClasses = {
+    primary:
+      'border-transparent bg-primary text-white shadow-soft hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:ring-primary',
+    secondary:
+      'border-transparent bg-secondary text-white shadow-soft hover:-translate-y-0.5 hover:bg-secondary/90 focus-visible:ring-secondary',
+    outline:
+      'border-border bg-surface text-text shadow-soft hover:-translate-y-0.5 hover:border-primary hover:bg-surfaceAlt hover:text-primary focus-visible:ring-primary',
+    ghost:
+      'border-transparent bg-transparent text-text hover:bg-surfaceAlt hover:text-primary focus-visible:ring-primary',
+  };
+
+  const motionProps = {
+    whileHover: { scale: 1.02 },
+    whileTap: { scale: 0.98 },
+  };
+
+  const buttonContent = (
+    <>
+      {Icon ? <Icon className="h-5 w-5" /> : null}
+      <span>{label}</span>
+    </>
+  );
 
   return (
-    <a href={waLink(finalMessage)} className={classes}>
-      <span className="flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/50 bg-white text-[#25D366] transition group-hover:bg-white/90">
-          <svg
-            viewBox="0 0 16 16"
-            aria-hidden="true"
-            focusable="false"
-            className="h-5 w-5"
-          >
-            <path
-              fill="currentColor"
-              d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326Zm-5.607 12.195a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592Zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"
-            />
-          </svg>
-        </span>
-        <span className="text-base">{finalLabel}</span>
-      </span>
-    </a>
+    <motion.div {...motionProps} className={`relative ${className}`}>
+      <Link href={href} className={`${baseClasses} ${variantClasses[variant]}`}>
+        {buttonContent}
+      </Link>
+    </motion.div>
   );
 }
