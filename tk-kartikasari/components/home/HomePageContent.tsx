@@ -7,10 +7,10 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import type { CTAConfig } from "@/content/cta";
 import type {
-  HomeCredential,
-  HomeCurriculumPillar,
-  HomeFaq,
-  HomeHighlight,
+  homeCredentials,
+  homeCurriculumPillars,
+  homeFaqs,
+  homeHighlights,
   HomeJourneyItem,
   HomeProgram,
   HomeStat,
@@ -21,12 +21,12 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 type HomePageContentProps = {
   schoolName: string;
   stats: HomeStat[];
-  highlights: HomeHighlight[];
+  highlights: homeHighlights[];
   programs: HomeProgram[];
   journey: HomeJourneyItem[];
-  faqs: HomeFaq[];
-  credentials: HomeCredential[];
-  curriculumPillars: HomeCurriculumPillar[];
+  faqs: homeFaqs[];
+  credentials: homeCredentials[];
+  curriculumPillars: homeCurriculumPillars[];
   timeline: HomeTimelineMilestone[];
   heroCta: CTAConfig;
   faqCta: CTAConfig;

@@ -1,7 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import type { CTAConfig } from '@/content/cta';
-import type { Icon as BootstrapIcon } from 'react-bootstrap-icons';
+import site from '@/data/site.json';
 
 interface CTAButtonProps {
   config: CTAConfig;
@@ -9,7 +11,13 @@ interface CTAButtonProps {
 }
 
 export default function CTAButton({ config, className }: CTAButtonProps) {
-  const { label, href, variant, icon: Icon } = config;
+  const { label, message, variant = 'primary', icon: Icon } = config;
+
+  const whatsAppNumber = site.whatsapp.startsWith('0')
+    ? `62${site.whatsapp.substring(1)}`
+    : site.whatsapp;
+  const encodedMessage = encodeURIComponent(message);
+  const href = `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
 
   const baseClasses =
     'inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-base font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
@@ -32,14 +40,14 @@ export default function CTAButton({ config, className }: CTAButtonProps) {
 
   const buttonContent = (
     <>
-      {Icon ? <Icon className="h-5 w-5" /> : null}
+      {Icon && <Icon className="h-5 w-5" />}
       <span>{label}</span>
     </>
   );
 
   return (
     <motion.div {...motionProps} className={`relative ${className}`}>
-      <Link href={href} className={`${baseClasses} ${variantClasses[variant]}`}>
+      <Link href={href} target="_blank" rel="noopener noreferrer" className={`${baseClasses} ${variantClasses[variant]}`}>
         {buttonContent}
       </Link>
     </motion.div>

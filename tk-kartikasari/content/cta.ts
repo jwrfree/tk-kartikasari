@@ -1,9 +1,12 @@
-export type CTAButtonVariant = "primary" | "outline";
+import type { Icon as BootstrapIcon } from "react-bootstrap-icons";
+
+export type CTAButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 
 export type CTAConfig = {
   label: string;
   message: string;
   variant?: CTAButtonVariant;
+  icon?: BootstrapIcon;
 };
 
 export const generalInquiryCTA: CTAConfig = {
