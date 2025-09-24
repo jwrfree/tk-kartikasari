@@ -45,9 +45,9 @@ module.exports = {
         "3xl": "2.5rem"
       },
       boxShadow: {
-        card: "0 20px 50px rgba(96,93,255,0.08)",
-        floating: "0 24px 70px rgba(255,123,84,0.25)",
-        soft: "0 18px 45px rgba(15,23,42,0.08)"
+        card: "0 10px 40px rgba(96,93,255,0.07)",
+        floating: "0 12px 50px rgba(255,123,84,0.2)",
+        soft: "0 8px 30px rgba(15,23,42,0.05)"
       },
       backgroundImage: {
         "grid-dots": "radial-gradient(circle at 1px 1px, rgba(96,93,255,0.15) 1px, transparent 0)",
@@ -55,5 +55,5 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 }

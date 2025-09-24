@@ -1,102 +1,52 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import site from "@/data/site.json";
-import Link from "next/link";
-import { waLink } from "@/lib/utils";
-import StickyActions from "@/components/StickyActions";
+
+import { cn } from "@/lib/utils";
+import "@/app/globals.css";
+import { Metadata } from "next";
 import Header from "@/components/Header";
+import WhatsAppButton from "@/components/WhatsappButton";
+import siteData from "@/data/site.json";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.siteUrl),
   title: {
-    default: `${site.schoolName} Bulaksari Bantarsari Cilacap — Taman Kanak-kanak`,
-    template: `%s | ${site.schoolName}`,
+    default: siteData.schoolName,
+    template: `%s - ${siteData.schoolName}`,
   },
-  description:
-    "Lingkungan aman, hangat, dan menstimulasi untuk anak usia dini di Bulaksari, Bantarsari, Cilacap. Info PPDB via WhatsApp.",
-  openGraph: {
-    title: `${site.schoolName} Bulaksari Bantarsari Cilacap — Taman Kanak-kanak`,
-    description:
-      "Lingkungan aman, hangat, dan menstimulasi untuk anak usia dini di Bulaksari, Bantarsari, Cilacap. Info PPDB via WhatsApp.",
-    url: site.siteUrl,
-    siteName: site.schoolName,
-    locale: "id_ID",
-    type: "website",
-  },
-  alternates: {
-    canonical: site.siteUrl,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.schoolName} Bulaksari Bantarsari Cilacap — Taman Kanak-kanak`,
-    description:
-      "Lingkungan aman, hangat, dan menstimulasi untuk anak usia dini di Bulaksari, Bantarsari, Cilacap. Info PPDB via WhatsApp.",
+  description: siteData.address,
+  themeColor: [
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "white",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "black",
+    },
+  ],
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="id">
-      <body className="bg-surfaceAlt text-text font-sans">
-        <div className="relative min-h-screen">
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+        )}
+      >
+        <div className="relative flex min-h-screen flex-col">
           <Header />
-          <main>{children}</main>
-          <footer className="mt-24 bg-white py-16">
-            <div className="container grid gap-12 md:grid-cols-[1.2fr,1fr,1fr]">
-              <div>
-                <Link href="/" className="flex items-center gap-3 text-text">
-                  <img src={site.logo} alt="Logo TK Kartikasari" className="h-12 w-12 rounded-2xl border border-border/80 bg-surface p-2 shadow-soft" />
-                  <div>
-                    <p className="text-lg font-semibold">{site.schoolName}</p>
-                    <p className="text-base text-text-muted">Belajar ceria, tumbuh percaya diri.</p>
-                  </div>
-                </Link>
-                <p className="mt-5 max-w-md text-base leading-relaxed text-text-muted">
-                  Kami mendampingi anak usia dini untuk mengenal dunia dengan rasa ingin tahu, kemandirian, dan karakter baik dalam lingkungan yang hangat.
-                </p>
-              </div>
-              <div className="space-y-4">
-                <p className="text-sm font-semibold text-text">Navigasi</p>
-                <ul className="space-y-3 text-base text-text-muted">
-                  <li>
-                    <a href="#program" className="transition hover:text-primary">
-                      Program Unggulan
-                    </a>
-                  </li>
-                  <li>
-                    <Link href="/galeri" className="transition hover:text-primary">
-                      Galeri Kegiatan
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/pengumuman" className="transition hover:text-primary">
-                      Pengumuman
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/agenda" className="transition hover:text-primary">
-                      Agenda Sekolah
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <p className="text-sm font-semibold text-text">Kontak</p>
-                <ul className="space-y-3 text-base text-text-muted">
-                  <li>{site.address}</li>
-                  <li>Jam buka: {site.openingHours}</li>
-                  <li>
-                    WhatsApp: <a href={waLink("Halo Bu Mintarsih, saya ingin info PPDB TK Kartikasari.")} className="text-primary transition hover:text-primary/80">{site.whatsapp}</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="container mt-10 border-t border-border/70 pt-6 text-xs text-text-muted">
-              © {new Date().getFullYear()} {site.schoolName}. Semua hak cipta dilindungi.
-            </div>
-          </footer>
-          <StickyActions />
+          <div className="flex-1">{children}</div>
         </div>
+        <WhatsAppButton />
       </body>
     </html>
   );

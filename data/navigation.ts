@@ -11,5 +11,6 @@ export const mainNav: NavItem[] = [
   { label: "Pengumuman", href: "/pengumuman" },
   { label: "Agenda", href: "/agenda" },
   { label: "Galeri", href: "/galeri" },
+  { label: "Blog", href: "/blog" },
   { label: "Kontak", href: "/kontak" },
 ];

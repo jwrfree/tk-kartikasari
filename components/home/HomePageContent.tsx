@@ -15,8 +15,10 @@ import type {
   HomeStat,
   HomeTimelineMilestone,
 } from "@/app/types/home";
+import { BlogPost } from "@/content/blog";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import { CheckCircle } from "react-bootstrap-icons";
+import { ArrowRight, CheckCircle } from "react-bootstrap-icons";
+import Link from "next/link";
 
 type HomePageContentProps = {
   schoolName: string;
@@ -28,6 +30,7 @@ type HomePageContentProps = {
   credentials: HomeCredential[];
   curriculumPillars: HomeCurriculumPillar[];
   timeline: HomeTimelineMilestone[];
+  blogPosts: BlogPost[];
 };
 
 const cardVariants = {
@@ -45,6 +48,7 @@ export default function HomePageContent({
   credentials,
   curriculumPillars,
   timeline,
+  blogPosts,
 }: HomePageContentProps) {
   return (
     <LazyMotion features={domAnimation}>
@@ -433,6 +437,44 @@ export default function HomePageContent({
               </m.div>
             ))}
           </div>
+        </PageSection>
+        
+        <PageSection id="blog" padding="tight">
+          <m.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+            variants={cardVariants}
+            className="space-y-8"
+          >
+            <SectionHeader
+              eyebrow="Blog & Berita"
+              title="Tips Parenting dan Kegiatan Sekolah Terbaru"
+              description="Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari."
+            />
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {blogPosts.slice(0, 3).map((post) => (
+                <Link href={`/blog/${post.slug}`} key={post.slug}>
+                  <div className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-primary/20">
+                    <div className="aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
+                      <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
+                    </div>
+                    <div className="flex h-full flex-col p-6">
+                      <p className="text-sm text-text-muted">
+                        {new Date(post.publishedAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </p>
+                      <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
+                      <p className="mt-2 flex-grow text-sm text-text-muted">{post.description}</p>
+                      <div className="mt-4 flex items-center text-sm font-semibold text-primary">
+                        Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </m.div>
         </PageSection>
 
         <TestimonialList />

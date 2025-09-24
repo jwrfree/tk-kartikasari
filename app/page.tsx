@@ -11,6 +11,7 @@ import {
   homeStats,
   homeTimeline,
 } from "@/content/home";
+import { blogPosts } from "@/content/blog";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
 import { preschoolSchema } from "@/lib/schema";
@@ -36,6 +37,7 @@ export default function Page() {
         credentials={homeCredentials}
         curriculumPillars={homeCurriculumPillars}
         timeline={homeTimeline}
+        blogPosts={blogPosts}
       />
       <JsonLd data={schema} />
     </>
