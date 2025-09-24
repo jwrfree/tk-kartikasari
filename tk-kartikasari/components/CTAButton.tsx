@@ -1,12 +1,10 @@
-'use client';
-
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import type { CTA } from '@/content/cta';
+import type { CTAConfig } from '@/content/cta';
 import type { Icon as BootstrapIcon } from 'react-bootstrap-icons';
 
 interface CTAButtonProps {
-  config: CTA;
+  config: CTAConfig;
   className?: string;
 }
 

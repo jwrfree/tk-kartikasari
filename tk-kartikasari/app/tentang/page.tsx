@@ -2,7 +2,7 @@ import CTAButton from "@/components/CTAButton";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import { aboutDailyRhythm, aboutExperiencePillars, aboutHeaderHighlights, aboutMetaDescription, aboutMission, aboutStrengths } from "@/content/about";
-import { homeVisitCTA, ppdbCTA } from "@/content/cta";
+import { heroVisitCTA, ppdbHeadmasterCTA } from "@/content/cta";
 import { officialMilestones, officialProfile } from "@/data/official";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
@@ -268,7 +268,7 @@ export default function Page() {
                         <p className="mt-2 text-sm text-text-muted">{description}</p>
                       </div>
                     </li>
-                  ))}
+                  ))}\
                 </ul>
               </div>
             </div>
@@ -367,8 +367,8 @@ export default function Page() {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-4">
-              <CTAButton config={ppdbCTA} />
-              <CTAButton config={homeVisitCTA} />
+              <CTAButton config={ppdbHeadmasterCTA} />
+              <CTAButton config={heroVisitCTA} />
             </div>
           </div>
         </div>
