@@ -1,3 +1,14 @@
 {
-  "/ppdb/page": "app/ppdb/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/ppdb/formulir/page": "app/ppdb/formulir/page.js",
+  "/ppdb/page": "app/ppdb/page.js",
+  "/agenda/page": "app/agenda/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/galeri/page": "app/galeri/page.js",
+  "/page": "app/page.js",
+  "/pengumuman/page": "app/pengumuman/page.js",
+  "/kontak/page": "app/kontak/page.js",
+  "/tentang/page": "app/tentang/page.js",
+  "/program/page": "app/program/page.js"
 }
