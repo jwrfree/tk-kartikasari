@@ -55,7 +55,7 @@ export default function AboutPageContent() {
 
       <PageSection
         id="cerita-kami"
-        padding="normal"
+        padding="default"
         className="bg-gradient-to-br from-secondary/5 via-white to-primary/5"
       >
         <div className="mx-auto max-w-4xl space-y-12 text-center">
