@@ -9,3 +9,12 @@ export function waLink(message: string) {
   const text = encodeURIComponent(message)
   return `https://wa.me/${phone}?text=${text}`
 }
+
+export function formatRupiah(amount: number) {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
