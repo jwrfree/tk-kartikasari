@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
@@ -11,27 +11,22 @@ import { mainNav } from "@/data/navigation";
 const menuVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: -16,
-    scale: 0.96,
+    scale: 0.98,
   },
   visible: {
     opacity: 1,
-    y: 0,
     scale: 1,
     transition: {
-      type: "spring",
-      stiffness: 220,
-      damping: 22,
-      mass: 0.9,
+      duration: 0.2,
+      ease: "easeOut",
     },
   },
   exit: {
     opacity: 0,
-    y: -12,
     scale: 0.98,
     transition: {
-      duration: 0.24,
-      ease: [0.4, 0, 0.2, 1],
+      duration: 0.15,
+      ease: "easeIn",
     },
   },
 };
@@ -42,8 +37,16 @@ export default function MobileNav() {
 
   const closeMenu = () => setOpen(false);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [open]);
+
   return (
-    <div className="relative lg:hidden">
+    <div className="relative z-50 lg:hidden">
       <motion.button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
@@ -73,58 +76,50 @@ export default function MobileNav() {
       </motion.button>
       <AnimatePresence>
         {open ? (
-          <>
-            <motion.div
-              key="mobile-nav-backdrop"
-              className="fixed inset-0 z-40 bg-surface"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeMenu}
-              aria-hidden
-            />
-            <motion.div
-              key="mobile-nav"
-              id="mobile-nav"
-              className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-50 overflow-hidden rounded-3xl border border-border bg-surface p-4 shadow-2xl"
-              variants={menuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              style={{ transformOrigin: "top center" }}
-            >
-              <nav className="flex flex-col gap-1 text-base font-medium text-text">
-                {mainNav.map((item, index) => {
-                  const isActive =
-                    item.href === "/"
-                      ? pathname === "/"
-                      : pathname === item.href || pathname.startsWith(`${item.href}/`);
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, y: -6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22, delay: 0.08 + index * 0.04, ease: "easeOut" }}
+          <motion.div
+            key="mobile-nav"
+            id="mobile-nav"
+            className="fixed inset-0 z-40 flex items-center justify-center bg-surface pt-20 text-center"
+            variants={menuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <nav className="flex flex-col gap-4 text-xl font-medium text-text">
+              {mainNav.map((item, index) => {
+                const isActive =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                return (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{
+                      duration: 0.22,
+                      delay: 0.15 + index * 0.05,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={closeMenu}
+                      aria-current={isActive ? "page" : undefined}
+                      className={`block rounded-full px-4 py-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                        isActive
+                          ? "text-primary"
+                          : "text-text-muted hover:bg-surfaceAlt hover:text-text"
+                      }`}
                     >
-                      <Link
-                        href={item.href}
-                        onClick={closeMenu}
-                        aria-current={isActive ? "page" : undefined}
-                        className={`block rounded-full px-4 py-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
-                          isActive
-                            ? "bg-primary/10 text-primary"
-                            : "text-text-muted hover:bg-surfaceAlt hover:text-text"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </nav>
-            </motion.div>
-          </>
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </nav>
+          </motion.div>
         ) : null}
       </AnimatePresence>
     </div>
