@@ -25,20 +25,20 @@ export type OfficialTimelineMilestone = {
 export const officialMilestones: OfficialTimelineMilestone[] = [
   {
     year: "1998",
-    title: "Resmi berdiri",
+    title: "🎉 Langkah pertama",
     description:
-      "Mengantongi SK operasional 078/103.21/ /DS/1998 dan mulai melayani keluarga Bantarsari.",
+      "Dimulai dari tekad guru lokal menghadirkan pendidikan terbaik, kami mengantongi SK operasional 078/103.21/ /DS/1998 dan membuka kelas pertama untuk keluarga Bantarsari.",
   },
   {
     year: "2012",
-    title: "Penguatan sentra belajar",
+    title: "🌿 Penguatan sentra belajar",
     description:
-      "Memaksimalkan lahan 440 m² untuk ruang sentra, taman bermain, dan area belajar luar ruang.",
+      "Memaksimalkan lahan 440 m² menjadi sentra tematik, taman bermain hijau, dan area eksplorasi luar ruang agar anak bebas bereksperimen.",
   },
   {
     year: "2024",
-    title: "Implementasi Kurikulum Merdeka",
+    title: "🚀 Implementasi Kurikulum Merdeka",
     description:
-      "Resmi menerapkan PAUD Merdeka dengan fokus Projek Penguatan Profil Pelajar Pancasila.",
+      "Seluruh guru menuntaskan pelatihan PAUD Merdeka dan menjalankan Projek Profil Pelajar Pancasila yang relevan dengan kehidupan anak.",
   },
 ];
