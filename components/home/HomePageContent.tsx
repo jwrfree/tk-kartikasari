@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import FaqAccordion from "@/components/FaqAccordion";
 import CTAButton from "@/components/CTAButton";
@@ -16,6 +16,7 @@ import type {
   HomeTimelineMilestone,
 } from "@/app/types/home";
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import { CheckCircle } from "react-bootstrap-icons";
 
 type HomePageContentProps = {
   schoolName: string;
@@ -27,6 +28,11 @@ type HomePageContentProps = {
   credentials: HomeCredential[];
   curriculumPillars: HomeCurriculumPillar[];
   timeline: HomeTimelineMilestone[];
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function HomePageContent({
@@ -157,10 +163,11 @@ export default function HomePageContent({
 
         <PageSection className="relative" padding="tight">
           <m.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
+            variants={cardVariants}
             className="space-y-8"
           >
             <SectionHeader
@@ -213,10 +220,11 @@ export default function HomePageContent({
           padding="tight"
         >
           <m.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
+            variants={cardVariants}
           >
             <SectionHeader
               align="center"
@@ -230,10 +238,11 @@ export default function HomePageContent({
             {highlights.map((item, index) => (
               <m.div
                 key={item.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
+                variants={cardVariants}
                 className="card h-full border-white/60 bg-white/70 p-7 text-left backdrop-blur-xl backdrop-saturate-150"
               >
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-2xl">
@@ -252,10 +261,11 @@ export default function HomePageContent({
           padding="tight"
         >
           <m.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
+            variants={cardVariants}
             className="space-y-8"
           >
             <SectionHeader
@@ -268,10 +278,11 @@ export default function HomePageContent({
               {curriculumPillars.map((pillar) => (
                 <m.div
                   key={pillar.title}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial="hidden"
+                  whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.55 }}
+                  variants={cardVariants}
                   className="card h-full border-white/70 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150"
                 >
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-secondary">
@@ -281,9 +292,7 @@ export default function HomePageContent({
                   <ul className="mt-5 space-y-2 text-base text-text-muted">
                     {pillar.points.map((point) => (
                       <li key={point} className="flex items-start gap-3">
-                        <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
-                          ✓
-                        </span>
+                        <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
                         {point}
                       </li>
                     ))}
@@ -300,10 +309,11 @@ export default function HomePageContent({
           containerClassName="grid gap-12 lg:grid-cols-[1fr,1fr] lg:items-start"
         >
           <m.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
+            variants={cardVariants}
             className="space-y-6"
           >
             <SectionHeader
@@ -337,10 +347,11 @@ export default function HomePageContent({
             {programs.map((program, index) => (
               <m.div
                 key={program.name}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
+                variants={cardVariants}
                 className="card h-full border-white/70 bg-white/70 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -360,9 +371,7 @@ export default function HomePageContent({
                 <ul className="mt-6 space-y-2 text-base text-text-muted">
                   {program.points.map((point) => (
                     <li key={point} className="flex items-start gap-3">
-                      <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary/10 text-xs font-semibold text-secondary">
-                        ✓
-                      </span>
+                      <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" />
                       {point}
                     </li>
                   ))}
@@ -380,10 +389,11 @@ export default function HomePageContent({
         >
           <div className="absolute inset-0 bg-grid-dots [background-size:24px_24px] opacity-40" />
           <m.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
+            variants={cardVariants}
             className="relative space-y-6"
           >
             <SectionHeader
@@ -403,10 +413,11 @@ export default function HomePageContent({
             {journey.map((item, index) => (
               <m.div
                 key={item.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={cardVariants}
                 className="grid gap-4 rounded-3xl border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-lg backdrop-saturate-150 sm:grid-cols-[auto,1fr] sm:items-center"
               >
                 <div className="flex items-center gap-3">
@@ -432,10 +443,11 @@ export default function HomePageContent({
           containerClassName="grid gap-12 lg:grid-cols-[0.9fr,1fr] lg:items-start"
         >
           <m.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
+            variants={cardVariants}
             className="space-y-6"
           >
             <SectionHeader
@@ -450,10 +462,11 @@ export default function HomePageContent({
 
         <PageSection className="relative pb-36" padding="tight">
           <m.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6 }}
+            variants={cardVariants}
             className="card flex flex-col gap-6 overflow-hidden border-white/70 bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-10 text-center md:flex-row md:items-center md:justify-between md:text-left"
           >
             <div className="max-w-xl space-y-4">

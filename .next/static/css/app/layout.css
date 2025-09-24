@@ -600,9 +600,6 @@ video {
 .left-0 {
   left: 0px;
 }
-.left-1\/2 {
-  left: 50%;
-}
 .left-4 {
   left: 1rem;
 }
@@ -627,27 +624,15 @@ video {
 .top-24 {
   top: 6rem;
 }
-.top-4 {
-  top: 1rem;
-}
-.z-10 {
-  z-index: 10;
-}
 .z-40 {
   z-index: 40;
 }
 .z-50 {
   z-index: 50;
 }
-.order-first {
-  order: -9999;
-}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
-.-ml-px {
-  margin-left: -1px;
 }
 .mb-2 {
   margin-bottom: 0.5rem;
@@ -705,6 +690,9 @@ video {
 }
 .hidden {
   display: none;
+}
+.aspect-video {
+  aspect-ratio: 16 / 9;
 }
 .h-0\.5 {
   height: 0.125rem;
@@ -769,9 +757,6 @@ video {
 .w-0\.5 {
   width: 0.125rem;
 }
-.w-1\/2 {
-  width: 50%;
-}
 .w-10 {
   width: 2.5rem;
 }
@@ -811,6 +796,9 @@ video {
 .w-80 {
   width: 20rem;
 }
+.w-\[80vw\] {
+  width: 80vw;
+}
 .w-\[85\%\] {
   width: 85%;
 }
@@ -837,6 +825,9 @@ video {
 }
 .max-w-md {
   max-width: 28rem;
+}
+.max-w-sm {
+  max-width: 24rem;
 }
 .max-w-xl {
   max-width: 36rem;
@@ -907,6 +898,9 @@ video {
 .gap-6 {
   gap: 1.5rem;
 }
+.gap-8 {
+  gap: 2rem;
+}
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -949,6 +943,9 @@ video {
 }
 .overflow-hidden {
   overflow: hidden;
+}
+.overflow-x-auto {
+  overflow-x: auto;
 }
 .truncate {
   overflow: hidden;
@@ -1273,9 +1270,6 @@ video {
 .text-center {
   text-align: center;
 }
-.text-right {
-  text-align: right;
-}
 .font-sans {
   font-family: Satoshi Variable, system-ui, sans-serif;
 }
@@ -1453,8 +1447,14 @@ video {
 .duration-500 {
   transition-duration: 500ms;
 }
+.\[-ms-overflow-style\:none\] {
+  -ms-overflow-style: none;
+}
 .\[background-size\:24px_24px\] {
   background-size: 24px 24px;
+}
+.\[scrollbar-width\:none\] {
+  scrollbar-width: none;
 }
 
 :root {
@@ -1974,10 +1974,6 @@ body {
     grid-template-columns: 0.9fr 1fr;
   }
 
-  .lg\:grid-cols-\[1\.05fr\2c 0\.95fr\] {
-    grid-template-columns: 1.05fr 0.95fr;
-  }
-
   .lg\:grid-cols-\[1\.1fr\2c 0\.9fr\] {
     grid-template-columns: 1.1fr 0.9fr;
   }
@@ -1993,5 +1989,9 @@ body {
   .lg\:items-center {
     align-items: center;
   }
+}
+
+.\[\&\:\:-webkit-scrollbar\]\:hidden::-webkit-scrollbar {
+  display: none;
 }
 
