@@ -46,7 +46,7 @@ export type HomeCurriculumPillar = {
 export type HomeTimelineMilestone = OfficialTimelineMilestone;
 
 export const homeHeroDescription =
-  "TK Kartikasari di Bantarsari telah beroperasi sejak 1998 dan kini resmi menerapkan Kurikulum Merdeka PAUD untuk membangun Profil Pelajar Pancasila.";
+  "Kami telah membersamai keluarga Bantarsari sejak 1998 dan kini resmi menerapkan Kurikulum Merdeka PAUD untuk membangun Profil Pelajar Pancasila.";
 
 export const homeStats: HomeStat[] = [
   {
@@ -66,20 +66,20 @@ export const homeStats: HomeStat[] = [
 export const homeHighlights: HomeHighlight[] = [
   {
     icon: "🛡️",
-    title: "Terpercaya & terdata resmi",
-    description: `Terdaftar dengan NPSN ${officialProfile.npsn} dan SK operasional ${officialProfile.operationalLicense} sehingga orang tua yakin akan legalitas sekolah.`,
+    title: "Legalitas resmi & komunikasi aman",
+    description: `Terdaftar dengan NPSN ${officialProfile.npsn}, SK operasional ${officialProfile.operationalLicense}, dan kanal WhatsApp resmi untuk update harian yang membuat orang tua tenang.`,
+  },
+  {
+    icon: "🤗",
+    title: "Transisi adaptif & pendampingan",
+    description:
+      "Guru menyapa anak satu per satu, memantau emosi, dan rata-rata anak merasa nyaman dalam tiga hari masa pengenalan.",
   },
   {
     icon: "🧠",
-    title: "Pembelajaran terdiferensiasi",
-    description:
-      "Guru merancang pengalaman belajar sesuai gaya belajar anak dan melakukan asesmen autentik harian.",
-  },
-  {
-    icon: "🇮🇩",
     title: "Profil Pelajar Pancasila sejak dini",
     description:
-      "Projek gotong royong, toleransi, dan cinta lingkungan menumbuhkan karakter kebangsaan anak.",
+      "Rasio 1:8, projek gotong royong, dan diferensiasi sentra menumbuhkan karakter kebangsaan, literasi, serta kemandirian.",
   },
 ];
 
@@ -152,7 +152,7 @@ export const homeJourney: HomeJourneyItem[] = [
     time: "11.15",
     title: "Refleksi & asesmen autentik",
     description:
-      "Anak berbagi karya, mencatat hal baru di jurnal emosi, lalu menutup hari dengan doa.",
+      "Anak berbagi karya dengan mata berbinar, mencatat hal baru di jurnal emosi, lalu menutup hari dengan doa.",
     icon: "📘",
   },
 ];
@@ -172,6 +172,11 @@ export const homeFaqs: HomeFaq[] = [
     question: "Bagaimana laporan perkembangan anak diberikan?",
     answer:
       "Guru menyusun catatan observasi harian, portofolio karya, serta laporan perkembangan tiap akhir tema dan semester.",
+  },
+  {
+    question: "Bagaimana proses adaptasi anak baru?",
+    answer:
+      "Tiga hari masa pengenalan disiapkan dengan guru pendamping, komunikasi harian melalui WhatsApp resmi, dan jadwal fleksibel sesuai kesiapan anak.",
   },
   {
     question: "Seberapa besar keterlibatan orang tua?",
