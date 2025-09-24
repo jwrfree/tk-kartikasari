@@ -11,7 +11,7 @@ import type {
 } from "@/app/types/home";
 
 export const homeHeroDescription =
-  "Kami telah membersamai keluarga Bantarsari sejak 1998 dan kini resmi menerapkan Kurikulum Merdeka PAUD untuk membangun Profil Pelajar Pancasila.";
+  "Membantu anak tumbuh menjadi pribadi yang ceria dan berkarakter Pancasila. Caranya? Lewat pendampingan personal, kegiatan yang sesuai minat anak, dan projek seru yang hasilnya sesuai arahan Kemendikbudristek.";
 
 export const homeStats: HomeStat[] = [
   {
@@ -20,31 +20,31 @@ export const homeStats: HomeStat[] = [
   },
   {
     value: "PAUD Merdeka",
-    label: "Kurikulum resmi dengan Projek Profil Pelajar Pancasila",
+    label: "Kurikulum yang membebaskan anak bereksplorasi",
   },
   {
     value: "1 : 8",
-    label: "Rasio guru dan anak di setiap kelas tematik",
+    label: "Rasio guru dan anak agar setiap anak diperhatikan",
   },
 ];
 
 export const homeHighlights: HomeHighlight[] = [
   {
     icon: "🛡️",
-    title: "Legalitas resmi & komunikasi aman",
-    description: `Terdaftar dengan NPSN ${officialProfile.npsn}, SK operasional ${officialProfile.operationalLicense}, dan kanal WhatsApp resmi untuk update harian yang membuat orang tua tenang.`,
+    title: "Pilihan Tenang untuk Ayah & Bunda",
+    description: `Sekolah kami terdaftar resmi (NPSN: ${officialProfile.npsn}) dan memiliki izin operasional sejak 1998. Ayah dan Bunda juga akan mendapat info harian lewat WhatsApp agar selalu tenang.`,
   },
   {
     icon: "🤗",
-    title: "Transisi adaptif & pendampingan",
+    title: "Anak Cepat Nyaman & Berani",
     description:
-      "Guru menyapa anak satu per satu, memantau emosi, dan rata-rata anak merasa nyaman dalam tiga hari masa pengenalan.",
+      "Kami menyambut setiap anak dengan hangat dan memantau suasana hatinya. Rata-rata, anak sudah merasa nyaman dan berani di sekolah dalam tiga hari pertama.",
   },
   {
     icon: "🧠",
-    title: "Profil Pelajar Pancasila sejak dini",
+    title: "Hati Tetap Indonesia, Siap Mendunia",
     description:
-      "Rasio 1:8, projek gotong royong, dan diferensiasi sentra menumbuhkan karakter kebangsaan, literasi, serta kemandirian.",
+      "Dengan rasio guru dan anak 1:8, kami memastikan setiap anak mendapat perhatian. Kegiatan gotong royong dan pilihan sentra belajar membantu anak tumbuh mandiri, cerdas, dan cinta Indonesia.",
   },
 ];
 
@@ -53,33 +53,33 @@ export const homePrograms: HomeProgram[] = [
     name: "Kelas Bintang • Fondasi Merdeka",
     age: "Usia 4–5 tahun",
     description:
-      "Kelas transisi dengan fokus adaptasi, kemandirian, serta penguatan nilai agama dan budi pekerti.",
+      "Kelas peralihan yang fokus pada adaptasi, kemandirian, serta menanamkan nilai-nilai baik.",
     points: [
-      "Projek P5 mini seputar rasa syukur, peduli sesama, dan cinta lingkungan.",
-      "Pembelajaran terdiferensiasi untuk gaya belajar visual, auditori, dan kinestetik.",
-      "Asesmen observasi harian dibagikan kepada orang tua sebagai portofolio.",
+      "Projek seru seputar rasa syukur, peduli sesama, dan cinta lingkungan.",
+      "Pilihan kegiatan belajar yang sesuai dengan gaya anak (visual, pendengaran, gerakan).",
+      "Laporan harian berupa foto dan cerita singkat dibagikan kepada orang tua.",
     ],
   },
   {
     name: "Kelas Pelangi • Siap Sekolah Dasar",
     age: "Usia 5–6 tahun",
     description:
-      "Penguatan literasi, numerasi, dan kepemimpinan dengan konteks lokal Cilacap dan dunia nyata anak.",
+      "Menguatkan kemampuan baca-tulis-hitung (calistung) dan rasa percaya diri dengan konteks dunia anak.",
     points: [
-      "Projek STEAM berbasis lingkungan pesisir dan budaya daerah.",
-      "Latihan presentasi dan diskusi untuk menumbuhkan percaya diri dan kemandirian.",
-      "Rencana belajar individual yang diselaraskan dengan keluarga setiap awal tema.",
+      "Projek STEAM (Sains, Teknologi, Engineering, Seni, Matematika) berbasis lingkungan sekitar.",
+      "Latihan bercerita dan tampil di depan teman untuk menumbuhkan keberanian.",
+      "Rencana belajar personal yang disepakati bersama keluarga di setiap awal tema.",
     ],
   },
   {
-    name: "Projek Profil Pelajar Pancasila & Ekstrakurikuler",
+    name: "Kegiatan Seru Tambahan",
     age: "Jumat kreatif & pekan tematik",
     description:
-      "Kegiatan kokurikuler yang memperkaya karakter dan bakat melalui pendekatan Kurikulum Merdeka.",
+      "Kegiatan di luar kelas untuk mengasah bakat dan memperkaya karakter anak.",
     points: [
-      "Pameran hasil projek gotong royong setiap akhir tema.",
-      "Pilihan kelas tahfidz, tari, memasak, dan literasi digital dasar.",
-      "Kolaborasi komunitas lokal sebagai narasumber inspiratif.",
+      "Pameran karya bersama setiap akhir tema untuk merayakan hasil belajar anak.",
+      "Pilihan kelas seperti mengaji (tahfidz), menari, memasak, dan komputer dasar.",
+      "Mengundang narasumber dari lingkungan sekitar (misal: polisi, pemadam kebakaran).",
     ],
   },
 ];
@@ -87,66 +87,66 @@ export const homePrograms: HomeProgram[] = [
 export const homeJourney: HomeJourneyItem[] = [
   {
     time: "07.00",
-    title: "Sambutan & refleksi syukur",
+    title: "Sambut Pagi Ceria",
     description:
-      "Guru menyapa anak satu per satu, melakukan cek kesehatan ringan, dan mengajak doa pembuka.",
+      "Guru menyapa setiap anak, mengecek suhu tubuh, dan mengajak berdoa bersama sebelum mulai bermain.",
     icon: "🌅",
   },
   {
     time: "08.00",
-    title: "Sesi Profil Pelajar Pancasila",
+    title: "Lingkar Karakter Pancasila",
     description:
-      "Lingkar pagi dengan cerita kebajikan, lagu toleransi, dan diskusi rasa bangga menjadi anak Indonesia.",
+      "Duduk melingkar sambil mendengarkan cerita baik, menyanyikan lagu daerah, dan berbagi rasa bangga menjadi anak Indonesia.",
     icon: "🇮🇩",
   },
   {
     time: "09.15",
-    title: "Eksplorasi diferensiasi",
+    title: "Main di Sudut Belajar",
     description:
-      "Anak memilih sentra seni, sains, literasi, atau role play sesuai minat sambil didampingi guru.",
+      "Anak bebas memilih sudut main yang disuka: seni, sains, balok, atau main peran, sambil ditemani guru.",
     icon: "🧩",
   },
   {
     time: "10.30",
-    title: "Projek luar ruang",
+    title: "Eksplorasi di Luar Ruang",
     description:
-      "Berkebun, bermain air, dan eksperimen alam untuk menumbuhkan kepedulian lingkungan.",
+      "Saatnya berkebun, bermain air, atau melakukan percobaan sederhana untuk lebih peduli pada alam.",
     icon: "🌿",
   },
   {
     time: "11.15",
-    title: "Refleksi & asesmen autentik",
+    title: "Cerita Hari Ini & Pulang",
     description:
-      "Anak berbagi karya dengan mata berbinar, mencatat hal baru di jurnal emosi, lalu menutup hari dengan doa.",
+      "Anak menceritakan hasil karyanya dengan bangga, menggambar perasaan hari ini di jurnal, lalu menutup hari dengan doa.",
     icon: "📘",
   },
 ];
 
 export const homeFaqs: HomeFaq[] = [
   {
-    question: "Apa yang membedakan TK Kartikasari?",
+    question: "Apa bedanya TK Kartikasari dengan yang lain?",
     answer:
-      "Sejak 1998 kami konsisten menghadirkan lingkungan belajar yang hangat, legal secara resmi, dan kini menjadi pelaksana Kurikulum Merdeka PAUD di Bantarsari.",
+      "Sejak 1998, kami menciptakan lingkungan belajar yang hangat seperti di rumah, terdaftar secara resmi, dan kini menjadi salah satu sekolah penggerak Kurikulum Merdeka di Bantarsari.",
   },
   {
-    question: "Kurikulum apa yang digunakan?",
+    question: "Kurikulumnya seperti apa?",
     answer:
-      "Kami menerapkan Kurikulum Merdeka PAUD dengan Projek Penguatan Profil Pelajar Pancasila, asesmen autentik, dan pembelajaran terdiferensiasi.",
+      "Kami memakai Kurikulum Merdeka. Artinya, anak-anak lebih banyak diajak bereksplorasi lewat projek seru, dan cara belajarnya disesuaikan dengan minat dan kesiapan setiap anak.",
   },
   {
-    question: "Bagaimana laporan perkembangan anak diberikan?",
+    question: "Bagaimana cara saya tahu perkembangan anak?",
     answer:
-      "Guru menyusun catatan observasi harian, portofolio karya, serta laporan perkembangan tiap akhir tema dan semester.",
+      "Setiap hari, guru akan mengirimkan cerita singkat dan foto kegiatan anak. Kami juga ada laporan resmi berupa portofolio karya anak di setiap akhir tema dan semester.",
   },
   {
-    question: "Bagaimana proses adaptasi anak baru?",
+    question: "Bagaimana jika anak saya pemalu atau sulit beradaptasi?",
     answer:
-      "Tiga hari masa pengenalan disiapkan dengan guru pendamping, komunikasi harian melalui WhatsApp resmi, dan jadwal fleksibel sesuai kesiapan anak.",
+      "Jangan khawatir. Tiga hari pertama adalah masa perkenalan. Akan ada satu guru yang mendampingi anak secara khusus, dan kami akan terus berkomunikasi dengan Ayah/Bunda lewat WhatsApp.",
   },
   {
-    question: "Seberapa besar keterlibatan orang tua?",
+    question: "Apakah orang tua perlu terlibat di sekolah?",
     answer:
-      "Orang tua dilibatkan melalui kelas parenting, sesi refleksi projek P5, dan komunikasi rutin melalui kanal resmi sekolah.",
+      "Tentu, kami sangat senang jika orang tua terlibat! Ada kelas parenting, sesi berbagi saat anak selesai projek, dan diskusi rutin dengan guru untuk mendukung tumbuh kembang anak.",
   },
 ];
 
@@ -154,56 +154,56 @@ export const homeCredentials: HomeCredential[] = [
   {
     label: "NPSN",
     value: officialProfile.npsn,
-    description: "Terdaftar di Referensi Data Kemendikbudristek.",
+    description: "Terdaftar di database resmi Kemendikbudristek.",
   },
   {
     label: "SK Operasional",
     value: officialProfile.operationalLicense,
-    description: "Izin penyelenggaraan sejak 12 Oktober 1998.",
+    description: "Izin resmi penyelenggaraan pendidikan sejak 1998.",
   },
   {
-    label: "Kurikulum",
+    label: "Kurikulum Acuan",
     value: officialProfile.curriculum,
-    description: "Implementasi Projek Profil Pelajar Pancasila dan asesmen autentik.",
+    description: "Menerapkan Kurikulum Merdeka dan Projek Profil Pelajar Pancasila.",
   },
   {
     label: "Luas Lahan",
     value: officialProfile.landArea,
-    description: "Area terkontrol untuk sentra indoor dan taman bermain luar ruang.",
+    description: "Area aman untuk bermain di dalam dan di luar ruangan.",
   },
   {
     label: "Kontak Resmi",
     value: officialProfile.email,
-    description: "Email sekolah untuk korespondensi dan arsip administrasi.",
+    description: "Email resmi untuk keperluan surat-menyurat dan administrasi.",
   },
 ];
 
 export const homeCurriculumPillars: HomeCurriculumPillar[] = [
   {
-    title: "Nilai Agama & Budi Pekerti",
-    subtitle: "Fondasi karakter",
+    title: "Hati yang Baik & Sopan Santun",
+    subtitle: "Dasar dari segalanya",
     points: [
-      "Projek tematik keagamaan yang mendorong rasa syukur dan empati.",
-      "Pembiasaan ibadah, doa, dan sikap sopan santun dalam rutinitas kelas.",
-      "Kolaborasi orang tua untuk menguatkan kebiasaan baik di rumah.",
+      "Kegiatan rutin yang menanamkan rasa syukur, empati, dan peduli sesama.",
+      "Membiasakan ibadah, doa, dan tata krama dalam kegiatan sehari-hari.",
+      "Kerja sama dengan orang tua untuk melanjutkan kebiasaan baik di rumah.",
     ],
   },
   {
-    title: "Jati Diri & Kebinekaan",
-    subtitle: "Profil Pelajar Pancasila",
+    title: "Bangga Jadi Anak Indonesia",
+    subtitle: "Mengenal akar budaya",
     points: [
-      "Kegiatan mengenal budaya lokal Cilacap dan keberagaman Indonesia.",
-      "Projek gotong royong, toleransi, serta kegiatan berbagi dengan komunitas.",
-      "Program \"Aku Anak Indonesia\" untuk menumbuhkan rasa bangga dan percaya diri.",
+      "Mengenal budaya lokal Cilacap dan keberagaman Indonesia lewat permainan.",
+      "Projek gotong royong, menghargai perbedaan, dan berbagi dengan lingkungan sekitar.",
+      "Program \"Aku Anak Hebat\" untuk membangun rasa percaya diri dan kemandirian.",
     ],
   },
   {
-    title: "Literasi, Numerasi, STEAM & Seni",
-    subtitle: "Eksplorasi menyeluruh",
+    title: "Calistung & Kreativitas",
+    subtitle: "Bekal siap sekolah dasar",
     points: [
-      "Pembelajaran terdiferensiasi sesuai kebutuhan dan minat anak.",
-      "Eksperimen STEAM sederhana serta literasi digital dasar yang aman.",
-      "Asesmen formatif melalui dokumentasi karya dan cerita anak.",
+      "Belajar baca, tulis, hitung (calistung) lewat cara yang asyik dan sesuai minat anak.",
+      "Percobaan sains sederhana, pengenalan komputer, dan kegiatan seni yang aman.",
+      "Perkembangan anak dinilai dari hasil karyanya dan cerita yang ia sampaikan.",
     ],
   },
 ];
