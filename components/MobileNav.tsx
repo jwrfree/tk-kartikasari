@@ -15,24 +15,18 @@ export default function MobileNav({ isOpen, onToggle }: MobileNavProps) {
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls="mobile-nav"
-        className="relative z-50 inline-flex items-center justify-center rounded-full border border-border bg-surface p-2.5 text-text shadow-soft transition hover:border-primary hover:bg-surfaceAlt hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-        whileTap={{ scale: 0.95 }}
+        className="relative z-50 inline-flex items-center justify-center p-2.5 text-text transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
         <span className="sr-only">Toggle navigation</span>
         <span className="relative block h-5 w-6" aria-hidden>
           <motion.span
             className="absolute left-0 top-1 h-0.5 w-full rounded bg-current"
-            animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-          />
-          <motion.span
-            className="absolute left-0 top-[9px] h-0.5 w-full rounded bg-current"
-            animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+            animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
           />
           <motion.span
             className="absolute left-0 bottom-1 h-0.5 w-full rounded bg-current"
-            animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+            animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
           />
         </span>

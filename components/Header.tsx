@@ -10,6 +10,7 @@ import MobileMenu from '@/components/MobileMenu';
 
 export default function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -22,9 +23,23 @@ export default function Header() {
     }
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-white/40 bg-white/60 shadow-lg backdrop-blur-xl backdrop-saturate-150">
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? 'border-b border-white/40 bg-white/60 shadow-lg backdrop-blur-xl backdrop-saturate-150'
+            : 'border-b border-transparent'
+        }`}
+      >
         <div className="container">
           <div className="relative flex w-full items-center gap-3 py-3 md:gap-5 md:py-4">
             <Link

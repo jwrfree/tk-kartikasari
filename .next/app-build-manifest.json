@@ -1,84 +1,20 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/app/_not-found/page-221ef7203edcd7a2.js"
+    "/kontak/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/kontak/page.js"
     ],
     "/layout": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/css/1ef8b3e13719f9ae.css",
-      "static/chunks/972-8c0ee6fabcd1342f.js",
-      "static/chunks/16-073152b6aadfb965.js",
-      "static/chunks/app/layout-dfb243088e35d337.js"
-    ],
-    "/tentang/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/app/tentang/page-b451e961ef0284e1.js"
-    ],
-    "/agenda/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/app/agenda/page-13be713c94b06375.js"
-    ],
-    "/kontak/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/972-8c0ee6fabcd1342f.js",
-      "static/chunks/16-073152b6aadfb965.js",
-      "static/chunks/app/kontak/page-42b6fe19512140c0.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/972-8c0ee6fabcd1342f.js",
-      "static/chunks/16-073152b6aadfb965.js",
-      "static/chunks/app/page-b026279b82b13ba6.js"
-    ],
-    "/galeri/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/972-8c0ee6fabcd1342f.js",
-      "static/chunks/app/galeri/page-ad68c7b9bada60a2.js"
-    ],
-    "/program/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/app/program/page-8a200a140a8bf6d1.js"
-    ],
-    "/pengumuman/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/app/pengumuman/page-5c718b712b497e57.js"
-    ],
-    "/ppdb/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-744bf36b14dad30e.js",
-      "static/chunks/main-app-59ff77b068f31b06.js",
-      "static/chunks/972-8c0ee6fabcd1342f.js",
-      "static/chunks/16-073152b6aadfb965.js",
-      "static/chunks/app/ppdb/page-1d22f3984fddfc97.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ]
   }
 }

@@ -7,24 +7,55 @@ import type { Variants } from 'framer-motion';
 
 import { mainNav } from '@/data/navigation';
 
+// A custom cubic-bezier for a smoother, more "Apple-like" transition
+const smoothEase = [0.4, 0, 0.2, 1];
+
 const menuVariants: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.98,
+    y: '-100%',
+    transition: {
+      duration: 0.3,
+      ease: [0.4, 0, 1, 1],
+    },
   },
   visible: {
     opacity: 1,
-    scale: 1,
+    y: 0,
     transition: {
-      duration: 0.2,
-      ease: 'easeOut',
+      duration: 0.4,
+      ease: smoothEase,
     },
   },
   exit: {
     opacity: 0,
-    scale: 0.98,
+    y: '-100%',
     transition: {
-      duration: 0.15,
+      duration: 0.3,
+      ease: [0.4, 0, 1, 1],
+    },
+  },
+};
+
+const linkVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.1 + i * 0.05,
+      duration: 0.35,
+      ease: smoothEase,
+    },
+  }),
+  exit: {
+    opacity: 0,
+    y: 20,
+    transition: {
+      duration: 0.2,
       ease: 'easeIn',
     },
   },
@@ -44,7 +75,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <motion.div
           key="mobile-nav"
           id="mobile-nav"
-          className="fixed inset-0 z-40 flex items-center justify-center bg-surface pt-20 text-center"
+          className="fixed inset-0 z-40 bg-surface pt-20 text-center"
           variants={menuVariants}
           initial="hidden"
           animate="visible"
@@ -59,14 +90,11 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               return (
                 <motion.div
                   key={item.href}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{
-                    duration: 0.22,
-                    delay: 0.15 + index * 0.05,
-                    ease: 'easeOut',
-                  }}
+                  custom={index}
+                  variants={linkVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
                 >
                   <Link
                     href={item.href}
