@@ -17,23 +17,6 @@
       "static/chunks/93-6c3a12794d95e51f.js",
       "static/chunks/app/layout-1d4ccd193e146d3b.js"
     ],
-    "/galeri/page": [
-      "static/chunks/webpack-cb86a99cd2f791d1.js",
-      "static/chunks/fd9d1056-00bb33a35b5f8051.js",
-      "static/chunks/23-68b493f91180a142.js",
-      "static/chunks/main-app-527081373732dd9a.js",
-      "static/chunks/231-db6b3168377c80a2.js",
-      "static/chunks/app/galeri/page-17586437de4a1732.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-cb86a99cd2f791d1.js",
-      "static/chunks/fd9d1056-00bb33a35b5f8051.js",
-      "static/chunks/23-68b493f91180a142.js",
-      "static/chunks/main-app-527081373732dd9a.js",
-      "static/chunks/231-db6b3168377c80a2.js",
-      "static/chunks/93-6c3a12794d95e51f.js",
-      "static/chunks/app/page-5bdf7a51a4713985.js"
-    ],
     "/kontak/page": [
       "static/chunks/webpack-cb86a99cd2f791d1.js",
       "static/chunks/fd9d1056-00bb33a35b5f8051.js",
@@ -50,12 +33,29 @@
       "static/chunks/main-app-527081373732dd9a.js",
       "static/chunks/app/agenda/page-3302ec6ef79a6af5.js"
     ],
+    "/galeri/page": [
+      "static/chunks/webpack-cb86a99cd2f791d1.js",
+      "static/chunks/fd9d1056-00bb33a35b5f8051.js",
+      "static/chunks/23-68b493f91180a142.js",
+      "static/chunks/main-app-527081373732dd9a.js",
+      "static/chunks/231-db6b3168377c80a2.js",
+      "static/chunks/app/galeri/page-17586437de4a1732.js"
+    ],
     "/pengumuman/page": [
       "static/chunks/webpack-cb86a99cd2f791d1.js",
       "static/chunks/fd9d1056-00bb33a35b5f8051.js",
       "static/chunks/23-68b493f91180a142.js",
       "static/chunks/main-app-527081373732dd9a.js",
       "static/chunks/app/pengumuman/page-93c88751c334f494.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-cb86a99cd2f791d1.js",
+      "static/chunks/fd9d1056-00bb33a35b5f8051.js",
+      "static/chunks/23-68b493f91180a142.js",
+      "static/chunks/main-app-527081373732dd9a.js",
+      "static/chunks/231-db6b3168377c80a2.js",
+      "static/chunks/93-6c3a12794d95e51f.js",
+      "static/chunks/app/page-5bdf7a51a4713985.js"
     ],
     "/ppdb/page": [
       "static/chunks/webpack-cb86a99cd2f791d1.js",

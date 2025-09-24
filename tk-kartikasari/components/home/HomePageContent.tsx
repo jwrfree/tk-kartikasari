@@ -7,26 +7,26 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import type { CTAConfig } from "@/content/cta";
 import type {
-  homeCredentials,
-  homeCurriculumPillars,
-  homeFaqs,
-  homeHighlights,
+  HomeCredential,
+  HomeCurriculumPillar,
+  HomeFaq,
+  HomeHighlight,
   HomeJourneyItem,
   HomeProgram,
   HomeStat,
   HomeTimelineMilestone,
-} from "@/content/home";
+} from "@/app/types/home";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 type HomePageContentProps = {
   schoolName: string;
   stats: HomeStat[];
-  highlights: homeHighlights[];
+  highlights: HomeHighlight[];
   programs: HomeProgram[];
   journey: HomeJourneyItem[];
-  faqs: homeFaqs[];
-  credentials: homeCredentials[];
-  curriculumPillars: homeCurriculumPillars[];
+  faqs: HomeFaq[];
+  credentials: HomeCredential[];
+  curriculumPillars: HomeCurriculumPillar[];
   timeline: HomeTimelineMilestone[];
   heroCta: CTAConfig;
   faqCta: CTAConfig;
