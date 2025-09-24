@@ -3,13 +3,13 @@
   "/blog/page": "app/blog/page.js",
   "/ppdb/formulir/page": "app/ppdb/formulir/page.js",
   "/ppdb/page": "app/ppdb/page.js",
-  "/blog/[slug]/page": "app/blog/[slug]/page.js",
   "/agenda/page": "app/agenda/page.js",
-  "/galeri/page": "app/galeri/page.js",
   "/fasilitas/page": "app/fasilitas/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
   "/page": "app/page.js",
-  "/tentang/page": "app/tentang/page.js",
-  "/pengumuman/page": "app/pengumuman/page.js",
   "/kontak/page": "app/kontak/page.js",
-  "/program/page": "app/program/page.js"
+  "/galeri/page": "app/galeri/page.js",
+  "/pengumuman/page": "app/pengumuman/page.js",
+  "/program/page": "app/program/page.js",
+  "/tentang/page": "app/tentang/page.js"
 }
