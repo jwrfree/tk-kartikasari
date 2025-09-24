@@ -13,21 +13,115 @@ import {
 import { officialMilestones, officialProfile } from "@/data/official";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
+import type { Icon as BootstrapIcon } from "react-bootstrap-icons";
+import {
+  Award,
+  CalendarHeart,
+  ChatHeart,
+  ClockHistory,
+  EnvelopeHeart,
+  GeoAlt,
+  HeartPulse,
+  HouseHeart,
+  Icon123,
+  JournalBookmark,
+  JournalCheck,
+  Mortarboard,
+  Palette,
+  PersonBadge,
+  PinMap,
+  Puzzle,
+  RocketTakeoff,
+  ShieldCheck,
+  Sunrise,
+  Tree,
+  Whatsapp,
+  Flag,
+  People,
+} from "react-bootstrap-icons";
 
-const profileItems = [
-  { label: "Nama Sekolah", value: site.schoolName },
-  { label: "NPSN", value: officialProfile.npsn },
-  { label: "Tanggal Berdiri", value: officialProfile.establishmentDate },
-  { label: "SK Operasional", value: officialProfile.operationalLicense },
-  { label: "Kurikulum", value: officialProfile.curriculum },
-  { label: "Luas Lahan", value: officialProfile.landArea },
-  { label: "Alamat", value: site.address },
-  { label: "Wilayah", value: officialProfile.locationArea },
-  { label: "Kepala Sekolah", value: site.headmaster },
-  { label: "Email", value: officialProfile.email },
-  { label: "WhatsApp", value: site.whatsapp },
-  { label: "Jam Buka", value: site.openingHours },
+type ProfileItem = {
+  label: string;
+  value: string;
+  icon: BootstrapIcon;
+};
+
+type ProfileGroup = {
+  title: string;
+  description: string;
+  icon: BootstrapIcon;
+  items: ProfileItem[];
+};
+
+const profileGroups: ProfileGroup[] = [
+  {
+    title: "Identitas Sekolah",
+    description: "Data resmi yang menegaskan legalitas TK Kartikasari.",
+    icon: Mortarboard,
+    items: [
+      { label: "Nama Sekolah", value: site.schoolName, icon: Mortarboard },
+      { label: "NPSN", value: officialProfile.npsn, icon: Icon123 },
+      { label: "Tanggal Berdiri", value: officialProfile.establishmentDate, icon: CalendarHeart },
+      { label: "Kepala Sekolah", value: site.headmaster, icon: PersonBadge },
+    ],
+  },
+  {
+    title: "Legalitas & Operasional",
+    description: "Landasan hukum dan ritme kegiatan belajar anak.",
+    icon: ShieldCheck,
+    items: [
+      { label: "SK Operasional", value: officialProfile.operationalLicense, icon: ShieldCheck },
+      { label: "Kurikulum", value: officialProfile.curriculum, icon: JournalBookmark },
+      { label: "Jam Belajar", value: site.openingHours, icon: ClockHistory },
+      {
+        label: "Lingkungan Belajar",
+        value: `${officialProfile.landArea} dengan area bermain luar ruang`,
+        icon: Tree,
+      },
+    ],
+  },
+  {
+    title: "Lokasi & Kontak",
+    description: "Cara terhubung dan mengunjungi kami.",
+    icon: GeoAlt,
+    items: [
+      { label: "Alamat", value: site.address, icon: GeoAlt },
+      { label: "Wilayah", value: officialProfile.locationArea, icon: PinMap },
+      { label: "Email", value: officialProfile.email, icon: EnvelopeHeart },
+      { label: "WhatsApp", value: site.whatsapp, icon: Whatsapp },
+    ],
+  },
 ];
+
+const highlightIcons: BootstrapIcon[] = [HeartPulse, Award, HouseHeart];
+const headerHighlightItems = aboutHeaderHighlights.map((text, index) => ({
+  text,
+  Icon: highlightIcons[index] ?? HeartPulse,
+}));
+
+const experienceIcons: BootstrapIcon[] = [ShieldCheck, Puzzle, ChatHeart];
+const experiencePillarsWithIcons = aboutExperiencePillars.map((pillar, index) => ({
+  ...pillar,
+  Icon: experienceIcons[index] ?? ShieldCheck,
+}));
+
+const dailyRhythmIcons: BootstrapIcon[] = [Sunrise, Puzzle, JournalCheck];
+const dailyRhythmWithIcons = aboutDailyRhythm.map((item, index) => ({
+  ...item,
+  Icon: dailyRhythmIcons[index] ?? Sunrise,
+}));
+
+const strengthsIcons: BootstrapIcon[] = [HeartPulse, Palette, People];
+const strengthsWithIcons = aboutStrengths.map((item, index) => ({
+  ...item,
+  Icon: strengthsIcons[index] ?? HeartPulse,
+}));
+
+const milestoneIcons: BootstrapIcon[] = [Flag, Tree, RocketTakeoff];
+const milestoneItems = officialMilestones.map((milestone, index) => ({
+  ...milestone,
+  Icon: milestoneIcons[index] ?? Flag,
+}));
 
 export const metadata = createPageMetadata({
   title: "Tentang",
@@ -43,23 +137,26 @@ export default function Page() {
         title={`${officialProfile.yearsOperating}+ Tahun Menguatkan Profil Pelajar Pancasila di Bantarsari`}
         description={
           <>
-            TK Kartikasari berdiri pada {officialProfile.establishmentDate} dengan NPSN {officialProfile.npsn} dan SK
-            operasional {officialProfile.operationalLicense}. Kami menjaga akuntabilitas layanan pendidikan anak usia
-            dini melalui tata kelola yang transparan dan lingkungan yang aman.
+            Berawal dari mimpi sederhana pendidik Bantarsari, TK Kartikasari membuka pintu pada
             {" "}
-            Saat ini kami menerapkan Kurikulum Merdeka PAUD secara menyeluruh untuk menumbuhkan Profil Pelajar
-            Pancasila melalui projek kolaboratif, pembelajaran terdiferensiasi, dan dukungan erat keluarga.
+            {officialProfile.establishmentDate}. Kami tumbuh bersama keluarga dengan dukungan NPSN
+            {" "}
+            {officialProfile.npsn} serta SK operasional {officialProfile.operationalLicense} yang menjaga transparansi
+            layanan.
+            {" "}
+            Setiap hari kami merawat lingkungan belajar seluas {officialProfile.landArea} agar tetap hangat dan aman
+            sambil menerapkan Kurikulum Merdeka PAUD melalui projek bermakna bersama keluarga.
           </>
         }
       >
         <div className="flex flex-wrap gap-3 pt-4">
-          {aboutHeaderHighlights.map((item) => (
+          {headerHighlightItems.map(({ text, Icon: IconComponent }) => (
             <span
-              key={item}
+              key={text}
               className="inline-flex items-center gap-2 rounded-full border border-secondary/50 bg-white/60 px-4 py-2 text-sm font-medium text-secondary backdrop-blur-sm backdrop-saturate-150 transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary hover:bg-secondary/10"
             >
-              <span className="h-2 w-2 rounded-full bg-secondary" aria-hidden="true" />
-              {item}
+              <IconComponent className="h-4 w-4 text-secondary" aria-hidden="true" />
+              <span>{text}</span>
             </span>
           ))}
         </div>
@@ -79,25 +176,31 @@ export default function Page() {
               <h2 className="text-3xl font-semibold text-text">26 Tahun Bertumbuh Bersama Keluarga Bantarsari</h2>
             </div>
             <p className="text-base leading-relaxed text-text-muted">
-              Sejak 1998 kami menjaga kehangatan kelas, menyapa anak satu per satu, dan memastikan setiap aktivitas
-              berlangsung di ruang yang aman serta sesuai standar Kemendikbudristek. Sentra belajar kami didesain untuk
-              memadukan rasa ingin tahu alami anak dengan tujuan perkembangan yang jelas.
+              Dimulai dari ruang belajar sederhana pada 1998, pendiri kami menyapa anak satu per satu dan menyiapkan
+              kegiatan yang membuat mereka merasa di rumah. Sentra belajar dibentuk agar rasa ingin tahu alami anak
+              bertemu dengan tujuan perkembangan yang jelas.
             </p>
             <p className="text-base leading-relaxed text-text-muted">
-              Implementasi Kurikulum Merdeka PAUD membuat guru lebih leluasa menyesuaikan strategi dengan kebutuhan
-              tiap anak. Kami menyeimbangkan kegiatan Projek Profil Pelajar Pancasila, pembelajaran terdiferensiasi, dan
-              asesmen autentik agar anak merasa dihargai sekaligus tertantang.
+              Kini sebagian besar guru merupakan warga Bantarsari. Mereka mengenal keluarga murid, menyiapkan area
+              transisi yang hangat, dan memastikan setiap sudut memenuhi standar Kemendikbudristek sehingga anak dapat
+              bereksplorasi dengan aman.
+            </p>
+            <p className="text-base leading-relaxed text-text-muted">
+              Implementasi Kurikulum Merdeka PAUD membuat guru leluasa menyesuaikan strategi dengan kebutuhan tiap anak.
+              Kami menyeimbangkan Projek Profil Pelajar Pancasila, pembelajaran terdiferensiasi, dan asesmen autentik
+              agar anak merasa dihargai sekaligus tertantang.
             </p>
             <ul className="grid gap-3 sm:grid-cols-3">
-              {aboutExperiencePillars.map((pillar) => (
+              {experiencePillarsWithIcons.map(({ title, description, Icon: IconComponent }) => (
                 <li
-                  key={pillar.title}
+                  key={title}
                   className="group relative overflow-hidden rounded-2xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
                 >
-                  <span className="mb-2 inline-flex rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary transition-colors duration-300 group-hover:bg-secondary group-hover:text-white">
-                    {pillar.title}
+                  <span className="mb-2 inline-flex items-center gap-2 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary transition-colors duration-300 group-hover:bg-secondary group-hover:text-white">
+                    <IconComponent className="h-4 w-4" aria-hidden="true" />
+                    <span>{title}</span>
                   </span>
-                  <p className="text-sm text-text-muted">{pillar.description}</p>
+                  <p className="text-sm text-text-muted">{description}</p>
                 </li>
               ))}
             </ul>
@@ -134,38 +237,72 @@ export default function Page() {
         padding="tight"
         containerClassName="grid gap-6 lg:grid-cols-[1.1fr,0.9fr]"
       >
-        <div className="card space-y-6 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
-          <h2 className="text-3xl font-semibold">Profil Sekolah</h2>
-          <p className="text-base leading-relaxed text-text-muted">
-            Terdaftar di Kemendikbudristek dengan NPSN {officialProfile.npsn} dan lahan {officialProfile.landArea}, kami
-            mendampingi anak usia 4–6 tahun melalui pembelajaran aktif yang aman, nyaman, dan kaya eksplorasi.
-          </p>
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {profileItems.map((item) => (
-              <li
-                key={item.label}
-                className="rounded-2xl border border-white/60 bg-white/60 p-5 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary hover:shadow-lg"
-              >
-                <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
-                <p className="mt-1 text-base font-medium text-text">{item.value}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="rounded-2xl border border-white/60 bg-white/60 p-5 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg">
-            <p className="text-xs font-semibold uppercase tracking-wide text-secondary">Perjalanan Singkat</p>
-            <ul className="mt-3 space-y-2 text-sm text-text-muted">
-              {officialMilestones.map((milestone) => (
-                <li key={milestone.year} className="flex items-start gap-3">
-                  <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-secondary/10 text-xs font-semibold text-secondary">
-                    {milestone.year}
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-text">{milestone.title}</p>
-                    <p>{milestone.description}</p>
+        <div className="space-y-6">
+          <div className="card space-y-6 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+            <h2 className="text-3xl font-semibold">Profil Sekolah</h2>
+            <p className="text-base leading-relaxed text-text-muted">
+              Selama {officialProfile.yearsOperating}+ tahun terdaftar di Kemendikbudristek, kami tumbuh bersama keluarga
+              Bantarsari. Informasi berikut membantu orang tua mengenal identitas, operasional, dan cara berkunjung.
+            </p>
+            <div className="space-y-5">
+              {profileGroups.map(({ title, description, icon: GroupIcon, items }) => (
+                <section
+                  key={title}
+                  className="rounded-2xl border border-white/60 bg-white/60 p-5 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                        <GroupIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <h3 className="text-lg font-semibold text-text">{title}</h3>
+                    </div>
+                    <p className="text-sm text-text-muted sm:text-right">{description}</p>
                   </div>
-                </li>
+                  <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {items.map(({ label, value, icon: ItemIcon }) => (
+                      <li key={label} className="flex gap-3">
+                        <span className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                          <ItemIcon className="h-4 w-4" aria-hidden="true" />
+                        </span>
+                        <div>
+                          <p className="text-xs uppercase tracking-wide text-secondary">{label}</p>
+                          <p className="mt-1 text-sm font-medium text-text">{value}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               ))}
-            </ul>
+            </div>
+          </div>
+          <div className="card relative overflow-hidden p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-white/50 to-primary/10"
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <p className="text-xs font-semibold uppercase tracking-wide text-secondary">Perjalanan Singkat</p>
+              <div className="relative mt-5 pl-2">
+                <span className="pointer-events-none absolute left-[18px] top-0 bottom-0 w-px bg-secondary/20" aria-hidden="true" />
+                <ul className="space-y-6">
+                  {milestoneItems.map(({ year, title, description, Icon: IconComponent }) => (
+                    <li key={year} className="relative pl-12">
+                      <span className="absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-xs font-semibold uppercase tracking-wide text-white shadow-lg">
+                        {year}
+                      </span>
+                      <div className="rounded-2xl border border-white/60 bg-white/70 p-4 backdrop-blur-lg backdrop-saturate-150">
+                        <div className="flex items-center gap-2 text-secondary">
+                          <IconComponent className="h-5 w-5" aria-hidden="true" />
+                          <span className="text-sm font-semibold">{title}</span>
+                        </div>
+                        <p className="mt-2 text-sm text-text-muted">{description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div className="card space-y-5 bg-secondary/5 p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
@@ -174,17 +311,20 @@ export default function Page() {
             Rutinitas Kurikulum Merdeka yang lembut dan konsisten membantu anak merasa aman sambil memupuk tanggung jawab kecil.
           </p>
           <ul className="space-y-4">
-            {aboutDailyRhythm.map((item, index) => (
+            {dailyRhythmWithIcons.map(({ title, description, Icon: IconComponent }, index) => (
               <li
-                key={item.title}
+                key={title}
                 className="group flex gap-4 rounded-2xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-sm font-semibold text-secondary transition-colors duration-300 group-hover:bg-secondary group-hover:text-white">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <div>
-                  <h4 className="text-base font-semibold text-text">{item.title}</h4>
-                  <p className="mt-1 text-sm text-text-muted">{item.description}</p>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <IconComponent className="h-5 w-5 text-secondary" aria-hidden="true" />
+                    <h4 className="text-base font-semibold text-text">{title}</h4>
+                  </div>
+                  <p className="text-sm text-text-muted">{description}</p>
                 </div>
               </li>
             ))}
@@ -202,13 +342,18 @@ export default function Page() {
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
-            {aboutStrengths.map((item) => (
+            {strengthsWithIcons.map(({ title, description, Icon: IconComponent }) => (
               <article
-                key={item.title}
+                key={title}
                 className="card h-full space-y-3 p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
               >
-                <h3 className="text-xl font-semibold text-text">{item.title}</h3>
-                <p className="text-base leading-relaxed text-text-muted">{item.description}</p>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/10 text-secondary">
+                    <IconComponent className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <h3 className="text-left text-xl font-semibold text-text">{title}</h3>
+                </div>
+                <p className="text-base leading-relaxed text-text-muted">{description}</p>
               </article>
             ))}
           </div>
