@@ -71,6 +71,10 @@ body {
   @apply btn bg-gradient-to-r from-pink-500 to-orange-500 text-white shadow-floating hover:brightness-[1.05] hover:shadow-xl;
 }
 
+.btn-primary:disabled {
+    @apply btn bg-gradient-to-r from-pink-500/50 to-orange-500/50 text-white/80 shadow-none cursor-not-allowed opacity-70;
+}
+
 /* Tombol aksi sekunder - UPDATED: Changed to use pink as the new primary accent */
 .btn-secondary {
   @apply btn bg-pink-500/10 text-pink-500 hover:bg-pink-500/20;
