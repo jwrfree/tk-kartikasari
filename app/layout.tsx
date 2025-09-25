@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import "@/app/globals.css";
 import { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsappButton";
 import siteData from "@/data/site.json";
 import { createOrganizationJsonLd, createWebSiteJsonLd, createLocalBusinessJsonLd } from "@/lib/json-ld";
@@ -61,7 +62,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <div className="relative flex min-h-screen flex-col">
           <Header />
-          <div className="flex-1">{children}</div>
+          <main className="flex-1">{children}</main>
+          <Footer />
         </div>
         <WhatsAppButton />
       </body>

@@ -35,7 +35,7 @@ export default function Header() {
     <>
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled
+          isScrolled && !isMobileMenuOpen
             ? 'border-b border-white/40 bg-white/60 shadow-lg backdrop-blur-xl backdrop-saturate-150'
             : 'border-b border-transparent'
         }`}

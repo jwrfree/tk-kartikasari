@@ -31,19 +31,23 @@ export default function PpdbPage() {
       />
 
       {/* Status Pendaftaran Ditutup */}
-      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-8 content-container">
-        <div className="flex">
-          <div className="flex-shrink-0">
-            <XCircle className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-          </div>
-          <div className="ml-3">
-            <p className="text-sm text-yellow-700">
-              Pendaftaran untuk tahun ajaran 2024/2025 telah ditutup. Terima kasih atas antusiasme Anda. Informasi pendaftaran untuk tahun ajaran berikutnya akan diumumkan di halaman ini.
-            </p>
+      <div className="content-container my-8">
+        <div className="rounded-2xl border border-yellow-500/30 bg-yellow-500/10 p-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <XCircle className="h-6 w-6 text-yellow-600" aria-hidden="true" />
+            </div>
+            <div className="ml-4">
+              <h3 className="font-semibold text-yellow-800">Pendaftaran Telah Ditutup</h3>
+              <div className="mt-1 text-sm text-yellow-700">
+                <p>
+                  Terima kasih atas antusiasme Anda. Pendaftaran untuk tahun ajaran 2024/2025 telah kami tutup. Informasi pendaftaran untuk tahun ajaran berikutnya akan kami umumkan di halaman ini.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
 
       {/* Proses Pendaftaran */}
       <div className="bg-surfaceAlt">
