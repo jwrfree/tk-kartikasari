@@ -1,9 +1,17 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // add images domains
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ['images.unsplash.com'],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap',
+      },
+    ];
   },
 };
 

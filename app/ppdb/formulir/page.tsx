@@ -9,9 +9,24 @@ const STEPS = [
   { id: '03', name: 'Konfirmasi', fields: [] },
 ];
 
+type FormData = {
+  fullName: string;
+  nickname: string;
+  birthDate: string;
+  gender: string;
+  parentName: string;
+  phone: string;
+  address: string;
+  confirmation: boolean;
+};
+
+type FormErrors = { [key in keyof FormData]?: string };
+
 export default function PpdbFormPage() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<FormData>({
     fullName: '',
     nickname: '',
     birthDate: '',
@@ -19,24 +34,40 @@ export default function PpdbFormPage() {
     parentName: '',
     phone: '',
     address: '',
+    confirmation: false,
   });
-  const [errors, setErrors] = useState<Partial<typeof formData>>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    const fieldName = name as keyof FormData;
+
+    setFormData(prev => ({
+      ...prev,
+      [fieldName]: type === 'checkbox' ? checked : value,
+    }));
+
+    if (errors[fieldName]) {
+      setErrors(prev => ({ ...prev, [fieldName]: undefined }));
+    }
   };
 
   const validateStep = () => {
-    const currentFields = STEPS[currentStep].fields;
-    const newErrors: Partial<typeof formData> = {};
+    const currentFields = STEPS[currentStep].fields as (keyof FormData)[];
+    const newErrors: FormErrors = {};
     let isValid = true;
 
     for (const field of currentFields) {
-      if (!formData[field as keyof typeof formData]) {
-        newErrors[field as keyof typeof formData] = 'Wajib diisi';
+      if (!formData[field]) {
+        newErrors[field] = 'Wajib diisi';
         isValid = false;
       }
+    }
+    
+    if (currentStep === 2 && !formData.confirmation) {
+        newErrors.confirmation = 'Anda harus menyetujui pernyataan ini.';
+        isValid = false;
     }
 
     setErrors(newErrors);
@@ -46,24 +77,43 @@ export default function PpdbFormPage() {
   const nextStep = () => {
     if (validateStep()) {
       if (currentStep < STEPS.length - 1) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       }
     }
   };
 
   const prevStep = () => {
     if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
+      setCurrentStep(prev => prev - 1);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateStep()) {
-      // Submit form data
-      console.log('Form submitted:', formData);
-      alert('Pendaftaran berhasil! Terima kasih telah mendaftar.');
+    if (!validateStep()) return;
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch('/api/ppdb', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Gagal mengirim data. Silakan coba lagi.');
+      }
+
       setCurrentStep(STEPS.length); // Go to success state
+    } catch (error: any) {
+      setSubmitError(error.message || 'Terjadi kesalahan yang tidak diketahui.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -91,8 +141,10 @@ export default function PpdbFormPage() {
                           <div className="h-0.5 w-full bg-primary" />
                         </div>
                         <button
+                          type="button"
                           onClick={() => setCurrentStep(stepIdx)}
-                          className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary hover:bg-primary/80"
+                          className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary transition-colors hover:bg-primary/80"
+                          aria-label={`Kembali ke langkah ${stepIdx + 1}: ${step.name}`}
                         >
                           <CheckCircle className="h-5 w-5 text-white" />
                         </button>
@@ -100,43 +152,52 @@ export default function PpdbFormPage() {
                     ) : stepIdx === currentStep ? (
                       <>
                         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                          <div className="h-0.5 w-full bg-gray-200" />
+                          <div className="h-0.5 w-full bg-border" />
                         </div>
                         <div
-                          className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-white"
+                          className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-surface"
                           aria-current="step"
                         >
                           <span className="h-2.5 w-2.5 rounded-full bg-primary" />
+                           <span className="sr-only">Langkah {step.id} dari {STEPS.length}, {step.name}</span>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                          <div className="h-0.5 w-full bg-gray-200" />
+                          <div className="h-0.5 w-full bg-border" />
                         </div>
-                        <div className="group relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white hover:border-gray-400">
-                          <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" />
+                        <div className="group relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-border bg-surface transition-colors hover:border-text-muted">
+                           <span className="sr-only">Langkah {step.id} dari {STEPS.length}, {step.name}</span>
+                           <span className="h-2.5 w-2.5 rounded-full bg-transparent transition-colors group-hover:bg-gray-300" />
                         </div>
                       </>
                     )}
-                     <span className="hidden sm:block absolute top-10 -left-4 text-sm font-medium text-gray-900">{step.name}</span>
+                     <span className="hidden sm:block absolute top-10 -left-4 text-sm font-medium text-text">{step.name}</span>
                   </li>
                 ))}
               </ol>
             </nav>
           </div>
 
-          <form className="mt-12 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-12 space-y-6" onSubmit={handleSubmit} noValidate>
             {currentStep === 0 && <Step1 formData={formData} handleChange={handleChange} errors={errors} />}
             {currentStep === 1 && <Step2 formData={formData} handleChange={handleChange} errors={errors} />}
-            {currentStep === 2 && <Step3 formData={formData} />}
+            {currentStep === 2 && <Step3 formData={formData} handleChange={handleChange} errors={errors} />}
+
+            {submitError && (
+              <div role="alert" className="rounded-md bg-red-50 p-4">
+                <p className="text-sm font-medium text-red-700">{submitError}</p>
+              </div>
+            )}
 
             <div className={`flex ${currentStep > 0 ? 'justify-between' : 'justify-end'} pt-6`}>
               {currentStep > 0 && (
                 <button
                   type="button"
                   onClick={prevStep}
-                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-text-muted hover:bg-gray-100"
+                  disabled={isSubmitting}
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-text-muted transition-colors hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <ArrowLeft className="h-5 w-5" />
                   Kembali
@@ -153,9 +214,13 @@ export default function PpdbFormPage() {
                 </button>
               )}
               {currentStep === STEPS.length - 1 && (
-                <button type="submit" className="btn-primary inline-flex items-center gap-2">
-                  Kirim Pendaftaran
-                  <CheckCircle className="h-5 w-5" />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-primary inline-flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Mengirim...' : 'Kirim Pendaftaran'}
+                  {!isSubmitting && <CheckCircle className="h-5 w-5" />}
                 </button>
               )}
             </div>
@@ -167,94 +232,100 @@ export default function PpdbFormPage() {
 }
 
 
-const Step1 = ({ formData, handleChange, errors }: { formData: any, handleChange: any, errors: any }) => (
-  <div className="space-y-6">
-    <h2 className="text-xl font-semibold text-text">Data Calon Peserta Didik</h2>
+type StepProps = {
+  formData: FormData;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  errors: FormErrors;
+};
+
+const Step1 = ({ formData, handleChange, errors }: StepProps) => (
+  <fieldset className="space-y-6">
+    <legend className="text-xl font-semibold text-text">Data Calon Peserta Didik</legend>
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
       <div>
-        <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-        <input type="text" name="fullName" id="fullName" value={formData.fullName} onChange={handleChange} className="input mt-1" />
-        {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
+        <label htmlFor="fullName" className="form-label">Nama Lengkap</label>
+        <input type="text" name="fullName" id="fullName" value={formData.fullName} onChange={handleChange} required aria-describedby="fullName-error" className="input mt-1" />
+        {errors.fullName && <p id="fullName-error" className="form-error">{errors.fullName}</p>}
       </div>
       <div>
-        <label htmlFor="nickname" className="block text-sm font-medium text-gray-700">Nama Panggilan</label>
-        <input type="text" name="nickname" id="nickname" value={formData.nickname} onChange={handleChange} className="input mt-1" />
-        {errors.nickname && <p className="mt-1 text-sm text-red-600">{errors.nickname}</p>}
+        <label htmlFor="nickname" className="form-label">Nama Panggilan</label>
+        <input type="text" name="nickname" id="nickname" value={formData.nickname} onChange={handleChange} required aria-describedby="nickname-error" className="input mt-1" />
+        {errors.nickname && <p id="nickname-error" className="form-error">{errors.nickname}</p>}
       </div>
       <div>
-        <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
-        <input type="date" name="birthDate" id="birthDate" value={formData.birthDate} onChange={handleChange} className="input mt-1" />
-        {errors.birthDate && <p className="mt-1 text-sm text-red-600">{errors.birthDate}</p>}
+        <label htmlFor="birthDate" className="form-label">Tanggal Lahir</label>
+        <input type="date" name="birthDate" id="birthDate" value={formData.birthDate} onChange={handleChange} required aria-describedby="birthDate-error" className="input mt-1" />
+        {errors.birthDate && <p id="birthDate-error" className="form-error">{errors.birthDate}</p>}
       </div>
       <div>
-        <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
-        <select name="gender" id="gender" value={formData.gender} onChange={handleChange} className="input mt-1">
+        <label htmlFor="gender" className="form-label">Jenis Kelamin</label>
+        <select name="gender" id="gender" value={formData.gender} onChange={handleChange} required aria-describedby="gender-error" className="input mt-1">
           <option value="">Pilih Jenis Kelamin</option>
           <option value="Laki-laki">Laki-laki</option>
           <option value="Perempuan">Perempuan</option>
         </select>
-        {errors.gender && <p className="mt-1 text-sm text-red-600">{errors.gender}</p>}
+        {errors.gender && <p id="gender-error" className="form-error">{errors.gender}</p>}
       </div>
     </div>
-  </div>
+  </fieldset>
 );
 
-const Step2 = ({ formData, handleChange, errors }: { formData: any, handleChange: any, errors: any }) => (
-  <div className="space-y-6">
-     <h2 className="text-xl font-semibold text-text">Data Orang Tua / Wali</h2>
+const Step2 = ({ formData, handleChange, errors }: StepProps) => (
+  <fieldset className="space-y-6">
+     <legend className="text-xl font-semibold text-text">Data Orang Tua / Wali</legend>
     <div>
-      <label htmlFor="parentName" className="block text-sm font-medium text-gray-700">Nama Orang Tua / Wali</label>
-      <input type="text" name="parentName" id="parentName" value={formData.parentName} onChange={handleChange} className="input mt-1" />
-      {errors.parentName && <p className="mt-1 text-sm text-red-600">{errors.parentName}</p>}
+      <label htmlFor="parentName" className="form-label">Nama Orang Tua / Wali</label>
+      <input type="text" name="parentName" id="parentName" value={formData.parentName} onChange={handleChange} required aria-describedby="parentName-error" className="input mt-1" />
+      {errors.parentName && <p id="parentName-error" className="form-error">{errors.parentName}</p>}
     </div>
     <div>
-      <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Nomor Telepon (WhatsApp)</label>
-      <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} className="input mt-1" />
-      {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
+      <label htmlFor="phone" className="form-label">Nomor Telepon (WhatsApp)</label>
+      <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} required aria-describedby="phone-error" className="input mt-1" />
+      {errors.phone && <p id="phone-error" className="form-error">{errors.phone}</p>}
     </div>
     <div>
-      <label htmlFor="address" className="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
-      <textarea name="address" id="address" value={formData.address} onChange={handleChange} rows={3} className="input mt-1" />
-      {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address}</p>}
+      <label htmlFor="address" className="form-label">Alamat Lengkap</label>
+      <textarea name="address" id="address" value={formData.address} onChange={handleChange} rows={3} required aria-describedby="address-error" className="input mt-1" />
+      {errors.address && <p id="address-error" className="form-error">{errors.address}</p>}
     </div>
-  </div>
+  </fieldset>
 );
 
-const Step3 = ({ formData }: { formData: any }) => (
-  <div className="space-y-6">
-     <h2 className="text-xl font-semibold text-text">Konfirmasi Data</h2>
-     <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-6">
+const Step3 = ({ formData, handleChange, errors }: StepProps) => (
+  <fieldset className="space-y-6">
+     <legend className="text-xl font-semibold text-text">Konfirmasi Data</legend>
+     <div className="space-y-4 rounded-lg border border-border bg-surface p-6">
         <div>
-            <h3 className="text-lg font-medium text-gray-900">Data Anak</h3>
-            <dl className="mt-2 divide-y divide-gray-200">
+            <h3 className="text-lg font-medium text-text">Data Anak</h3>
+            <dl className="mt-2 divide-y divide-border">
                 <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt className="text-sm font-medium text-gray-500">Nama Lengkap</dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{formData.fullName}</dd>
+                    <dt className="form-label-read-only">Nama Lengkap</dt>
+                    <dd className="form-data-read-only sm:col-span-2">{formData.fullName || '-'}</dd>
                 </div>
                 <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt className="text-sm font-medium text-gray-500">Tanggal Lahir</dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{formData.birthDate}</dd>
+                    <dt className="form-label-read-only">Tanggal Lahir</dt>
+                    <dd className="form-data-read-only sm:col-span-2">{formData.birthDate || '-'}</dd>
                 </div>
                 <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt className="text-sm font-medium text-gray-500">Jenis Kelamin</dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{formData.gender}</dd>
+                    <dt className="form-label-read-only">Jenis Kelamin</dt>
+                    <dd className="form-data-read-only sm:col-span-2">{formData.gender || '-'}</dd>
                 </div>
             </dl>
         </div>
          <div className="pt-4">
-             <h3 className="text-lg font-medium text-gray-900">Data Orang Tua</h3>
-             <dl className="mt-2 divide-y divide-gray-200">
+             <h3 className="text-lg font-medium text-text">Data Orang Tua</h3>
+             <dl className="mt-2 divide-y divide-border">
                  <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-                     <dt className="text-sm font-medium text-gray-500">Nama Orang Tua</dt>
-                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{formData.parentName}</dd>
+                     <dt className="form-label-read-only">Nama Orang Tua</dt>
+                     <dd className="form-data-read-only sm:col-span-2">{formData.parentName || '-'}</dd>
                  </div>
                  <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-                     <dt className="text-sm font-medium text-gray-500">Nomor Telepon</dt>
-                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{formData.phone}</dd>
+                     <dt className="form-label-read-only">Nomor Telepon</dt>
+                     <dd className="form-data-read-only sm:col-span-2">{formData.phone || '-'}</dd>
                  </div>
                  <div className="py-3 sm:grid sm:grid-cols-3 sm:gap-4">
-                     <dt className="text-sm font-medium text-gray-500">Alamat</dt>
-                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{formData.address}</dd>
+                     <dt className="form-label-read-only">Alamat</dt>
+                     <dd className="form-data-read-only sm:col-span-2">{formData.address || '-'}</dd>
                  </div>
              </dl>
          </div>
@@ -263,25 +334,27 @@ const Step3 = ({ formData }: { formData: any }) => (
           <div className="flex h-6 items-center">
               <input
                   id="confirmation"
-                  aria-describedby="confirmation-description"
                   name="confirmation"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                  required
+                  checked={formData.confirmation}
+                  onChange={handleChange}
+                  aria-describedby="confirmation-description confirmation-error"
+                  className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
               />
           </div>
           <div className="ml-3 text-sm leading-6">
-              <label htmlFor="confirmation" className="font-medium text-gray-900">Konfirmasi</label>
-              <p id="confirmation-description" className="text-gray-500">
+              <label htmlFor="confirmation" className="font-medium text-text">Konfirmasi</label>
+              <p id="confirmation-description" className="text-text-muted">
                   Saya menyatakan bahwa data yang saya masukkan adalah benar dan dapat dipertanggungjawabkan.
               </p>
           </div>
       </div>
-  </div>
+      {errors.confirmation && <p id="confirmation-error" className="form-error mt-1 ml-9">{errors.confirmation}</p>}
+  </fieldset>
 );
 
 const SuccessMessage = () => (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
+    <div className="flex min-h-[50vh] flex-col items-center justify-center text-center" role="alert">
         <CheckCircle className="h-16 w-16 text-green-500" />
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-text sm:text-4xl">Pendaftaran Berhasil!</h1>
         <p className="mt-2 text-lg text-text-muted">
@@ -294,4 +367,3 @@ const SuccessMessage = () => (
         </div>
     </div>
 );
-

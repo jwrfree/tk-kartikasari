@@ -11,6 +11,15 @@ Website resmi TK Kartikasari Bantarsari, dibangun dengan Next.js (App Router) da
 *   **SEO-Friendly:** Struktur website yang dioptimalkan untuk mesin pencari.
 *   **Peta & Navigasi:** Integrasi dengan Google Maps untuk mempermudah menemukan lokasi sekolah.
 
+## SEO
+
+*   **Robots.txt:** Memberikan arahan kepada mesin pencari tentang halaman mana yang boleh dan tidak boleh diindeks.
+*   **Sitemap:** Peta situs dinamis yang dibuat secara otomatis untuk membantu mesin pencari memahami struktur website.
+*   **JSON-LD Structured Data:** Menyediakan data terstruktur dalam format JSON-LD untuk meningkatkan pemahaman mesin pencari tentang konten website. Ini termasuk:
+    *   `Organization`: Informasi tentang sekolah.
+    *   `WebSite`: Informasi tentang website.
+    *   `BlogPosting`: Informasi tentang setiap artikel blog.
+
 ## Halaman
 
 *   `/` (Beranda)
@@ -28,6 +37,7 @@ Website resmi TK Kartikasari Bantarsari, dibangun dengan Next.js (App Router) da
 *   **Tailwind CSS:** Framework CSS untuk desain antarmuka yang cepat dan efisien.
 *   **Framer Motion:** Library untuk membuat animasi yang kaya dan interaktif.
 *   **TypeScript:** Superset dari JavaScript yang menambahkan tipe data statis.
+*   **schema-dts:** Library untuk menghasilkan tipe data TypeScript dari skema Schema.org.
 
 ## Instalasi & Menjalankan Proyek
 

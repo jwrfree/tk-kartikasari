@@ -52,13 +52,13 @@ export default function HomePageContent({
 }: HomePageContentProps) {
   return (
     <LazyMotion features={domAnimation}>
-      <>
+      <main>
         <PageSection
           className="relative overflow-hidden"
           padding="none"
           containerClassName="relative grid gap-16 pb-24 pt-20 md:grid-cols-[1.05fr,0.95fr] md:items-center"
         >
-          <div className="pointer-events-none absolute inset-0">
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <div className="absolute -top-32 right-16 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
             <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-primary/25 blur-3xl" />
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-hero-gradient" />
@@ -70,7 +70,7 @@ export default function HomePageContent({
             className="relative space-y-8"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-secondary shadow-soft backdrop-blur-sm backdrop-saturate-150">
-              <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
+              <span className="h-2.5 w-2.5 rounded-full bg-secondary" aria-hidden="true" />
               {schoolName} • Kurikulum Merdeka PAUD
             </span>
             <h1 className="text-balance text-4xl font-bold leading-tight text-text sm:text-5xl">
@@ -81,21 +81,21 @@ export default function HomePageContent({
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <CTAButton ctaKey="heroVisit" />
-              <a href="#program" className="btn-outline w-full sm:w-auto">
-                Lihat program unggulan
-              </a>
+              <Link href="/ppdb" className="btn-secondary w-full sm:w-auto">
+                Daftar Sekarang
+              </Link>
             </div>
-            <dl className="grid gap-6 pt-6 sm:grid-cols-2 md:grid-cols-3">
+            <div className="grid gap-6 pt-6 sm:grid-cols-2 md:grid-cols-3">
               {stats.map((item) => (
                 <div
                   key={item.label}
                   className="rounded-3xl border border-white/60 bg-white/60 p-5 text-left shadow-soft backdrop-blur-lg backdrop-saturate-150"
                 >
-                  <dt className="text-3xl font-bold text-text">{item.value}</dt>
-                  <dd className="mt-1 text-base text-text-muted">{item.label}</dd>
+                  <p className="text-3xl font-bold text-text">{item.value}</p>
+                  <p className="mt-1 text-base text-text-muted">{item.label}</p>
                 </div>
               ))}
-            </dl>
+            </div>
           </m.div>
 
           <m.div
@@ -104,8 +104,8 @@ export default function HomePageContent({
             transition={{ duration: 0.7, delay: 0.1 }}
             className="relative"
           >
-            <div className="absolute -top-12 right-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl" />
-            <div className="absolute -bottom-4 left-0 h-28 w-28 rounded-full bg-secondary/30 blur-2xl md:-bottom-8" />
+            <div className="absolute -top-12 right-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl"  aria-hidden="true" />
+            <div className="absolute -bottom-4 left-0 h-28 w-28 rounded-full bg-secondary/30 blur-2xl md:-bottom-8"  aria-hidden="true" />
             <div className="relative space-y-5">
               <div className="card overflow-hidden border-white/60 bg-white/70 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
                 <div className="flex items-center justify-between text-base font-semibold text-text">
@@ -141,7 +141,7 @@ export default function HomePageContent({
                   Terdaftar dengan NPSN {credentials[0]?.value ?? "20351273"}, area 440 m² terpantau, dan peralatan ramah anak untuk belajar yang nyaman.
                 </p>
                 <div className="mt-4 flex items-center gap-3 text-base font-semibold text-text">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
                     😊
                   </span>
                   Rasio guru : anak {stats[2]?.value ?? "1 : 8"}
@@ -249,7 +249,7 @@ export default function HomePageContent({
                 variants={cardVariants}
                 className="card h-full border-white/60 bg-white/70 p-7 text-left backdrop-blur-xl backdrop-saturate-150"
               >
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-2xl">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-2xl" aria-hidden="true">
                   {item.icon}
                 </span>
                 <h3 className="mt-6 text-xl font-semibold text-text">{item.title}</h3>
@@ -296,7 +296,7 @@ export default function HomePageContent({
                   <ul className="mt-5 space-y-2 text-base text-text-muted">
                     {pillar.points.map((point) => (
                       <li key={point} className="flex items-start gap-3">
-                        <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
+                        <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                         {point}
                       </li>
                     ))}
@@ -328,19 +328,19 @@ export default function HomePageContent({
             />
             <ul className="space-y-3 text-base text-text-muted">
               <li className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
+                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary" aria-hidden="true">
                   1
                 </span>
                 Observasi minat, gaya belajar, serta diskusi orang tua untuk menentukan kebutuhan utama anak.
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
+                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary" aria-hidden="true">
                   2
                 </span>
                 Perumusan tujuan pembelajaran Kurikulum Merdeka dan strategi diferensiasi setiap awal tema.
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary">
+                <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary" aria-hidden="true">
                   3
                 </span>
                 Pameran karya, refleksi projek P5, dan laporan portofolio terstruktur di akhir tema.
@@ -368,14 +368,14 @@ export default function HomePageContent({
                       {program.description}
                     </p>
                   </div>
-                  <span className="inline-flex h-12 min-w-[3rem] items-center justify-center rounded-2xl bg-primary/15 text-2xl">
+                  <span className="inline-flex h-12 min-w-[3rem] items-center justify-center rounded-2xl bg-primary/15 text-2xl" aria-hidden="true">
                     ✨
                   </span>
                 </div>
                 <ul className="mt-6 space-y-2 text-base text-text-muted">
                   {program.points.map((point) => (
                     <li key={point} className="flex items-start gap-3">
-                      <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" />
+                      <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" aria-hidden="true" />
                       {point}
                     </li>
                   ))}
@@ -391,7 +391,7 @@ export default function HomePageContent({
           padding="tight"
           containerClassName="relative grid gap-12 lg:grid-cols-[0.9fr,1.1fr] lg:items-center"
         >
-          <div className="absolute inset-0 bg-grid-dots [background-size:24px_24px] opacity-40" />
+          <div className="absolute inset-0 bg-grid-dots [background-size:24px_24px] opacity-40" aria-hidden="true" />
           <m.div
             initial="hidden"
             whileInView="visible"
@@ -425,7 +425,7 @@ export default function HomePageContent({
                 className="grid gap-4 rounded-3xl border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-lg backdrop-saturate-150 sm:grid-cols-[auto,1fr] sm:items-center"
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-2xl">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-2xl" aria-hidden="true">
                     {item.icon}
                   </span>
                   <div>
@@ -455,8 +455,8 @@ export default function HomePageContent({
             />
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {blogPosts.slice(0, 3).map((post) => (
-                <Link href={`/blog/${post.slug}`} key={post.slug}>
-                  <div className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-primary/20">
+                <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
+                  <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
                     <div className="aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
                       <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
                     </div>
@@ -466,11 +466,11 @@ export default function HomePageContent({
                       </p>
                       <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
                       <p className="mt-2 flex-grow text-sm text-text-muted">{post.description}</p>
-                      <div className="mt-4 flex items-center text-sm font-semibold text-primary">
+                      <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
                         Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </Link>
               ))}
             </div>
@@ -530,7 +530,7 @@ export default function HomePageContent({
             </div>
           </m.div>
         </PageSection>
-      </>
+      </main>
     </LazyMotion>
   );
 }

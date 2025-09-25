@@ -6,7 +6,6 @@ import PageSection from "@/components/layout/PageSection";
 import { ppdbFaqs, rincianBiaya, syaratDanKetentuan } from "@/content/ppdb";
 import FaqAccordion from "@/components/FaqAccordion";
 import TestimonialList from "@/components/TestimonialList";
-import testimonials from "@/data/testimonials.json";
 import CountdownTimer from "@/components/CountdownTimer";
 import SectionHeader from "@/components/layout/SectionHeader";
 
@@ -188,13 +187,13 @@ function Step({ icon, title, description }: { icon: React.ReactNode; title: stri
 
 function Timeline({ items }: { items: { date: string; title: string; description: string }[] }) {
   return (
-    <div className="mt-6 flow-root">
+    <div className="mt-8 flow-root">
       <ul className="-mb-8">
         {items.map((item, itemIdx) => (
           <li key={item.title}>
             <div className="relative pb-8">
               {itemIdx !== items.length - 1 ? (
-                <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+                <span className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true" />
               ) : null}
               <div className="relative flex space-x-3">
                 <div>
@@ -204,11 +203,11 @@ function Timeline({ items }: { items: { date: string; title: string; description
                 </div>
                 <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                   <div>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-text-muted">
                       {item.date}
                     </p>
-                    <p className="font-medium text-gray-900">{item.title}</p>
-                    <p className="text-sm text-gray-500">{item.description}</p>
+                    <p className="font-medium text-text">{item.title}</p>
+                    <p className="mt-1 text-sm text-text-muted">{item.description}</p>
                   </div>
                 </div>
               </div>
@@ -216,20 +215,6 @@ function Timeline({ items }: { items: { date: string; title: string; description
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-function Feature({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
-  return (
-    <div className="relative pl-12">
-      <dt className="inline-flex items-center text-lg font-semibold text-text">
-        <span className="absolute left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-          {icon}
-        </span>
-        {title}
-      </dt>
-      <dd className="mt-2 text-base leading-7 text-text-muted">{description}</dd>
     </div>
   );
 }

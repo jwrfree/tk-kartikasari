@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { blogPosts, BlogPost } from '@/content/blog';
 import PageHeader from '@/components/layout/PageHeader';
 import { Calendar, Person, Tag } from 'react-bootstrap-icons';
+import { createBlogPostingJsonLd } from '@/lib/json-ld';
+import site from '@/data/site.json';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -23,8 +25,21 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     return notFound();
   }
 
+  const url = new URL(`/blog/${post.slug}`, site.siteUrl).toString();
+  const blogPostingJsonLd = createBlogPostingJsonLd({
+    title: post.title,
+    description: post.description,
+    date: post.publishedAt,
+    authorName: post.author,
+    url,
+  });
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
       <PageHeader
         eyebrow={post.tags.join(', ')}
         title={post.title}

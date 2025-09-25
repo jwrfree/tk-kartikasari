@@ -7,7 +7,6 @@ import SectionHeader from "@/components/layout/SectionHeader";
 import { kebijakanRefund, programCicilan, strukturBiaya } from "@/content/biaya";
 import { createPageMetadata } from "@/lib/metadata";
 import { formatRupiah } from "@/lib/utils";
-import { Bank, CreditCard, CurrencyDollar, Wallet } from "react-bootstrap-icons";
 
 export const metadata = createPageMetadata({
   title: "Biaya Pendidikan",
@@ -18,8 +17,8 @@ export const metadata = createPageMetadata({
 
 export default function BiayaPage() {
   const faqItems = kebijakanRefund.poin.map(item => ({
-    title: item.judul,
-    content: item.konten,
+    question: item.judul,
+    answer: item.konten,
   }));
 
   return (
@@ -41,12 +40,11 @@ export default function BiayaPage() {
           {strukturBiaya.komponen.map((item) => (
             <InfoCard
               key={item.nama}
-              icon={CurrencyDollar}
               title={item.nama}
-              subtitle={formatRupiah(item.jumlah)}
-              description={item.deskripsi}
-              variant="default"
-            />
+            >
+              <p className="text-2xl font-bold text-primary">{formatRupiah(item.jumlah)}</p>
+              <p className="mt-2 text-sm">{item.deskripsi}</p>
+            </InfoCard>
           ))}
         </div>
       </PageSection>
@@ -59,24 +57,15 @@ export default function BiayaPage() {
           description={programCicilan.deskripsi}
         />
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-           <InfoCard
-              icon={CreditCard}
-              title="Bayar Lunas"
-              description="Dapatkan diskon khusus Rp 200.000 untuk pembayaran uang pangkal secara lunas."
-              variant="success"
-           />
-           <InfoCard
-              icon={Bank}
-              title="Cicilan 2x"
-              description="Bayar 50% saat daftar ulang dan 50% di bulan berikutnya."
-              variant="default"
-           />
-           <InfoCard
-              icon={Wallet}
-              title="Cicilan 3x"
-              description="Bayar 40% saat daftar ulang, lalu 30% di dua bulan berikutnya."
-              variant="default"
-           />
+           <InfoCard title="Bayar Lunas">
+             Dapatkan diskon khusus Rp 200.000 untuk pembayaran uang pangkal secara lunas.
+           </InfoCard>
+           <InfoCard title="Cicilan 2x">
+              Bayar 50% saat daftar ulang dan 50% di bulan berikutnya.
+           </InfoCard>
+           <InfoCard title="Cicilan 3x">
+              Bayar 40% saat daftar ulang, lalu 30% di dua bulan berikutnya.
+           </InfoCard>
         </div>
          <p className="mt-8 text-center text-text-muted">{programCicilan.catatan}</p>
       </PageSection>
