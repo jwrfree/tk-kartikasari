@@ -107,7 +107,7 @@ export default function PpdbPage() {
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-text font-semibold">{formatRupiah(item.jumlah)}</td>
                     <td className="hidden lg:table-cell whitespace-normal px-3 py-4 text-sm text-text-muted">{item.deskripsi}</td>
                   </tr>
-                ))}\
+                ))}
               </tbody>
             </table>
           </div>
@@ -178,7 +178,7 @@ function Timeline({ items }: { items: { date: string; title: string; description
               </div>
             </div>
           </li>
-        ))}\
+        ))}
       </ul>
     </div>
   );
