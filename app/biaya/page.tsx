@@ -4,7 +4,7 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import { kebijakanRefund, programCicilan, strukturBiaya } from "@/content/biaya";
 import BiayaClientComponent from "./BiayaClientComponent";
-import { CheckCircle, InfoCircle, Money } from "react-bootstrap-icons";
+import { CashCoin, CheckCircle, InfoCircle } from "react-bootstrap-icons";
 
 export const metadata = {
   title: "Rincian Biaya",
