@@ -1,13 +1,4 @@
-
-function calculateReadingTime(text: string): number {
-  const wordsPerMinute = 200;
-  // Remove HTML tags and count the words
-  const textContent = text.replace(/<[^>]*>/g, " ");
-  const wordCount = textContent.split(/\s+/).filter(Boolean).length;
-  // Calculate reading time in minutes
-  const readingTime = Math.ceil(wordCount / wordsPerMinute);
-  return readingTime;
-}
+import { calculateReadingTime } from "@/lib/utils";
 
 export type BlogPost = {
   slug: string;
