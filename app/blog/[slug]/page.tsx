@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { blogPosts, BlogPost } from '@/content/blog';
 import PageHeader from '@/components/layout/PageHeader';
-import { Calendar, Person, Tag } from 'react-bootstrap-icons';
+import { Calendar, Person, Tag, Clock } from 'react-bootstrap-icons'; // Added Clock icon
 import { createBlogPostingJsonLd } from '@/lib/json-ld';
 import site from '@/data/site.json';
 
@@ -56,6 +56,10 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <div className="flex items-center gap-2">
               <Calendar />
               <span>{new Date(post.publishedAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock /> 
+              <span>{post.readingTime} min baca</span>
             </div>
             <div className="flex items-center gap-2">
               <Tag />

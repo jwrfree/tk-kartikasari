@@ -1,6 +1,6 @@
 # TK Kartikasari — Website Resmi
 
-**Website Live: [https://tk-kartikasari.vercel.app](https://tk-kartikasari.vercel.app)**
+**Website Live: [https://tkkartikasari.vercel.app](https://tkkartikasari.vercel.app)**
 
 Selamat datang di repositori resmi website TK Kartikasari Bantarsari. Proyek ini dibangun menggunakan arsitektur modern dengan Next.js (App Router) dan Tailwind CSS untuk memberikan pengalaman pengguna yang cepat, informatif, dan mudah diakses.
 

@@ -1,4 +1,14 @@
 
+function calculateReadingTime(text: string): number {
+  const wordsPerMinute = 200;
+  // Remove HTML tags and count the words
+  const textContent = text.replace(/<[^>]*>/g, " ");
+  const wordCount = textContent.split(/\s+/).filter(Boolean).length;
+  // Calculate reading time in minutes
+  const readingTime = Math.ceil(wordCount / wordsPerMinute);
+  return readingTime;
+}
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -8,42 +18,43 @@ export type BlogPost = {
   tags: string[];
   image: string;
   body: string;
+  readingTime: number; // Added readingTime
 };
 
-export const blogPosts: BlogPost[] = [
+const blogData = [
   {
     slug: "7-kegiatan-seru-tk-kartikasari",
-    title: "7 Kegiatan Seru yang Membuat Anak Betah Belajar di TK Kartikasari",
-    description: "Dari petualangan di kebun hingga eksperimen sains sederhana, lihat bagaimana kami mengubah pembelajaran menjadi permainan yang tak terlupakan.",
+    title: "7 Kegiatan Belajar Seru di TK Kartikasari Sesuai Kurikulum Merdeka",
+    description: "Temukan 7 kegiatan belajar inovatif di TK Kartikasari, dari kebun sekolah hingga sentra bermain peran, yang dirancang sesuai Kurikulum Merdeka untuk menumbuhkan kreativitas dan cinta belajar.",
     author: "Bu Mintarsih",
     publishedAt: "2024-05-20",
-    tags: ["Kegiatan Sekolah", "Kurikulum Merdeka"],
+    tags: ["Kegiatan Sekolah", "Kurikulum Merdeka", "Pendidikan Anak Usia Dini"],
     image: "/images/blog/kegiatan-seru.jpg",
     body: `
-      <p>Di TK Kartikasari, kami percaya bahwa belajar harus menyenangkan. Kami merancang berbagai kegiatan yang tidak hanya mendidik tetapi juga merangsang imajinasi dan kreativitas anak. Berikut adalah 7 kegiatan favorit anak-anak di sekolah kami:</p>
+      <p>Di TK Kartikasari, kami percaya bahwa belajar adalah sebuah petualangan yang menyenangkan. Mengacu pada prinsip <strong>Kurikulum Merdeka</strong>, kami merancang beragam kegiatan yang tidak hanya mendidik tetapi juga merangsang imajinasi, kreativitas, dan keterampilan sosial anak. Berikut adalah 7 kegiatan favorit yang membuat anak-anak selalu antusias di sekolah kami:</p>
       
       <h2>1. Petualangan Kebun Sekolah</h2>
-      <p>Anak-anak belajar tentang siklus hidup tanaman dengan menanam, merawat, dan memanen sayuran di kebun mini kami. Ini adalah cara langsung untuk mengenalkan konsep sains dan tanggung jawab.</p>
+      <p>Anak-anak tidak hanya belajar teori tentang tanaman, tetapi langsung praktik menanam, merawat, hingga memanen sayuran sederhana seperti bayam dan kangkung di <a href=\"/fasilitas\">fasilitas</a> kebun mini kami. Kegiatan ini adalah cara nyata untuk mengenalkan konsep sains alam, siklus kehidupan, kesabaran, dan tanggung jawab.</p>
 
       <h2>2. Eksperimen Sains Sederhana</h2>
-      <p>Setiap minggu, kami mengadakan sesi \"Ilmuwan Cilik\" di mana anak-anak melakukan eksperimen aman seperti membuat gunung berapi dari soda kue atau mencampur warna. Antusiasme mereka saat melihat air berubah warna atau soda kue mengeluarkan buih benar-benar tak ternilai.</p>
+      <p>Setiap minggu, ruang kelas kami berubah menjadi laboratorium \'Ilmuwan Cilik\'. Anak-anak melakukan eksperimen aman dan menakjubkan seperti membuat \'gunung meletus\' dari soda kue, menciptakan pelangi susu, atau mengamati benda yang tenggelam dan terapung. Rasa ingin tahu mereka terpacu secara maksimal!</p>
 
       <h2>3. Hari Budaya Nusantara</h2>
-      <p>Sebulan sekali, kami merayakan kekayaan budaya Indonesia. Anak-anak mengenakan pakaian adat, belajar tarian daerah, dan mencicipi makanan tradisional. Ini menumbuhkan rasa cinta tanah air sejak dini.</p>
+      <p>Sebulan sekali, kami merayakan kekayaan budaya Indonesia. Anak-anak dengan bangga mengenakan pakaian adat, belajar tarian daerah sederhana, dan mencicipi makanan tradisional. Ini adalah cara kami menumbuhkan rasa cinta tanah air dan menghargai keberagaman sejak dini.</p>
 
       <h2>4. Panggung Boneka Karakter</h2>
-      <p>Melalui cerita yang dimainkan dengan boneka tangan, kami mengajarkan nilai-nilai seperti kejujuran, empati, dan kerja sama. Anak-anak tidak hanya terhibur tetapi juga menyerap pesan moral dengan mudah.</p>
+      <p>Melalui cerita interaktif yang dimainkan dengan boneka tangan, kami mengajarkan nilai-nilai fundamental seperti kejujuran, empati, pentingnya berbagi, dan kerja sama. Anak-anak tidak hanya terhibur, tetapi juga menyerap pesan moral dengan cara yang dekat dengan dunia mereka.</p>
 
       <h2>5. Sentra Seni dan Kreasi</h2>
-      <p>Dengan berbagai bahan seperti cat air, tanah liat, dan bahan daur ulang, anak-anak bebas mengekspresikan diri. Kegiatan ini penting untuk melatih kekuatan jari-jemari (motorik halus) dan mengembangkan imajinasi mereka.</p>
+      <p>Di sentra seni, tidak ada kata \'salah\'. Dengan beragam media seperti cat air, tanah liat, hingga bahan daur ulang, anak-anak bebas mengekspresikan imajinasi mereka. Kegiatan ini sangat penting untuk melatih motorik halus, koordinasi mata dan tangan, serta kepercayaan diri. Cek <a href=\"/program\">program kami</a> untuk melihat integrasinya dalam kurikulum.</p>
 
       <h2>6. Kunjungan Edukatif (Field Trip)</h2>
-      <p>Kami secara rutin mengadakan kunjungan ke tempat-tempat seperti pemadam kebakaran, perpustakaan daerah, atau peternakan lokal. Pengalaman ini membuka wawasan mereka tentang dunia di sekitar mereka.</p>
+      <p>Belajar tidak terbatas di dalam kelas. Kami secara rutin mengadakan kunjungan ke tempat-tempat inspiratif seperti pemadam kebakaran, perpustakaan daerah, atau sentra kerajinan lokal. Setiap kunjungan memiliki tujuan pembelajaran yang jelas dan tentunya, standar keamanan yang ketat.</p>
 
       <h2>7. Pesta Air Ceria</h2>
-      <p>Saat cuaca panas, tidak ada yang lebih menyenangkan daripada bermain air. Kegiatan ini bukan hanya untuk bersenang-senang, tetapi juga untuk melatih keterampilan motorik kasar dan kerja sama tim.</p>
+      <p>Saat cuaca mendukung, area bermain kami menjadi tempat \'Pesta Air Ceria\'. Lebih dari sekadar bermain, kegiatan ini dirancang untuk melatih keterampilan motorik kasar, keseimbangan, dan yang terpenting, kerja sama tim dalam suasana yang penuh tawa.</p>
 
-      <p>Kegiatan-kegiatan ini adalah bagian dari komitmen kami untuk menciptakan lingkungan belajar yang holistik dan menyenangkan, sesuai dengan semangat Kurikulum Merdeka.</p>
+      <p>Tujuh kegiatan ini hanyalah sebagian kecil dari komitmen kami untuk menciptakan lingkungan belajar yang holistik, aktif, dan menyenangkan. Kami percaya metode ini membangun fondasi yang kuat bagi anak untuk cinta belajar seumur hidup. Ingin melihat langsung keseruannya? <a href=\"/ppdb\">Daftarkan anak Anda</a> atau <a href=\"/kontak\">hubungi kami</a> untuk jadwal kunjungan sekolah.</p>
     `,
   },
   {
@@ -82,23 +93,28 @@ export const blogPosts: BlogPost[] = [
     author: "Bu Mintarsih",
     publishedAt: "2024-05-10",
     tags: ["Kurikulum Merdeka", "Parenting"],
-    image: "/images/blog/bermain-peran.jpg",
+    image: "/images/blog/bermain-peran-baru.jpg",
     body: `
-      <p>Di sentra bermain peran yang diubah menjadi 'dapur' atau 'rumah sakit', keajaiban terjadi. Anak-anak yang terlibat dalam bermain peran tidak hanya bersenang-senang; mereka sedang membangun keterampilan penting untuk kehidupan. Inilah mengapa sentra bermain peran menjadi bagian tak terpisahkan dari Kurikulum Merdeka di TK Kartikasari.</p>
+      <p>Di sentra bermain peran yang diubah menjadi \'dapur\' atau \'rumah sakit\', keajaiban terjadi. Anak-anak yang terlibat dalam bermain peran tidak hanya bersenang-senang; mereka sedang membangun keterampilan penting untuk kehidupan. Inilah mengapa sentra bermain peran menjadi bagian tak terpisahkan dari Kurikulum Merdeka di TK Kartikasari.</p>
 
       <h2>Mengembangkan Keterampilan Sosial dan Emosional</h2>
-      <p>Saat bermain peran, anak-anak belajar bernegosiasi (\"Sekarang giliranku jadi dokter!\"), berempati (menenangkan 'pasien' yang menangis), dan bekerja sama. Mereka belajar memahami perspektif orang lain dan mengelola emosi mereka dalam konteks yang aman.</p>
+      <p>Saat bermain peran, anak-anak belajar bernegosiasi (\"Sekarang giliranku jadi dokter!\"), berempati (menenangkan \'pasien\' yang menangis), dan bekerja sama. Mereka belajar memahami perspektif orang lain dan mengelola emosi mereka dalam konteks yang aman.</p>
 
       <h2>Mendorong Kemampuan Berbahasa dan Berkomunikasi</h2>
       <p>Bermain peran memperkaya kosakata anak. Mereka menggunakan kata-kata yang mungkin tidak mereka gunakan dalam percakapan sehari-hari, seperti \"resep,\" \"stetoskop,\" atau \"pelanggan.\" Mereka juga berlatih menyusun kalimat dan mengekspresikan ide-ide kompleks.</p>
 
       <h2>Mengasah Keterampilan Memecahkan Masalah</h2>
-      <p>Apa yang harus dilakukan jika 'kue' yang mereka buat gosong? Bagaimana cara berbagi mainan jika semua ingin peran yang sama? Skenario-skenario ini adalah latihan memecahkan masalah dalam skala kecil. Anak-anak belajar berpikir kreatif dan mencari solusi bersama.</p>
+      <p>Apa yang harus dilakukan jika \'kue\' yang mereka buat gosong? Bagaimana cara berbagi mainan jika semua ingin peran yang sama? Skenario-skenario ini adalah latihan memecahkan masalah dalam skala kecil. Anak-anak belajar berpikir kreatif dan mencari solusi bersama.</p>
 
       <h2>Menghubungkan Pembelajaran dengan Dunia Nyata</h2>
       <p>Bermain peran membantu anak memahami dunia di sekitar mereka. Dengan meniru orang dewasa, mereka memproses dan memahami berbagai profesi, situasi sosial, dan rutinitas harian. Ini membuat pembelajaran menjadi relevan dan bermakna bagi mereka.</p>
 
-      <p>Jadi, saat berikutnya Anda melihat anak Anda asyik berbicara dengan boneka atau 'memasak' daun-daunan, ingatlah bahwa mereka sedang melakukan pekerjaan penting. Mereka sedang belajar, tumbuh, dan mempersiapkan diri untuk masa depan.</p>
+      <p>Jadi, saat berikutnya Anda melihat anak Anda asyik berbicara dengan boneka atau \'memasak\' daun-daunan, ingatlah bahwa mereka sedang melakukan pekerjaan penting. Mereka sedang belajar, tumbuh, dan mempersiapkan diri untuk masa depan.</p>
     `,
   },
 ];
+
+export const blogPosts: BlogPost[] = blogData.map(post => ({
+  ...post,
+  readingTime: calculateReadingTime(post.body),
+}));

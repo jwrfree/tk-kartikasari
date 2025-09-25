@@ -36,6 +36,8 @@ function BlogCard({ post }: { post: BlogPost }) {
         <div className="flex h-full flex-col p-6">
           <p className="text-sm text-text-muted">
             {new Date(post.publishedAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+            <span className="mx-1">·</span>
+            {post.readingTime} min baca
           </p>
           <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
           <p className="mt-2 flex-grow text-sm text-text-muted">{post.description}</p>
