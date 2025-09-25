@@ -5,9 +5,10 @@ import { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsappButton";
+import Analytics from "@/components/Analytics"; // Impor komponen Analytics
 import siteData from "@/data/site.json";
 import { createOrganizationJsonLd, createWebSiteJsonLd, createLocalBusinessJsonLd } from "@/lib/json-ld";
-import { inter } from "@/app/fonts"; // <-- Font diimpor
+import { inter } from "@/app/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -56,10 +57,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </head>
       <body
         className={cn(
-          "min-h-screen bg-surfaceAlt text-text font-sans antialiased", // Pastikan font-sans ada
-          inter.variable // <-- Variabel font diterapkan di sini
+          "min-h-screen bg-surfaceAlt text-text font-sans antialiased",
+          inter.variable
         )}
       >
+        <Analytics /> {/* Tambahkan komponen Analytics di sini */}
         <div className="relative flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">{children}</main>
