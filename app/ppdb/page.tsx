@@ -1,6 +1,6 @@
 
 import PageHeader from "@/components/layout/PageHeader";
-import { Check, CheckCircle, Clock, Person as User, Wallet } from "react-bootstrap-icons";
+import { Check, CheckCircle, Clock, Person as User, Wallet, XCircle } from "react-bootstrap-icons";
 import Link from "next/link";
 import PageSection from "@/components/layout/PageSection";
 import { ppdbFaqs, syaratDanKetentuan } from "@/content/ppdb";
@@ -30,6 +30,21 @@ export default function PpdbPage() {
         eyebrow="PPDB 2024/2025"
       />
 
+      {/* Status Pendaftaran Ditutup */}
+      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-8 content-container">
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <XCircle className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+          </div>
+          <div className="ml-3">
+            <p className="text-sm text-yellow-700">
+              Pendaftaran untuk tahun ajaran 2024/2025 telah ditutup. Terima kasih atas antusiasme Anda. Informasi pendaftaran untuk tahun ajaran berikutnya akan diumumkan di halaman ini.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
       {/* Proses Pendaftaran */}
       <div className="bg-surfaceAlt">
         <div className="content-container py-16 sm:py-20">
@@ -43,7 +58,7 @@ export default function PpdbPage() {
                 <Step icon={<CheckCircle className="h-6 w-6 text-primary" />} title="Konfirmasi & Selesai" description="Anda akan menerima konfirmasi instan melalui email dan WhatsApp." />
               </div>
               <div className="mt-12">
-                <Link href="/ppdb/formulir" className="btn-primary">Daftar Sekarang - Kuota Terbatas</Link>
+                <button className="btn-primary" disabled>Pendaftaran Telah Ditutup</button>
               </div>
             </div>
             <div className="rounded-2xl bg-surface p-8 shadow-lg">
@@ -92,7 +107,7 @@ export default function PpdbPage() {
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-text font-semibold">{formatRupiah(item.jumlah)}</td>
                     <td className="hidden lg:table-cell whitespace-normal px-3 py-4 text-sm text-text-muted">{item.deskripsi}</td>
                   </tr>
-                ))}
+                ))}\
               </tbody>
             </table>
           </div>
@@ -163,7 +178,7 @@ function Timeline({ items }: { items: { date: string; title: string; description
               </div>
             </div>
           </li>
-        ))}
+        ))}\
       </ul>
     </div>
   );
