@@ -1,20 +1,15 @@
-type ClassValue = string | number | false | null | undefined
+
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return inputs.filter(Boolean).join(' ')
+  return twMerge(clsx(inputs));
 }
 
-export function waLink(message: string) {
-  const phone = '6285227227826'
-  const text = encodeURIComponent(message)
-  return `https://wa.me/${phone}?text=${text}`
-}
-
-export function formatRupiah(amount: number) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
+export function calculateReadingTime(text: string): number {
+  const wordsPerMinute = 200;
+  const textContent = text.replace(/<[^>]*>/g, " ");
+  const wordCount = textContent.split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.ceil(wordCount / wordsPerMinute);
+  return readingTime;
 }
