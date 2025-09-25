@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -22,9 +23,10 @@ export default function DesktopNav() {
               <Link
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`rounded-full px-4 py-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                /* UPDATED: Changed focus and active link colors to match new pink theme */
+                className={`rounded-full px-4 py-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 ${
                   isActive
-                    ? "bg-primary/10 text-primary"
+                    ? "bg-pink-500/10 text-pink-500"
                     : "text-text-muted hover:bg-surfaceAlt hover:text-text"
                 }`}
               >

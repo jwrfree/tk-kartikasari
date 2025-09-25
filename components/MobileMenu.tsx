@@ -1,3 +1,4 @@
+
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -100,9 +101,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     href={item.href}
                     onClick={onClose}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`block rounded-full px-4 py-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                    /* UPDATED: Changed focus and active link colors to match new pink theme */
+                    className={`block rounded-full px-4 py-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 ${
                       isActive
-                        ? 'text-primary'
+                        ? 'text-pink-500'
                         : 'text-text-muted hover:bg-surfaceAlt hover:text-text'
                     }`}
                   >

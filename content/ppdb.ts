@@ -14,39 +14,16 @@ export const syaratDanKetentuan = [
   },
   {
     title: "Kelengkapan Dokumen",
-    description: "Fotokopi Akta Kelahiran, Kartu Keluarga, dan KTP Orang Tua (masing-masing 1 lembar).",
+    description: "Salinan Akta Kelahiran, Kartu Keluarga, dan KTP Orang Tua untuk kelancaran administrasi.",
   },
   {
     title: "Pas Foto",
-    description: "Menyerahkan pas foto anak berwarna ukuran 3x4 sebanyak 2 lembar.",
+    description: "Dua lembar pas foto berwarna ukuran 3x4 untuk keperluan data siswa.",
   },
   {
     title: "Biaya Pendaftaran",
-    description: "Melakukan pembayaran biaya pendaftaran untuk booking kuota.",
+    description: "Pembayaran biaya pendaftaran untuk mengamankan tempat putra/i Anda di kelas.",
   },
-];
-
-export const rincianBiaya = [
-    {
-        name: "Biaya Pendaftaran",
-        amount: "Rp 150.000",
-        note: "Sekali bayar, untuk administrasi dan kuota."
-    },
-    {
-        name: "SPP Bulanan",
-        amount: "Rp 100.000",
-        note: "Termasuk semua kegiatan sentra dan material belajar."
-    },
-    {
-        name: "Uang Seragam",
-        amount: "Rp 450.000",
-        note: "3 stel (olahraga, batik, harian) kain kualitas premium."
-    },
-    {
-        name: "Uang Kegiatan Tahunan",
-        amount: "Rp 500.000",
-        note: "Untuk field trip, perayaan hari besar, dan material khusus."
-    }
 ];
 
 export const ppdbFaqs: PpdbFaq[] = [
@@ -63,12 +40,12 @@ export const ppdbFaqs: PpdbFaq[] = [
   {
     question: "Apakah biaya pendaftaran bisa dikembalikan?",
     answer:
-      "Biaya pendaftaran yang sudah dibayarkan tidak dapat dikembalikan, karena langsung dialokasikan untuk proses administrasi awal dan booking kuota agar tidak diambil calon lain.",
+      "Seluruh biaya pendaftaran dialokasikan langsung untuk proses administrasi dan memastikan kuota tidak terisi oleh calon lain. Oleh karena itu, biaya ini bersifat non-refundable. Kami sarankan untuk memastikan semua informasi sudah sesuai sebelum melakukan pembayaran.",
   },
   {
     question: "Kapan saya akan dihubungi setelah mengirim formulir?",
     answer:
-      "Tim kami akan menghubungi Anda melalui WhatsApp dalam 1x24 jam pada hari kerja setelah Anda berhasil mengirimkan formulir pendaftaran online untuk verifikasi data.",
+      "Salah satu perwakilan kami akan menghubungi Ayah/Bunda secara personal melalui WhatsApp dalam 1x24 jam pada hari kerja untuk memverifikasi data dan menjawab pertanyaan awal.",
   },
   {
       question: "Apakah ada diskon untuk saudara kandung?",

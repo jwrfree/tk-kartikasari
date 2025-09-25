@@ -1,11 +1,12 @@
 
 import { cn } from "@/lib/utils";
 import "@/app/globals.css";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import WhatsAppButton from "@/components/WhatsappButton";
 import siteData from "@/data/site.json";
 import { createOrganizationJsonLd, createWebSiteJsonLd, createLocalBusinessJsonLd } from "@/lib/json-ld";
+import { inter } from "@/app/fonts"; // <-- Font diimpor
 
 export const metadata: Metadata = {
   title: {
@@ -13,21 +14,18 @@ export const metadata: Metadata = {
     template: `%s - ${siteData.schoolName}`,
   },
   description: siteData.address,
-  themeColor: [
-    {
-      media: "(prefers-color-scheme: light)",
-      color: "white",
-    },
-    {
-      media: "(prefers-color-scheme: dark)",
-      color: "black",
-    },
-  ],
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 interface RootLayoutProps {
@@ -57,7 +55,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-surfaceAlt text-text font-sans antialiased", // Pastikan font-sans ada
+          inter.variable // <-- Variabel font diterapkan di sini
         )}
       >
         <div className="relative flex min-h-screen flex-col">

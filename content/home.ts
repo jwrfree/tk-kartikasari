@@ -11,7 +11,7 @@ import type {
 } from "@/app/types/home";
 
 export const homeHeroDescription =
-  "Membantu anak tumbuh menjadi pribadi yang ceria dan berkarakter Pancasila. Caranya? Lewat pendampingan personal, kegiatan yang sesuai minat anak, dan projek seru yang hasilnya sesuai arahan Kemendikbudristek.";
+  "Membantu anak tumbuh menjadi pribadi yang ceria dan berkarakter Pancasila. Caranya? Lewat pendampingan personal, kegiatan yang sesuai minat anak, dan projek seru yang membangun kemampuan anak sesuai standar pendidikan nasional.";
 
 export const homeStats: HomeStat[] = [
   {
@@ -50,7 +50,7 @@ export const homeHighlights: HomeHighlight[] = [
 
 export const homePrograms: HomeProgram[] = [
   {
-    name: "Kelas Bintang • Fondasi Merdeka",
+    name: "Kelas A • Fondasi Merdeka",
     age: "Usia 4–5 tahun",
     description:
       "Kelas peralihan yang fokus pada adaptasi, kemandirian, serta menanamkan nilai-nilai baik.",
@@ -61,14 +61,14 @@ export const homePrograms: HomeProgram[] = [
     ],
   },
   {
-    name: "Kelas Pelangi • Siap Sekolah Dasar",
+    name: "Kelas B • Siap Sekolah Dasar",
     age: "Usia 5–6 tahun",
     description:
       "Menguatkan kemampuan baca-tulis-hitung (calistung) dan rasa percaya diri dengan konteks dunia anak.",
     points: [
-      "Projek STEAM (Sains, Teknologi, Engineering, Seni, Matematika) berbasis lingkungan sekitar.",
+      "Projek sains dan seni yang asyik, seperti merancang bangunan dari bahan daur ulang atau belajar lewat musik dan gerak.",
       "Latihan bercerita dan tampil di depan teman untuk menumbuhkan keberanian.",
-      "Rencana belajar personal yang disepakati bersama keluarga di setiap awal tema.",
+      "Rencana belajar yang dibuat khusus untuk setiap anak, disepakati bersama keluarga di setiap awal tema.",
     ],
   },
   {
@@ -101,9 +101,9 @@ export const homeJourney: HomeJourneyItem[] = [
   },
   {
     time: "09.15",
-    title: "Main di Sudut Belajar",
+    title: "Bermain di Sentra Pilihan",
     description:
-      "Anak bebas memilih sudut main yang disuka: seni, sains, balok, atau main peran, sambil ditemani guru.",
+      "Anak bebas memilih sentra main yang disuka: seni, sains, balok, atau main peran, sambil ditemani guru.",
     icon: "🧩",
   },
   {

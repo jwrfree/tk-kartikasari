@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useId, useState } from "react";
@@ -57,6 +58,7 @@ export default function FaqAccordion({
               duration: 0.55,
               delay: revealOnView ? index * itemDelay : undefined,
             }}
+            // UPDATED: .card class already provides rounding, overflow-hidden will enforce it.
             className={`card overflow-hidden border-white/70 bg-white/70 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-colors duration-200 ${
               isOpen ? "border-secondary/60 bg-white" : ""
             }`}
@@ -66,10 +68,12 @@ export default function FaqAccordion({
               onClick={() => toggleIndex(index)}
               aria-expanded={isOpen}
               aria-controls={contentId}
-              className="flex w-full items-center gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              // UPDATED: Added rounded-xl to ensure the focus outline is also rounded.
+              className="flex w-full items-center gap-4 rounded-xl px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             >
               <span className="flex-1 text-lg font-semibold text-text">{item.question}</span>
-              <span className="relative inline-flex h-10 w-10 flex-none items-center justify-center rounded-full bg-secondary/10 text-secondary">
+              {/* UPDATED: Changed from rounded-full to rounded-xl for consistency */}
+              <span className="relative inline-flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-secondary/10 text-secondary">
                 <span className="absolute h-0.5 w-4 rounded bg-current" aria-hidden />
                 <motion.span
                   aria-hidden

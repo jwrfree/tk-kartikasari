@@ -1,3 +1,4 @@
+
 export type AboutHighlight = string;
 
 export type ExperiencePillar = {
@@ -81,7 +82,7 @@ export const aboutStrengths: StrengthItem[] = [
 export const aboutMission: string[] = [
   "✨ Menguatkan karakter religius, empati, dan kemandirian melalui pembiasaan harian yang positif.",
   "🎒 Menghadirkan pengalaman Kurikulum Merdeka yang menyenangkan, terdiferensiasi, dan relevan dengan kehidupan anak.",
-  "🤝 Mendorong kolaborasi keluarga dalam Projek Profil Pelajar Pancasila dan asesmen autentik.",
-  "🏡 Menyediakan lingkungan aman, inklusif, dan kaya stimulasi pada lahan 440 m² yang terkelola baik.",
-  "🚀 Mengembangkan literasi, numerasi, STEAM, dan seni sebagai bekal transisi menuju sekolah dasar.",
+  "🤝 Membangun kemitraan erat bersama keluarga untuk menyukseskan Projek Profil Pelajar Pancasila dan asesmen autentik.",
+  "🏡 Menyediakan lingkungan belajar yang aman, inklusif, dan kaya akan stimulasi positif.",
+  "🚀 Mengembangkan literasi, numerasi, serta kecakapan saintifik, teknologi, dan seni sebagai bekal transisi menuju sekolah dasar.",
 ];

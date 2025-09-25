@@ -53,6 +53,7 @@ export default function HomePageContent({
   return (
     <LazyMotion features={domAnimation}>
       <main>
+        {/* Section 1: Hero (Kail) */}
         <PageSection
           className="relative overflow-hidden"
           padding="none"
@@ -165,60 +166,7 @@ export default function HomePageContent({
           </m.div>
         </PageSection>
 
-        <PageSection className="relative" padding="tight">
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
-            className="space-y-8"
-          >
-            <SectionHeader
-              eyebrow="Data resmi sekolah"
-              eyebrowVariant="secondary"
-              title="Kredensial yang memperkuat kepercayaan orang tua"
-              description="Seluruh informasi sekolah tersimpan di basis data Kemendikbudristek dan diperkuat perjalanan panjang layanan kami untuk keluarga Bantarsari."
-            />
-            <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
-              <div className="card h-full space-y-5 border-white/70 bg-white/70 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150">
-                <h3 className="text-2xl font-semibold text-text">Legalitas & info resmi</h3>
-                <ul className="space-y-4">
-                  {credentials.map((item) => (
-                    <li
-                      key={item.label}
-                      className="rounded-3xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
-                    >
-                      <p className="text-xs font-semibold uppercase tracking-wide text-secondary">{item.label}</p>
-                      <p className="mt-1 text-lg font-semibold text-text">{item.value}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-text-muted">{item.description}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="card h-full space-y-5 border-white/70 bg-gradient-to-br from-primary/10 via-white to-secondary/10 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150">
-                <h3 className="text-2xl font-semibold text-text">Perjalanan {stats[0]?.value ?? "26+"} tahun</h3>
-                <div className="relative">
-                  <span className="absolute left-4 top-2 bottom-2 w-px bg-secondary/30" aria-hidden="true" />
-                  <ul className="space-y-6">
-                    {timeline.map((milestone) => (
-                      <li key={`${milestone.year}-${milestone.title}`} className="relative pl-10">
-                        <span className="absolute left-0 top-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 text-sm font-semibold text-secondary">
-                          {milestone.year}
-                        </span>
-                        <div className="space-y-1">
-                          <p className="text-base font-semibold text-text">{milestone.title}</p>
-                          <p className="text-sm leading-relaxed text-text-muted">{milestone.description}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </m.div>
-        </PageSection>
-
+        {/* Section 2: Keunggulan/Highlights (Janji Utama) - REVISED */}
         <PageSection
           className="relative border-y border-white/50 bg-white/50 backdrop-blur-sm backdrop-saturate-150"
           padding="tight"
@@ -234,8 +182,8 @@ export default function HomePageContent({
               align="center"
               eyebrow="Mengapa orang tua mempercayakan anaknya"
               eyebrowVariant="primary"
-              description={`Legalitas lengkap, pengalaman ${stats[0]?.value ?? "26+"} tahun, dan implementasi Kurikulum Merdeka menghadirkan rasa aman bagi keluarga.`}
-              title="Legalitas resmi, pembelajaran modern, dan karakter Pancasila dalam satu sekolah"
+              title="Tiga janji utama kami untuk ketenangan Ayah & Bunda"
+              description="Komitmen kami adalah menciptakan lingkungan belajar yang aman secara legal, nyaman untuk anak, dan berakar pada nilai-nilai keindonesiaan."
             />
           </m.div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -259,6 +207,62 @@ export default function HomePageContent({
           </div>
         </PageSection>
 
+        {/* Section 3: Kredensial & Sejarah (Bukti Kepercayaan) - REVISED */}
+        <PageSection className="relative" padding="tight">
+          <m.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6 }}
+            variants={cardVariants}
+            className="space-y-8"
+          >
+            <SectionHeader
+              eyebrow="Bukti Kepercayaan Anda"
+              eyebrowVariant="secondary"
+              title="Kredensial Resmi dan Perjalanan Panjang yang Teruji"
+              description="Seluruh informasi sekolah tersimpan di basis data Kemendikbudristek dan diperkuat oleh sejarah layanan kami untuk keluarga Bantarsari."
+            />
+            <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
+              <div className="card h-full space-y-5 border-white/70 bg-white/70 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150">
+                <h3 className="text-2xl font-semibold text-text">Legalitas & Info Resmi</h3>
+                <ul className="space-y-4">
+                  {credentials.map((item) => (
+                    <li
+                      key={item.label}
+                      className="rounded-3xl border border-white/60 bg-white/60 p-4 transition-all duration-300 backdrop-blur-lg backdrop-saturate-150 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-wide text-secondary">{item.label}</p>
+                      <p className="mt-1 text-lg font-semibold text-text">{item.value}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-text-muted">{item.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="card h-full space-y-5 border-white/70 bg-gradient-to-br from-primary/10 via-white to-secondary/10 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150">
+                <h3 className="text-2xl font-semibold text-text">Jejak Langkah Kami</h3>
+                <div className="relative">
+                  <span className="absolute left-4 top-2 bottom-2 w-px bg-secondary/30" aria-hidden="true" />
+                  <ul className="space-y-6">
+                    {timeline.map((milestone) => (
+                      <li key={`${milestone.year}-${milestone.title}`} className="relative pl-10">
+                        <span className="absolute left-0 top-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 text-sm font-semibold text-secondary">
+                          {milestone.year}
+                        </span>
+                        <div className="space-y-1">
+                          <p className="text-base font-semibold text-text">{milestone.title}</p>
+                          <p className="text-sm leading-relaxed text-text-muted">{milestone.description}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </m.div>
+        </PageSection>
+
+        {/* Section 4: Pilar Kurikulum (Filosofi) */}
         <PageSection
           id="kurikulum-merdeka"
           className="bg-gradient-to-br from-secondary/10 via-white to-primary/10"
@@ -273,9 +277,9 @@ export default function HomePageContent({
             className="space-y-8"
           >
             <SectionHeader
-              eyebrow="Implementasi Kurikulum Merdeka"
+              eyebrow="Filosofi Pendidikan Kami"
               eyebrowVariant="secondary"
-              title="Fase fondasi yang menguatkan Profil Pelajar Pancasila"
+              title="Fase Fondasi yang Menguatkan Profil Pelajar Pancasila"
               description="Pembelajaran kami selaras dengan panduan PAUD Merdeka: karakter, jati diri, dan kompetensi dasar tumbuh seimbang melalui projek yang menyenangkan."
             />
             <div className="grid gap-6 md:grid-cols-3">
@@ -307,6 +311,7 @@ export default function HomePageContent({
           </m.div>
         </PageSection>
 
+        {/* Section 5: Program & Aktivitas Harian (Eksekusi) */}
         <PageSection
           id="program"
           padding="tight"
@@ -323,7 +328,7 @@ export default function HomePageContent({
             <SectionHeader
               eyebrow="Program Kurikulum Merdeka"
               eyebrowVariant="secondary"
-              title="Jalur belajar terdiferensiasi sesuai kebutuhan tumbuh kembang anak"
+              title="Jalur Belajar yang Disesuaikan untuk Setiap Anak"
               description="Guru inti dan guru pendamping berkolaborasi menyeimbangkan karakter, kompetensi dasar, dan kegembiraan bermain melalui projek Profil Pelajar Pancasila."
             />
             <ul className="space-y-3 text-base text-text-muted">
@@ -401,13 +406,13 @@ export default function HomePageContent({
             className="relative space-y-6"
           >
             <SectionHeader
-              eyebrow="Ritme fase fondasi"
+              eyebrow="Aktivitas Harian"
               eyebrowVariant="surface"
-              title="Transisi lembut yang menjaga rasa aman dan antusiasme anak sepanjang hari"
-              description="Rangkaian kegiatan mengikuti struktur Kurikulum Merdeka PAUD: mulai dari pembiasaan nilai, eksplorasi diferensiasi, hingga refleksi dan asesmen autentik."
+              title="Transisi Lembut yang Menjaga Antusiasme Anak"
+              description="Rangkaian kegiatan mengikuti struktur Kurikulum Merdeka PAUD: mulai dari pembiasaan nilai, eksplorasi, hingga refleksi dan asesmen autentik."
             />
             <div className="rounded-3xl border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-lg backdrop-saturate-150">
-              <p className="text-base font-semibold text-secondary">Kolaborasi dengan orang tua</p>
+              <p className="text-base font-semibold text-secondary">Kolaborasi dengan Orang Tua</p>
               <p className="mt-3 text-base leading-relaxed text-text-muted">
                 Orang tua menerima ringkasan harian, refleksi projek P5, dan rekomendasi penguatan karakter untuk diterapkan di rumah.
               </p>
@@ -439,6 +444,10 @@ export default function HomePageContent({
           </div>
         </PageSection>
         
+        {/* Section 6: Testimoni (Bukti Sosial) - REVISED POSITION */}
+        <TestimonialList />
+
+        {/* Section 7: Blog */}
         <PageSection id="blog" padding="tight">
           <m.div
             initial="hidden"
@@ -477,8 +486,7 @@ export default function HomePageContent({
           </m.div>
         </PageSection>
 
-        <TestimonialList />
-
+        {/* Section 8: FAQ */}
         <PageSection
           id="faq"
           padding="tight"
@@ -493,8 +501,8 @@ export default function HomePageContent({
             className="space-y-6"
           >
             <SectionHeader
-              eyebrow="Sering ditanyakan"
-              title="Informasi penting seputar pendaftaran dan kegiatan sekolah"
+              eyebrow="Sering Ditanyakan"
+              title="Informasi Penting Seputar Pendaftaran"
               description="Jika ada pertanyaan lain, kami dengan senang hati menjawab melalui WhatsApp ataupun ketika Anda berkunjung langsung."
             />
             <CTAButton ctaKey="faqInquiry" />
@@ -502,6 +510,7 @@ export default function HomePageContent({
           <FaqAccordion items={faqs} revealOnView className="space-y-4" />
         </PageSection>
 
+        {/* Section 9: CTA Final - REVISED */}
         <PageSection className="relative pb-36" padding="tight">
           <m.div
             initial="hidden"
@@ -513,19 +522,19 @@ export default function HomePageContent({
           >
             <div className="max-w-xl space-y-4">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-secondary backdrop-blur-sm backdrop-saturate-150">
-                Siap bergabung
+                Siap Bergabung
               </span>
               <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl">
-                Jadwalkan tur sekolah dan lihat langsung implementasi Kurikulum Merdeka kami
+                Jadwalkan Tur Sekolah dan Lihat Langsung Implementasi Kurikulum Merdeka Kami
               </h2>
               <p className="text-base leading-relaxed text-text-muted">
-                Kami membuka sesi kunjungan setiap Senin dan Kamis. Tim akan menunjukkan sentra belajar, dokumentasi Projek Profil Pelajar Pancasila, dan bukti legalitas sekolah.
+                Kami membuka sesi kunjungan setiap Senin dan Kamis. Tim kami akan menunjukkan sentra belajar dan dokumentasi projek Profil Pelajar Pancasila.
               </p>
             </div>
             <div className="flex flex-col gap-3 md:flex-row md:items-center">
               <CTAButton ctaKey="visitSchedule" />
               <a href="#program" className="btn-outline w-full sm:w-auto">
-                Lihat program kembali
+                Lihat Program Kembali
               </a>
             </div>
           </m.div>

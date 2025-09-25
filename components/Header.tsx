@@ -1,9 +1,9 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import site from '@/data/site.json';
-import { waLink } from '@/lib/utils';
 import DesktopNav from '@/components/DesktopNav';
 import MobileNav from '@/components/MobileNav';
 import MobileMenu from '@/components/MobileMenu';
@@ -44,7 +44,8 @@ export default function Header() {
           <div className="relative flex w-full items-center gap-3 py-3 md:gap-5 md:py-4">
             <Link
               href="/"
-              className="flex shrink-0 items-center gap-3 text-text transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+              /* UPDATED: Changed focus ring to match new pink theme */
+              className="flex shrink-0 items-center gap-3 text-text transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/60 bg-white/70 shadow-soft backdrop-blur-sm">
                 <img src={site.logo} alt="Logo TK Kartikasari" className="h-8 w-8 object-contain" />
@@ -56,24 +57,9 @@ export default function Header() {
             </Link>
             <DesktopNav />
             <div className="ml-auto flex flex-1 items-center justify-end gap-2 sm:gap-3 lg:ml-0 lg:flex-none">
-              <Link
-                href="/ppdb"
-                className="hidden rounded-full border border-border/70 px-4 py-2 text-sm font-semibold text-text transition hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:inline-flex"
-              >
-                Info PPDB
-              </Link>
-              <a
-                href={waLink('Halo Bu Mintarsih, saya ingin info PPDB TK Kartikasari.')}
-                className="hidden rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:brightness-[1.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:inline-flex"
-              >
-                Chat WhatsApp
-              </a>
-              <Link
-                href="/ppdb"
-                className="inline-flex items-center rounded-full border border-border/70 px-3 py-2 text-sm font-semibold text-text transition hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:hidden"
-              >
-                PPDB
-              </Link>
+              {/* --- FINAL HEADER CLEANUP --- */}
+              {/* Semua tombol CTA telah dihapus dari header, karena sudah ditangani oleh FAB WhatsApp dan item navigasi. */}
+              
               <MobileNav isOpen={isMobileMenuOpen} onToggle={toggleMobileMenu} />
             </div>
           </div>

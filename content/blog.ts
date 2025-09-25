@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
       <p>Anak-anak belajar tentang siklus hidup tanaman dengan menanam, merawat, dan memanen sayuran di kebun mini kami. Ini adalah cara langsung untuk mengenalkan konsep sains dan tanggung jawab.</p>
 
       <h2>2. Eksperimen Sains Sederhana</h2>
-      <p>Setiap minggu, kami mengadakan sesi "Ilmuwan Cilik" di mana anak-anak melakukan eksperimen aman seperti membuat gunung berapi dari soda kue atau mencampur warna. Antusiasme mereka saat melihat reaksi kimia sederhana sangat tak ternilai.</p>
+      <p>Setiap minggu, kami mengadakan sesi \"Ilmuwan Cilik\" di mana anak-anak melakukan eksperimen aman seperti membuat gunung berapi dari soda kue atau mencampur warna. Antusiasme mereka saat melihat air berubah warna atau soda kue mengeluarkan buih benar-benar tak ternilai.</p>
 
       <h2>3. Hari Budaya Nusantara</h2>
       <p>Sebulan sekali, kami merayakan kekayaan budaya Indonesia. Anak-anak mengenakan pakaian adat, belajar tarian daerah, dan mencicipi makanan tradisional. Ini menumbuhkan rasa cinta tanah air sejak dini.</p>
@@ -35,7 +35,7 @@ export const blogPosts: BlogPost[] = [
       <p>Melalui cerita yang dimainkan dengan boneka tangan, kami mengajarkan nilai-nilai seperti kejujuran, empati, dan kerja sama. Anak-anak tidak hanya terhibur tetapi juga menyerap pesan moral dengan mudah.</p>
 
       <h2>5. Sentra Seni dan Kreasi</h2>
-      <p>Dengan berbagai bahan seperti cat air, tanah liat, dan bahan daur ulang, anak-anak bebas mengekspresikan diri. Kegiatan ini penting untuk mengembangkan motorik halus dan imajinasi mereka.</p>
+      <p>Dengan berbagai bahan seperti cat air, tanah liat, dan bahan daur ulang, anak-anak bebas mengekspresikan diri. Kegiatan ini penting untuk melatih kekuatan jari-jemari (motorik halus) dan mengembangkan imajinasi mereka.</p>
 
       <h2>6. Kunjungan Edukatif (Field Trip)</h2>
       <p>Kami secara rutin mengadakan kunjungan ke tempat-tempat seperti pemadam kebakaran, perpustakaan daerah, atau peternakan lokal. Pengalaman ini membuka wawasan mereka tentang dunia di sekitar mereka.</p>
@@ -84,13 +84,13 @@ export const blogPosts: BlogPost[] = [
     tags: ["Kurikulum Merdeka", "Parenting"],
     image: "/images/blog/bermain-peran.jpg",
     body: `
-      <p>Di sudut kelas yang diubah menjadi 'dapur' atau 'rumah sakit', keajaiban terjadi. Anak-anak yang terlibat dalam bermain peran tidak hanya bersenang-senang; mereka sedang membangun keterampilan penting untuk kehidupan. Inilah mengapa sentra bermain peran menjadi bagian tak terpisahkan dari Kurikulum Merdeka di TK Kartikasari.</p>
+      <p>Di sentra bermain peran yang diubah menjadi 'dapur' atau 'rumah sakit', keajaiban terjadi. Anak-anak yang terlibat dalam bermain peran tidak hanya bersenang-senang; mereka sedang membangun keterampilan penting untuk kehidupan. Inilah mengapa sentra bermain peran menjadi bagian tak terpisahkan dari Kurikulum Merdeka di TK Kartikasari.</p>
 
       <h2>Mengembangkan Keterampilan Sosial dan Emosional</h2>
-      <p>Saat bermain peran, anak-anak belajar bernegosiasi ("Sekarang giliranku jadi dokter!"), berempati (menenangkan 'pasien' yang menangis), dan bekerja sama. Mereka belajar memahami perspektif orang lain dan mengelola emosi mereka dalam konteks yang aman.</p>
+      <p>Saat bermain peran, anak-anak belajar bernegosiasi (\"Sekarang giliranku jadi dokter!\"), berempati (menenangkan 'pasien' yang menangis), dan bekerja sama. Mereka belajar memahami perspektif orang lain dan mengelola emosi mereka dalam konteks yang aman.</p>
 
       <h2>Mendorong Kemampuan Berbahasa dan Berkomunikasi</h2>
-      <p>Bermain peran memperkaya kosakata anak. Mereka menggunakan kata-kata yang mungkin tidak mereka gunakan dalam percakapan sehari-hari, seperti "resep," "stetoskop," atau "pelanggan." Mereka juga berlatih menyusun kalimat dan mengekspresikan ide-ide kompleks.</p>
+      <p>Bermain peran memperkaya kosakata anak. Mereka menggunakan kata-kata yang mungkin tidak mereka gunakan dalam percakapan sehari-hari, seperti \"resep,\" \"stetoskop,\" atau \"pelanggan.\" Mereka juga berlatih menyusun kalimat dan mengekspresikan ide-ide kompleks.</p>
 
       <h2>Mengasah Keterampilan Memecahkan Masalah</h2>
       <p>Apa yang harus dilakukan jika 'kue' yang mereka buat gosong? Bagaimana cara berbagi mainan jika semua ingin peran yang sama? Skenario-skenario ini adalah latihan memecahkan masalah dalam skala kecil. Anak-anak belajar berpikir kreatif dan mencari solusi bersama.</p>

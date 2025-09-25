@@ -23,8 +23,8 @@ export const daftarFasilitas: FasilitasDetail[] = [
     icon: "PencilSquare", 
     fitur: [
       "Pojok baca yang nyaman",
-      "Area sentra main peran",
-      "Papan tulis interaktif",
+      "Sentra main peran untuk stimulasi imajinasi & empati",
+      "Papan tulis interaktif untuk pembelajaran kolaboratif",
       "Sirkulasi udara yang baik"
     ],
     imgPlaceholder: {
@@ -37,9 +37,9 @@ export const daftarFasilitas: FasilitasDetail[] = [
     deskripsi: "Area bermain outdoor kami yang aman dan hijau menyediakan ruang bagi anak untuk berlari, memanjat, dan bermain ayunan, mengembangkan motorik kasar mereka.",
     icon: "PuzzleFill",
     fitur: [
-      "Perosotan dan ayunan standar SNI",
+      "Peralatan bermain berstandar SNI untuk keamanan optimal",
       "Area pasir kinetik",
-      "Taman lalu lintas mini",
+      "Taman lalu lintas mini untuk pengenalan aturan & keselamatan",
       "Permukaan empuk (rubber mat)"
     ],
      imgPlaceholder: {
@@ -52,9 +52,9 @@ export const daftarFasilitas: FasilitasDetail[] = [
     deskripsi: "Sebuah sudut yang tenang dan kaya akan buku cerita bergambar untuk menumbuhkan kecintaan anak pada literasi sejak dini.",
     icon: "BookHalf",
     fitur: [
-      "Koleksi buku cerita anak",
+      "Koleksi buku cerita yang beragam untuk membuka wawasan",
       "Bean bag dan karpet yang nyaman",
-      "Sistem peminjaman buku sederhana",
+      "Sistem peminjaman untuk melatih tanggung jawab",
       "Kegiatan dongeng rutin"
     ],
      imgPlaceholder: {
@@ -69,8 +69,8 @@ export const daftarFasilitas: FasilitasDetail[] = [
     fitur: [
       "Pot dan tanaman yang mudah dirawat",
       "Alat berkebun ukuran anak",
-      "Program menanam sayur dan bunga",
-      "Komposter mini untuk belajar daur ulang"
+      "Projek menanam untuk belajar siklus hidup & kesabaran",
+      "Komposter mini untuk menanamkan kepedulian lingkungan"
     ],
      imgPlaceholder: {
         title: "Foto Area Berkebun",
@@ -78,4 +78,3 @@ export const daftarFasilitas: FasilitasDetail[] = [
     }
   }
 ];
-

@@ -33,7 +33,7 @@ export const officialMilestones: OfficialTimelineMilestone[] = [
     year: "2012",
     title: "🌿 Penguatan sentra belajar",
     description:
-      "Memaksimalkan lahan 440 m² menjadi sentra tematik, taman bermain hijau, dan area eksplorasi luar ruang agar anak bebas bereksperimen.",
+      "Memaksimalkan lahan 440 m² menjadi sentra tematik, taman bermain yang hijau, serta area bermain di luar ruangan agar anak bebas bereksperimen.",
   },
   {
     year: "2024",

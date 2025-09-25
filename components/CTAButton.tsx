@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -5,6 +6,7 @@ import { motion } from 'framer-motion';
 import type { CTAConfig, CTAKey } from '@/data/cta';
 import { ctaConfigs } from '@/data/cta';
 import site from '@/data/site.json';
+import { cn } from '@/lib/utils'; // Import cn untuk menggabungkan kelas
 
 interface CTAButtonProps {
   ctaKey: CTAKey;
@@ -21,18 +23,12 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
   const encodedMessage = encodeURIComponent(message);
   const href = `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
 
-  const baseClasses =
-    'inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-base font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface w-full sm:w-auto';
-
-  const variantClasses = {
-    primary:
-      'border-transparent bg-primary text-white shadow-soft hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:ring-primary',
-    secondary:
-      'border-transparent bg-secondary text-white shadow-soft hover:-translate-y-0.5 hover:bg-secondary/90 focus-visible:ring-secondary',
-    outline:
-      'border-border bg-surface text-text shadow-soft hover:-translate-y-0.5 hover:border-primary hover:bg-surfaceAlt hover:text-primary focus-visible:ring-primary',
-    ghost:
-      'border-transparent bg-transparent text-text hover:bg-surfaceAlt hover:text-primary focus-visible:ring-primary',
+  // Objek pemetaan dari varian config ke kelas sistem desain kita
+  const variantMap = {
+    primary: 'btn-primary',
+    secondary: 'btn-secondary',
+    outline: 'btn-outline',
+    ghost: 'btn-ghost', // Anda bisa menambahkan .btn-ghost jika perlu
   };
 
   const motionProps = {
@@ -48,8 +44,17 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
   );
 
   return (
-    <motion.div {...motionProps} className={`relative ${className}`}>
-      <Link href={href} target="_blank" rel="noopener noreferrer" className={`${baseClasses} ${variantClasses[variant]}`}>
+    <motion.div {...motionProps} className={`relative w-full sm:w-auto ${className}`}>
+      <Link
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        // Menggunakan kelas dari sistem desain global
+        className={cn(
+          'btn w-full', // <-- Kelas dasar btn
+          variantMap[variant] // <-- Kelas varian dinamis
+        )}
+      >
         {buttonContent}
       </Link>
     </motion.div>

@@ -1,16 +1,14 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   Base Styles & Variables
+   ========================================================================== */
+
 :root {
   color-scheme: light;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-:root {
   font-size: 16px;
 }
 
@@ -20,34 +18,65 @@ html {
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-surfaceAlt text-text antialiased leading-relaxed;
 }
+
+/* UPDATED: Change selection color to match new pink theme */
+::selection {
+  background: rgba(236, 72, 153, 0.15); /* pink-500 with 15% opacity */
+}
+
+/* ==========================================================================
+   Layout Containers
+   ========================================================================== */
 
 .container, .content-container {
   @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-10;
 }
 
+/* ==========================================================================
+   Component Styles
+   ========================================================================== */
+
 .card {
   @apply rounded-xl border border-border/70 bg-surface shadow-soft backdrop-blur;
 }
 
-.btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold transition-all duration-200;
-}
-
-.btn-primary {
-  @apply btn bg-gradient-to-r from-primary to-secondary text-white shadow-floating hover:brightness-[1.05] hover:shadow-xl;
-}
-
-.btn-outline {
-  @apply btn border border-white/60 bg-white/60 text-text backdrop-blur-sm hover:border-primary hover:bg-white/70 hover:text-primary;
-}
-
+/* UPDATED: Changed focus ring to match new orange theme accent */
 .input {
-  @apply w-full rounded-lg border border-border/70 bg-white px-4 py-3 text-sm text-text placeholder:text-text-muted transition focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/40;
+  @apply w-full rounded-xl border border-border/70 bg-white px-4 py-3 text-base text-text placeholder:text-text-muted transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/40;
 }
 
-::selection {
-  background: rgba(96, 93, 255, 0.15);
+/* ==========================================================================
+   Button System
+   ========================================================================== */
+
+/* Base button style - UPDATED: Changed focus ring to new pink theme */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-base font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2;
+}
+
+/* Ukuran tombol yang lebih kecil */
+.btn-sm {
+  @apply px-4 py-2 text-sm;
+}
+
+/* Tombol aksi utama (Call to Action) - UPDATED: Changed to pink-orange gradient */
+.btn-primary {
+  @apply btn bg-gradient-to-r from-pink-500 to-orange-500 text-white shadow-floating hover:brightness-[1.05] hover:shadow-xl;
+}
+
+/* Tombol aksi sekunder - UPDATED: Changed to use pink as the new primary accent */
+.btn-secondary {
+  @apply btn bg-pink-500/10 text-pink-500 hover:bg-pink-500/20;
+}
+
+/* Tombol outline/tersier */
+.btn-outline {
+  @apply btn border border-border bg-transparent text-text-muted hover:bg-surface hover:text-text;
 }

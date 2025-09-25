@@ -1,3 +1,4 @@
+
 export type ProgramClass = {
   name: string;
   age: string;
@@ -21,13 +22,13 @@ export const programsMetaDescription =
 
 export const programClasses: ProgramClass[] = [
   {
-    name: "Kelas A • Fondasi Profil Pelajar Pancasila",
+    name: "Kelas A • Tumbuh Ceria & Mandiri",
     age: "Usia 4–5 tahun",
     description:
       "Fokus adaptasi, pengenalan nilai agama, dan kemandirian melalui projek tematik yang menyenangkan.",
     focus: [
       "Pembiasaan doa, gratitude journal sederhana, dan merapikan alat setelah bermain.",
-      "Eksplorasi sensorik dan motorik halus di sentra seni, konstruksi, dan sains mini.",
+      "Eksplorasi sensorik dan motorik halus di sentra seni, konstruksi, dan eksperimen sains sederhana.",
       "Cerita kontekstual untuk memperkaya kosa kata, ekspresi emosi, dan empati.",
     ],
   },
@@ -37,7 +38,7 @@ export const programClasses: ProgramClass[] = [
     description:
       "Penguatan literasi, numerasi, dan kepemimpinan sesuai capaian Kurikulum Merdeka dan kebutuhan lokal.",
     focus: [
-      "Projek STEAM bertema lingkungan pesisir, budaya Cilacap, dan teknologi sederhana.",
+      "Projek berbasis sains, teknologi, dan seni bertema lingkungan pesisir, budaya Cilacap, dan teknologi sederhana.",
       "Latihan menulis nama, membaca suku kata, serta berhitung konkret melalui permainan.",
       "Presentasi mini, diskusi kelompok, dan refleksi diri untuk membangun percaya diri.",
     ],
@@ -80,7 +81,7 @@ export const programWeeklySchedule: WeeklyScheduleItem[] = [
   },
   {
     day: "Rabu",
-    theme: "Karya budaya & STEAM",
+    theme: "Karya Budaya, Sains, & Teknologi",
     highlight: "Kreasi seni, musik daerah, dan teknologi sederhana berbasis kearifan lokal.",
   },
   {

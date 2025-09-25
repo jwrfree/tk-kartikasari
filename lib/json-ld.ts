@@ -1,5 +1,5 @@
 
-import type { BlogPosting, Organization, WebSite, LocalBusiness } from 'schema-dts';
+import type { BlogPosting, Organization, WebSite, LocalBusiness, EducationalOrganization } from 'schema-dts';
 
 import site from '@/data/site.json';
 
@@ -21,12 +21,12 @@ export function createWebSiteJsonLd(): WebSite {
     potentialAction: {
       '@type': 'SearchAction',
       target: `${site.siteUrl}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      query: 'required name=search_term_string',
     },
   };
 }
 
-export function createLocalBusinessJsonLd(): LocalBusiness {
+export function createLocalBusinessJsonLd(): EducationalOrganization {
     return {
         '@type': 'School',
         name: site.schoolName,
@@ -48,7 +48,6 @@ export function createLocalBusinessJsonLd(): LocalBusiness {
         url: site.siteUrl,
         logo: new URL('/logo.png', site.siteUrl).toString(),
         image: new URL('/logo.png', site.siteUrl).toString(),
-        priceRange: 'Rp',
     };
 }
 
