@@ -11,18 +11,63 @@ import { mainNav } from '@/data/navigation';
 
 const smoothEase = [0.4, 0, 0.2, 1];
 
+// VARIANTS FOR THE MAIN MENU CONTAINER (BACKGROUND)
 const menuVariants: Variants = {
-  hidden: { opacity: 0, y: '-100%', transition: { duration: 0.3, ease: [0.4, 0, 1, 1] } },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: smoothEase } },
-  exit: { opacity: 0, y: '-100%', transition: { duration: 0.3, ease: [0.4, 0, 1, 1] } },
+  hidden: {
+    opacity: 0,
+    y: '-100%',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: smoothEase,
+      // Stagger the animation of children (nav items) when the menu enters
+      delayChildren: 0.1, // Start animating children after a brief delay
+      staggerChildren: 0.05, // Stagger each child's animation
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: '-100%',
+    transition: {
+      duration: 0.3,
+      ease: [0.4, 0, 1, 1],
+      // IMPORTANT: Wait for children to finish their exit animation before this one starts
+      when: 'afterChildren',
+      // Stagger the exit of children, in reverse order
+      staggerChildren: 0.04,
+      staggerDirection: -1,
+    },
+  },
 };
 
+// VARIANTS FOR EACH NAVIGATION ITEM (LINK OR ACCORDION)
 const navItemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: 0.1 + i * 0.05, duration: 0.35, ease: smoothEase } }),
-  exit: { opacity: 0, y: 20, transition: { duration: 0.2, ease: 'easeIn' } },
+  hidden: {
+    opacity: 0,
+    y: 20, // Start slightly lower
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.35,
+      ease: smoothEase,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 20, // Move down on exit
+    transition: {
+      duration: 0.2, // Items fade out quickly
+      ease: 'easeIn',
+    },
+  },
 };
 
+// VARIANTS FOR THE ACCORDION CONTENT (SUB-MENU)
 const accordionContentVariants: Variants = {
   hidden: { opacity: 0, height: 0, transition: { duration: 0.3, ease: smoothEase } },
   visible: { opacity: 1, height: 'auto', transition: { duration: 0.4, ease: smoothEase } },
@@ -43,7 +88,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           key="mobile-nav"
@@ -61,11 +106,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 return (
                   <motion.div
                     key={item.label}
-                    custom={index}
-                    variants={navItemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
+                    variants={navItemVariants} // Use navItemVariants for each item
                   >
                     <button
                       onClick={() => toggleAccordion(item.label)}
@@ -119,11 +160,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               return (
                 <motion.div
                   key={item.href}
-                  custom={index}
-                  variants={navItemVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
+                  variants={navItemVariants} // Use navItemVariants for each item
                 >
                   <Link
                     href={item.href}
