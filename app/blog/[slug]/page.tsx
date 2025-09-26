@@ -1,5 +1,6 @@
 
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { blogPosts, BlogPost } from '@/content/blog';
 import PageHeader from '@/components/layout/PageHeader';
 import { Calendar, Person, Tag, Clock } from 'react-bootstrap-icons'; // Added Clock icon
@@ -73,8 +74,15 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           </div>
 
-          <div className="aspect-[16/9] my-8 w-full overflow-hidden rounded-2xl">
-            <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
+          <div className="relative aspect-[16/9] my-8 w-full overflow-hidden rounded-2xl">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 800px, 100vw"
+              priority
+            />
           </div>
 
           <div
