@@ -45,14 +45,12 @@ export default function AboutPageContent() {
     <LazyMotion features={domAnimation}>
       <PageHeader
         eyebrow="Tentang TK Kartikasari"
-        title="Pendidikan Terbaik Berawal dari Rasa Aman: Pondasi Karakter Anak Anda di TK Kartikasari"
+        title="Lebih dari Sekadar Sekolah: Rumah Kedua untuk Tumbuh Kembang Anak Anda"
         description={
           <>
-            Di TK Kartikasari, kami percaya bahwa pendidikan terbaik berawal dari rasa aman. Selama lebih dari{' '}
-            {officialProfile.yearsOperating} tahun, kami telah menjadi rumah kedua yang hangat bagi ribuan anak
-            Bantarsari, membangun fondasi karakter mereka melalui Kurikulum Merdeka yang teruji. Dengan legalitas
-            resmi (NPSN: {officialProfile.npsn}) dan lingkungan belajar seluas {officialProfile.landArea}, kami siap
-            membantu anak Anda tumbuh menjadi pribadi yang ceria, kreatif, dan percaya diri.
+            Memilih sekolah pertama untuk si kecil adalah keputusan besar. Di TK Kartikasari, kami menciptakan
+            lingkungan yang aman, hangat, dan penuh keceriaan—sebuah fondasi di mana anak Anda dapat tumbuh menjadi
+            pribadi yang percaya diri, kreatif, dan siap melangkah ke jenjang pendidikan selanjutnya.
           </>
         }
       >

@@ -75,10 +75,10 @@ export default function HomePageContent({
               {schoolName} • Kurikulum Merdeka PAUD
             </span>
             <h1 className="text-balance text-4xl font-bold leading-tight text-text sm:text-5xl">
-              TK pertama di Bantarsari dengan {stats[0]?.value ?? "26+"} tahun pengalaman menerapkan Kurikulum Merdeka PAUD
+              Awal Terbaik untuk Si Kecil: Belajar Sambil Ceria di Rumah Kedua Mereka
             </h1>
             <p className="max-w-xl text-pretty text-lg text-text-muted sm:text-xl">
-              Membangun Profil Pelajar Pancasila sejak usia dini melalui pembelajaran terdiferensiasi, projek bermakna, dan pendampingan personal yang selaras data resmi Kemendikbudristek.
+              Sebagai TK berpengalaman di Bantarsari, kami menggabungkan tradisi pengajaran yang hangat dengan Kurikulum Merdeka. Kami memastikan setiap anak mendapat perhatian personal dalam lingkungan yang aman, sehingga mereka tumbuh percaya diri, kreatif, dan siap untuk jenjang sekolah berikutnya.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <CTAButton ctaKey="heroVisit" />
