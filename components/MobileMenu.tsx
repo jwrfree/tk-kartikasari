@@ -9,7 +9,7 @@ import { ChevronDown } from 'react-bootstrap-icons';
 
 import { mainNav } from '@/data/navigation';
 
-const smoothEase = [0.4, 0, 0.2, 1];
+const smoothEase = [0.4, 0, 0.2, 1] as const;
 
 // VARIANTS FOR THE MAIN MENU CONTAINER (BACKGROUND)
 const menuVariants: Variants = {
@@ -33,7 +33,7 @@ const menuVariants: Variants = {
     y: '-100%',
     transition: {
       duration: 0.3,
-      ease: [0.4, 0, 1, 1],
+      ease: [0.4, 0, 1, 1] as const,
       // IMPORTANT: Wait for children to finish their exit animation before this one starts
       when: 'afterChildren',
       // Stagger the exit of children, in reverse order

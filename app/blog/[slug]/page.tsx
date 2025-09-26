@@ -18,14 +18,14 @@ function getPost(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug);
 }
 
-// Define the props type to include both params and searchParams
+// Define the props type to align with Next.js generated types
 type PageProps = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ slug: string }>;
 };
 
-export default function BlogPostPage({ params }: PageProps) {
-  const post = getPost(params.slug);
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = getPost(slug);
 
   if (!post) {
     return notFound();
