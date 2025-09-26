@@ -18,6 +18,7 @@ import type {
 import { BlogPost } from "@/content/blog";
 import { ArrowRight, CheckCircle } from "react-bootstrap-icons";
 import Link from "next/link";
+import Image from "next/image";
 import AnimateIn from "@/components/AnimateIn";
 
 type HomePageContentProps = {
@@ -403,8 +404,15 @@ export default function HomePageContent({
               {blogPosts.slice(0, 3).map((post) => (
                 <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
                   <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
-                    <div className="aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
-                      <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
+                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        loading="lazy"
+                      />
                     </div>
                     <div className="flex h-full flex-col p-6">
                       <p className="text-sm text-text-muted">

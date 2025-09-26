@@ -1,5 +1,6 @@
 
 import Link from 'next/link';
+import Image from 'next/image';
 import PageHeader from '@/components/layout/PageHeader';
 import { blogPosts, BlogPost } from '@/content/blog';
 import { ArrowRight } from 'react-bootstrap-icons';
@@ -30,8 +31,15 @@ function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`}>
       <div className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-primary/20">
-        <div className="aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
-          <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            loading="lazy"
+          />
         </div>
         <div className="flex h-full flex-col p-6">
           <p className="text-sm text-text-muted">
