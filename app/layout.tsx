@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  verification: {
+    google: "adopYTzgiBn3JgYNkjDe03RB-oC7T-i-Ps-kWonol20",
+  },
 };
 
 export const viewport: Viewport = {
