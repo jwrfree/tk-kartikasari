@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   verification: {
-    google: "adopYTzgiBn3JgYNkjDe03RB-oC7T-i-Ps-kWonol20",
+    google: "-b3idr9SWRK9EynFL2X3x6xdGWsu-7iVYZtDs0VkfEQ",
   },
 };
 
