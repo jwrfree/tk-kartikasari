@@ -1,31 +1,33 @@
 
 import { MetadataRoute } from 'next';
-
-import { blogPosts } from '@/content/blog';
-import site from '@/data/site.json';
+import { allPosts } from 'contentlayer/generated';
+import siteData from '@/data/site.json';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = blogPosts.map((post) => ({
-    url: new URL(`/blog/${post.slug}`, site.siteUrl).toString(),
+  const siteUrl = siteData.url;
+
+  // Dapatkan semua URL postingan blog
+  const blogRoutes = allPosts.map((post) => ({
+    url: `${siteUrl}${post.url}`,
     lastModified: new Date(post.publishedAt).toISOString(),
   }));
 
-  const routes = [
-    '',
-    '/agenda',
-    '/biaya',
-    '/blog',
-    '/fasilitas',
-    '/galeri',
-    '/kontak',
-    '/pengumuman',
-    '/ppdb',
+  // Daftar URL statis
+  const staticRoutes = [
+    '/',
+    '/tentang-kami',
     '/program',
-    '/tentang',
+    '/ppdb',
+    '/biaya',
+    '/kontak',
+    '/blog',
+    '/kebijakan-privasi',
+    '/syarat-dan-ketentuan',
+    '/disklaimer',
   ].map((route) => ({
-    url: new URL(route, site.siteUrl).toString(),
+    url: `${siteUrl}${route}`,
     lastModified: new Date().toISOString(),
   }));
 
-  return [...routes, ...posts];
+  return [...staticRoutes, ...blogRoutes];
 }
