@@ -18,7 +18,13 @@ function getPost(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug);
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+// Define the props type to include both params and searchParams
+type PageProps = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default function BlogPostPage({ params }: PageProps) {
   const post = getPost(params.slug);
 
   if (!post) {
