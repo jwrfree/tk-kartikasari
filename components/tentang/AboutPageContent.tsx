@@ -1,3 +1,4 @@
+
 'use client';
 import React from "react";
 import CTAButton from "@/components/CTAButton";
@@ -8,7 +9,6 @@ import { officialMilestones, officialProfile } from "@/data/official";
 import site from "@/data/site.json";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import {
-  CheckCircle,
   ClockHistory,
   EnvelopeHeart,
   GeoAlt,
@@ -22,6 +22,17 @@ import {
   ShieldCheck,
   Whatsapp,
 } from "react-bootstrap-icons";
+import TeacherList from "./TeacherList";
+import HorizontalScrollSection from "@/components/layout/HorizontalScrollSection";
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -34,14 +45,14 @@ export default function AboutPageContent() {
     <LazyMotion features={domAnimation}>
       <PageHeader
         eyebrow="Tentang TK Kartikasari"
-        title="Menjadi Rumah Kedua yang Membentuk Karakter Anak Bantarsari"
+        title="Pendidikan Terbaik Berawal dari Rasa Aman: Pondasi Karakter Anak Anda di TK Kartikasari"
         description={
           <>
-            Perjalanan kami selama {officialProfile.yearsOperating}+ tahun adalah cerita tentang ribuan tawa anak dan
-            kepercayaan keluarga Bantarsari. Berdiri sejak {officialProfile.establishmentDate}, kami merawat lingkungan
-            belajar seluas {officialProfile.landArea} agar tetap hangat, aman, dan inspiratif. Dengan legalitas resmi
-            Kemendikbudristek (NPSN: {officialProfile.npsn}), kami konsisten menerapkan Kurikulum Merdeka untuk
-            menumbuhkan generasi ceria, kreatif, dan berkarakter.
+            Di TK Kartikasari, kami percaya bahwa pendidikan terbaik berawal dari rasa aman. Selama lebih dari{' '}
+            {officialProfile.yearsOperating} tahun, kami telah menjadi rumah kedua yang hangat bagi ribuan anak
+            Bantarsari, membangun fondasi karakter mereka melalui Kurikulum Merdeka yang teruji. Dengan legalitas
+            resmi (NPSN: {officialProfile.npsn}) dan lingkungan belajar seluas {officialProfile.landArea}, kami siap
+            membantu anak Anda tumbuh menjadi pribadi yang ceria, kreatif, dan percaya diri.
           </>
         }
       >
@@ -58,7 +69,13 @@ export default function AboutPageContent() {
         padding="default"
         className="bg-gradient-to-br from-secondary/5 via-white to-primary/5"
       >
-        <div className="mx-auto max-w-4xl space-y-12 text-center">
+        <m.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="mx-auto max-w-4xl space-y-12 text-center"
+        >
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-secondary">Filosofi Kami</p>
             <h2 className="text-balance text-3xl font-semibold text-text">
@@ -70,7 +87,7 @@ export default function AboutPageContent() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               variants={cardVariants}
               className="space-y-3"
             >
@@ -84,7 +101,7 @@ export default function AboutPageContent() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
               variants={cardVariants}
               className="space-y-3"
             >
@@ -98,7 +115,7 @@ export default function AboutPageContent() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
               variants={cardVariants}
               className="space-y-3"
             >
@@ -109,11 +126,17 @@ export default function AboutPageContent() {
               </p>
             </m.div>
           </div>
-        </div>
+        </m.div>
       </PageSection>
 
       <PageSection id="visi-misi" padding="tight">
-        <div className="card space-y-8 border-none bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-8 md:p-12">
+        <m.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="card space-y-8 border-none bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-8 md:p-12"
+        >
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-semibold text-text">Visi & Misi Kami</h2>
             <p className="mt-3 text-base leading-relaxed text-text-muted">
@@ -131,19 +154,24 @@ export default function AboutPageContent() {
                   viewport={{ once: true, amount: 0.8 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   variants={cardVariants}
-                  className="flex items-start gap-3 rounded-xl bg-white/60 p-4 text-sm text-text-muted backdrop-blur-sm"
+                  className="flex items-start gap-3 rounded-xl bg-white/60 p-4 text-base text-text-muted backdrop-blur-sm"
                 >
-                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-secondary" />
                   <span>{point}</span>
                 </m.li>
               ))}
             </ul>
           </div>
-        </div>
+        </m.div>
       </PageSection>
 
       <PageSection id="profil" padding="tight" className="bg-secondary/5">
-        <div className="grid items-start gap-12 lg:grid-cols-[0.9fr,1.1fr]">
+        <m.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid items-start gap-12 lg:grid-cols-[0.9fr,1.1fr]"
+        >
           <div className="space-y-6 lg:sticky lg:top-24">
             <h2 className="text-3xl font-semibold text-text">Profil Resmi Sekolah</h2>
             <p className="text-base leading-relaxed text-text-muted">
@@ -223,43 +251,64 @@ export default function AboutPageContent() {
               </div>
             </m.div>
           </div>
-        </div>
+        </m.div>
+      </PageSection>
+
+      <PageSection id="tenaga-pendidik" padding="default">
+        <m.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="mx-auto max-w-5xl space-y-12 text-center"
+        >
+          <div className="space-y-3">
+            <h2 className="text-balance text-3xl font-semibold text-text">
+              Pendidik Profesional & Penyayang
+            </h2>
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-text-muted">
+              Di TK Kartikasari, kami percaya bahwa guru adalah jantung dari pendidikan. Tim kami terdiri dari para pendidik yang berdedikasi, penuh kasih, dan berkompeten di bidangnya.
+            </p>
+          </div>
+          <TeacherList />
+        </m.div>
       </PageSection>
 
       <PageSection id="perjalanan-kami" padding="tight">
-        <div className="space-y-8">
-          <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-3xl font-semibold text-text">Perjalanan Kami Bersama Bantarsari</h2>
             <p className="mt-3 text-base leading-relaxed text-text-muted">
               Setiap tahun adalah langkah baru dalam dedikasi kami untuk pendidikan anak usia dini. Perjalanan ini
               adalah bukti komitmen kami yang terus bertumbuh.
             </p>
-          </div>
-
-          <div
-            className="flex w-full gap-6 overflow-x-auto py-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
+        </div>
+        <HorizontalScrollSection>
             {officialMilestones.map(({ year, title, description }, index) => (
               <m.div
                 key={year}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
                 variants={cardVariants}
-                className="card w-[80vw] max-w-sm flex-shrink-0 space-y-3 bg-white/60 p-6 shadow-soft backdrop-blur-xl"
+                className="card flex h-full w-[80vw] max-w-sm flex-shrink-0 flex-col space-y-3 bg-white/60 p-6 shadow-soft backdrop-blur-xl"
               >
                 <p className="text-lg font-semibold text-secondary">{year}</p>
                 <h3 className="text-xl font-semibold text-text">{title}</h3>
                 <p className="text-base text-text-muted">{description}</p>
               </m.div>
             ))}
-          </div>
-        </div>
+        </HorizontalScrollSection>
       </PageSection>
 
       <PageSection padding="relaxed">
-        <div className="card border-none bg-gradient-to-br from-secondary via-secondary/90 to-primary p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_35px_60px_-15px_rgba(96,93,255,0.45)]">
+        <m.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="card border-none bg-gradient-to-br from-secondary via-secondary/90 to-primary p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_35px_60px_-15px_rgba(96,93,255,0.45)]"
+        >
           <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
             <div className="space-y-3">
               <h2 className="text-balance text-3xl font-semibold">
@@ -275,7 +324,7 @@ export default function AboutPageContent() {
               <CTAButton ctaKey="ppdbHeadmaster" />
             </div>
           </div>
-        </div>
+        </m.div>
       </PageSection>
     </LazyMotion>
   );
