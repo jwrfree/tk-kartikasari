@@ -5,6 +5,7 @@ import CTAButton from "@/components/CTAButton";
 import TestimonialList from "@/components/TestimonialList";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
+import HomeDailyAgenda from "./HomeDailyAgenda";
 import type {
   HomeCredential,
   HomeCurriculumPillar,
@@ -46,13 +47,17 @@ export default function HomePageContent({
   timeline,
   blogPosts,
 }: HomePageContentProps) {
+  const teacherStudentRatio =
+    stats.find((item) => item.label.toLowerCase().includes("rasio"))?.value ?? "1 : 8";
+  const schoolNpsn = credentials.find((item) => item.label.toLowerCase() === "npsn")?.value;
+
   return (
       <main>
         {/* Section 1: Hero (Kail) */}
         <PageSection
           className="relative overflow-hidden"
           padding="none"
-          containerClassName="relative grid gap-16 pb-24 pt-20 md:grid-cols-[1.05fr,0.95fr] md:items-center"
+          containerClassName="relative grid gap-16 pb-24 pt-20 lg:grid-cols-[1.1fr,0.9fr] lg:items-center"
         >
           <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <div className="absolute -top-32 right-16 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
@@ -91,65 +96,19 @@ export default function HomePageContent({
             </div>
           </AnimateIn>
 
-          <AnimateIn
-            className="relative"
-          >
-            <div className="absolute -top-12 right-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl"  aria-hidden="true" />
-            <div className="absolute -bottom-4 left-0 h-28 w-28 rounded-full bg-secondary/30 blur-2xl md:-bottom-8"  aria-hidden="true" />
-            <div className="relative space-y-5">
-              <div className="card overflow-hidden border-white/60 bg-white/70 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
-                <div className="flex items-center justify-between text-base font-semibold text-text">
-                  <span>Agenda Kurikulum Merdeka</span>
-                  <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
-                    Projek Profil Pelajar Pancasila
-                  </span>
-                </div>
-                <ul className="mt-4 space-y-3 text-base text-text-muted">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
-                      07.00
-                    </span>
-                    Penyambutan hangat, doa, dan pemetaan emosi anak.
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
-                      08.30
-                    </span>
-                    Diskusi nilai Pancasila dan eksplorasi budaya lokal.
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
-                      10.00
-                    </span>
-                    Sentra pilihan: STEAM, literasi, seni, atau role play terarah.
-                  </li>
-                </ul>
-              </div>
-              <div className="ml-auto w-[85%] rounded-3xl border border-white/60 bg-white/50 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
-                <p className="text-base font-semibold text-secondary">Lingkungan aman & terdata resmi</p>
-                <p className="mt-3 text-base leading-relaxed text-text-muted">
-                  Terdaftar dengan NPSN {credentials[0]?.value ?? "20351273"}, area 440 m² terpantau, dan peralatan ramah anak untuk belajar yang nyaman.
-                </p>
-                <div className="mt-4 flex items-center gap-3 text-base font-semibold text-text">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
-                    😊
-                  </span>
-                  Rasio guru : anak {stats[2]?.value ?? "1 : 8"}
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
-                  <p className="text-base font-semibold text-secondary">Fokus Harian</p>
-                  <p className="mt-2 text-base text-text-muted">
-                    Nilai agama & budi pekerti, jati diri, serta kecakapan literasi sesuai fase fondasi.
-                  </p>
-                </div>
-                <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
-                  <p className="text-base font-semibold text-secondary">Asesmen Autentik</p>
-                  <p className="mt-2 text-base text-text-muted">
-                    Jurnal perkembangan, dokumentasi karya, dan umpan balik personal setiap pekan.
-                  </p>
-                </div>
+          <AnimateIn className="relative flex justify-center">
+            <div className="absolute -top-12 right-6 h-40 w-40 rounded-full bg-accent/30 blur-2xl" aria-hidden="true" />
+            <div className="absolute -bottom-6 left-2 h-36 w-36 rounded-full bg-secondary/25 blur-2xl md:-bottom-10" aria-hidden="true" />
+            <div className="relative w-full max-w-md space-y-5 rounded-[2.5rem] border border-white/60 bg-white/70 p-8 text-center shadow-soft backdrop-blur-xl backdrop-saturate-150">
+              <p className="text-lg font-semibold text-secondary">Belajar aktif & penuh perhatian</p>
+              <p className="text-base leading-relaxed text-text-muted">
+                Kelas kecil dengan guru pendamping personal membantu anak cepat nyaman, bereksplorasi, dan siap melanjutkan ke jenjang berikutnya.
+              </p>
+              <div className="flex items-center justify-center gap-3 text-base font-semibold text-text">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
+                  😊
+                </span>
+                Rasio guru : anak {teacherStudentRatio}
               </div>
             </div>
           </AnimateIn>
@@ -367,6 +326,7 @@ export default function HomePageContent({
             </div>
           </AnimateIn>
           <div className="relative space-y-4">
+            <HomeDailyAgenda npsn={schoolNpsn} teacherStudentRatio={teacherStudentRatio} />
             {journey.map((item) => (
               <AnimateIn
                 key={item.title}
