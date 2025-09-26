@@ -179,7 +179,7 @@ function Timeline({ items }: { items: { date: string; title: string; description
               ) : null}
               <div className="relative flex space-x-3">
                 <div>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 ring-8 ring-surface">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-50">
                     <Check className="h-5 w-5 text-primary" aria-hidden="true" />
                   </span>
                 </div>

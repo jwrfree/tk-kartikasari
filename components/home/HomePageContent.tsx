@@ -58,7 +58,7 @@ export default function HomePageContent({
             <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-primary/25 blur-3xl" />
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-hero-gradient" />
           </div>
-          <AnimateIn
+          <div
             className="relative space-y-8"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-secondary shadow-soft backdrop-blur-sm backdrop-saturate-150">
@@ -88,7 +88,7 @@ export default function HomePageContent({
                 </div>
               ))}
             </div>
-          </AnimateIn>
+          </div>
 
           <AnimateIn
             className="relative"
@@ -218,7 +218,7 @@ export default function HomePageContent({
                   <ul className="space-y-6">
                     {timeline.map((milestone) => (
                       <li key={`${milestone.year}-${milestone.title}`} className="relative pl-10">
-                        <span className="absolute left-0 top-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 text-sm font-semibold text-secondary">
+                        <span className="absolute left-0 top-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-secondary-50 text-sm font-semibold text-secondary">
                           {milestone.year}
                         </span>
                         <div className="space-y-1">

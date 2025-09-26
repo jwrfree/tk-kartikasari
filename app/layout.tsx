@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  verification: {
+    google: "adopYTzgiBn3JgYNkjDe03RB-oC7T-i-Ps-kWonol20",
+  },
 };
 
 export const viewport: Viewport = {
@@ -33,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className="scroll-smooth">
+    <html lang="id" className="scroll-smooth" data-scroll-behavior="smooth">
       <body className={cn(inter.className, "antialiased")}>
         <script
           type="application/ld+json"
