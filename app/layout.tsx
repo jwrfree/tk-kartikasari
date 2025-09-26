@@ -5,7 +5,7 @@ import { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsappButton";
-import Analytics from "@/components/Analytics"; // Impor komponen Analytics
+import Analytics from "@/components/Analytics";
 import siteData from "@/data/site.json";
 import { createOrganizationJsonLd, createWebSiteJsonLd, createLocalBusinessJsonLd } from "@/lib/json-ld";
 import { inter } from "@/app/fonts";
@@ -42,6 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -61,7 +62,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           inter.variable
         )}
       >
-        <Analytics /> {/* Tambahkan komponen Analytics di sini */}
         <div className="relative flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">{children}</main>
