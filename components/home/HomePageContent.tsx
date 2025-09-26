@@ -16,9 +16,9 @@ import type {
   HomeTimelineMilestone,
 } from "@/app/types/home";
 import { BlogPost } from "@/content/blog";
-import { LazyMotion, domAnimation, m } from "framer-motion";
 import { ArrowRight, CheckCircle } from "react-bootstrap-icons";
 import Link from "next/link";
+import AnimateIn from "@/components/AnimateIn";
 
 type HomePageContentProps = {
   schoolName: string;
@@ -31,11 +31,6 @@ type HomePageContentProps = {
   curriculumPillars: HomeCurriculumPillar[];
   timeline: HomeTimelineMilestone[];
   blogPosts: BlogPost[];
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
 };
 
 export default function HomePageContent({
@@ -51,7 +46,6 @@ export default function HomePageContent({
   blogPosts,
 }: HomePageContentProps) {
   return (
-    <LazyMotion features={domAnimation}>
       <main>
         {/* Section 1: Hero (Kail) */}
         <PageSection
@@ -64,10 +58,7 @@ export default function HomePageContent({
             <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-primary/25 blur-3xl" />
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-hero-gradient" />
           </div>
-          <m.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <AnimateIn
             className="relative space-y-8"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-secondary shadow-soft backdrop-blur-sm backdrop-saturate-150">
@@ -97,12 +88,9 @@ export default function HomePageContent({
                 </div>
               ))}
             </div>
-          </m.div>
+          </AnimateIn>
 
-          <m.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+          <AnimateIn
             className="relative"
           >
             <div className="absolute -top-12 right-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl"  aria-hidden="true" />
@@ -163,7 +151,7 @@ export default function HomePageContent({
                 </div>
               </div>
             </div>
-          </m.div>
+          </AnimateIn>
         </PageSection>
 
         {/* Section 2: Keunggulan/Highlights (Janji Utama) - REVISED */}
@@ -171,13 +159,7 @@ export default function HomePageContent({
           className="relative border-y border-white/50 bg-white/50 backdrop-blur-sm backdrop-saturate-150"
           padding="tight"
         >
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
-          >
+          <AnimateIn>
             <SectionHeader
               align="center"
               eyebrow="Mengapa orang tua mempercayakan anaknya"
@@ -185,16 +167,11 @@ export default function HomePageContent({
               title="Tiga janji utama kami untuk ketenangan Ayah & Bunda"
               description="Komitmen kami adalah menciptakan lingkungan belajar yang aman secara legal, nyaman untuk anak, dan berakar pada nilai-nilai keindonesiaan."
             />
-          </m.div>
+          </AnimateIn>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {highlights.map((item, index) => (
-              <m.div
+            {highlights.map((item) => (
+              <AnimateIn
                 key={item.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                variants={cardVariants}
                 className="card h-full border-white/60 bg-white/70 p-7 text-left backdrop-blur-xl backdrop-saturate-150"
               >
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-2xl" aria-hidden="true">
@@ -202,19 +179,14 @@ export default function HomePageContent({
                 </span>
                 <h3 className="mt-6 text-xl font-semibold text-text">{item.title}</h3>
                 <p className="mt-3 text-base leading-relaxed text-text-muted">{item.description}</p>
-              </m.div>
+              </AnimateIn>
             ))}
           </div>
         </PageSection>
 
         {/* Section 3: Kredensial & Sejarah (Bukti Kepercayaan) - REVISED */}
         <PageSection className="relative" padding="tight">
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
+          <AnimateIn
             className="space-y-8"
           >
             <SectionHeader
@@ -259,7 +231,7 @@ export default function HomePageContent({
                 </div>
               </div>
             </div>
-          </m.div>
+          </AnimateIn>
         </PageSection>
 
         {/* Section 4: Pilar Kurikulum (Filosofi) */}
@@ -268,29 +240,19 @@ export default function HomePageContent({
           className="bg-gradient-to-br from-secondary/10 via-white to-primary/10"
           padding="tight"
         >
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
+          <AnimateIn
             className="space-y-8"
           >
             <SectionHeader
               eyebrow="Filosofi Pendidikan Kami"
               eyebrowVariant="secondary"
-              title="Fase Fondasi yang Menguatkan Profil Pelajar Pancasila"
-              description="Pembelajaran kami selaras dengan panduan PAUD Merdeka: karakter, jati diri, dan kompetensi dasar tumbuh seimbang melalui projek yang menyenangkan."
+              title="Tiga Pilar Kami dalam Membentuk Karakter Anak"
+              description="Kami fokus pada tiga area utama untuk memastikan anak tidak hanya pintar, tetapi juga tumbuh menjadi pribadi yang baik, bangga pada budayanya, dan siap untuk belajar lebih lanjut."
             />
             <div className="grid gap-6 md:grid-cols-3">
               {curriculumPillars.map((pillar) => (
-                <m.div
+                <AnimateIn
                   key={pillar.title}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.55 }}
-                  variants={cardVariants}
                   className="card h-full border-white/70 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150"
                 >
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-secondary">
@@ -305,10 +267,10 @@ export default function HomePageContent({
                       </li>
                     ))}
                   </ul>
-                </m.div>
+                </AnimateIn>
               ))}
             </div>
-          </m.div>
+          </AnimateIn>
         </PageSection>
 
         {/* Section 5: Program & Aktivitas Harian (Eksekusi) */}
@@ -317,19 +279,14 @@ export default function HomePageContent({
           padding="tight"
           containerClassName="grid gap-12 lg:grid-cols-[1fr,1fr] lg:items-start"
         >
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
+          <AnimateIn
             className="space-y-6"
           >
             <SectionHeader
               eyebrow="Program Kurikulum Merdeka"
               eyebrowVariant="secondary"
               title="Jalur Belajar yang Disesuaikan untuk Setiap Anak"
-              description="Guru inti dan guru pendamping berkolaborasi menyeimbangkan karakter, kompetensi dasar, dan kegembiraan bermain melalui projek Profil Pelajar Pancasila."
+              description="Guru inti dan guru pendamping berkolaborasi untuk menyeimbangkan pengembangan karakter, kemampuan dasar, dan kegembiraan bermain melalui projek-projek yang relevan dengan dunia anak."
             />
             <ul className="space-y-3 text-base text-text-muted">
               <li className="flex items-start gap-3">
@@ -351,16 +308,11 @@ export default function HomePageContent({
                 Pameran karya, refleksi projek P5, dan laporan portofolio terstruktur di akhir tema.
               </li>
             </ul>
-          </m.div>
+          </AnimateIn>
           <div className="grid gap-6">
-            {programs.map((program, index) => (
-              <m.div
+            {programs.map((program) => (
+              <AnimateIn
                 key={program.name}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                variants={cardVariants}
                 className="card h-full border-white/70 bg-white/70 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -385,7 +337,7 @@ export default function HomePageContent({
                     </li>
                   ))}
                 </ul>
-              </m.div>
+              </AnimateIn>
             ))}
           </div>
         </PageSection>
@@ -397,12 +349,7 @@ export default function HomePageContent({
           containerClassName="relative grid gap-12 lg:grid-cols-[0.9fr,1.1fr] lg:items-center"
         >
           <div className="absolute inset-0 bg-grid-dots [background-size:24px_24px] opacity-40" aria-hidden="true" />
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
+          <AnimateIn
             className="relative space-y-6"
           >
             <SectionHeader
@@ -417,16 +364,11 @@ export default function HomePageContent({
                 Orang tua menerima ringkasan harian, refleksi projek P5, dan rekomendasi penguatan karakter untuk diterapkan di rumah.
               </p>
             </div>
-          </m.div>
+          </AnimateIn>
           <div className="relative space-y-4">
-            {journey.map((item, index) => (
-              <m.div
+            {journey.map((item) => (
+              <AnimateIn
                 key={item.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                variants={cardVariants}
                 className="grid gap-4 rounded-3xl border border-white/60 bg-white/60 p-6 shadow-soft backdrop-blur-lg backdrop-saturate-150 sm:grid-cols-[auto,1fr] sm:items-center"
               >
                 <div className="flex items-center gap-3">
@@ -439,7 +381,7 @@ export default function HomePageContent({
                   </div>
                 </div>
                 <p className="text-base leading-relaxed text-text-muted sm:pl-4">{item.description}</p>
-              </m.div>
+              </AnimateIn>
             ))}
           </div>
         </PageSection>
@@ -449,12 +391,7 @@ export default function HomePageContent({
 
         {/* Section 7: Blog */}
         <PageSection id="blog" padding="tight">
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
+          <AnimateIn
             className="space-y-8"
           >
             <SectionHeader
@@ -483,7 +420,7 @@ export default function HomePageContent({
                 </Link>
               ))}
             </div>
-          </m.div>
+          </AnimateIn>
         </PageSection>
 
         {/* Section 8: FAQ */}
@@ -492,12 +429,7 @@ export default function HomePageContent({
           padding="tight"
           containerClassName="grid gap-12 lg:grid-cols-[0.9fr,1fr] lg:items-start"
         >
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
+          <AnimateIn
             className="space-y-6"
           >
             <SectionHeader
@@ -506,18 +438,15 @@ export default function HomePageContent({
               description="Jika ada pertanyaan lain, kami dengan senang hati menjawab melalui WhatsApp ataupun ketika Anda berkunjung langsung."
             />
             <CTAButton ctaKey="faqInquiry" />
-          </m.div>
-          <FaqAccordion items={faqs} revealOnView className="space-y-4" />
+          </AnimateIn>
+          <AnimateIn>
+            <FaqAccordion items={faqs} revealOnView className="space-y-4" />
+          </AnimateIn>
         </PageSection>
 
         {/* Section 9: CTA Final - REVISED */}
         <PageSection className="relative pb-36" padding="tight">
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            variants={cardVariants}
+          <AnimateIn
             className="card flex flex-col gap-6 overflow-hidden border-white/70 bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-10 text-center md:flex-row md:items-center md:justify-between md:text-left"
           >
             <div className="max-w-xl space-y-4">
@@ -525,10 +454,10 @@ export default function HomePageContent({
                 Siap Bergabung
               </span>
               <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl">
-                Jadwalkan Tur Sekolah dan Lihat Langsung Implementasi Kurikulum Merdeka Kami
+                Lihat Langsung Bagaimana Anak-Anak Belajar dengan Gembira
               </h2>
               <p className="text-base leading-relaxed text-text-muted">
-                Kami membuka sesi kunjungan setiap Senin dan Kamis. Tim kami akan menunjukkan sentra belajar dan dokumentasi projek Profil Pelajar Pancasila.
+                Kami mengundang Anda untuk merasakan sendiri suasana hangat di kelas kami. Lihat sentra belajar yang interaktif dan temukan bagaimana projek seru kami menumbuhkan kreativitas serta rasa percaya diri anak.
               </p>
             </div>
             <div className="flex flex-col gap-3 md:flex-row md:items-center">
@@ -537,9 +466,8 @@ export default function HomePageContent({
                 Lihat Program Kembali
               </a>
             </div>
-          </m.div>
+          </AnimateIn>
         </PageSection>
       </main>
-    </LazyMotion>
   );
 }

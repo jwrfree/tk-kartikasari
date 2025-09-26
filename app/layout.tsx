@@ -1,11 +1,11 @@
-
 import { cn } from "@/lib/utils";
 import "@/app/globals.css";
 import { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsappButton";
-import Analytics from "@/components/Analytics";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import siteData from "@/data/site.json";
 import { createOrganizationJsonLd, createWebSiteJsonLd, createLocalBusinessJsonLd } from "@/lib/json-ld";
 import { inter } from "@/app/fonts";
@@ -24,50 +24,37 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "#FFFFFF",
 };
 
-interface RootLayoutProps {
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
-  const organizationJsonLd = createOrganizationJsonLd();
-  const webSiteJsonLd = createWebSiteJsonLd();
-  const localBusinessJsonLd = createLocalBusinessJsonLd();
-
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <Analytics />
+    <html lang="id" className="scroll-smooth">
+      <body className={cn(inter.className, "antialiased")}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(createOrganizationJsonLd()) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebSiteJsonLd()) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(createLocalBusinessJsonLd()) }}
         />
-      </head>
-      <body
-        className={cn(
-          "min-h-screen bg-surfaceAlt text-text font-sans antialiased",
-          inter.variable
-        )}
-      >
-        <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        
+        <Header />
+        <main>{children}</main>
+        <Footer />
         <WhatsAppButton />
+
+        <GoogleAnalytics />
+        <VercelAnalytics />
       </body>
     </html>
   );

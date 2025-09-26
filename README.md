@@ -1,6 +1,6 @@
 # TK Kartikasari — Website Resmi
 
-**Website Live: [https://tkkartikasari.vercel.app](https://tkkartikasari.vercel.app)**
+**Website Live: [https://tk-kartikasari.vercel.app](https://tk-kartikasari.vercel.app)**
 
 Selamat datang di repositori resmi website TK Kartikasari Bantarsari. Proyek ini dibangun menggunakan arsitektur modern dengan Next.js (App Router) dan Tailwind CSS untuk memberikan pengalaman pengguna yang cepat, informatif, dan mudah diakses.
 
@@ -66,3 +66,30 @@ Untuk menjalankan proyek ini di komputer Anda:
 ## Lisensi
 
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+
+---
+
+## Evolusi Arsitektur & Pilihan Teknologi
+
+Bagian ini mendokumentasikan keputusan arsitektur untuk pengembangan di masa depan, terutama mengenai manajemen data dan backend.
+
+### Latar Belakang
+
+Saat ini, konten dinamis seperti rincian biaya dan postingan blog dikelola melalui file statis (`.json` atau `.ts`) di dalam repositori. Meskipun pendekatan ini sederhana untuk memulai, ini memiliki keterbatasan untuk fitur yang lebih kompleks seperti dasbor admin atau manipulasi data secara real-time.
+
+### Rencana Migrasi ke Firebase
+
+Untuk mengatasi keterbatasan tersebut dan membangun fondasi yang kuat, kami telah memutuskan untuk mengadopsi **Firebase** sebagai Backend-as-a-Service (BaaS).
+
+-   **Hosting Frontend:** Akan tetap di **Vercel** untuk memanfaatkan integrasi terbaiknya dengan Next.js.
+-   **Database & Backend:** Akan menggunakan layanan **Firebase**.
+    -   **Firestore:** Data dari file `.json` dan `.ts` (seperti biaya, blog, FAQ) akan dimigrasikan ke database NoSQL Firestore. Ini memungkinkan manajemen data yang lebih mudah dan query yang lebih kuat.
+    -   **Firebase Authentication:** Akan digunakan untuk mengamankan dasbor admin, memungkinkan pengeditan konten yang aman tanpa perlu melakukan perubahan kode.
+
+### Mengapa Kombinasi Vercel + Firebase?
+
+-   **Kecepatan Pengembangan:** Menggunakan Firebase (Firestore & Auth) secara drastis mengurangi waktu yang dibutuhkan untuk membangun backend yang aman dan skalabel.
+-   **Kemudahan untuk Developer:** Memisahkan backend (Firebase) dari frontend (Vercel) menciptakan alur kerja yang bersih. Developer frontend dapat fokus pada UI/UX, sementara data dikelola secara terpusat.
+-   **Skalabilitas Biaya:** Paket gratis "Spark" dari Firebase lebih dari cukup untuk kebutuhan awal hingga menengah, menjadikan solusi ini sangat hemat biaya untuk memulai.
+
+Ini adalah *stack* teknologi (Vercel + Next.js + Firebase) yang sangat modern, kuat, dan populer, memberikan keseimbangan sempurna antara pengalaman developer, performa, dan skalabilitas.

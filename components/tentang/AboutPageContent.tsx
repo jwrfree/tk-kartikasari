@@ -7,7 +7,6 @@ import PageSection from "@/components/layout/PageSection";
 import { aboutMission } from "@/content/about";
 import { officialMilestones, officialProfile } from "@/data/official";
 import site from "@/data/site.json";
-import { LazyMotion, domAnimation, m } from "framer-motion";
 import {
   ClockHistory,
   EnvelopeHeart,
@@ -24,25 +23,12 @@ import {
 } from "react-bootstrap-icons";
 import TeacherList from "./TeacherList";
 import HorizontalScrollSection from "@/components/layout/HorizontalScrollSection";
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
+import AnimateIn from "@/components/AnimateIn";
 
 // Main component for the "About Us" page
 export default function AboutPageContent() {
   return (
-    <LazyMotion features={domAnimation}>
+    <>
       <PageHeader
         eyebrow="Tentang TK Kartikasari"
         title="Lebih dari Sekadar Sekolah: Rumah Kedua untuk Tumbuh Kembang Anak Anda"
@@ -67,11 +53,7 @@ export default function AboutPageContent() {
         padding="default"
         className="bg-gradient-to-br from-secondary/5 via-white to-primary/5"
       >
-        <m.div
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+        <AnimateIn
           className="mx-auto max-w-4xl space-y-12 text-center"
         >
           <div className="space-y-3">
@@ -81,12 +63,7 @@ export default function AboutPageContent() {
             </h2>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
-            <m.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              variants={cardVariants}
+            <AnimateIn
               className="space-y-3"
             >
               <HouseHeart className="mx-auto h-10 w-10 text-secondary" />
@@ -94,13 +71,8 @@ export default function AboutPageContent() {
               <p className="text-sm text-text-muted">
                 Kami percaya pendidikan terbaik dimulai saat anak merasa aman dan dihargai seperti di rumah sendiri.
               </p>
-            </m.div>
-            <m.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              variants={cardVariants}
+            </AnimateIn>
+            <AnimateIn
               className="space-y-3"
             >
               <PersonCheck className="mx-auto h-10 w-10 text-secondary" />
@@ -108,13 +80,8 @@ export default function AboutPageContent() {
               <p className="text-sm text-text-muted">
                 Pembelajaran terdiferensiasi memastikan setiap anak bertumbuh sesuai minat dan keunikan masing-masing.
               </p>
-            </m.div>
-            <m.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              variants={cardVariants}
+            </AnimateIn>
+            <AnimateIn
               className="space-y-3"
             >
               <People className="mx-auto h-10 w-10 text-secondary" />
@@ -122,17 +89,13 @@ export default function AboutPageContent() {
               <p className="text-sm text-text-muted">
                 Kolaborasi aktif dengan orang tua melalui asesmen autentik untuk pembelajaran yang saling menguatkan.
               </p>
-            </m.div>
+            </AnimateIn>
           </div>
-        </m.div>
+        </AnimateIn>
       </PageSection>
 
       <PageSection id="visi-misi" padding="tight">
-        <m.div
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+        <AnimateIn
           className="card space-y-8 border-none bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-8 md:p-12"
         >
           <div className="mx-auto max-w-2xl text-center">
@@ -144,30 +107,21 @@ export default function AboutPageContent() {
           </div>
           <div className="mx-auto w-full max-w-4xl">
             <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {aboutMission.map((point, index) => (
-                <m.li
+              {aboutMission.map((point) => (
+                <AnimateIn
                   key={point}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.8 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  variants={cardVariants}
                   className="flex items-start gap-3 rounded-xl bg-white/60 p-4 text-base text-text-muted backdrop-blur-sm"
                 >
                   <span>{point}</span>
-                </m.li>
+                </AnimateIn>
               ))}
             </ul>
           </div>
-        </m.div>
+        </AnimateIn>
       </PageSection>
 
-      <PageSection id="profil" padding="tight" className="bg-secondary/5">
-        <m.div
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+      <PageSection id="profil" padding="tight" className="relative bg-secondary/5">
+        <AnimateIn
           className="grid items-start gap-12 lg:grid-cols-[0.9fr,1.1fr]"
         >
           <div className="space-y-6 lg:sticky lg:top-24">
@@ -182,12 +136,7 @@ export default function AboutPageContent() {
           </div>
 
           <div className="space-y-6">
-            <m.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, staggerChildren: 0.1 }}
-              variants={cardVariants}
+            <AnimateIn
               className="card h-full space-y-5 bg-white/60 p-7 shadow-soft backdrop-blur-xl"
             >
               <h3 className="text-xl font-semibold text-text">Identitas & Legalitas</h3>
@@ -200,22 +149,17 @@ export default function AboutPageContent() {
                   { label: "Kurikulum", value: officialProfile.curriculum, icon: Mortarboard },
                   { label: "Jam Belajar", value: site.openingHours, icon: ClockHistory },
                 ].map(({ label, value, icon: Icon }) => (
-                  <m.li key={label} variants={cardVariants} className="flex gap-3">
+                  <AnimateIn key={label} className="flex gap-3">
                     <Icon className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" />
                     <div>
                       <p className="text-xs uppercase tracking-wide text-text-muted">{label}</p>
                       <p className="text-sm font-semibold text-text">{value}</p>
                     </div>
-                  </m.li>
+                  </AnimateIn>
                 ))}
               </ul>
-            </m.div>
-            <m.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, staggerChildren: 0.1 }}
-              variants={cardVariants}
+            </AnimateIn>
+            <AnimateIn
               className="card h-full space-y-5 bg-white/60 p-7 shadow-soft backdrop-blur-xl"
             >
               <h3 className="text-xl font-semibold text-text">Lokasi & Kontak</h3>
@@ -226,13 +170,13 @@ export default function AboutPageContent() {
                   { label: "Email", value: officialProfile.email, icon: EnvelopeHeart },
                   { label: "WhatsApp", value: site.whatsapp, icon: Whatsapp },
                 ].map(({ label, value, icon: Icon }) => (
-                  <m.li key={label} variants={cardVariants} className="flex gap-3">
+                  <AnimateIn key={label} className="flex gap-3">
                     <Icon className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" />
                     <div>
                       <p className="text-xs uppercase tracking-wide text-text-muted">{label}</p>
                       <p className="text-sm font-semibold text-text">{value}</p>
                     </div>
-                  </m.li>
+                  </AnimateIn>
                 ))}
               </ul>
               <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/50">
@@ -247,17 +191,13 @@ export default function AboutPageContent() {
                   title="Peta Lokasi TK Kartikasari"
                 ></iframe>
               </div>
-            </m.div>
+            </AnimateIn>
           </div>
-        </m.div>
+        </AnimateIn>
       </PageSection>
 
       <PageSection id="tenaga-pendidik" padding="default">
-        <m.div
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+        <AnimateIn
           className="mx-auto max-w-5xl space-y-12 text-center"
         >
           <div className="space-y-3">
@@ -269,7 +209,7 @@ export default function AboutPageContent() {
             </p>
           </div>
           <TeacherList />
-        </m.div>
+        </AnimateIn>
       </PageSection>
 
       <PageSection id="perjalanan-kami" padding="tight">
@@ -281,30 +221,21 @@ export default function AboutPageContent() {
             </p>
         </div>
         <HorizontalScrollSection>
-            {officialMilestones.map(({ year, title, description }, index) => (
-              <m.div
+            {officialMilestones.map(({ year, title, description }) => (
+              <AnimateIn
                 key={year}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                variants={cardVariants}
                 className="card flex h-full w-[80vw] max-w-sm flex-shrink-0 flex-col space-y-3 bg-white/60 p-6 shadow-soft backdrop-blur-xl"
               >
                 <p className="text-lg font-semibold text-secondary">{year}</p>
                 <h3 className="text-xl font-semibold text-text">{title}</h3>
                 <p className="text-base text-text-muted">{description}</p>
-              </m.div>
+              </AnimateIn>
             ))}
         </HorizontalScrollSection>
       </PageSection>
 
       <PageSection padding="relaxed">
-        <m.div
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+        <AnimateIn
           className="card border-none bg-gradient-to-br from-secondary via-secondary/90 to-primary p-10 text-white shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_35px_60px_-15px_rgba(96,93,255,0.45)]"
         >
           <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
@@ -322,8 +253,8 @@ export default function AboutPageContent() {
               <CTAButton ctaKey="ppdbHeadmaster" />
             </div>
           </div>
-        </m.div>
+        </AnimateIn>
       </PageSection>
-    </LazyMotion>
+    </>
   );
 }

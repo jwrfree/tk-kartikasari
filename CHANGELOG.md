@@ -1,34 +1,22 @@
-# Changelog
+# Riwayat Perubahan (Changelog)
 
-All notable changes to this project will be documented in this file.
+Semua perubahan penting pada proyek ini akan didokumentasikan di file ini.
 
-## Version 1.1.0 - Narrative & Copywriting Overhaul
+Format file ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-This version focuses on a comprehensive rewrite of the website's content to create a consistent, persuasive, and parent-centric narrative. The tone across all pages has been elevated to reflect a premium, trustworthy, and welcoming brand image.
+---
 
-### Changed
+## [1.0.0] - Rilis Awal
 
-- **style(copy):** Refined copy across all major pages (**Beranda, Tentang Kami, Program, Fasilitas, PPDB, Biaya**) to be more persuasive, benefit-oriented, and empathetic.
-- **style(beranda):** Updated hero section title and description to be more welcoming and focus on child development outcomes.
-- **style(tentang-kami):** Transformed the narrative from a simple history into a compelling story about vision, mission, and partnership with parents.
-- **style(program):** Simplified technical terms like STEAM into activity-based descriptions that are easier for parents to understand (e.g., "Sains & Logika" and "Art & Creativity").
-- **style(fasilitas):** Rewrote facility descriptions to explicitly link physical features with their direct benefits for a child's development, safety, and learning experience.
-- **style(ppdb):** Softened the language in the "Terms & Conditions" and FAQ sections to be more guiding and less transactional, using a warmer, more personal tone.
-- **style(biaya):** Re-framed financial costs as "investments" in a child's future. Updated descriptions to highlight value, presented payment options more persuasively, and communicated policies with greater empathy.
+Ini adalah rilis publik pertama yang stabil dari website TK Kartikasari.
 
-## Version 1.0.0 - Initial Launch
+### Added (Fitur Baru)
 
-This is the first stable release of the TK Kartikasari multi-page website, migrated from a single-page architecture to a modern Next.js application.
-
-### Added
-
-- **feature:** Created a dedicated page for school fees (`/ppdb`) to provide clear and accessible information for parents.
-- **feature:** Implemented a data-driven approach for content by storing fee details in a structured `data/biaya.json` file, separating content from the user interface.
-- **feature:** Added `docs/roadmap.md` to document the plan for a future content management panel (v2.0).
-- **feature:** Added this `CHANGELOG.md` file to track project history.
-
-### Fixed
-
-- **fixed:** Resolved a critical build failure caused by the `/ppdb` page trying to access non-existent fee data.
-
-### Changed
+-   **Struktur Proyek Awal:** Dibuat menggunakan Next.js 14 (App Router), TypeScript, dan Tailwind CSS.
+-   **Halaman Utama:** Desain komprehensif yang menampilkan informasi kunci tentang sekolah, program, dan kegiatan harian.
+-   **Halaman Program:** Penjelasan detail mengenai Kelompok A, Kelompok B, dan kegiatan ekstrakurikuler.
+-   **Halaman PPDB (Pendaftaran):** Informasi lengkap mengenai pendaftaran siswa baru, termasuk syarat & ketentuan, FAQ, dan alur pendaftaran.
+-   **Halaman Kontak:** Peta lokasi interaktif dari Google Maps dan detail kontak sekolah.
+-   **Sistem Konten Statis:** Semua konten dinamis (biaya, blog, FAQ) dikelola melalui file TypeScript di direktori `/content`, memisahkan data dari logika tampilan.
+-   **Optimasi SEO:** Implementasi sitemap, `robots.txt`, dan metadata standar untuk meningkatkan visibilitas di mesin pencari.
+-   **Deployment:** Website di-deploy secara otomatis dan di-hosting melalui Vercel.

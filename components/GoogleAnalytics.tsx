@@ -5,7 +5,7 @@ import Script from 'next/script';
 
 const GA_MEASUREMENT_ID = 'G-FTRWM80D1S';
 
-export default function Analytics() {
+export default function GoogleAnalytics() {
   return (
     <>
       <Script 
