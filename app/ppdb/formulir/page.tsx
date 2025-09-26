@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle } from 'react-bootstrap-icons';
 
@@ -132,7 +133,7 @@ export default function PpdbFormPage() {
 
           <div className="mt-10">
             <nav aria-label="Progress">
-              <ol role="list" className="flex items-center">
+              <ol className="flex items-center">
                 {STEPS.map((step, stepIdx) => (
                   <li key={step.name} className={`relative ${stepIdx !== STEPS.length - 1 ? 'pr-8 sm:pr-20' : ''}`}>
                     {stepIdx < currentStep ? (
@@ -361,9 +362,9 @@ const SuccessMessage = () => (
             Terima kasih telah mendaftar di TK Kartikasari. Kami akan segera menghubungi Anda melalui WhatsApp untuk langkah selanjutnya.
         </p>
         <div className="mt-6">
-            <a href="/" className="btn-primary">
+            <Link href="/" className="btn-primary">
                 Kembali ke Beranda
-            </a>
+            </Link>
         </div>
     </div>
 );
