@@ -1,12 +1,12 @@
 
 import { NextResponse } from 'next/server';
-import { adminAuth, isFirebaseAdminConfigured } from '@/lib/firebase-admin';
+import { adminAuth } from '@/lib/firebase-admin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
-  if (!isFirebaseAdminConfigured() || !adminAuth) {
+  if (!adminAuth) {
     return NextResponse.json(
       { status: 'error', message: 'Otentikasi Firebase Admin tidak dikonfigurasi di backend.' },
       { status: 500 }

@@ -1,49 +1,30 @@
+import * as admin from 'firebase-admin';
 
-import { getApps, initializeApp, cert } from 'firebase-admin/app';
-import type { App } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
-import type { Auth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
-import type { Firestore } from 'firebase-admin/firestore';
+const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64
+  ? JSON.parse(Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64').toString('utf-8'))
+  : {
+      type: process.env.FIREBASE_TYPE,
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+      client_id: process.env.FIREBASE_CLIENT_ID,
+      auth_uri: process.env.FIREBASE_AUTH_URI,
+      token_uri: process.env.FIREBASE_TOKEN_URI,
+      auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+      client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
+    };
 
-function hasValidAdminConfig(): boolean {
-  return Boolean(
-    process.env.FIREBASE_PROJECT_ID &&
-      process.env.FIREBASE_CLIENT_EMAIL &&
-      process.env.FIREBASE_PRIVATE_KEY
-  );
-}
-
-function initializeFirebaseAdmin(): App | null {
-  if (getApps().length) {
-    return getApps()[0];
-  }
-
-  if (!hasValidAdminConfig()) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('Firebase Admin configuration is incomplete. Admin features are disabled.');
-    }
-    return null;
-  }
-
+if (!admin.apps.length) {
   try {
-    return initializeApp({
-      credential: cert({
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\n/g, '\n'),
-      }),
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
       databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
     });
   } catch (error) {
-    console.error('Firebase admin initialization error', error);
-    return null;
+    console.log('Firebase admin initialization error', error.stack);
   }
 }
 
-const adminApp = initializeFirebaseAdmin();
-const adminDb: Firestore | null = adminApp ? getFirestore(adminApp) : null;
-const adminAuth: Auth | null = adminApp ? getAuth(adminApp) : null;
-
-export { adminDb, adminAuth };
-export const isFirebaseAdminConfigured = () => Boolean(adminApp);
+export const adminDb = admin.firestore();
+export const adminAuth = admin.auth();

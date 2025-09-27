@@ -17,8 +17,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-console.log(firebaseConfig);
-
 function hasValidConfig(): boolean {
   return Object.values(firebaseConfig).every((value) => typeof value === "string" && value.length > 0);
 }
