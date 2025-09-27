@@ -21,13 +21,25 @@ export default function LoginPage() {
     setIsSubmitting(true);
 
     try {
+      const sanitizedEmail = email.trim();
+      const sanitizedPassword = password;
+
+      if (!sanitizedEmail || !sanitizedPassword) {
+        setError('Email dan password wajib diisi.');
+        return;
+      }
+
       if (firebaseEnabled) {
         const auth = getFirebaseAuth();
         if (!auth) {
           throw new Error('Firebase Auth belum dikonfigurasi.');
         }
 
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          sanitizedEmail,
+          sanitizedPassword
+        );
         const user = userCredential.user;
         const idToken = await user.getIdToken();
 
@@ -53,7 +65,7 @@ export default function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: sanitizedEmail, password: sanitizedPassword }),
       });
 
       if (response.ok) {
@@ -64,9 +76,9 @@ export default function LoginPage() {
       }
     } catch (error: any) {
       setError(error.message || 'Terjadi kesalahan saat masuk.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   return (

@@ -7,9 +7,19 @@ import {
 } from '@/lib/local-auth';
 import { createLocalSessionToken } from '@/lib/local-session';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const rawBody = await request.json().catch(() => null);
+    const body =
+      rawBody && typeof rawBody === 'object'
+        ? (rawBody as Record<string, unknown>)
+        : null;
+
+    const email = typeof body?.email === 'string' ? body.email.trim() : '';
+    const password = typeof body?.password === 'string' ? body.password : '';
 
     // Set session expiration to 5 days.
     const expiresInMs = 60 * 60 * 24 * 5 * 1000;
@@ -17,7 +27,7 @@ export async function POST(request: Request) {
     const cookieExpires = new Date(Date.now() + expiresInMs);
 
     if (isFirebaseAdminConfigured() && adminAuth) {
-      const { idToken } = body;
+      const idToken = typeof body?.idToken === 'string' ? body.idToken : '';
 
       if (!idToken) {
         return NextResponse.json(
@@ -41,8 +51,6 @@ export async function POST(request: Request) {
       return response;
     }
 
-    const { email, password } = body;
-
     if (!isLocalAuthConfigured()) {
       return NextResponse.json(
         { status: 'error', message: 'Local authentication is not configured.' },
@@ -50,7 +58,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
+    if (!email || !password) {
       return NextResponse.json(
         { status: 'error', message: 'Email dan password wajib diisi.' },
         { status: 400 }
