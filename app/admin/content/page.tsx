@@ -1,10 +1,23 @@
 
+import { AdminShell } from '@/components/admin/AdminShell';
+
 export default function ContentManagementPage() {
   return (
-    <main className="container mx-auto py-8">
-      <h1 className="mb-8 text-3xl font-bold">Content Management</h1>
-      <p>Here you will be able to edit the content of your website.</p>
-      {/* Content editing form will go here */}
-    </main>
+    <AdminShell
+      title="Kelola Konten"
+      description="Perbarui teks halaman utama, profil sekolah, dan informasi penting lainnya."
+    >
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <p className="text-sm text-slate-600">
+          Editor konten terpusat akan hadir di sini. Sementara ini, koordinasikan dengan tim
+          pengembang untuk memperbarui konten statis melalui berkas Markdown pada repositori.
+        </p>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
+          <li>Konten halaman utama berada di folder <code>content/homepage</code>.</li>
+          <li>Gunakan format Markdown sederhana agar konsisten dengan tampilan situs.</li>
+          <li>Simpan perubahan dan jalankan proses build untuk menerapkan pembaruan.</li>
+        </ul>
+      </div>
+    </AdminShell>
   );
 }

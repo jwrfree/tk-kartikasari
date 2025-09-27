@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { getFirestoreDb, getFirebaseStorage } from '@/lib/firebase';
+import { AdminShell } from '@/components/admin/AdminShell';
 import { slugify } from '@/utils/slugify';
 
 interface BlogPost {
@@ -243,31 +244,38 @@ export default function BlogManagementPage() {
   }, [firestore]);
 
   return (
-    <main className="container mx-auto py-8">
-      <h1 className="mb-8 text-3xl font-bold">Kelola Blog & Kegiatan</h1>
+    <AdminShell
+      title="Blog & Kegiatan"
+      description="Kelola berita sekolah, unggah dokumentasi, dan atur jadwal publikasi."
+    >
+      <div className="space-y-12">
+        {message && (
+          <div
+            className={`rounded-lg border p-4 text-sm ${
+              messageType === 'error'
+                ? 'border-red-200 bg-red-50 text-red-700'
+                : messageType === 'success'
+                  ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                  : 'border-primary/20 bg-primary/5 text-primary'
+            }`}
+          >
+            {message}
+          </div>
+        )}
 
-      {message && (
-        <div
-          className={`mb-6 rounded-md border p-4 text-sm ${
-            messageType === 'error'
-              ? 'border-red-200 bg-red-50 text-red-700'
-              : messageType === 'success'
-                ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
-                : 'border-primary/20 bg-primary/5 text-primary'
-          }`}
-        >
-          {message}
-        </div>
-      )}
-
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Tambah Postingan Baru</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700" htmlFor={titleFieldId}>
-              Judul*
-            </label>
-            <input
+        <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Tambah Postingan Baru</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Lengkapi formulir berikut untuk mempublikasikan berita atau dokumentasi kegiatan.
+            Semua konten mendukung format Markdown sehingga mudah untuk menambahkan gambar dan
+            penekanan teks.
+          </p>
+          <form onSubmit={handleSubmit} className="mt-6 space-y-6">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700" htmlFor={titleFieldId}>
+                Judul*
+              </label>
+              <input
               type="text"
               id={titleFieldId}
               value={form.title}
@@ -405,62 +413,70 @@ export default function BlogManagementPage() {
               {isSubmitting ? 'Menyimpan...' : 'Simpan Postingan'}
             </button>
           </div>
-        </form>
-      </section>
+          </form>
+        </section>
 
-      <section>
-        <h2 className="mb-4 text-2xl font-semibold">Daftar Postingan</h2>
-        {posts.length === 0 ? (
-          <p className="text-sm text-gray-500">Belum ada data postingan. Silakan tambah postingan baru.</p>
-        ) : (
-          <div className="overflow-hidden rounded-lg border border-gray-200">
-            <table className="min-w-full divide-y divide-gray-200 text-left text-sm">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 py-3 font-semibold text-gray-600">Judul</th>
-                  <th className="px-4 py-3 font-semibold text-gray-600">Tanggal</th>
-                  <th className="px-4 py-3 font-semibold text-gray-600">Slug</th>
-                  <th className="px-4 py-3 text-right font-semibold text-gray-600">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 bg-white">
-                {posts.map((post) => (
-                  <tr key={post.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-gray-800">{post.title}</td>
-                    <td className="px-4 py-3 text-gray-600">
-                      {new Date(post.date).toLocaleDateString('id-ID', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </td>
-                    <td className="px-4 py-3 text-gray-500">{post.slug}</td>
-                    <td className="px-4 py-3 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="rounded-md border border-primary px-3 py-1 text-sm font-medium text-primary transition hover:bg-primary hover:text-white"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Lihat
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => handleDelete(post.id)}
-                          className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-600 transition hover:bg-red-50"
-                        >
-                          Hapus
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <section>
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-xl font-semibold text-slate-900">Daftar Postingan</h2>
+            <p className="text-xs uppercase tracking-wide text-slate-500">
+              Total {posts.length} postingan
+            </p>
           </div>
-        )}
-      </section>
-    </main>
+          {posts.length === 0 ? (
+            <p className="mt-4 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-sm text-slate-500">
+              Belum ada data postingan. Silakan tambah postingan baru untuk mengisi daftar ini.
+            </p>
+          ) : (
+            <div className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+              <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold text-slate-600">Judul</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600">Tanggal</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600">Slug</th>
+                    <th className="px-4 py-3 text-right font-semibold text-slate-600">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {posts.map((post) => (
+                    <tr key={post.id} className="bg-white transition hover:bg-slate-50">
+                      <td className="px-4 py-3 font-medium text-slate-900">{post.title}</td>
+                      <td className="px-4 py-3 text-slate-600">
+                        {new Date(post.date).toLocaleDateString('id-ID', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </td>
+                      <td className="px-4 py-3 text-slate-500">{post.slug}</td>
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            className="rounded-md border border-primary px-3 py-1 text-sm font-medium text-primary transition hover:bg-primary hover:text-white"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Lihat
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(post.id)}
+                            className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-600 transition hover:bg-red-50"
+                          >
+                            Hapus
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      </div>
+    </AdminShell>
   );
 }
