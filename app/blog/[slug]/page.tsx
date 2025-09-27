@@ -1,10 +1,11 @@
-
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getPosts, getPostBySlug } from '@/lib/blog'; // Import Post from @/lib/blog
 import { Calendar, Person } from 'react-bootstrap-icons';
 import Mdx from '@/components/mdx/Mdx';
 import EngagementSection from '@/components/blog/EngagementSection';
+import { createPageMetadata } from "@/lib/metadata";
+
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -12,6 +13,22 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+// Generate metadata for the page
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    return notFound(); // Or return a default metadata object
+  }
+
+  return createPageMetadata({
+    title: post.title,
+    description: post.body.raw.substring(0, 155), // Use the first 155 chars as a description
+    image: post.coverImage,
+    path: `/blog/${post.slug}`,
+  });
 }
 
 type PageProps = {

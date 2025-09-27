@@ -1,9 +1,9 @@
-
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import { createPageMetadata } from "@/lib/metadata";
-import { daftarFasilitas, virtualTour } from "@/content/fasilitas";
+import { sanityClient, urlFor } from "@/lib/sanity-client";
 import { CheckCircle, Image as ImageIcon, PlayCircleFill } from "react-bootstrap-icons";
+import AnimateIn from "@/components/AnimateIn";
 
 export const metadata = createPageMetadata({
     title: "Fasilitas Sekolah",
@@ -11,7 +11,16 @@ export const metadata = createPageMetadata({
     path: "/fasilitas",
 });
 
-export default function FasilitasPage() {
+// Mengambil data dari Sanity
+async function getFacilitiesData() {
+    const virtualTour = await sanityClient.fetch('*[_type == "virtualTour"][0]');
+    const facilities = await sanityClient.fetch('*[_type == "facility"] | order(_createdAt asc)');
+    return { virtualTour, facilities };
+  }
+
+export default async function FasilitasPage() {
+    const { virtualTour, facilities } = await getFacilitiesData();
+
     return (
         <>
             <PageHeader 
@@ -20,48 +29,63 @@ export default function FasilitasPage() {
                 description="Setiap sudut sekolah kami dirancang untuk mendukung eksplorasi, kreativitas, dan keamanan anak. Jelajahi fasilitas kami yang dirancang khusus untuk para pembelajar cilik."
             />
 
-            {/* Placeholder Virtual Tour */}
-            <PageSection padding="none">
-                <div className="relative aspect-video w-full rounded-2xl bg-surface flex items-center justify-center border border-border shadow-lg overflow-hidden">
-                    <div className="text-center z-10">
-                        <PlayCircleFill className="mx-auto h-16 w-16 text-white shadow-md" />
-                        <h2 className="mt-4 text-3xl font-bold text-white">{virtualTour.title}</h2>
-                        <p className="mt-2 max-w-2xl mx-auto text-lg text-white/80">{virtualTour.description}</p>
+            {/* Virtual Tour */}
+            <AnimateIn>
+                <PageSection padding="none">
+                    <div className="relative aspect-video w-full rounded-2xl bg-surface flex items-center justify-center border border-border shadow-lg overflow-hidden">
+                         {/* Konten Video atau Gambar Latar */}
+                         <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url('/images/hero-bg.jpg')`}}></div>
+                        <div className="absolute inset-0 bg-primary opacity-60"></div>
+                        <div className="text-center z-10 p-4">
+                            <a href={virtualTour?.videoUrl || '#'} target="_blank" rel="noopener noreferrer" className="block transform hover:scale-105 transition-transform">
+                                <PlayCircleFill className="mx-auto h-16 w-16 text-white shadow-md" />
+                            </a>
+                            <h2 className="mt-4 text-3xl font-bold text-white">{virtualTour?.title || "Jelajahi Sekolah Kami"}</h2>
+                            <p className="mt-2 max-w-2xl mx-auto text-lg text-white/80">{virtualTour?.description || "Rasakan suasana belajar yang ceria dan aman di sekolah kami."}</p>
+                        </div>
                     </div>
-                    <div className="absolute inset-0 bg-primary opacity-60"></div>
-                    {/* You can place a background image here */}
-                    <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url('/images/hero-bg.jpg')`}}></div>
-                </div>
-            </PageSection>
+                </PageSection>
+            </AnimateIn>
 
             {/* Galeri Fasilitas */}
             <PageSection>
                  <div className="space-y-16">
-                    {daftarFasilitas.map((fasilitas, index) => (
-                        <div key={fasilitas.nama} className={`grid grid-cols-1 lg:grid-cols-2 gap-10 items-center`}>
-                            {/* Placeholder Gambar */}
-                            <div className={`relative aspect-square lg:aspect-video rounded-xl bg-surfaceAlt border-2 border-dashed border-border flex items-center justify-center ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                                <div className="text-center text-text-muted">
-                                    <ImageIcon className="mx-auto h-12 w-12" />
-                                    <h3 className="mt-2 text-lg font-semibold">{fasilitas.imgPlaceholder.title}</h3>
-                                    <p className="text-sm">{fasilitas.imgPlaceholder.info}</p>
+                    {facilities?.map((facility: any, index: number) => (
+                        <AnimateIn key={facility._id}>
+                            <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center`}>
+                                {/* Gambar Fasilitas */}
+                                <div className={`relative aspect-square lg:aspect-[4/3] rounded-xl bg-surfaceAlt border border-border flex items-center justify-center overflow-hidden shadow-md ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                                    {facility.image ? (
+                                        <img 
+                                            src={urlFor(facility.image).width(800).height(600).url()} 
+                                            alt={facility.name} 
+                                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                        />
+                                    ) : (
+                                        <div className="text-center text-text-muted">
+                                            <ImageIcon className="mx-auto h-12 w-12" />
+                                            <h3 className="mt-2 text-lg font-semibold">Gambar Segera Hadir</h3>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Deskripsi Fasilitas */}
+                                <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
+                                    <h3 className="text-3xl font-bold text-text">{facility.name}</h3>
+                                    <p className="mt-3 text-lg text-text-muted leading-relaxed">{facility.description}</p>
+                                    {facility.features && facility.features.length > 0 && (
+                                        <ul className="mt-6 space-y-3">
+                                            {facility.features.map((feature: string) => (
+                                                <li key={feature} className="flex items-center text-text">
+                                                    <CheckCircle className="h-5 w-5 mr-3 text-primary flex-shrink-0" />
+                                                    <span>{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
                                 </div>
                             </div>
-
-                            {/* Deskripsi Fasilitas */}
-                            <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                                <h3 className="text-3xl font-bold text-text">{fasilitas.nama}</h3>
-                                <p className="mt-3 text-lg text-text-muted leading-relaxed">{fasilitas.deskripsi}</p>
-                                <ul className="mt-6 space-y-3">
-                                    {fasilitas.fitur.map(fitur => (
-                                        <li key={fitur} className="flex items-center text-text">
-                                            <CheckCircle className="h-5 w-5 mr-3 text-primary flex-shrink-0" />
-                                            <span>{fitur}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
+                        </AnimateIn>
                     ))}
                  </div>
             </PageSection>

@@ -3,20 +3,10 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { getFirestoreDb, getFirebaseStorage } from '@/lib/firebase';
 import { AdminShell } from '@/components/admin/AdminShell';
 import { slugify } from '@/utils/slugify';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  date: string;
-  body: string;
-  coverImage?: string;
-}
+import { sanityClient } from '@/lib/sanity-client';
+import { getPosts, Post } from '@/lib/blog';
 
 interface FormState {
   title: string;
@@ -35,7 +25,7 @@ const getInitialFormState = (): FormState => ({
 });
 
 export default function BlogManagementPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [form, setForm] = useState<FormState>(() => getInitialFormState());
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,39 +38,14 @@ export default function BlogManagementPage() {
   const coverFieldId = useId();
   const bodyFieldId = useId();
 
-  const firestore = getFirestoreDb();
-  const storage = getFirebaseStorage();
+  const fetchPosts = useCallback(async () => {
+    const fetchedPosts = await getPosts();
+    setPosts(fetchedPosts);
+  }, []);
 
   useEffect(() => {
-    if (!firestore || !storage) {
-      setMessage('Firebase belum dikonfigurasi dengan benar. Hubungi administrator.');
-      setMessageType('error');
-    }
-  }, [firestore, storage]);
-
-  useEffect(() => {
-    if (!firestore) {
-      return;
-    }
-
-    const q = query(collection(firestore, 'blogs'), orderBy('date', 'desc'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const fetchedPosts: BlogPost[] = snapshot.docs.map((docSnapshot) => {
-        const data = docSnapshot.data();
-        return {
-          id: docSnapshot.id,
-          title: data.title,
-          slug: data.slug,
-          date: data.date,
-          body: data.body,
-          coverImage: data.coverImage,
-        };
-      });
-      setPosts(fetchedPosts);
-    });
-
-    return () => unsubscribe();
-  }, [firestore]);
+    fetchPosts();
+  }, [fetchPosts]);
 
   const resetForm = useCallback(() => {
     setForm(getInitialFormState());
@@ -92,23 +57,17 @@ export default function BlogManagementPage() {
       setCoverPreview(null);
       return;
     }
-
     const url = URL.createObjectURL(form.coverImageFile);
     setCoverPreview(url);
-
     return () => URL.revokeObjectURL(url);
   }, [form.coverImageFile]);
 
   useEffect(() => {
-    if (!message || messageType === 'error') {
-      return;
-    }
-
+    if (!message || messageType === 'error') return;
     const timeout = setTimeout(() => {
       setMessage(null);
       setMessageType(null);
     }, 6000);
-
     return () => clearTimeout(timeout);
   }, [message, messageType]);
 
@@ -120,25 +79,18 @@ export default function BlogManagementPage() {
     }));
   }, []);
 
-  const uploadFile = useCallback(
-    async (file: File, path: string) => {
-      if (!storage) {
-        throw new Error('Firebase Storage belum dikonfigurasi.');
-      }
-
-      const storageRef = ref(storage, path);
-      const snapshot = await uploadBytes(storageRef, file);
-      const downloadUrl = await getDownloadURL(snapshot.ref);
-      return downloadUrl;
-    },
-    [storage]
-  );
+  const uploadFile = useCallback(async (file: File) => {
+    try {
+      const asset = await sanityClient.assets.upload('image', file);
+      return asset.url;
+    } catch (error) {
+      console.error('Image upload failed:', error);
+      throw new Error('Gagal mengunggah gambar.');
+    }
+  }, []);
 
   const handleBodyImageUpload = useCallback(() => {
-    if (!bodyImageInputRef.current) {
-      return;
-    }
-    bodyImageInputRef.current.click();
+    bodyImageInputRef.current?.click();
   }, []);
 
   const handleBodyImageChange = useCallback(
@@ -149,8 +101,7 @@ export default function BlogManagementPage() {
       try {
         setMessage('Mengunggah gambar konten...');
         setMessageType('info');
-        const path = `blog-content-images/${Date.now()}-${file.name}`;
-        const imageUrl = await uploadFile(file, path);
+        const imageUrl = await uploadFile(file);
         setForm((prev) => ({
           ...prev,
           body: `${prev.body}\n\n![Deskripsi gambar](${imageUrl})\n\n`,
@@ -186,31 +137,29 @@ export default function BlogManagementPage() {
           throw new Error('Slug sudah digunakan. Gunakan slug lain agar URL unik.');
         }
 
-        let coverUrl = '';
-
+        let imageAsset;
         if (form.coverImageFile) {
-          if (!form.slug) {
-            throw new Error('Slug belum valid untuk membuat jalur gambar.');
-          }
-          const path = `blog-covers/${normalizedSlug}-${Date.now()}`;
-          coverUrl = await uploadFile(form.coverImageFile, path);
+          const image = await sanityClient.assets.upload('image', form.coverImageFile);
+          imageAsset = {
+            _type: 'image',
+            asset: {
+              _type: 'reference',
+              _ref: image._id,
+            },
+          };
         }
 
-        if (!firestore) {
-          throw new Error('Firebase Firestore belum dikonfigurasi.');
-        }
-
-        const postsCollection = collection(firestore, 'blogs');
-        await addDoc(postsCollection, {
+        await sanityClient.create({
+          _type: 'post',
           title: form.title,
-          slug: normalizedSlug,
+          slug: { _type: 'slug', current: normalizedSlug },
           date: form.date,
-          body: form.body,
-          coverImage: coverUrl,
-          createdAt: serverTimestamp(),
+          content: form.body,
+          mainImage: imageAsset,
         });
 
         resetForm();
+        fetchPosts(); // Refresh the posts list
         setMessage('Postingan berhasil disimpan.');
         setMessageType('success');
       } catch (error: any) {
@@ -221,7 +170,7 @@ export default function BlogManagementPage() {
         setIsSubmitting(false);
       }
     },
-    [firestore, form, uploadFile, resetForm, posts]
+    [form, posts, fetchPosts, resetForm]
   );
 
   const handleDelete = useCallback(async (postId: string) => {
@@ -229,11 +178,8 @@ export default function BlogManagementPage() {
     if (!confirmation) return;
 
     try {
-      if (!firestore) {
-        throw new Error('Firebase Firestore belum dikonfigurasi.');
-      }
-
-      await deleteDoc(doc(firestore, 'blogs', postId));
+      await sanityClient.delete(postId);
+      fetchPosts(); // Refresh the posts list
       setMessage('Postingan berhasil dihapus.');
       setMessageType('success');
     } catch (error) {
@@ -241,7 +187,7 @@ export default function BlogManagementPage() {
       setMessage('Gagal menghapus postingan.');
       setMessageType('error');
     }
-  }, [firestore]);
+  }, [fetchPosts]);
 
   return (
     <AdminShell
@@ -440,7 +386,7 @@ export default function BlogManagementPage() {
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {posts.map((post) => (
-                    <tr key={post.id} className="bg-white transition hover:bg-slate-50">
+                    <tr key={post._id} className="bg-white transition hover:bg-slate-50">
                       <td className="px-4 py-3 font-medium text-slate-900">{post.title}</td>
                       <td className="px-4 py-3 text-slate-600">
                         {new Date(post.date).toLocaleDateString('id-ID', {
@@ -462,7 +408,7 @@ export default function BlogManagementPage() {
                           </Link>
                           <button
                             type="button"
-                            onClick={() => handleDelete(post.id)}
+                            onClick={() => handleDelete(post._id)}
                             className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-600 transition hover:bg-red-50"
                           >
                             Hapus

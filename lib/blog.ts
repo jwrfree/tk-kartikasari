@@ -1,100 +1,98 @@
+import { sanityClient } from './sanity-client';
 
-import { collection, getDocs, doc, getDoc, query, orderBy, where } from 'firebase/firestore';
-import { getFirestoreDb } from './firebase';
-
-// Define the Post type directly here for simplicity
+// Redefine the Post type to align with the expected Sanity schema
 export interface Post {
   _id: string;
   title: string;
   date: string; // ISO 8601 date string
   body: {
     raw: string; // Markdown content
-    code: string; // This can be deprecated if not used, kept for compatibility
+    code: string; // Retained for compatibility, can be removed if not used
   };
   slug: string;
-  coverImage?: string; // Optional cover image URL
-  // The '_raw' field from Contentlayer is no longer needed but kept for compatibility.
+  coverImage?: string; 
   _raw: {
     flattenedPath: string;
   };
 }
 
-
 /**
- * Fetches all blog posts from Firestore, ordered by date.
+ * Fetches all blog posts from Sanity, ordered by date.
  * @returns {Promise<Post[]>} A promise that resolves to an array of posts.
  */
 export async function getPosts(): Promise<Post[]> {
+  // GROQ query to fetch all posts, ordered by date
+  const query = `*[_type == "post"] | order(date desc) {
+    _id,
+    title,
+    date,
+    "body": content, // Assuming the markdown content is in a field named 'content'
+    "slug": slug.current,
+    "coverImage": mainImage.asset->url
+  }`;
+
   try {
-    const db = getFirestoreDb();
-    if (!db) {
-      return [];
-    }
-    const postsCollection = collection(db, 'blogs');
-    const q = query(postsCollection, orderBy('date', 'desc'));
-    const postsSnapshot = await getDocs(q);
+    const sanityPosts = await sanityClient.fetch(query);
 
-    const posts: Post[] = postsSnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        _id: doc.id,
-        title: data.title,
-        date: data.date,
-        body: {
-          raw: data.body,
-          code: data.body, // Populate 'code' with raw markdown
-        },
-        slug: data.slug,
-        coverImage: data.coverImage, // Fetch the cover image URL
-        _raw: {
-          flattenedPath: `blog/${data.slug}`,
-        },
-      };
-    });
-
-    return posts;
+    // Map the data from Sanity to the Post interface to maintain component compatibility
+    return sanityPosts.map((post: any) => ({
+      _id: post._id,
+      title: post.title,
+      date: post.date,
+      body: {
+        raw: post.body || '', // Ensure body.raw is always a string
+        code: post.body || '', // Keep for compatibility
+      },
+      slug: post.slug,
+      coverImage: post.coverImage,
+      _raw: {
+        flattenedPath: `blog/${post.slug}`,
+      },
+    }));
   } catch (error) {
-    console.error('Failed to fetch blog posts from Firestore:', error);
+    console.error('Failed to fetch blog posts from Sanity:', error);
     return [];
   }
 }
 
 /**
- * Fetches a single post by its slug from Firestore.
+ * Fetches a single post by its slug from Sanity.
  * @param {string} slug The slug of the post to fetch.
  * @returns {Promise<Post | null>} A promise that resolves to the post object or null if not found.
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  // GROQ query to fetch a single post by its slug
+  const query = `*[_type == "post" && slug.current == $slug][0] {
+    _id,
+    title,
+    date,
+    "body": content,
+    "slug": slug.current,
+    "coverImage": mainImage.asset->url
+  }`;
+
+  const params = { slug };
+
   try {
-    const db = getFirestoreDb();
-    if (!db) {
-      return null;
-    }
-    const postsCollection = collection(db, 'blogs');
-    // Firestore queries are case-sensitive. Ensure slugs are consistent.
-    const q = query(postsCollection, where('slug', '==', slug));
-    const postSnapshot = await getDocs(q);
+    const post = await sanityClient.fetch(query, params);
 
-    if (postSnapshot.empty) {
-      console.error(`No post found with slug: ${slug}`);
+    if (!post) {
       return null;
     }
 
-    const docRef = postSnapshot.docs[0];
-    const data = docRef.data();
-
+    // Map the Sanity data to the Post interface
     return {
-      _id: docRef.id,
-      title: data.title,
-      date: data.date,
+      _id: post._id,
+      title: post.title,
+      date: post.date,
       body: {
-        raw: data.body,
-        code: data.body, // Populate 'code' with raw markdown
+        raw: post.body || '',
+        code: post.body || '',
       },
-      slug: data.slug,
-      coverImage: data.coverImage, // Fetch the cover image URL
+      slug: post.slug,
+      coverImage: post.coverImage,
       _raw: {
-        flattenedPath: `blog/${data.slug}`,
+        flattenedPath: `blog/${post.slug}`,
       },
     };
   } catch (error) {

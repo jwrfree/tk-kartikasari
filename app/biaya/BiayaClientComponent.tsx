@@ -1,17 +1,15 @@
-
 'use client'
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatRupiah } from '@/utils/currency';
-import { InfoCircle } from 'react-bootstrap-icons';
 
 // Definisikan tipe untuk properti komponen
 interface BiayaPokok {
-  nama: string;
-  jumlah: number;
-  deskripsi: string;
-  kategori: string;
+  name: string;
+  amount: number;
+  description: string;
+  category: string;
 }
 
 interface BiayaClientComponentProps {
@@ -22,22 +20,22 @@ export default function BiayaClientComponent({ biayaPokok }: BiayaClientComponen
   const [sppBulan, setSppBulan] = useState(12);
 
   const biayaSekaliBayar = useMemo(() => 
-    biayaPokok.filter(b => b.kategori === 'sekali bayar'), 
+    biayaPokok.filter(b => b.category === 'sekali bayar'), 
     [biayaPokok]
   );
 
   const biayaBulanan = useMemo(() => 
-    biayaPokok.find(b => b.kategori === 'bulanan'), 
+    biayaPokok.find(b => b.category === 'bulanan'), 
     [biayaPokok]
   );
 
   const totalSekaliBayar = useMemo(() => 
-    biayaSekaliBayar.reduce((acc, item) => acc + item.jumlah, 0), 
+    biayaSekaliBayar.reduce((acc, item) => acc + item.amount, 0), 
     [biayaSekaliBayar]
   );
 
   const totalBulanan = useMemo(() => 
-    biayaBulanan ? biayaBulanan.jumlah * sppBulan : 0, 
+    biayaBulanan ? biayaBulanan.amount * sppBulan : 0, 
     [biayaBulanan, sppBulan]
   );
 
@@ -53,12 +51,12 @@ export default function BiayaClientComponent({ biayaPokok }: BiayaClientComponen
         </div>
         <div className="space-y-4">
           {biayaPokok.map((item) => (
-            <div key={item.nama} className="rounded-xl border border-border bg-surface p-5 shadow-sm">
+            <div key={item.name} className="rounded-xl border border-border bg-surface p-5 shadow-sm">
               <div className="flex justify-between items-start">
-                <h4 className="text-lg font-semibold text-text">{item.nama}</h4>
-                <span className="text-lg font-bold text-primary whitespace-nowrap ml-4">{formatRupiah(item.jumlah)}</span>
+                <h4 className="text-lg font-semibold text-text">{item.name}</h4>
+                <span className="text-lg font-bold text-primary whitespace-nowrap ml-4">{formatRupiah(item.amount)}</span>
               </div>
-              <p className="mt-2 text-sm text-text-muted">{item.deskripsi}</p>
+              <p className="mt-2 text-sm text-text-muted">{item.description}</p>
             </div>
           ))}
         </div>

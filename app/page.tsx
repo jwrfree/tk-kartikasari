@@ -1,29 +1,10 @@
-
-import { doc, getDoc } from 'firebase/firestore';
-import { getFirestoreDb } from '@/lib/firebase';
+import { sanityClient } from '@/lib/sanity-client';
 import HomePageContent from "@/components/home/HomePageContent";
 import JsonLd from "@/components/JsonLd";
-import { getPosts } from "@/lib/blog";
+import { getPosts } from "@/lib/blog"; // This will need updating later
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
 import { preschoolSchema } from "@/lib/schema";
-import {
-  homeHeroDescription,
-  homeStats,
-  homeHighlights,
-  homePrograms,
-  homeJourney,
-  homeFaqs,
-  homeCredentials,
-  homeCurriculumPillars,
-  homeTimeline,
-} from "@/content/home";
-
-export const metadata = createPageMetadata({
-  title: "Beranda",
-  description: homeHeroDescription,
-  path: "/",
-});
 
 // Define a type for the home page data for better type-safety
 type HomePageData = {
@@ -38,44 +19,44 @@ type HomePageData = {
     timeline: any[];
 };
 
+// Async function to fetch data for metadata generation
+export async function generateMetadata() {
+    const data: HomePageData = await getHomeData();
+    return createPageMetadata({
+        title: "Beranda",
+        description: data.heroDescription,
+        path: "/",
+    });
+}
+
+
 async function getHomeData(): Promise<HomePageData> {
-    const db = getFirestoreDb();
-    if (!db) {
-        return {
-            heroDescription: homeHeroDescription,
-            stats: homeStats,
-            highlights: homeHighlights,
-            programs: homePrograms,
-            journey: homeJourney,
-            faqs: homeFaqs,
-            credentials: homeCredentials,
-            curriculumPillars: homeCurriculumPillars,
-            timeline: homeTimeline,
-        };
-    }
+    // GROQ query to fetch data from a 'homePage' document in Sanity
+    const query = `*[_type == "homePage"][0] {
+        heroDescription,
+        stats,
+        highlights,
+        programs,
+        journey,
+        faqs,
+        credentials,
+        curriculumPillars,
+        timeline,
+    }`;
 
     try {
-        const docRef = doc(db, 'pages', 'home');
-        const docSnap = await getDoc(docRef);
-
-        if (!docSnap.exists()) {
-            throw new Error("Home page data not found in Firestore.");
+        const data = await sanityClient.fetch(query);
+        if (!data) {
+            // If you have fallback data, you could return it here.
+            // For now, we throw an error to indicate that the CMS data is missing.
+            throw new Error("Home page data not found in Sanity.");
         }
-
-        return docSnap.data() as HomePageData;
+        return data;
     } catch (error) {
-        console.error('Failed to fetch home page data from Firestore:', error);
-        return {
-            heroDescription: homeHeroDescription,
-            stats: homeStats,
-            highlights: homeHighlights,
-            programs: homePrograms,
-            journey: homeJourney,
-            faqs: homeFaqs,
-            credentials: homeCredentials,
-            curriculumPillars: homeCurriculumPillars,
-            timeline: homeTimeline,
-        };
+        console.error('Failed to fetch home page data from Sanity:', error);
+        // Depending on the desired behavior for production, you might want to handle this differently.
+        // Re-throwing the error will cause the page build to fail, which is often what you want.
+        throw new Error('Failed to fetch data for the home page.');
     }
 }
 
@@ -83,9 +64,10 @@ export default async function Page() {
   const schema = preschoolSchema();
   
   // Fetch home page data and blog posts in parallel
+  // Note: getPosts() will also need to be migrated to Sanity
   const [homeData, blogPosts] = await Promise.all([
     getHomeData(),
-    getPosts(),
+    getPosts(), // This will likely fail until it's also migrated.
   ]);
 
   return (
