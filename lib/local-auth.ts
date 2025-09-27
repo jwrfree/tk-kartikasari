@@ -10,18 +10,29 @@ const DERIVED_KEY_LENGTH = 64;
 export interface LocalAdminCredentialConfig {
   email: string;
   passwordHash: string;
+  plainPassword: string;
 }
 
 export function getLocalAdminCredentials(): LocalAdminCredentialConfig {
   return {
     email: process.env.ADMIN_EMAIL?.trim() || DEFAULT_ADMIN_EMAIL,
     passwordHash: process.env.ADMIN_PASSWORD_HASH?.trim() || DEFAULT_ADMIN_PASSWORD_HASH,
+    plainPassword: process.env.ADMIN_PASSWORD?.trim() || '',
   };
 }
 
 export function isLocalAuthConfigured(): boolean {
-  const { email, passwordHash } = getLocalAdminCredentials();
-  return Boolean(email && passwordHash && passwordHash.includes(HASH_DELIMITER));
+  const { email, passwordHash, plainPassword } = getLocalAdminCredentials();
+
+  if (!email) {
+    return false;
+  }
+
+  if (plainPassword) {
+    return true;
+  }
+
+  return Boolean(passwordHash && passwordHash.includes(HASH_DELIMITER));
 }
 
 export function verifyLocalAdminCredentials(email: string, password: string): boolean {
@@ -29,10 +40,21 @@ export function verifyLocalAdminCredentials(email: string, password: string): bo
     return false;
   }
 
-  const { email: expectedEmail, passwordHash } = getLocalAdminCredentials();
+  const { email: expectedEmail, passwordHash, plainPassword } = getLocalAdminCredentials();
 
   if (email.trim().toLowerCase() !== expectedEmail.toLowerCase()) {
     return false;
+  }
+
+  if (plainPassword) {
+    const suppliedBuffer = Buffer.from(password);
+    const expectedBuffer = Buffer.from(plainPassword);
+
+    if (suppliedBuffer.length !== expectedBuffer.length) {
+      return false;
+    }
+
+    return timingSafeEqual(suppliedBuffer, expectedBuffer);
   }
 
   const [salt, storedHash] = passwordHash.split(HASH_DELIMITER);

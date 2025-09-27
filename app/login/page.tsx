@@ -88,8 +88,8 @@ export default function LoginPage() {
         {!firebaseEnabled && (
           <p className="mb-6 rounded-md bg-indigo-50 p-3 text-sm text-indigo-700">
             Gunakan akun admin yang disediakan untuk mengakses dasbor. Kredensial dapat
-            dikonfigurasi melalui variabel lingkungan <code>ADMIN_EMAIL</code> dan
-            <code>ADMIN_PASSWORD_HASH</code>.
+            dikonfigurasi melalui variabel lingkungan <code>ADMIN_EMAIL</code> serta
+            <code>ADMIN_PASSWORD_HASH</code> atau <code>ADMIN_PASSWORD</code>.
           </p>
         )}
         <form onSubmit={handleLogin}>
