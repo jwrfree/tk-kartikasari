@@ -1,47 +1,56 @@
 
-"use client";
-
 import { cn } from "@/lib/utils";
 import "@/app/globals.css";
-import { usePathname } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsappButton";
+import { Metadata, Viewport } from "next";
+import LayoutClient from "@/app/LayoutClient";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import siteData from "@/data/site.json";
+import { createOrganizationJsonLd, createWebSiteJsonLd, createLocalBusinessJsonLd } from "@/lib/json-ld";
 import { inter } from "@/app/fonts";
 
-// SimpleFooter component for the login page
-function SimpleFooter() {
-  return (
-    <footer className="bg-gray-100" aria-labelledby="footer-heading">
-      <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
-        <div className="border-t border-gray-900/10 pt-8">
-          <p className="text-xs leading-5 text-gray-500 text-center">
-            &copy; {new Date().getFullYear()} {siteData.schoolName}. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+export const metadata: Metadata = {
+  title: {
+    default: siteData.schoolName,
+    template: `%s - ${siteData.schoolName}`,
+  },
+  description: siteData.address,
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  verification: {
+    google: "-b3idr9SWRK9EynFL2X3x6xdGWsu-7iVYZtDs0VkfEQ",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#FFFFFF",
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isLoginPage = pathname === "/login";
-
   return (
     <html lang="id" className="scroll-smooth">
       <body className={cn(inter.className, "antialiased")}>
-        {!isLoginPage && <Header />}
-        <main>{children}</main>
-        {isLoginPage ? <SimpleFooter /> : <Footer />}
-        {!isLoginPage && <WhatsAppButton />}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(createOrganizationJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(createWebSiteJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(createLocalBusinessJsonLd()) }}
+        />
+        
+        <LayoutClient>{children}</LayoutClient>
 
         <GoogleAnalytics />
         <VercelAnalytics />

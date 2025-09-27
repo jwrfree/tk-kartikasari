@@ -5,9 +5,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getFirebaseAuth } from "@/lib/firebase";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
 import { AlertCircle, Loader2 } from "lucide-react";
 
 function Alert({ message }: { message: string }) {
@@ -91,8 +88,8 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-6 rounded-xl border border-border bg-surface p-8 shadow-lg">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
+              <label htmlFor="email" className="form-label">Email</label>
+              <input
                 id="email"
                 type="email"
                 placeholder="contoh@email.com"
@@ -100,12 +97,13 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isSubmitting}
+                className="input"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
+              <label htmlFor="password" className="form-label">Password</label>
+              <input
                 id="password"
                 type="password"
                 placeholder="••••••••"
@@ -113,18 +111,19 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={isSubmitting}
+                className="input"
               />
             </div>
 
             {error && <Alert message={error} />}
 
-            <Button type="submit" disabled={isSubmitting} className="w-full">
+            <button type="submit" disabled={isSubmitting} className="btn-primary w-full">
               {isSubmitting ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Memproses...</>
               ) : (
                 "Login"
               )}
-            </Button>
+            </button>
           </form>
         </div>
       </div>
