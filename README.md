@@ -63,6 +63,13 @@ Untuk menjalankan proyek ini di komputer Anda:
 
     Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat hasilnya.
 
+## Akses Admin & Autentikasi
+
+-   **Kredensial Default:** Email `tkkartikasari@gmail.com` dengan password `clp1998` dapat digunakan untuk mengelola dasbor admin.
+-   **Keamanan Tambahan:** Gantilah kredensial default melalui variabel lingkungan `ADMIN_EMAIL` dan `ADMIN_PASSWORD_HASH` (gunakan format `salt:hash` hasil fungsi `scrypt`).
+-   **Session Secret:** Tetapkan nilai khusus pada `SESSION_SECRET` untuk menandatangani cookie sesi ketika menjalankan aplikasi di lingkungan produksi.
+-   **Integrasi Firebase (Opsional):** Jika Firebase Auth dan Firebase Admin dikonfigurasi, sistem akan otomatis menggunakan autentikasi Firebase serta sesi berbasis ID token.
+
 ## Lisensi
 
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
