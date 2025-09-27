@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "./node_modules/.bin/next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "admin:hash": "ts-node scripts/generate-admin-password.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",

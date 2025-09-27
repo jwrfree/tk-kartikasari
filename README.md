@@ -65,7 +65,8 @@ Untuk menjalankan proyek ini di komputer Anda:
 
 ## Akses Admin & Autentikasi
 
--   **Kredensial Admin:** Akun admin dikelola melalui variabel lingkungan `ADMIN_EMAIL` dan `ADMIN_PASSWORD_HASH` (gunakan format `salt:hash` hasil fungsi `scrypt`). Simpan nilai tersebut secara privat dan jangan menuliskannya di repositori publik.
+-   **Kredensial Admin:** Akun admin dikelola melalui variabel lingkungan `ADMIN_EMAIL` dan salah satu dari `ADMIN_PASSWORD_HASH` (format `salt:hash` hasil fungsi `scrypt`) atau `ADMIN_PASSWORD` (teks biasa untuk kebutuhan pengembangan lokal). Simpan nilai tersebut secara privat dan jangan menuliskannya di repositori publik.
+-   **Generator Hash:** Gunakan perintah `npm run admin:hash -- --password="kataSandiKuat" [--email="admin@contoh.com"]` untuk membuat pasangan `ADMIN_EMAIL` dan `ADMIN_PASSWORD_HASH` baru jika tidak ingin menyimpan kata sandi dalam bentuk teks biasa.
 -   **Session Secret:** Tetapkan nilai khusus pada `SESSION_SECRET` untuk menandatangani cookie sesi ketika menjalankan aplikasi di lingkungan produksi.
 -   **Integrasi Firebase (Opsional):** Jika Firebase Auth dan Firebase Admin dikonfigurasi, sistem akan otomatis menggunakan autentikasi Firebase serta sesi berbasis ID token.
 
