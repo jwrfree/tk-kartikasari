@@ -1,13 +1,45 @@
+
 import { Metadata } from 'next';
-import { syaratDanKetentuan } from '@/content/legal';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import siteData from '@/data/site.json';
 
-export const metadata: Metadata = {
-  title: syaratDanKetentuan.title,
-  description: `Baca ${syaratDanKetentuan.title} ${siteData.schoolName} sebelum menggunakan layanan kami.`,
+// Define a type for the legal data for better type-safety
+type LegalPageData = {
+    termsAndConditions: {
+        title: string;
+        effectiveDate: string;
+        body: string;
+    },
+    disclaimer: any; // Add more specific types if available
+    privacyPolicy: any; // Add more specific types if available
 };
 
-export default function SyaratDanKetentuanPage() {
+async function getLegalData(): Promise<LegalPageData> {
+    const docRef = doc(db, 'pages', 'legal');
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+        throw new Error("Legal page data not found in Firestore.");
+    }
+
+    return docSnap.data() as LegalPageData;
+}
+
+// Generate metadata dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  const legalData = await getLegalData();
+  const syaratDanKetentuan = legalData.termsAndConditions;
+  return {
+    title: syaratDanKetentuan.title,
+    description: `Baca ${syaratDanKetentuan.title} ${siteData.schoolName} sebelum menggunakan layanan kami.`,
+  };
+}
+
+export default async function SyaratDanKetentuanPage() {
+  const legalData = await getLegalData();
+  const syaratDanKetentuan = legalData.termsAndConditions;
+
   return (
     <section className="py-16 sm:py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

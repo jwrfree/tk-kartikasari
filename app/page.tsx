@@ -1,21 +1,15 @@
 
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase'; // Our new firebase config
 import HomePageContent from "@/components/home/HomePageContent";
 import JsonLd from "@/components/JsonLd";
-import {
-  homeFaqs,
-  homeCredentials,
-  homeHeroDescription,
-  homeHighlights,
-  homeJourney,
-  homeCurriculumPillars,
-  homePrograms,
-  homeStats,
-  homeTimeline,
-} from "@/content/home";
-import { getPosts } from "@/lib/blog"; // Import the new function
+import { getPosts } from "@/lib/blog";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
 import { preschoolSchema } from "@/lib/schema";
+
+// Re-export the description for metadata
+const homeHeroDescription = "TK Kartikasari adalah taman kanak-kanak yang berfokus pada pengembangan anak usia dini melalui metode pembelajaran yang inovatif dan menyenangkan.";
 
 export const metadata = createPageMetadata({
   title: "Beranda",
@@ -23,26 +17,52 @@ export const metadata = createPageMetadata({
   path: "/",
 });
 
-// Make the component async to fetch data
+// Define a type for the home page data for better type-safety
+type HomePageData = {
+    heroDescription: string;
+    stats: any[]; // Replace 'any' with more specific types if available
+    highlights: any[];
+    programs: any[];
+    journey: any;
+    faqs: any[];
+    credentials: any[];
+    curriculumPillars: any[];
+    timeline: any[];
+};
+
+async function getHomeData(): Promise<HomePageData> {
+    const docRef = doc(db, 'pages', 'home');
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+        throw new Error("Home page data not found in Firestore.");
+    }
+
+    return docSnap.data() as HomePageData;
+}
+
 export default async function Page() {
   const schema = preschoolSchema();
   
-  // Fetch blog posts from Firestore
-  const blogPosts = await getPosts();
+  // Fetch home page data and blog posts in parallel
+  const [homeData, blogPosts] = await Promise.all([
+    getHomeData(),
+    getPosts(),
+  ]);
 
   return (
     <>
       <HomePageContent
         schoolName={site.schoolName}
-        stats={homeStats}
-        highlights={homeHighlights}
-        programs={homePrograms}
-        journey={homeJourney}
-        faqs={homeFaqs}
-        credentials={homeCredentials}
-        curriculumPillars={homeCurriculumPillars}
-        timeline={homeTimeline}
-        // Pass the fetched posts, limited to the 3 most recent
+        // Pass the fetched data as props
+        stats={homeData.stats}
+        highlights={homeData.highlights}
+        programs={homeData.programs}
+        journey={homeData.journey}
+        faqs={homeData.faqs}
+        credentials={homeData.credentials}
+        curriculumPillars={homeData.curriculumPillars}
+        timeline={homeData.timeline}
         blogPosts={blogPosts.slice(0, 3)} 
       />
       <JsonLd data={schema} />

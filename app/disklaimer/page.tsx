@@ -1,13 +1,45 @@
+
 import { Metadata } from 'next';
-import { disklaimer } from '@/content/legal';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import siteData from '@/data/site.json';
 
-export const metadata: Metadata = {
-  title: disklaimer.title,
-  description: `Baca ${disklaimer.title} ${siteData.schoolName}.`,
+// Define a type for the legal data for better type-safety
+type LegalPageData = {
+    disclaimer: {
+        title: string;
+        effectiveDate: string;
+        body: string;
+    },
+    privacyPolicy: any; // Add more specific types if available
+    termsAndConditions: any; // Add more specific types if available
 };
 
-export default function DisklaimerPage() {
+async function getLegalData(): Promise<LegalPageData> {
+    const docRef = doc(db, 'pages', 'legal');
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+        throw new Error("Legal page data not found in Firestore.");
+    }
+
+    return docSnap.data() as LegalPageData;
+}
+
+// Generate metadata dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  const legalData = await getLegalData();
+  const disklaimer = legalData.disclaimer;
+  return {
+    title: disklaimer.title,
+    description: `Baca ${disklaimer.title} ${siteData.schoolName}.`,
+  };
+}
+
+export default async function DisklaimerPage() {
+  const legalData = await getLegalData();
+  const disklaimer = legalData.disclaimer;
+
   return (
     <section className="py-16 sm:py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
