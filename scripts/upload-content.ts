@@ -1,7 +1,11 @@
 
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
-import 'dotenv/config'; // Make sure to install dotenv: npm install dotenv
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Load environment variables from .env.local
+dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 
 // Import your content data
 import { 
