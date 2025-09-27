@@ -1,16 +1,11 @@
 
 "use client";
 
-import { cn } from "@/lib/utils";
-import "@/app/globals.css";
 import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsappButton";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import siteData from "@/data/site.json";
-import { inter } from "@/app/fonts";
 
 // SimpleFooter component for the login page
 function SimpleFooter() {
@@ -27,25 +22,16 @@ function SimpleFooter() {
   );
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function LayoutClient({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
   return (
-    <html lang="id" className="scroll-smooth">
-      <body className={cn(inter.className, "antialiased")}>
-        {!isLoginPage && <Header />}
-        <main>{children}</main>
-        {isLoginPage ? <SimpleFooter /> : <Footer />}
-        {!isLoginPage && <WhatsAppButton />}
-
-        <GoogleAnalytics />
-        <VercelAnalytics />
-      </body>
-    </html>
+    <>
+      {!isLoginPage && <Header />}
+      <main>{children}</main>
+      {isLoginPage ? <SimpleFooter /> : <Footer />}
+      {!isLoginPage && <WhatsAppButton />}
+    </>
   );
 }
