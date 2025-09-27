@@ -1,8 +1,9 @@
 
 import { Metadata } from 'next';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { getFirestoreDb } from '@/lib/firebase';
 import siteData from '@/data/site.json';
+import { disklaimer as fallbackDisclaimer, kebijakanPrivasi as fallbackPrivacyPolicy, syaratDanKetentuan as fallbackTerms } from '@/content/legal';
 
 // Define a type for the legal data for better type-safety
 type LegalPageData = {
@@ -16,14 +17,30 @@ type LegalPageData = {
 };
 
 async function getLegalData(): Promise<LegalPageData> {
-    const docRef = doc(db, 'pages', 'legal');
-    const docSnap = await getDoc(docRef);
+    const fallbackData: LegalPageData = {
+        disclaimer: fallbackDisclaimer,
+        privacyPolicy: fallbackPrivacyPolicy,
+        termsAndConditions: fallbackTerms,
+    };
 
-    if (!docSnap.exists()) {
-        throw new Error("Legal page data not found in Firestore.");
+    const db = getFirestoreDb();
+    if (!db) {
+        return fallbackData;
     }
 
-    return docSnap.data() as LegalPageData;
+    try {
+        const docRef = doc(db, 'pages', 'legal');
+        const docSnap = await getDoc(docRef);
+
+        if (!docSnap.exists()) {
+            throw new Error("Legal page data not found in Firestore.");
+        }
+
+        return docSnap.data() as LegalPageData;
+    } catch (error) {
+        console.error('Failed to fetch legal page data from Firestore:', error);
+        return fallbackData;
+    }
 }
 
 // Generate metadata dynamically

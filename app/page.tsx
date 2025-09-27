@@ -1,15 +1,23 @@
 
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase'; // Our new firebase config
+import { getFirestoreDb } from '@/lib/firebase';
 import HomePageContent from "@/components/home/HomePageContent";
 import JsonLd from "@/components/JsonLd";
 import { getPosts } from "@/lib/blog";
 import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
 import { preschoolSchema } from "@/lib/schema";
-
-// Re-export the description for metadata
-const homeHeroDescription = "TK Kartikasari adalah taman kanak-kanak yang berfokus pada pengembangan anak usia dini melalui metode pembelajaran yang inovatif dan menyenangkan.";
+import {
+  homeHeroDescription,
+  homeStats,
+  homeHighlights,
+  homePrograms,
+  homeJourney,
+  homeFaqs,
+  homeCredentials,
+  homeCurriculumPillars,
+  homeTimeline,
+} from "@/content/home";
 
 export const metadata = createPageMetadata({
   title: "Beranda",
@@ -31,14 +39,44 @@ type HomePageData = {
 };
 
 async function getHomeData(): Promise<HomePageData> {
-    const docRef = doc(db, 'pages', 'home');
-    const docSnap = await getDoc(docRef);
-
-    if (!docSnap.exists()) {
-        throw new Error("Home page data not found in Firestore.");
+    const db = getFirestoreDb();
+    if (!db) {
+        return {
+            heroDescription: homeHeroDescription,
+            stats: homeStats,
+            highlights: homeHighlights,
+            programs: homePrograms,
+            journey: homeJourney,
+            faqs: homeFaqs,
+            credentials: homeCredentials,
+            curriculumPillars: homeCurriculumPillars,
+            timeline: homeTimeline,
+        };
     }
 
-    return docSnap.data() as HomePageData;
+    try {
+        const docRef = doc(db, 'pages', 'home');
+        const docSnap = await getDoc(docRef);
+
+        if (!docSnap.exists()) {
+            throw new Error("Home page data not found in Firestore.");
+        }
+
+        return docSnap.data() as HomePageData;
+    } catch (error) {
+        console.error('Failed to fetch home page data from Firestore:', error);
+        return {
+            heroDescription: homeHeroDescription,
+            stats: homeStats,
+            highlights: homeHighlights,
+            programs: homePrograms,
+            journey: homeJourney,
+            faqs: homeFaqs,
+            credentials: homeCredentials,
+            curriculumPillars: homeCurriculumPillars,
+            timeline: homeTimeline,
+        };
+    }
 }
 
 export default async function Page() {

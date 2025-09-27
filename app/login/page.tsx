@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,6 +17,11 @@ export default function LoginPage() {
     setError(null);
 
     try {
+      const auth = getFirebaseAuth();
+      if (!auth) {
+        throw new Error('Firebase Auth belum dikonfigurasi.');
+      }
+
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const idToken = await user.getIdToken();

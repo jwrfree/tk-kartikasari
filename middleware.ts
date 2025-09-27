@@ -1,10 +1,8 @@
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { adminAuth } from '@/lib/firebase-admin';
-
 export async function middleware(request: NextRequest) {
-  const sessionCookie = request.cookies.get('session')?.__secret_value || '';
+  const sessionCookie = request.cookies.get('session')?.value || '';
 
   // If no session cookie, redirect to login
   if (!sessionCookie) {
@@ -15,8 +13,18 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    // Verify the session cookie. In case the cookie is invalid, it will throw an error.
-    await adminAuth.verifySessionCookie(sessionCookie, true /** checkRevoked */);
+    const verifyUrl = new URL('/api/auth/verify', request.url);
+    const verifyResponse = await fetch(verifyUrl, {
+      method: 'GET',
+      headers: {
+        cookie: request.headers.get('cookie') ?? '',
+      },
+      cache: 'no-store',
+    });
+
+    if (!verifyResponse.ok) {
+      throw new Error('Session verification failed');
+    }
 
     // If the user is logged in and tries to access the login page, redirect to admin
     if (request.nextUrl.pathname === '/login') {

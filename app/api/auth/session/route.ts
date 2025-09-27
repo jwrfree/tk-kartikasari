@@ -4,6 +4,10 @@ import { adminAuth } from '@/lib/firebase-admin';
 
 export async function POST(request: Request) {
   try {
+    if (!adminAuth) {
+      return NextResponse.json({ status: 'error', message: 'Firebase admin is not configured.' }, { status: 500 });
+    }
+
     const { idToken } = await request.json();
 
     // Set session expiration to 5 days.

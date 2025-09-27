@@ -361,32 +361,52 @@ export default function HomePageContent({
               description="Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari."
             />
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {blogPosts.slice(0, 3).map((post) => (
-                <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
-                  <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
-                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="flex h-full flex-col p-6">
-                      <p className="text-sm text-text-muted">
-                        {new Date(post.publishedAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-                      </p>
-                      <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
-                      <p className="mt-2 flex-grow text-sm text-text-muted">{post.description}</p>
-                      <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
-                        Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
+              {blogPosts.slice(0, 3).map((post) => {
+                const coverImage = post.coverImage;
+                const publishedAt = post.date;
+                const rawBody = post.body?.raw ?? '';
+                const normalizedBody = rawBody.replace(/[#*_`>\-]/g, '').replace(/\[(.*?)\]\(.*?\)/g, '$1').replace(/\s+/g, ' ').trim();
+                const description = normalizedBody.length > 160 ? `${normalizedBody.slice(0, 157)}...` : normalizedBody;
+
+                return (
+                  <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
+                    <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
+                      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
+                        {coverImage ? (
+                          <Image
+                            src={coverImage}
+                            alt={post.title}
+                            fill
+                            className="object-cover"
+                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-secondary/10 text-secondary">
+                            <span className="text-sm font-semibold">TK Kartikasari</span>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  </article>
-                </Link>
-              ))}
+                      <div className="flex h-full flex-col p-6">
+                        <p className="text-sm text-text-muted">
+                          {new Date(publishedAt).toLocaleDateString('id-ID', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </p>
+                        <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
+                        <p className="mt-2 flex-grow text-sm text-text-muted">
+                          {description || 'Baca kisah terbaru dari TK Kartikasari.'}
+                        </p>
+                        <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
+                          Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                );
+              })}
             </div>
           </AnimateIn>
         </PageSection>

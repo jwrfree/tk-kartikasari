@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState, useId } from 'react';
 import { Timestamp, addDoc, collection, doc, increment, onSnapshot, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { getFirestoreDb } from '@/lib/firebase';
 
 interface Comment {
   id: string;
@@ -28,6 +28,7 @@ function formatDate(timestamp?: Timestamp | null) {
 }
 
 export default function EngagementSection({ slug }: EngagementSectionProps) {
+  const firestore = getFirestoreDb();
   const [likeCount, setLikeCount] = useState<number>(0);
   const [liked, setLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -38,8 +39,19 @@ export default function EngagementSection({ slug }: EngagementSectionProps) {
   const nameFieldId = useId();
   const messageFieldId = useId();
 
-  const likeDocRef = useMemo(() => doc(db, 'blogLikes', slug), [slug]);
-  const commentsQuery = useMemo(() => query(collection(db, 'blogComments'), where('slug', '==', slug)), [slug]);
+  const likeDocRef = useMemo(() => {
+    if (!firestore) {
+      return null;
+    }
+    return doc(firestore, 'blogLikes', slug);
+  }, [firestore, slug]);
+
+  const commentsQuery = useMemo(() => {
+    if (!firestore) {
+      return null;
+    }
+    return query(collection(firestore, 'blogComments'), where('slug', '==', slug));
+  }, [firestore, slug]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -54,6 +66,10 @@ export default function EngagementSection({ slug }: EngagementSectionProps) {
   }, [feedback]);
 
   useEffect(() => {
+    if (!likeDocRef) {
+      return;
+    }
+
     const unsubscribeLikes = onSnapshot(likeDocRef, (snapshot) => {
       setLikeCount((snapshot.data()?.count as number) || 0);
     });
@@ -62,6 +78,10 @@ export default function EngagementSection({ slug }: EngagementSectionProps) {
   }, [likeDocRef]);
 
   useEffect(() => {
+    if (!commentsQuery) {
+      return;
+    }
+
     const unsubscribeComments = onSnapshot(commentsQuery, (snapshot) => {
       const commentList = snapshot.docs
         .map((docSnapshot) => {
@@ -90,6 +110,10 @@ export default function EngagementSection({ slug }: EngagementSectionProps) {
       if (typeof window === 'undefined') {
         return;
       }
+      if (!firestore || !likeDocRef) {
+        throw new Error('Firebase belum dikonfigurasi.');
+      }
+
       if (liked) {
         if (likeCount > 0) {
           await setDoc(likeDocRef, { count: increment(-1) }, { merge: true });
@@ -122,7 +146,11 @@ export default function EngagementSection({ slug }: EngagementSectionProps) {
         throw new Error('Nama dan komentar wajib diisi.');
       }
 
-      await addDoc(collection(db, 'blogComments'), {
+      if (!firestore || !commentsQuery) {
+        throw new Error('Firebase belum dikonfigurasi.');
+      }
+
+      await addDoc(collection(firestore, 'blogComments'), {
         slug,
         name: trimmedName,
         message: trimmedMessage,

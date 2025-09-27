@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { db, storage } from '@/lib/firebase';
+import { getFirestoreDb, getFirebaseStorage } from '@/lib/firebase';
 import { slugify } from '@/utils/slugify';
 
 interface BlogPost {
@@ -47,8 +47,22 @@ export default function BlogManagementPage() {
   const coverFieldId = useId();
   const bodyFieldId = useId();
 
+  const firestore = getFirestoreDb();
+  const storage = getFirebaseStorage();
+
   useEffect(() => {
-    const q = query(collection(db, 'blogs'), orderBy('date', 'desc'));
+    if (!firestore || !storage) {
+      setMessage('Firebase belum dikonfigurasi dengan benar. Hubungi administrator.');
+      setMessageType('error');
+    }
+  }, [firestore, storage]);
+
+  useEffect(() => {
+    if (!firestore) {
+      return;
+    }
+
+    const q = query(collection(firestore, 'blogs'), orderBy('date', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedPosts: BlogPost[] = snapshot.docs.map((docSnapshot) => {
         const data = docSnapshot.data();
@@ -65,7 +79,7 @@ export default function BlogManagementPage() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [firestore]);
 
   const resetForm = useCallback(() => {
     setForm(getInitialFormState());
@@ -107,12 +121,16 @@ export default function BlogManagementPage() {
 
   const uploadFile = useCallback(
     async (file: File, path: string) => {
+      if (!storage) {
+        throw new Error('Firebase Storage belum dikonfigurasi.');
+      }
+
       const storageRef = ref(storage, path);
       const snapshot = await uploadBytes(storageRef, file);
       const downloadUrl = await getDownloadURL(snapshot.ref);
       return downloadUrl;
     },
-    []
+    [storage]
   );
 
   const handleBodyImageUpload = useCallback(() => {
@@ -177,7 +195,11 @@ export default function BlogManagementPage() {
           coverUrl = await uploadFile(form.coverImageFile, path);
         }
 
-        const postsCollection = collection(db, 'blogs');
+        if (!firestore) {
+          throw new Error('Firebase Firestore belum dikonfigurasi.');
+        }
+
+        const postsCollection = collection(firestore, 'blogs');
         await addDoc(postsCollection, {
           title: form.title,
           slug: normalizedSlug,
@@ -198,7 +220,7 @@ export default function BlogManagementPage() {
         setIsSubmitting(false);
       }
     },
-    [form, uploadFile, resetForm, posts]
+    [firestore, form, uploadFile, resetForm, posts]
   );
 
   const handleDelete = useCallback(async (postId: string) => {
@@ -206,7 +228,11 @@ export default function BlogManagementPage() {
     if (!confirmation) return;
 
     try {
-      await deleteDoc(doc(db, 'blogs', postId));
+      if (!firestore) {
+        throw new Error('Firebase Firestore belum dikonfigurasi.');
+      }
+
+      await deleteDoc(doc(firestore, 'blogs', postId));
       setMessage('Postingan berhasil dihapus.');
       setMessageType('success');
     } catch (error) {
@@ -214,7 +240,7 @@ export default function BlogManagementPage() {
       setMessage('Gagal menghapus postingan.');
       setMessageType('error');
     }
-  }, []);
+  }, [firestore]);
 
   return (
     <main className="container mx-auto py-8">
