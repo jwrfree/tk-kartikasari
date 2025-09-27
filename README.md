@@ -65,8 +65,7 @@ Untuk menjalankan proyek ini di komputer Anda:
 
 ## Akses Admin & Autentikasi
 
--   **Kredensial Default:** Email `tkkartikasari@gmail.com` dengan password `clp1998` dapat digunakan untuk mengelola dasbor admin.
--   **Keamanan Tambahan:** Gantilah kredensial default melalui variabel lingkungan `ADMIN_EMAIL` dan `ADMIN_PASSWORD_HASH` (gunakan format `salt:hash` hasil fungsi `scrypt`).
+-   **Kredensial Admin:** Akun admin dikelola melalui variabel lingkungan `ADMIN_EMAIL` dan `ADMIN_PASSWORD_HASH` (gunakan format `salt:hash` hasil fungsi `scrypt`). Simpan nilai tersebut secara privat dan jangan menuliskannya di repositori publik.
 -   **Session Secret:** Tetapkan nilai khusus pada `SESSION_SECRET` untuk menandatangani cookie sesi ketika menjalankan aplikasi di lingkungan produksi.
 -   **Integrasi Firebase (Opsional):** Jika Firebase Auth dan Firebase Admin dikonfigurasi, sistem akan otomatis menggunakan autentikasi Firebase serta sesi berbasis ID token.
 
