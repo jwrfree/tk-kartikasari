@@ -1,9 +1,10 @@
 
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { getPosts, getPostBySlug, Post } from '@/lib/blog'; // Import Post from @/lib/blog
+import { getPosts, getPostBySlug } from '@/lib/blog'; // Import Post from @/lib/blog
 import { Calendar, Person } from 'react-bootstrap-icons';
 import Mdx from '@/components/mdx/Mdx';
+import EngagementSection from '@/components/blog/EngagementSection';
 
 // Generate static paths for all blog posts
 export async function generateStaticParams() {
@@ -65,6 +66,9 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="prose prose-lg mt-8 max-w-none prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-text prose-p:text-text-muted prose-a:text-primary hover:prose-a:text-primary/80">
             <Mdx code={post.body.raw} />
           </div>
+        </div>
+        <div className="mx-auto mt-8 max-w-4xl">
+          <EngagementSection slug={post.slug} />
         </div>
       </div>
     </article>
