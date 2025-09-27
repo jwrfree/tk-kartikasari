@@ -16,7 +16,7 @@ import type {
   HomeStat,
   HomeTimelineMilestone,
 } from "@/app/types/home";
-import { BlogPost } from "@/content/blog";
+import type { Post as BlogPost } from "@/lib/blog";
 import { ArrowRight, CheckCircle } from "react-bootstrap-icons";
 import Link from "next/link";
 import Image from "next/image";
