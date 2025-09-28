@@ -12,6 +12,7 @@ export default function Header() {
   const { siteSettings } = useSiteData();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const tagline = siteSettings.tagline?.trim() || 'PAUD hangat di Bantarsari, Cilacap.';
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -57,8 +58,11 @@ export default function Header() {
               </span>
               <span className="flex min-w-0 flex-col leading-tight">
                 <span className="truncate text-base font-semibold md:text-lg">{siteSettings.schoolName}</span>
-                <span className="hidden text-xs text-text-muted sm:inline">
-                  {siteSettings.address}
+                <span
+                  className="hidden text-xs text-text-muted sm:block sm:text-sm"
+                  title={siteSettings.address}
+                >
+                  {tagline}
                 </span>
               </span>
             </Link>

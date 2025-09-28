@@ -30,6 +30,13 @@ export const siteContent = defineType({
           validation: (rule) => rule.required(),
         }),
         defineField({
+          name: "tagline",
+          title: "Tagline",
+          type: "string",
+          description: "Singkatkan maksimal 80 karakter agar terbaca di header.",
+          validation: (rule) => rule.required().max(80),
+        }),
+        defineField({
           name: "address",
           title: "Alamat",
           type: "text",
