@@ -1,9 +1,10 @@
 "use client";
 
 import CTAButton from "@/components/CTAButton";
-import site from "@/data/site.json";
+import { useSiteData } from "@/app/providers/SiteDataProvider";
 
 export default function StickyActions() {
+  const { siteSettings } = useSiteData();
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 hidden pb-[calc(env(safe-area-inset-bottom,0)+1.5rem)] md:block">
       <div className="container pointer-events-auto">
@@ -17,7 +18,7 @@ export default function StickyActions() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <CTAButton ctaKey="generalInquiry" className="w-full sm:w-auto" />
             <a
-              href={site.mapsUrl}
+              href={siteSettings.mapsUrl}
               target="_blank"
               className="btn-outline w-full sm:w-auto"
               rel="noreferrer"

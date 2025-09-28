@@ -1,7 +1,7 @@
 
-import { teachers } from "@/content/teachers";
 import { m } from "framer-motion";
 import { Person, PersonBadge } from "react-bootstrap-icons";
+import type { TeacherProfile } from "@/lib/types/site";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -24,7 +24,11 @@ const itemVariants = {
   },
 };
 
-export default function TeacherList() {
+interface TeacherListProps {
+  teachers: TeacherProfile[];
+}
+
+export default function TeacherList({ teachers }: TeacherListProps) {
   const headmaster = teachers.find((t) => t.position === "Kepala Sekolah");
   const otherTeachers = teachers.filter((t) => t.position !== "Kepala Sekolah");
 

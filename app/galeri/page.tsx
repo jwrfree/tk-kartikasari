@@ -2,22 +2,26 @@ import Link from "next/link";
 
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
-import data from "@/data/galeri.json";
 import { createPageMetadata } from "@/lib/metadata";
-
-type GaleriItem = (typeof data)[number];
+import { getGalleryPageData } from "@/lib/sanity.queries";
+import type { GalleryItem } from "@/lib/types/site";
 
 const galeriDescription =
   "Potret kegiatan anak TK Kartikasari dalam suasana belajar yang hangat, aktif, dan menyenangkan. Semua foto dimuat dengan teknik lazy-load agar halaman tetap ringan.";
 
-export const metadata = createPageMetadata({
-  title: "Galeri",
-  description: galeriDescription,
-  path: "/galeri",
-});
+export async function generateMetadata() {
+  const { siteSettings } = await getGalleryPageData();
+  return createPageMetadata({
+    title: "Galeri",
+    description: galeriDescription,
+    path: "/galeri",
+    siteSettings,
+  });
+}
 
-export default function Page() {
-  const hasPhotos = data.length > 0;
+export default async function Page() {
+  const { gallery } = await getGalleryPageData();
+  const hasPhotos = gallery.length > 0;
 
   return (
     <>
@@ -30,20 +34,20 @@ export default function Page() {
       <PageSection padding="tight">
         {hasPhotos ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {data.map((item: GaleriItem) => (
+            {gallery.map((item: GalleryItem) => (
               <figure
                 key={item.id}
                 className="overflow-hidden rounded-3xl border border-border/60 bg-white shadow-sm transition hover:shadow-soft"
               >
                 <img
-                  src={item.src}
-                  alt={item.alt}
+                  src={item.imageUrl}
+                  alt={item.description || item.title}
                   loading="lazy"
                   className="h-56 w-full object-cover"
                 />
                 <figcaption className="space-y-1 p-4 text-base">
-                  <p className="font-semibold text-text">{item.caption}</p>
-                  <p className="text-sm text-text-muted">{item.alt}</p>
+                  <p className="font-semibold text-text">{item.title}</p>
+                  <p className="text-sm text-text-muted">{item.description}</p>
                 </figcaption>
               </figure>
             ))}

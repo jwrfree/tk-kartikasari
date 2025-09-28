@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { ChevronDown } from 'react-bootstrap-icons';
 
-import { mainNav } from '@/data/navigation';
+import { useSiteData } from '@/app/providers/SiteDataProvider';
 
 const smoothEase = [0.4, 0, 0.2, 1] as const;
 
@@ -82,6 +82,7 @@ interface MobileMenuProps {
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname();
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const { navigation } = useSiteData();
 
   const toggleAccordion = (label: string) => {
     setOpenAccordion(openAccordion === label ? null : label);
@@ -100,8 +101,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           exit="exit"
         >
           <nav className="flex flex-col gap-1 px-4 text-xl font-medium text-text">
-            {mainNav.map((item, index) => {
-              if (item.children) {
+            {navigation.map((item, index) => {
+              if ('children' in item) {
                 const isAccordionOpen = openAccordion === item.label;
                 return (
                   <motion.div
@@ -154,6 +155,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     </AnimatePresence>
                   </motion.div>
                 );
+              }
+
+              if (!('href' in item) || !item.href) {
+                return null;
               }
 
               const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);

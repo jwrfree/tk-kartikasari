@@ -5,16 +5,17 @@ import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsappButton";
-import siteData from "@/data/site.json";
+import { useSiteData } from "@/app/providers/SiteDataProvider";
 
 // SimpleFooter component for the login page
 function SimpleFooter() {
+  const { siteSettings } = useSiteData();
   return (
     <footer className="bg-gray-100" aria-labelledby="footer-heading">
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
         <div className="border-t border-gray-900/10 pt-8">
           <p className="text-xs leading-5 text-gray-500 text-center">
-            &copy; {new Date().getFullYear()} {siteData.schoolName}. All rights reserved.
+            &copy; {new Date().getFullYear()} {siteSettings.schoolName}. All rights reserved.
           </p>
         </div>
       </div>

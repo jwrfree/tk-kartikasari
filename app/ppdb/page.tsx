@@ -3,25 +3,39 @@ import PageHeader from "@/components/layout/PageHeader";
 import { Check, CheckCircle, Clock, Person as User, Wallet, XCircle } from "react-bootstrap-icons";
 import Link from "next/link";
 import PageSection from "@/components/layout/PageSection";
-import { ppdbFaqs, syaratDanKetentuan } from "@/content/ppdb";
-import { strukturBiaya } from "@/content/biaya";
 import { formatRupiah } from "@/utils/currency";
 import FaqAccordion from "@/components/FaqAccordion";
 import TestimonialList from "@/components/TestimonialList";
 import CountdownTimer from "@/components/CountdownTimer";
 import SectionHeader from "@/components/layout/SectionHeader";
 import AnimateIn from "@/components/AnimateIn";
+import { getPpdbPageData } from "@/lib/sanity.queries";
+import { createPageMetadata } from "@/lib/metadata";
+import { fallbackContent } from "@/lib/fallback-content";
 
-const timeline = [
-  { date: "1 Juni 2024", title: "Pendaftaran Dibuka", description: "Formulir online dan offline tersedia. Kuota terbatas, daftar segera!" },
-  { date: "15 Juli 2024", title: "Batas Akhir Pendaftaran", description: "Pengumpulan formulir dan dokumen terakhir." },
-  { date: "18 Juli 2024", title: "Pengumuman Seleksi", description: "Hasil seleksi akan diumumkan di website dan papan pengumuman sekolah." },
-  { date: "20-25 Juli 2024", title: "Daftar Ulang", description: "Konfirmasi dan pembayaran biaya pendidikan untuk siswa yang diterima." },
-  { date: "29 Juli 2024", title: "Hari Pertama Sekolah", description: "Awal dari petualangan belajar yang menyenangkan!" },
-];
+export async function generateMetadata() {
+  const { siteSettings } = await getPpdbPageData();
+  return createPageMetadata({
+    title: "PPDB",
+    description: "Informasi lengkap pendaftaran peserta didik baru TK Kartikasari.",
+    path: "/ppdb",
+    siteSettings,
+  });
+}
 
-export default function PpdbPage() {
-  const deadline = "2024-07-15T23:59:59";
+export default async function PpdbPage() {
+  const { ppdb, biaya, testimonials } = await getPpdbPageData();
+  const timeline = ppdb.timeline.length > 0 ? ppdb.timeline : fallbackContent.ppdb.timeline;
+  const deadline = ppdb.deadline ?? fallbackContent.ppdb.deadline ?? "2024-07-15T23:59:59";
+  const requirements = ppdb.requirements.length > 0 ? ppdb.requirements : fallbackContent.ppdb.requirements;
+  const faqs = ppdb.faqs.length > 0 ? ppdb.faqs : fallbackContent.ppdb.faqs;
+  const strukturBiaya = biaya.costStructure
+    .filter((item) => item.includedInCalculator)
+    .map((item) => ({
+      nama: item.name,
+      jumlah: item.amount,
+      deskripsi: item.description,
+    }));
 
   return (
     <>
@@ -83,7 +97,7 @@ export default function PpdbPage() {
         <PageSection>
           <SectionHeader eyebrow="Persyaratan" title="Syarat dan Ketentuan Pendaftaran" />
           <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {syaratDanKetentuan.map((syarat) => (
+            {requirements.map((syarat) => (
               <div key={syarat.title} className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
                 <h3 className="text-lg font-semibold text-text">{syarat.title}</h3>
                 <p className="mt-2 text-text-muted">{syarat.description}</p>
@@ -108,7 +122,7 @@ export default function PpdbPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border bg-surface">
-                  {strukturBiaya.komponen.map((item) => (
+                  {strukturBiaya.map((item) => (
                     <tr key={item.nama}>
                       <td className="py-4 pl-4 pr-3 text-sm font-medium text-text sm:pl-6">
                         {item.nama}
@@ -134,7 +148,7 @@ export default function PpdbPage() {
         <PageSection>
           <SectionHeader eyebrow="Bantuan" title="Pertanyaan yang Sering Diajukan" />
           <div className="mt-10 mx-auto max-w-3xl">
-            <FaqAccordion items={ppdbFaqs} />
+            <FaqAccordion items={faqs} />
           </div>
         </PageSection>
       </AnimateIn>
@@ -144,7 +158,7 @@ export default function PpdbPage() {
         <PageSection>
           <SectionHeader eyebrow="Testimoni" title="Apa Kata Para Orang Tua?" />
           <div className="mt-10">
-            <TestimonialList />
+            <TestimonialList testimonials={testimonials} />
           </div>
         </PageSection>
       </AnimateIn>

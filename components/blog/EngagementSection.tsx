@@ -1,256 +1,81 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useState, useId } from 'react';
-import { Timestamp, addDoc, collection, doc, increment, onSnapshot, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
-import { getFirestoreDb } from '@/lib/firebase';
+import { useMemo, useState } from "react";
 
-interface Comment {
-  id: string;
-  name: string;
-  message: string;
-  createdAt?: Timestamp | null;
-}
+import CTAButton from "@/components/CTAButton";
+import { useSiteData } from "@/app/providers/SiteDataProvider";
 
 interface EngagementSectionProps {
   slug: string;
 }
 
-function formatDate(timestamp?: Timestamp | null) {
-  if (!timestamp) return '';
-  const date = timestamp.toDate();
-  return date.toLocaleString('id-ID', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+function normalizeWhatsappNumber(value: string) {
+  return value.replace(/[^0-9]/g, "");
 }
 
 export default function EngagementSection({ slug }: EngagementSectionProps) {
-  const firestore = getFirestoreDb();
-  const [likeCount, setLikeCount] = useState<number>(0);
-  const [liked, setLiked] = useState<boolean>(false);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [feedback, setFeedback] = useState<string | null>(null);
-  const nameFieldId = useId();
-  const messageFieldId = useId();
-
-  const likeDocRef = useMemo(() => {
-    if (!firestore) {
-      return null;
-    }
-    return doc(firestore, 'blogLikes', slug);
-  }, [firestore, slug]);
-
-  const commentsQuery = useMemo(() => {
-    if (!firestore) {
-      return null;
-    }
-    return query(collection(firestore, 'blogComments'), where('slug', '==', slug));
-  }, [firestore, slug]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const storedPreference = localStorage.getItem(`blog-liked-${slug}`);
-    setLiked(storedPreference === 'true');
-  }, [slug]);
-
-  useEffect(() => {
-    if (!feedback) return;
-    const timeout = setTimeout(() => setFeedback(null), 5000);
-    return () => clearTimeout(timeout);
-  }, [feedback]);
-
-  useEffect(() => {
-    if (!likeDocRef) {
-      return;
-    }
-
-    const unsubscribeLikes = onSnapshot(likeDocRef, (snapshot) => {
-      setLikeCount((snapshot.data()?.count as number) || 0);
-    });
-
-    return () => unsubscribeLikes();
-  }, [likeDocRef]);
-
-  useEffect(() => {
-    if (!commentsQuery) {
-      return;
-    }
-
-    const unsubscribeComments = onSnapshot(commentsQuery, (snapshot) => {
-      const commentList = snapshot.docs
-        .map((docSnapshot) => {
-          const data = docSnapshot.data() as Omit<Comment, 'id'>;
-          return {
-            id: docSnapshot.id,
-            name: data.name,
-            message: data.message,
-            createdAt: data.createdAt ?? null,
-          };
-        })
-        .sort((a, b) => {
-          const aTime = a.createdAt ? a.createdAt.toMillis() : 0;
-          const bTime = b.createdAt ? b.createdAt.toMillis() : 0;
-          return bTime - aTime;
-        });
-
-      setComments(commentList);
-    });
-
-    return () => unsubscribeComments();
-  }, [commentsQuery]);
-
-  const toggleLike = async () => {
+  const { siteSettings } = useSiteData();
+  const [copied, setCopied] = useState(false);
+  const articleUrl = useMemo(() => {
     try {
-      if (typeof window === 'undefined') {
-        return;
-      }
-      if (!firestore || !likeDocRef) {
-        throw new Error('Firebase belum dikonfigurasi.');
-      }
-
-      if (liked) {
-        if (likeCount > 0) {
-          await setDoc(likeDocRef, { count: increment(-1) }, { merge: true });
-        }
-        localStorage.removeItem(`blog-liked-${slug}`);
-        setLiked(false);
-        setLikeCount((prev) => (prev > 0 ? prev - 1 : 0));
-      } else {
-        await setDoc(likeDocRef, { count: increment(1) }, { merge: true });
-        localStorage.setItem(`blog-liked-${slug}`, 'true');
-        setLiked(true);
-        setLikeCount((prev) => prev + 1);
-      }
+      return new URL(`/blog/${slug}`, siteSettings.siteUrl).toString();
     } catch (error) {
-      console.error(error);
-      setFeedback('Terjadi kesalahan saat memperbarui suka.');
+      console.error("Failed to build article URL", error);
+      return `${siteSettings.siteUrl}/blog/${slug}`;
     }
-  };
+  }, [siteSettings.siteUrl, slug]);
 
-  const handleSubmitComment = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitting(true);
-    setFeedback(null);
+  const whatsappShareUrl = useMemo(() => {
+    const phone = normalizeWhatsappNumber(siteSettings.whatsapp);
+    const message = `Saya baru saja membaca artikel menarik dari ${siteSettings.schoolName}. Yuk cek di ${articleUrl}`;
+    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  }, [articleUrl, siteSettings.schoolName, siteSettings.whatsapp]);
 
+  const handleCopyLink = async () => {
     try {
-      const trimmedName = name.trim();
-      const trimmedMessage = message.trim();
-
-      if (!trimmedName || !trimmedMessage) {
-        throw new Error('Nama dan komentar wajib diisi.');
-      }
-
-      if (!firestore || !commentsQuery) {
-        throw new Error('Firebase belum dikonfigurasi.');
-      }
-
-      await addDoc(collection(firestore, 'blogComments'), {
-        slug,
-        name: trimmedName,
-        message: trimmedMessage,
-        createdAt: serverTimestamp(),
-      });
-
-      setName('');
-      setMessage('');
-      setFeedback('Komentar berhasil dikirim.');
-    } catch (error: any) {
-      console.error(error);
-      setFeedback(error.message || 'Gagal mengirim komentar.');
-    } finally {
-      setSubmitting(false);
+      await navigator.clipboard.writeText(articleUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 4000);
+    } catch (error) {
+      console.error("Failed to copy link", error);
     }
   };
 
   return (
     <section className="mt-12 rounded-2xl border border-primary/10 bg-primary/5 p-6 shadow-sm">
-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-primary">Bagikan Apresiasi Anda</h2>
-          <p className="text-sm text-text-muted">Berikan tanda suka atau tinggalkan komentar tentang kegiatan ini.</p>
+          <h2 className="text-xl font-semibold text-primary">Bagikan Artikel Ini</h2>
+          <p className="text-sm text-text-muted">
+            Ceritakan pengalaman Anda kepada sesama orang tua dan bantu kami menjangkau lebih banyak keluarga.
+          </p>
         </div>
-        <button
-          onClick={toggleLike}
-          className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
-            liked
-              ? 'border-primary bg-primary text-white hover:bg-primary/90'
-              : 'border-primary text-primary hover:bg-primary/10'
-          }`}
-          type="button"
-        >
-          <span>{liked ? 'Terima kasih!' : 'Suka'}</span>
-          <span className="inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-white px-2 text-primary shadow">
-            {likeCount}
-          </span>
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={handleCopyLink}
+            className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10"
+          >
+            {copied ? "Tautan Disalin" : "Salin Tautan"}
+          </button>
+          <a
+            href={whatsappShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90"
+          >
+            Bagikan ke WhatsApp
+          </a>
+        </div>
       </div>
 
-      {feedback && <p className="mt-4 text-sm text-primary">{feedback}</p>}
-
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
-        <div>
-          <h3 className="mb-4 text-lg font-semibold text-text">Komentar Wali Murid</h3>
-          {comments.length === 0 ? (
-            <p className="text-sm text-text-muted">Belum ada komentar. Jadilah yang pertama memberikan dukungan!</p>
-          ) : (
-            <ul className="space-y-4">
-              {comments.map((comment) => (
-                <li key={comment.id} className="rounded-xl bg-white/70 p-4 shadow-sm">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-semibold text-text">{comment.name}</span>
-                    <span className="text-xs text-text-muted">{formatDate(comment.createdAt)}</span>
-                  </div>
-                  <p className="mt-2 text-sm text-text-muted">{comment.message}</p>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <div className="rounded-xl bg-white p-4 shadow-sm">
-          <h3 className="mb-3 text-lg font-semibold text-text">Tinggalkan Komentar</h3>
-          <form onSubmit={handleSubmitComment} className="space-y-4">
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text" htmlFor={nameFieldId}>
-                Nama*
-              </label>
-              <input
-                type="text"
-                id={nameFieldId}
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                placeholder="Nama Anda"
-                className="w-full rounded-md border border-gray-300 p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                required
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text" htmlFor={messageFieldId}>
-                Komentar*
-              </label>
-              <textarea
-                value={message}
-                id={messageFieldId}
-                onChange={(event) => setMessage(event.target.value)}
-                placeholder="Bagikan pengalaman atau dukungan Anda"
-                className="min-h-[120px] w-full rounded-md border border-gray-300 p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:bg-primary/50"
-            >
-              {submitting ? 'Mengirim...' : 'Kirim Komentar'}
-            </button>
-          </form>
+      <div className="mt-8 rounded-xl bg-white p-6 shadow-sm">
+        <h3 className="text-lg font-semibold text-text">Ingin Diskusi Lebih Lanjut?</h3>
+        <p className="mt-2 text-sm text-text-muted">
+          Tim kami siap membantu Anda memahami program dan kegiatan di TK Kartikasari. Silakan hubungi kami kapan pun Anda siap.
+        </p>
+        <div className="mt-4">
+          <CTAButton ctaKey="contactConsultation" className="w-full sm:w-auto" />
         </div>
       </div>
     </section>
