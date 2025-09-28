@@ -2,21 +2,16 @@ import PageHeader from '@/components/layout/PageHeader';
 import PageSection from '@/components/layout/PageSection';
 import SectionHeader from '@/components/layout/SectionHeader';
 import BiayaClientComponent from './BiayaClientComponent';
-import { sanityClient } from '@/lib/sanity-client';
 import { CheckCircle, InfoCircle } from 'react-bootstrap-icons';
 import AnimateIn from '@/components/AnimateIn';
+
+// Import data lokal
+import { costStructure, installmentProgram, refundPolicy } from '@/content/biaya';
 
 export const metadata = {
   title: 'Rincian Biaya',
   description: 'Dapatkan informasi lengkap dan transparan mengenai rincian biaya pendidikan di TK Kartikasari, termasuk uang pangkal, SPP, dan opsi pembayaran yang fleksibel.',
 };
-
-async function getCostData() {
-  const costStructure = await sanityClient.fetch('*[_type == "costStructure"] | order(category asc)');
-  const installmentProgram = await sanityClient.fetch('*[_type == "installmentProgram"][0]');
-  const refundPolicy = await sanityClient.fetch('*[_type == "refundPolicy"][0]');
-  return { costStructure, installmentProgram, refundPolicy };
-}
 
 // Komponen untuk menampilkan satu item kebijakan
 const PolicyItem = ({ title, content }: { title: string; content: string }) => (
@@ -26,8 +21,8 @@ const PolicyItem = ({ title, content }: { title: string; content: string }) => (
   </div>
 );
 
-export default async function BiayaPage() {
-  const { costStructure, installmentProgram, refundPolicy } = await getCostData();
+export default function BiayaPage() {
+  // Data sudah diimpor, tidak perlu fetch
   const biayaPokok = costStructure.filter((item: any) => item.includedInCalculator);
 
   return (
