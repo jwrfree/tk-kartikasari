@@ -17,6 +17,7 @@ export type SocialLink = {
 export type SiteSettings = {
   schoolName: string;
   siteUrl: string;
+  tagline: string;
   address: string;
   whatsapp: string;
   headmaster: string;

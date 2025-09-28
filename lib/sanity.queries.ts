@@ -8,6 +8,7 @@ const SITE_CONTENT_QUERY = `*[_type == "siteContent"][0]{
   "siteSettings": {
     "schoolName": siteSettings.schoolName,
     "siteUrl": siteSettings.siteUrl,
+    "tagline": siteSettings.tagline,
     "address": siteSettings.address,
     "whatsapp": siteSettings.whatsapp,
     "headmaster": siteSettings.headmaster,

@@ -21,23 +21,23 @@ const menuVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.55,
       ease: smoothEase,
       // Stagger the animation of children (nav items) when the menu enters
-      delayChildren: 0.1, // Start animating children after a brief delay
-      staggerChildren: 0.05, // Stagger each child's animation
+      delayChildren: 0.15, // Start animating children after a brief delay
+      staggerChildren: 0.08, // Stagger each child's animation
     },
   },
   exit: {
     opacity: 0,
     y: '-100%',
     transition: {
-      duration: 0.3,
+      duration: 0.45,
       ease: [0.4, 0, 1, 1] as const,
       // IMPORTANT: Wait for children to finish their exit animation before this one starts
       when: 'afterChildren',
       // Stagger the exit of children, in reverse order
-      staggerChildren: 0.04,
+      staggerChildren: 0.06,
       staggerDirection: -1,
     },
   },
@@ -53,7 +53,7 @@ const navItemVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.35,
+      duration: 0.45,
       ease: smoothEase,
     },
   },
@@ -61,7 +61,7 @@ const navItemVariants: Variants = {
     opacity: 0,
     y: 20, // Move down on exit
     transition: {
-      duration: 0.2, // Items fade out quickly
+      duration: 0.3, // Items fade out smoothly
       ease: 'easeIn',
     },
   },
@@ -69,9 +69,9 @@ const navItemVariants: Variants = {
 
 // VARIANTS FOR THE ACCORDION CONTENT (SUB-MENU)
 const accordionContentVariants: Variants = {
-  hidden: { opacity: 0, height: 0, transition: { duration: 0.3, ease: smoothEase } },
-  visible: { opacity: 1, height: 'auto', transition: { duration: 0.4, ease: smoothEase } },
-  exit: { opacity: 0, height: 0, transition: { duration: 0.3, ease: smoothEase } },
+  hidden: { opacity: 0, height: 0, transition: { duration: 0.35, ease: smoothEase } },
+  visible: { opacity: 1, height: 'auto', transition: { duration: 0.45, ease: smoothEase } },
+  exit: { opacity: 0, height: 0, transition: { duration: 0.35, ease: smoothEase } },
 };
 
 interface MobileMenuProps {

@@ -60,6 +60,7 @@ function mapSiteSettings(): SiteSettings {
   return {
     schoolName: site.schoolName,
     siteUrl: site.siteUrl,
+    tagline: site.tagline ?? "PAUD hangat di Bantarsari, Cilacap.",
     address: site.address,
     whatsapp: site.whatsapp,
     headmaster: site.headmaster,
