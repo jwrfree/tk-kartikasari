@@ -6,6 +6,26 @@ Format file ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en
 
 ---
 
+## [1.1.0] - 2025-09-30
+
+### Added
+
+-   Halaman error global dan halaman 404 khusus dengan UX writing empatik serta tombol aksi pemulihan.
+-   Provider konten Sanity (`SiteDataProvider`) lengkap dengan cache dan fallback lokal agar halaman tetap stabil saat CMS tidak tersedia.
+-   Middleware redirect HTTPS untuk memastikan seluruh trafik produksi menggunakan koneksi aman.
+-   Dokumentasi panduan UX writing agar tone komunikasi konsisten di seluruh halaman.
+
+### Changed
+
+-   Semua halaman utama kini membaca konten, navigasi, CTA, agenda, galeri, hingga legalitas langsung dari dokumen `siteContent` di Sanity.
+-   Metadata dan JSON-LD diperbarui agar sesuai dengan sumber konten baru dan struktur organisasi sekolah.
+
+### Removed
+
+-   Integrasi Firebase, termasuk halaman login dan dependensi terkait.
+
+---
+
 ## [1.0.0] - Rilis Awal
 
 Ini adalah rilis publik pertama yang stabil dari website TK Kartikasari.
