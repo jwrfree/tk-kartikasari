@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getPosts, getPostBySlug } from '@/lib/blog'; // Import Post from @/lib/blog
-import { Calendar, Person } from 'react-bootstrap-icons';
+import { Calendar, Clock, Person } from 'react-bootstrap-icons';
 import Mdx from '@/components/mdx/Mdx';
 import EngagementSection from '@/components/blog/EngagementSection';
 import { createPageMetadata } from "@/lib/metadata";
+import { calculateReadingTime } from '@/lib/utils';
 
 
 // Generate static paths for all blog posts
@@ -43,6 +44,8 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
     return notFound();
   }
 
+  const readingTime = Math.max(1, calculateReadingTime(post.body.raw));
+
   return (
     <article className="bg-surfaceAlt">
       {/* Cover Image */}
@@ -76,6 +79,10 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
             <div className="flex items-center gap-2">
               <Calendar />
               <span>{new Date(post.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock />
+              <span>{readingTime} menit baca</span>
             </div>
           </div>
 

@@ -1,33 +1,33 @@
 import type { Post } from '@/lib/blog-types';
 
-const markdownContent = `**"Mama, aku takut sekolah..."** 😢
+const markdownContent = `**"Mama, kapan aku mulai sekolah?"** 😊
 
-Kalimat ini mungkin yang paling ditakuti orang tua menjelang hari pertama TK.
-Di TK Kartikasari, kami memahami kegundahan Anda. Setelah 15 tahun mendampingi
-ribuan anak memasuki dunia sekolah, kami tahu persis cara membuat transisi ini
-menjadi pengalaman yang menyenangkan.
+Pertanyaan polos ini sering muncul ketika anak mulai penasaran dengan dunia TK.
+Sebagai orang tua, tentu kita ingin menjawabnya dengan hangat sekaligus
+memberi rasa aman. Di TK Kartikasari, kami sudah 15 tahun mendampingi ribuan
+keluarga mempersiapkan momen pertama di sekolah, dan kami percaya setiap anak
+berhak mengalami hari pertama yang penuh senyum.
 
 ## Mengapa Persiapan Masuk TK Begitu Penting?
 
-Penelitian menunjukkan bahwa **90% kesuksesan adaptasi anak TK** ditentukan oleh
-persiapan yang dilakukan orang tua di rumah. Anak yang tidak siap secara mental
-atau keterampilan dasar cenderung mengalami:
+Masa transisi ke TK adalah kesempatan besar untuk menumbuhkan rasa ingin tahu
+dan kepercayaan diri anak. Dengan persiapan yang tepat, si kecil akan:
 
-❌ Stress berkepanjangan  
-❌ Sulit bersosialisasi  
-❌ Penurunan nafsu makan  
-❌ Gangguan tidur
+✅ Lebih siap berkenalan dengan guru dan teman baru
+✅ Lebih percaya diri mengikuti aktivitas kelas
+✅ Lebih mudah mengikuti rutinitas harian
 
-**Kabar baiknya?** Dengan 8 langkah persiapan yang kami bagikan, Anda bisa
-memastikan anak siap 100% memasuki dunia TK dengan percaya diri.
+Artikel ini merangkum **8 langkah persiapan** yang praktis dan menyenangkan
+untuk dilakukan bersama anak di rumah. Semua tipsnya aman, ramah anak, dan bisa
+langsung dicoba kapan saja.
 
 ## 🎯 8 Langkah Persiapan Anak Masuk TK
 
 ### Langkah 1: Persiapan Mental dan Emosional
-Mulailah dengan percakapan ringan setiap hari. Ceritakan seperti apa suasana
-kelas, siapa saja yang akan ditemui, dan kegiatan seru apa yang menanti. Libatkan
-anak dalam bermain peran "sekolah-sekolahan" agar ia bisa mengekspresikan
-perasaan, sekaligus membangun kepercayaan diri.
+Ceritakan suasana sekolah dengan bahasa yang ringan. Jelaskan siapa saja yang
+akan ditemui, kegiatan seru apa yang menanti, dan kapan orang tua menjemput.
+Mengajak anak bermain peran "sekolah-sekolahan" membantu ia mengekspresikan
+perasaan sambil berlatih situasi baru.
 
 #### Tips Khusus dari TK Kartikasari:
 > 💡 **Insight Guru:** "Kami menyediakan program *Pre-School Visit* gratis
@@ -35,9 +35,9 @@ perasaan, sekaligus membangun kepercayaan diri.
 > dan calon teman sekelasnya."
 
 ### Langkah 2: Membangun Kemandirian Dasar
-Dorong anak melakukan rutinitas sederhana secara mandiri: memakai sepatu,
-menyimpan botol minum, hingga merapikan tas. Kemandirian membuat anak merasa
-lebih mampu menghadapi hari pertama.
+Dukung anak melakukan rutinitas sederhana secara mandiri: memakai sepatu,
+menyimpan botol minum, hingga merapikan tas. Rayakan setiap usaha kecil agar
+anak merasa bangga dan percaya diri.
 
 #### ✅ Checklist Kemandirian Anak TK:
 - [ ] Memakai sepatu sendiri (3-4 menit)
@@ -47,35 +47,34 @@ lebih mampu menghadapi hari pertama.
 
 ### Langkah 3: Menyiapkan Keterampilan Sosial
 Ajak anak bermain bersama sepupu atau tetangga sebaya. Latih ia untuk
-mengucapkan salam, bergantian menggunakan mainan, dan meminta tolong dengan
-kata-kata sopan. Keterampilan sosial yang baik akan memudahkan anak membangun
-pertemanan baru.
+menyapa, bergantian menggunakan mainan, dan meminta tolong dengan kata-kata
+sopan. Keterampilan sosial yang baik membantu anak membangun pertemanan baru.
 
 ### Langkah 4: Mengenalkan Rutinitas Sekolah
 Sesuaikan jam tidur dan bangun anak dua minggu sebelum sekolah dimulai.
-Terapkan jadwal makan dan snack seperti di TK. Rutinitas yang konsisten membuat
+Terapkan jadwal makan ringan seperti di TK. Rutinitas yang konsisten membuat
 anak merasa aman karena tahu apa yang akan terjadi berikutnya.
 
 ### Langkah 5: Melatih Motorik Halus dan Kasar
 Sediakan aktivitas seni sederhana seperti merobek kertas, melipat origami,
-atau bermain plastisin untuk melatih motorik halus. Jangan lupa kegiatan
-fisik seperti menari, melompat, dan bermain bola kecil untuk motorik kasar.
-Keduanya penting untuk kesiapan belajar.
+atau bermain plastisin untuk melatih motorik halus. Lengkapi dengan kegiatan
+fisik seperti menari, melompat, dan bermain bola kecil agar tubuh tetap aktif.
+Keduanya penting untuk kesiapan belajar di kelas.
 
 ### Langkah 6: Menstimulasi Bahasa dan Literasi Awal
-Bacakan buku cerita setiap hari dan ajak anak menebak alur kisah. Gunakan
-kartu kata bergambar untuk mengenalkan kosakata baru. Hindari mengeja terlalu
-dini; fokuslah pada kemampuan mendengar, bercerita, dan memahami instruksi.
+Bacakan buku cerita setiap hari dan ajak anak menebak alur kisah. Gunakan kartu
+kata bergambar untuk mengenalkan kosakata baru. Fokus pada kemampuan mendengar,
+bercerita, dan memahami instruksi ketimbang mengeja huruf terlalu dini.
 
 ### Langkah 7: Mengelola Emosi Orang Tua
-Anak sangat peka terhadap emosi orang tua. Pastikan Anda juga siap secara
-mental. Diskusikan kekhawatiran dengan guru atau komunitas orang tua TK
-Kartikasari. Sikap tenang dan positif dari orang tua akan menular kepada anak.
+Anak peka terhadap emosi orang tua. Luangkan waktu untuk berbagi cerita dengan
+pasangan, guru, atau komunitas orang tua TK Kartikasari jika ada kekhawatiran.
+Sikap tenang dan positif akan menular kepada anak.
 
 ### Langkah 8: Menyiapkan Perlengkapan yang Membuat Anak Nyaman
 Libatkan anak memilih tas, botol minum, dan baju ganti favoritnya. Tempelkan
-label nama dengan ilustrasi lucu agar mudah dikenali. Siapkan juga kantong
-"penenang" berisi foto keluarga atau boneka kecil jika sekolah memperbolehkan.
+label nama dengan ilustrasi lucu agar mudah dikenali. Siapkan juga kantong kecil
+berisi foto keluarga atau boneka mungil bila sekolah memperbolehkan.
 
 ## 🌟 Keunggulan Program Adaptasi TK Kartikasari
 
@@ -86,8 +85,8 @@ label nama dengan ilustrasi lucu agar mudah dikenali. Siapkan juga kantong
 - **Minggu Ketiga:** Anak mandiri dengan *buddy system*
 
 ### Testimoni Orang Tua:
-*"Awalnya Kirana menangis setiap hari. Tapi berkat program Gentle Start
-TK Kartikasari, dalam 2 minggu dia sudah excited sekolah setiap pagi!"*  
+*"Awalnya Kirana canggung masuk kelas. Setelah mengikuti program Gentle Start,
+ia jadi semangat bercerita tentang kegiatan sekolah setiap sore."*
 **- Bu Sarah, Orang Tua Kirana (Angkatan 2024)**
 
 ## 💼 Action Plan: 30 Hari Sebelum Masuk TK
@@ -144,7 +143,7 @@ atau hubungi tim kami!
 
 ---
 
-**Tentang Penulis:**  
+**Tentang Penulis:**
 Artikel ini disusun oleh Tim Guru TK Kartikasari yang berpengalaman 15+ tahun
 dalam pendidikan anak usia dini. Kami berkomitmen membantu setiap anak tumbuh
 dengan percaya diri dan bahagia.
