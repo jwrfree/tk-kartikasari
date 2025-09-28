@@ -22,6 +22,11 @@ import { ArrowRight, CheckCircle } from "react-bootstrap-icons";
 import Link from "next/link";
 import Image from "next/image";
 import AnimateIn from "@/components/AnimateIn";
+import { homeJourney as homeJourneyStatic } from "@/content/home";
+import {
+  ppdbMetaDescription,
+  syaratDanKetentuan as ppdbRequirementsStatic,
+} from "@/content/ppdb";
 
 type HomePageContentProps = {
   schoolName: string;
@@ -54,6 +59,57 @@ export default function HomePageContent({
     stats.find((item) => item.label.toLowerCase().includes("rasio"))?.value ?? "1 : 8";
   const schoolNpsn = credentials.find((item) => item.label.toLowerCase() === "npsn")?.value;
 
+  const biayaRequirement = ppdbRequirementsStatic.find((item) =>
+    item.title.toLowerCase().includes("biaya"),
+  );
+  const documentRequirement = ppdbRequirementsStatic.find((item) =>
+    item.title.toLowerCase().includes("dokumen"),
+  );
+
+  const onboardingSteps = [
+    {
+      key: "routine",
+      href: "#pengalaman",
+      icon: "🧭",
+      title: "Kenali Rutinitas & Lingkungan",
+      description:
+        journey[0]?.description ??
+        homeJourneyStatic[0]?.description ??
+        "Lihat seperti apa agenda harian dan suasana pembelajaran yang menenangkan untuk si kecil.",
+      linkLabel: "Lihat rutinitas",
+    },
+    {
+      key: "cost",
+      href: "/biaya",
+      icon: "💡",
+      title: "Cek Perkiraan Biaya",
+      description:
+        biayaRequirement?.description ??
+        "Pelajari struktur biaya dan opsi pembayaran agar Ayah Bunda bisa merencanakan dengan tenang.",
+      linkLabel: "Lihat biaya",
+    },
+    {
+      key: "documents",
+      href: "/ppdb#requirements",
+      icon: "🗂️",
+      title: "Siapkan Dokumen Penting",
+      description:
+        documentRequirement?.description ??
+        "Siapkan dokumen dasar seperti akta kelahiran, KK, dan identitas orang tua untuk kelancaran administrasi.",
+      linkLabel: "Cek syarat",
+    },
+    {
+      key: "apply",
+      href: "/kontak",
+      icon: "📍",
+      title: "Diskusikan Ketersediaan Kuota",
+      description:
+        ppdbMetaDescription ??
+        "Hubungi admin TK Kartikasari untuk mengetahui status kuota terbaru, daftar tunggu, dan jadwal pembaruan PPDB.",
+      linkLabel: "Hubungi admin",
+    },
+  ] as const;
+
   return (
       <main>
         {/* Section 1: Hero (Kail) */}
@@ -83,7 +139,7 @@ export default function HomePageContent({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <CTAButton ctaKey="heroVisit" />
               <Link href="/ppdb" className="btn-secondary w-full sm:w-auto">
-                Daftar Sekarang
+                Info PPDB
               </Link>
             </div>
             <div className="grid gap-6 pt-6 sm:grid-cols-2 md:grid-cols-3">
@@ -117,7 +173,67 @@ export default function HomePageContent({
           </AnimateIn>
         </PageSection>
 
-        {/* Section 2: Keunggulan/Highlights (Janji Utama) - REVISED */}
+        {/* Section 2: Langkah Onboarding */}
+        <PageSection
+          className="relative border-y border-white/50 bg-gradient-to-br from-primary/10 via-white to-secondary/10"
+          padding="tight"
+        >
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <div className="absolute left-8 top-8 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
+            <div className="absolute right-12 bottom-12 h-48 w-48 rounded-full bg-secondary/20 blur-3xl" />
+          </div>
+          <AnimateIn className="relative">
+            <SectionHeader
+              align="center"
+              eyebrow="Mulai dari Sini"
+              eyebrowVariant="primary"
+              title="Alur singkat bergabung bersama TK Kartikasari"
+              description="Gunakan empat langkah ini sebagai panduan mengenal sekolah dan menyiapkan dokumen sebelum periode pendaftaran tatap muka berikutnya dibuka."
+            />
+          </AnimateIn>
+          <div className="relative mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {onboardingSteps.map((step, index) => (
+              <AnimateIn
+                key={step.key}
+                className="h-full"
+              >
+                <Link
+                  href={step.href}
+                  className="focus-visible-ring group flex h-full flex-col justify-between rounded-3xl border border-white/60 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:-translate-y-1 hover:border-primary/60"
+                >
+                  <div>
+                    <span className="inline-flex items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-primary/15 text-base" aria-hidden="true">
+                        {index + 1}
+                      </span>
+                      Langkah {index + 1}
+                    </span>
+                    <div className="mt-6 flex items-start gap-3">
+                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl" aria-hidden="true">
+                        {step.icon}
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-text">{step.title}</h3>
+                        <p className="mt-3 text-sm leading-relaxed text-text-muted">{step.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
+                    {step.linkLabel} <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
+              </AnimateIn>
+            ))}
+          </div>
+          <div className="relative mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
+            <Link href="/ppdb" className="btn-primary w-full sm:w-auto">
+              Info PPDB 2025/2026
+            </Link>
+            <CTAButton ctaKey="visitSchedule" className="w-full sm:w-auto" />
+          </div>
+        </PageSection>
+
+        {/* Section 3: Keunggulan/Highlights (Janji Utama) - REVISED */}
         <PageSection
           className="relative border-y border-white/50 bg-white/50 backdrop-blur-sm backdrop-saturate-150"
           padding="tight"

@@ -1,6 +1,6 @@
 
 import PageHeader from "@/components/layout/PageHeader";
-import { Check, CheckCircle, Clock, Person as User, Wallet, XCircle } from "react-bootstrap-icons";
+import { Check, CheckCircle, Clock, Person as User, Wallet } from "react-bootstrap-icons";
 import Link from "next/link";
 import PageSection from "@/components/layout/PageSection";
 import { formatRupiah } from "@/utils/currency";
@@ -40,24 +40,30 @@ export default async function PpdbPage() {
   return (
     <>
       <PageHeader
-        title="Penerimaan Peserta Didik Baru (PPDB) 2024/2025"
-        description="Jadilah bagian dari keluarga besar TK Kartikasari. Kami siap membimbing putra-putri Anda menjadi generasi pembelajar yang ceria, kreatif, dan berkarakter Pancasila."
-        eyebrow="PPDB 2024/2025"
+        title="Penerimaan Peserta Didik Baru (PPDB) 2025/2026"
+        description="Terima kasih atas antusiasme Ayah dan Bunda. Pendaftaran tatap muka untuk tahun ajaran 2025/2026 telah ditutup sejak awal Juli 2025 karena kuota telah terpenuhi."
+        eyebrow="PPDB 2025/2026"
       />
 
-      {/* Status Pendaftaran Ditutup */}
+      {/* Informasi Pendaftaran Tatap Muka */}
       <div className="content-container my-8">
-        <div className="rounded-2xl border border-yellow-500/30 bg-yellow-500/10 p-6">
+        <div className="rounded-2xl border border-primary/30 bg-primary/10 p-6">
           <div className="flex">
             <div className="flex-shrink-0">
-              <XCircle className="h-6 w-6 text-yellow-600" aria-hidden="true" />
+              <CheckCircle className="h-6 w-6 text-primary" aria-hidden="true" />
             </div>
             <div className="ml-4">
-              <h3 className="font-semibold text-yellow-800">Pendaftaran Telah Ditutup</h3>
-              <div className="mt-1 text-sm text-yellow-700">
+              <h3 className="font-semibold text-primary">PPDB 2025/2026 Ditutup</h3>
+              <div className="mt-1 space-y-2 text-sm text-text-muted">
                 <p>
-                  Terima kasih atas antusiasme Anda. Pendaftaran untuk tahun ajaran 2024/2025 telah kami tutup. Informasi pendaftaran untuk tahun ajaran berikutnya akan kami umumkan di halaman ini.
+                  Seluruh kursi untuk tahun ajaran 2025/2026 telah terisi per 5 Juli 2025. Kami tidak lagi menerima pendaftaran baru untuk periode ini.
                 </p>
+                <p>
+                  Ayah dan Bunda dapat menghubungi admin kami untuk masuk daftar tunggu atau mendapatkan pemberitahuan saat informasi PPDB 2026/2027 tersedia.
+                </p>
+                <Link href="/kontak" className="btn-secondary mt-4 inline-flex">
+                  Hubungi Admin PPDB
+                </Link>
               </div>
             </div>
           </div>
@@ -70,20 +76,22 @@ export default async function PpdbPage() {
           <div className="content-container py-16 sm:py-20">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
               <div>
-                <h2 className="text-3xl font-bold tracking-tight text-text sm:text-4xl">Proses Pendaftaran Cepat & Mudah</h2>
-                <p className="mt-4 text-lg text-text-muted">Kami telah merancang proses pendaftaran yang sederhana agar Anda dapat fokus pada hal terpenting.</p>
+                <h2 className="text-3xl font-bold tracking-tight text-text sm:text-4xl">Rekap Proses Pendaftaran Tatap Muka</h2>
+                <p className="mt-4 text-lg text-text-muted">Gunakan ringkasan berikut sebagai gambaran proses PPDB tatap muka yang telah berlangsung. Informasi ini dapat membantu Ayah dan Bunda menyiapkan dokumen ketika periode berikutnya dibuka.</p>
                 <div className="mt-10 space-y-8">
-                  <Step icon={<User className="h-6 w-6 text-primary" />} title="Isi Formulir Singkat" description="Hanya butuh 5 menit untuk mengisi data anak dan orang tua." />
-                  <Step icon={<Wallet className="h-6 w-6 text-primary" />} title="Pembayaran Biaya Registrasi" description="Lakukan pembayaran biaya pendaftaran untuk mengamankan tempat anak Anda." />
-                  <Step icon={<CheckCircle className="h-6 w-6 text-primary" />} title="Konfirmasi & Selesai" description="Anda akan menerima konfirmasi instan melalui email dan WhatsApp." />
+                  <Step icon={<Clock className="h-6 w-6 text-primary" />} title="Jadwalkan Kunjungan" description="Hubungi admin kami melalui WhatsApp untuk memilih jadwal kunjungan yang cocok." />
+                  <Step icon={<User className="h-6 w-6 text-primary" />} title="Datang & Observasi" description="Ajak si kecil melihat kelas, bertemu guru, dan sampaikan pertanyaan seputar program belajar." />
+                  <Step icon={<Wallet className="h-6 w-6 text-primary" />} title="Lengkapi Administrasi di Tempat" description="Serahkan dokumen persyaratan, pilih opsi pembayaran, dan terima konfirmasi langsung dari tim administrasi." />
                 </div>
                 <div className="mt-12">
-                  <button className="btn-primary" disabled>Pendaftaran Telah Ditutup</button>
+                  <Link href="/kontak" className="btn-primary">
+                    Tanya Daftar Tunggu 2026/2027
+                  </Link>
                 </div>
               </div>
               <div className="rounded-2xl bg-surface p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-text">Timeline PPDB 2024/2025</h3>
-                <p className="mt-2 text-text-muted">Catat tanggal-tanggal penting berikut agar tidak terlewat.</p>
+                <h3 className="text-2xl font-bold text-text">Timeline PPDB 2025/2026 (Selesai)</h3>
+                <p className="mt-2 text-text-muted">Berikut rangkuman jadwal PPDB yang telah berlangsung. Jadwal terbaru akan kami umumkan mendekati tahun ajaran berikutnya.</p>
                 <Timeline items={timeline} />
                 <CountdownTimer targetDate={deadline} />
               </div>

@@ -159,32 +159,32 @@ function mapCostStructure(): CostStructureItem[] {
 
 const fallbackPpdbTimeline = [
   {
-    date: "2024-06-01",
-    title: "Pendaftaran Dibuka",
+    date: "2025-05-27",
+    title: "Pendaftaran Tatap Muka Dibuka",
     description:
-      "Formulir online dan offline tersedia. Kuota terbatas, daftar segera!",
+      "Kunjungan dan penyerahan berkas di sekolah dimulai. Hubungi admin untuk membuat janji.",
   },
   {
-    date: "2024-07-15",
-    title: "Batas Akhir Pendaftaran",
-    description: "Pengumpulan formulir dan dokumen terakhir.",
+    date: "2025-07-05",
+    title: "Kuota PPDB Terpenuhi",
+    description: "Penerimaan ditutup karena seluruh kursi tahun ajaran 2025/2026 telah terisi.",
   },
   {
-    date: "2024-07-18",
-    title: "Pengumuman Seleksi",
+    date: "2025-07-08",
+    title: "Konfirmasi Peserta",
     description:
-      "Hasil seleksi akan diumumkan di website dan papan pengumuman sekolah.",
+      "Tim administrasi menghubungi keluarga untuk memastikan kelengkapan berkas dan pembayaran.",
   },
   {
-    date: "2024-07-25",
-    title: "Daftar Ulang",
+    date: "2025-07-22",
+    title: "Orientasi Orang Tua",
     description:
-      "Konfirmasi dan pembayaran biaya pendidikan untuk siswa yang diterima.",
+      "Pertemuan bersama wali kelas dan pengarahan sebelum tahun ajaran baru dimulai.",
   },
   {
-    date: "2024-07-29",
+    date: "2025-07-29",
     title: "Hari Pertama Sekolah",
-    description: "Awal dari petualangan belajar yang menyenangkan!",
+    description: "Tahun ajaran 2025/2026 resmi dimulai di TK Kartikasari.",
   },
 ];
 
@@ -223,7 +223,7 @@ export const fallbackContent: SiteContent = {
     faqs: ppdbFaqs,
     requirements: ppdbRequirements,
     timeline: fallbackPpdbTimeline,
-    deadline: "2024-07-15T23:59:59+07:00",
+    deadline: "2025-07-05T17:00:00+07:00",
   },
   biaya: {
     costStructure: mapCostStructure(),
