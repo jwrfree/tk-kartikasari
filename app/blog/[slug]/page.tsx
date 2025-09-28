@@ -16,8 +16,12 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug);
+type BlogPageParams = { slug: string };
+type BlogPageProps = { params: Promise<BlogPageParams> };
+
+export async function generateMetadata({ params }: BlogPageProps) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return notFound(); // Or return a default metadata object
@@ -31,11 +35,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-type PageProps = {
-  params: Promise<{ slug: string }>;
-};
-
-export default async function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({ params }: BlogPageProps) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
