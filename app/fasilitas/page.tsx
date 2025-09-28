@@ -1,7 +1,8 @@
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import { createPageMetadata } from "@/lib/metadata";
-import { sanityClient, urlFor } from "@/lib/sanity-client";
+import { sanityClient } from "@/lib/sanity-client";
+import { urlFor } from "@/lib/sanity-image";
 import { CheckCircle, Image as ImageIcon, PlayCircleFill } from "react-bootstrap-icons";
 import AnimateIn from "@/components/AnimateIn";
 
@@ -11,19 +12,42 @@ export const metadata = createPageMetadata({
     path: "/fasilitas",
 });
 
+type VirtualTour = {
+    title?: string;
+    description?: string;
+    videoUrl?: string;
+} | null;
+
+type Facility = {
+    _id: string;
+    name: string;
+    description?: string;
+    features?: string[];
+    image?: unknown;
+};
+
 // Mengambil data dari Sanity
-async function getFacilitiesData() {
-    const virtualTour = await sanityClient.fetch('*[_type == "virtualTour"][0]');
-    const facilities = await sanityClient.fetch('*[_type == "facility"] | order(_createdAt asc)');
-    return { virtualTour, facilities };
-  }
+async function getFacilitiesData(): Promise<{ virtualTour: VirtualTour; facilities: Facility[] }> {
+    try {
+        const virtualTour = await sanityClient.fetch<VirtualTour>('*[_type == "virtualTour"][0]');
+        const facilities = await sanityClient.fetch<Facility[]>('*[_type == "facility"] | order(_createdAt asc)');
+
+        return {
+            virtualTour: virtualTour ?? null,
+            facilities: facilities ?? [],
+        };
+    } catch (error) {
+        console.error('Failed to fetch fasilitas from Sanity:', error);
+        return { virtualTour: null, facilities: [] };
+    }
+}
 
 export default async function FasilitasPage() {
     const { virtualTour, facilities } = await getFacilitiesData();
 
     return (
         <>
-            <PageHeader 
+            <PageHeader
                 eyebrow="Fasilitas Kami"
                 title="Lingkungan Belajar yang Aman & Merangsang"
                 description="Setiap sudut sekolah kami dirancang untuk mendukung eksplorasi, kreativitas, dan keamanan anak. Jelajahi fasilitas kami yang dirancang khusus untuk para pembelajar cilik."
@@ -50,7 +74,10 @@ export default async function FasilitasPage() {
             {/* Galeri Fasilitas */}
             <PageSection>
                  <div className="space-y-16">
-                    {facilities?.map((facility: any, index: number) => (
+                    {facilities.length === 0 ? (
+                        <p className="text-center text-text-muted">Data fasilitas belum tersedia untuk saat ini.</p>
+                    ) : (
+                    facilities.map((facility, index) => (
                         <AnimateIn key={facility._id}>
                             <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center`}>
                                 {/* Gambar Fasilitas */}
@@ -86,7 +113,8 @@ export default async function FasilitasPage() {
                                 </div>
                             </div>
                         </AnimateIn>
-                    ))}
+                    ))
+                    )}
                  </div>
             </PageSection>
         </>
