@@ -4,7 +4,7 @@ Dokumen ini merangkum status terbaru website TK Kartikasari Bantarsari, sumber k
 
 ## Ringkasan Produk
 
-- **URL Produksi:** https://tk-kartikasari.vercel.app
+- **URL Produksi:** https://tkkartikasari.vercel.app
 - **Framework:** Next.js 14 App Router dengan Tailwind CSS.
 - **Konten:** Dikelola terpusat lewat Sanity dokumen `siteContent` dengan fallback lokal.
 - **Target Audiens:** Orang tua murid PAUD/TK di wilayah Bantarsari dan sekitarnya.
