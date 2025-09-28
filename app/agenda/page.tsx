@@ -1,9 +1,8 @@
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
-import agenda from "@/data/agenda.json";
 import { createPageMetadata } from "@/lib/metadata";
-
-type AgendaItem = (typeof agenda)[number];
+import { getAgendaPageData } from "@/lib/sanity.queries";
+import type { AgendaItem } from "@/lib/types/site";
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("id-ID", {
@@ -17,13 +16,18 @@ function formatDate(value: string) {
 const agendaDescription =
   "Agenda disusun untuk melibatkan anak dan orang tua dalam pengalaman belajar yang menyenangkan serta penuh kolaborasi. Simpan tanggal penting berikut di kalender keluarga Anda.";
 
-export const metadata = createPageMetadata({
-  title: "Agenda",
-  description: agendaDescription,
-  path: "/agenda",
-});
+export async function generateMetadata() {
+  const { siteSettings } = await getAgendaPageData();
+  return createPageMetadata({
+    title: "Agenda",
+    description: agendaDescription,
+    path: "/agenda",
+    siteSettings,
+  });
+}
 
-export default function Page() {
+export default async function Page() {
+  const { agenda } = await getAgendaPageData();
   const items = [...agenda].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   );

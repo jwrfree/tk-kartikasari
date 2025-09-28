@@ -17,6 +17,7 @@ import type {
   HomeTimelineMilestone,
 } from "@/app/types/home";
 import type { Post as BlogPost } from "@/lib/blog";
+import type { Testimonial } from "@/lib/types/site";
 import { ArrowRight, CheckCircle } from "react-bootstrap-icons";
 import Link from "next/link";
 import Image from "next/image";
@@ -33,6 +34,7 @@ type HomePageContentProps = {
   curriculumPillars: HomeCurriculumPillar[];
   timeline: HomeTimelineMilestone[];
   blogPosts: BlogPost[];
+  testimonials: Testimonial[];
 };
 
 export default function HomePageContent({
@@ -46,6 +48,7 @@ export default function HomePageContent({
   curriculumPillars,
   timeline,
   blogPosts,
+  testimonials,
 }: HomePageContentProps) {
   const teacherStudentRatio =
     stats.find((item) => item.label.toLowerCase().includes("rasio"))?.value ?? "1 : 8";
@@ -348,7 +351,7 @@ export default function HomePageContent({
         </PageSection>
         
         {/* Section 6: Testimoni (Bukti Sosial) - REVISED POSITION */}
-        <TestimonialList />
+        <TestimonialList testimonials={testimonials} />
 
         {/* Section 7: Blog */}
         <PageSection id="blog" padding="tight">
@@ -360,54 +363,76 @@ export default function HomePageContent({
               title="Tips Parenting dan Kegiatan Sekolah Terbaru"
               description="Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari."
             />
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {blogPosts.slice(0, 3).map((post) => {
-                const coverImage = post.coverImage;
-                const publishedAt = post.date;
-                const rawBody = post.body?.raw ?? '';
-                const normalizedBody = rawBody.replace(/[#*_`>\-]/g, '').replace(/\[(.*?)\]\(.*?\)/g, '$1').replace(/\s+/g, ' ').trim();
-                const description = normalizedBody.length > 160 ? `${normalizedBody.slice(0, 157)}...` : normalizedBody;
+            {blogPosts.length > 0 ? (
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {blogPosts.slice(0, 3).map((post) => {
+                  const coverImage = post.coverImage;
+                  const publishedAt = post.date;
+                  const rawBody = post.body?.raw ?? '';
+                  const normalizedBody = rawBody
+                    .replace(/[#*_`>\-]/g, '')
+                    .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                  const description =
+                    normalizedBody.length > 160 ? `${normalizedBody.slice(0, 157)}...` : normalizedBody;
 
-                return (
-                  <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
-                    <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
-                      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
-                        {coverImage ? (
-                          <Image
-                            src={coverImage}
-                            alt={post.title}
-                            fill
-                            className="object-cover"
-                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-secondary/10 text-secondary">
-                            <span className="text-sm font-semibold">TK Kartikasari</span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex h-full flex-col p-6">
-                        <p className="text-sm text-text-muted">
-                          {new Date(publishedAt).toLocaleDateString('id-ID', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })}
-                        </p>
-                        <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
-                        <p className="mt-2 flex-grow text-sm text-text-muted">
-                          {description || 'Baca kisah terbaru dari TK Kartikasari.'}
-                        </p>
-                        <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
-                          Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
+                  return (
+                    <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
+                      <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
+                        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
+                          {coverImage ? (
+                            <Image
+                              src={coverImage}
+                              alt={post.title}
+                              fill
+                              className="object-cover"
+                              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-secondary/10 text-secondary">
+                              <span className="text-sm font-semibold">TK Kartikasari</span>
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    </article>
+                        <div className="flex h-full flex-col p-6">
+                          <p className="text-sm text-text-muted">
+                            {new Date(publishedAt).toLocaleDateString('id-ID', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })}
+                          </p>
+                          <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
+                          <p className="mt-2 flex-grow text-sm text-text-muted">
+                            {description || 'Baca kisah terbaru dari TK Kartikasari.'}
+                          </p>
+                          <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
+                            Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
+                          </div>
+                        </div>
+                      </article>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="card border-white/60 bg-white/70 p-8 text-center shadow-soft backdrop-blur-xl">
+                <h3 className="text-xl font-semibold text-text">Belum ada cerita terbaru</h3>
+                <p className="mt-3 text-base leading-relaxed text-text-muted">
+                  Tim kami sedang mempersiapkan artikel yang bisa membantu Ayah dan Bunda. Sementara itu, silakan jelajahi halaman lain atau hubungi kami untuk informasi langsung.
+                </p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                  <Link href="/program" className="btn-primary inline-flex items-center justify-center gap-2">
+                    Lihat program belajar
                   </Link>
-                );
-              })}
-            </div>
+                  <Link href="/kontak" className="btn-secondary inline-flex items-center justify-center gap-2">
+                    Hubungi kami
+                  </Link>
+                </div>
+              </div>
+            )}
           </AnimateIn>
         </PageSection>
 

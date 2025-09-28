@@ -4,14 +4,18 @@ import SectionHeader from '@/components/layout/SectionHeader';
 import BiayaClientComponent from './BiayaClientComponent';
 import { CheckCircle, InfoCircle } from 'react-bootstrap-icons';
 import AnimateIn from '@/components/AnimateIn';
+import { getBiayaPageData } from '@/lib/sanity.queries';
+import { createPageMetadata } from '@/lib/metadata';
 
-// Import data lokal
-import { costStructure, installmentProgram, refundPolicy } from '@/content/biaya';
-
-export const metadata = {
-  title: 'Rincian Biaya',
-  description: 'Dapatkan informasi lengkap dan transparan mengenai rincian biaya pendidikan di TK Kartikasari, termasuk uang pangkal, SPP, dan opsi pembayaran yang fleksibel.',
-};
+export async function generateMetadata() {
+  const { siteSettings } = await getBiayaPageData();
+  return createPageMetadata({
+    title: 'Rincian Biaya',
+    description: 'Dapatkan informasi lengkap dan transparan mengenai rincian biaya pendidikan di TK Kartikasari, termasuk uang pangkal, SPP, dan opsi pembayaran yang fleksibel.',
+    path: '/biaya',
+    siteSettings,
+  });
+}
 
 // Komponen untuk menampilkan satu item kebijakan
 const PolicyItem = ({ title, content }: { title: string; content: string }) => (
@@ -21,9 +25,18 @@ const PolicyItem = ({ title, content }: { title: string; content: string }) => (
   </div>
 );
 
-export default function BiayaPage() {
-  // Data sudah diimpor, tidak perlu fetch
-  const biayaPokok = costStructure.filter((item: any) => item.includedInCalculator);
+export default async function BiayaPage() {
+  const { biaya } = await getBiayaPageData();
+  const biayaPokok = biaya.costStructure
+    .filter((item) => item.includedInCalculator)
+    .map((item) => ({
+      name: item.name,
+      amount: item.amount,
+      description: item.description,
+      category: item.type === 'per bulan' ? 'bulanan' : item.type,
+    }));
+  const installmentProgram = biaya.installmentProgram;
+  const refundPolicy = biaya.refundPolicy;
 
   return (
     <>

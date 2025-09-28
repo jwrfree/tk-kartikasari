@@ -1,5 +1,7 @@
+"use client"
+
 import MapEmbedClient from "./MapEmbedClient"
-import site from "@/data/site.json"
+import { useSiteData } from "@/app/providers/SiteDataProvider"
 
 const MAP_PREVIEW_IMAGE = {
   src: "/images/map-placeholder.svg",
@@ -7,9 +9,10 @@ const MAP_PREVIEW_IMAGE = {
 } as const
 
 export default function MapEmbed() {
+  const { siteSettings } = useSiteData();
   return (
     <div className="card overflow-hidden">
-      <MapEmbedClient mapSrc={site.mapsUrl} previewImage={MAP_PREVIEW_IMAGE} />
+      <MapEmbedClient mapSrc={siteSettings.mapsUrl} previewImage={MAP_PREVIEW_IMAGE} />
     </div>
   )
 }

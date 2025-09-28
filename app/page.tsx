@@ -1,57 +1,45 @@
 import HomePageContent from "@/components/home/HomePageContent";
 import JsonLd from "@/components/JsonLd";
 import { getPosts } from "@/lib/blog";
-import site from "@/data/site.json";
-import homeData from "@/data/home.json"; // Import the local JSON data
 import { createPageMetadata } from "@/lib/metadata";
 import { preschoolSchema } from "@/lib/schema";
+import { getHomePageData } from "@/lib/sanity.queries";
 
-// Define a type for the home page data for better type-safety
-type HomePageData = {
-    heroDescription: string;
-    stats: any[];
-    highlights: any[];
-    programs: any[];
-    journey: any;
-    faqs: any[];
-    credentials: any[];
-    curriculumPillars: any[];
-    timeline: any[];
-};
-
-// Async function to fetch data for metadata generation
 export async function generateMetadata() {
-    // No need to fetch, just use the imported data
-    const data: HomePageData = homeData;
-    return createPageMetadata({
-        title: "Beranda",
-        description: data.heroDescription,
-        path: "/",
-    });
+  const { home, siteSettings } = await getHomePageData();
+  return createPageMetadata({
+    title: "Beranda",
+    description: home.heroDescription,
+    path: "/",
+    siteSettings,
+  });
 }
 
-// The getHomeData function that fetched from Sanity is no longer needed.
-
 export default async function Page() {
-  const schema = preschoolSchema();
-  
-  // Fetch blog posts. The home data is already available from the import.
-  const blogPosts = await getPosts();
+  const [{ home, siteSettings, officialProfile, testimonials }, blogPosts] = await Promise.all([
+    getHomePageData(),
+    getPosts(),
+  ]);
+
+  const schema = preschoolSchema({
+    siteSettings,
+    officialProfile,
+  });
 
   return (
     <>
       <HomePageContent
-        schoolName={site.schoolName}
-        // Pass the imported data as props
-        stats={homeData.stats}
-        highlights={homeData.highlights}
-        programs={homeData.programs}
-        journey={homeData.journey}
-        faqs={homeData.faqs}
-        credentials={homeData.credentials}
-        curriculumPillars={homeData.curriculumPillars}
-        timeline={homeData.timeline}
-        blogPosts={blogPosts.slice(0, 3)} 
+        schoolName={siteSettings.schoolName}
+        stats={home.stats}
+        highlights={home.highlights}
+        programs={home.programs}
+        journey={home.journey}
+        faqs={home.faqs}
+        credentials={home.credentials}
+        curriculumPillars={home.curriculumPillars}
+        timeline={home.timeline}
+        blogPosts={blogPosts.slice(0, 3)}
+        testimonials={testimonials}
       />
       <JsonLd data={schema} />
     </>

@@ -4,10 +4,14 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
-import data from "@/data/testimonials.json";
+import type { Testimonial } from "@/lib/types/site";
 
-export default function TestimonialList() {
-  if (data.length === 0) {
+interface TestimonialListProps {
+  testimonials: Testimonial[];
+}
+
+export default function TestimonialList({ testimonials }: TestimonialListProps) {
+  if (!testimonials || testimonials.length === 0) {
     return (
       <PageSection id="testimonials" padding="relaxed">
         <div className="card mx-auto max-w-3xl border border-border/70 bg-secondary/5 p-8 text-center text-text-muted">
@@ -53,7 +57,7 @@ export default function TestimonialList() {
           </m.div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {data.map((t, index) => (
+            {testimonials.map((t, index) => (
               <m.blockquote
                 key={t.id}
                 initial={{ opacity: 0, y: 40 }}
@@ -65,7 +69,7 @@ export default function TestimonialList() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/6 via-white to-secondary/10" />
                 <div className="relative flex flex-col gap-4">
                   <div className="flex items-center gap-2 text-lg text-accent">
-                    {Array.from({ length: 5 }).map((_, starIndex) => (
+                    {Array.from({ length: t.rating ?? 5 }).map((_, starIndex) => (
                       <span key={starIndex}>★</span>
                     ))}
                   </div>

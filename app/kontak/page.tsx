@@ -2,26 +2,32 @@ import CTAButton from "@/components/CTAButton";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import MapEmbed from "@/components/MapEmbed";
-import site from "@/data/site.json";
 import { createPageMetadata } from "@/lib/metadata";
+import { getContactPageData } from "@/lib/sanity.queries";
 
 const contactDescription =
   "Kami siap membantu informasi seputar PPDB, jadwal kunjungan sekolah, maupun kebutuhan administrasi lainnya. Gunakan detail di bawah ini atau langsung hubungi kami melalui WhatsApp.";
 
-export const metadata = createPageMetadata({
-  title: "Kontak",
-  description: contactDescription,
-  path: "/kontak",
-});
+export async function generateMetadata() {
+  const { siteSettings } = await getContactPageData();
+  return createPageMetadata({
+    title: "Kontak",
+    description: contactDescription,
+    path: "/kontak",
+    siteSettings,
+  });
+}
 
-const info = [
-  { label: "Alamat", value: site.address },
-  { label: "WhatsApp", value: site.whatsapp },
-  { label: "Kepala Sekolah", value: site.headmaster },
-  { label: "Jam Buka", value: site.openingHours },
-];
+export default async function Page() {
+  const { siteSettings } = await getContactPageData();
+  const info = [
+    { label: "Alamat", value: siteSettings.address },
+    { label: "WhatsApp", value: siteSettings.whatsapp },
+    siteSettings.email ? { label: "Email", value: siteSettings.email } : null,
+    { label: "Kepala Sekolah", value: siteSettings.headmaster },
+    { label: "Jam Buka", value: siteSettings.openingHours },
+  ].filter(Boolean) as { label: string; value: string }[];
 
-export default function Page() {
   return (
     <>
       <PageHeader
@@ -31,9 +37,9 @@ export default function Page() {
       />
 
       <PageSection padding="tight" containerClassName="grid gap-6 md:grid-cols-[1.1fr,0.9fr] md:items-start">
-        <div className="card space-y-5 p-7">
-          <h2 className="text-3xl font-semibold">Informasi Sekolah</h2>
-          <ul className="space-y-4 text-base text-text">
+          <div className="card space-y-5 p-7">
+            <h2 className="text-3xl font-semibold">Informasi Sekolah</h2>
+            <ul className="space-y-4 text-base text-text">
             {info.map((item) => (
               <li key={item.label}>
                 <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
