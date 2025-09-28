@@ -1,32 +1,26 @@
 import { sanityClient } from './sanity-client';
+import type { Post } from './blog-types';
+import { fallbackPosts } from '@/data/blog-posts';
 
-// Redefine the Post type to align with the expected Sanity schema
-export interface Post {
-  _id: string;
-  title: string;
-  date: string; // ISO 8601 date string
-  body: {
-    raw: string; // Markdown content
-    code: string; // Retained for compatibility, can be removed if not used
-  };
-  slug: string;
-  coverImage?: string; 
-  _raw: {
-    flattenedPath: string;
-  };
-}
+const isSanityConfigured = Boolean(
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_DATASET,
+);
 
 /**
  * Fetches all blog posts from Sanity, ordered by date.
  * @returns {Promise<Post[]>} A promise that resolves to an array of posts.
  */
 export async function getPosts(): Promise<Post[]> {
+  if (!isSanityConfigured) {
+    return fallbackPosts;
+  }
+
   // GROQ query to fetch all posts, ordered by date
   const query = `*[_type == "post"] | order(date desc) {
     _id,
     title,
     date,
-    "body": content, // Assuming the markdown content is in a field named 'content'
+    "body": content,
     "slug": slug.current,
     "coverImage": mainImage.asset->url
   }`;
@@ -34,14 +28,18 @@ export async function getPosts(): Promise<Post[]> {
   try {
     const sanityPosts = await sanityClient.fetch(query);
 
+    if (!Array.isArray(sanityPosts) || sanityPosts.length === 0) {
+      return fallbackPosts;
+    }
+
     // Map the data from Sanity to the Post interface to maintain component compatibility
     return sanityPosts.map((post: any) => ({
       _id: post._id,
       title: post.title,
       date: post.date,
       body: {
-        raw: post.body || '', // Ensure body.raw is always a string
-        code: post.body || '', // Keep for compatibility
+        raw: post.body || '',
+        code: post.body || '',
       },
       slug: post.slug,
       coverImage: post.coverImage,
@@ -51,7 +49,7 @@ export async function getPosts(): Promise<Post[]> {
     }));
   } catch (error) {
     console.error('Failed to fetch blog posts from Sanity:', error);
-    return [];
+    return fallbackPosts;
   }
 }
 
@@ -61,6 +59,10 @@ export async function getPosts(): Promise<Post[]> {
  * @returns {Promise<Post | null>} A promise that resolves to the post object or null if not found.
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  if (!isSanityConfigured) {
+    return fallbackPosts.find((post) => post.slug === slug) ?? null;
+  }
+
   // GROQ query to fetch a single post by its slug
   const query = `*[_type == "post" && slug.current == $slug][0] {
     _id,
@@ -77,7 +79,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const post = await sanityClient.fetch(query, params);
 
     if (!post) {
-      return null;
+      return fallbackPosts.find((item) => item.slug === slug) ?? null;
     }
 
     // Map the Sanity data to the Post interface
@@ -97,6 +99,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     };
   } catch (error) {
     console.error(`Failed to fetch blog post with slug "${slug}":`, error);
-    return null;
+    return fallbackPosts.find((item) => item.slug === slug) ?? null;
   }
 }
+
+export type { Post };
