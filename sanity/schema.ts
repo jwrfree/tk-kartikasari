@@ -3,8 +3,9 @@ import { type SchemaTypeDefinition } from 'sanity'
 // Impor semua skema yang kita miliki
 import { news } from './schemas/news'
 import { virtualTour, facility } from './schemas/facilities'
-import blog from './schemas/blog'
 import author from './schemas/author'
+import { siteContent } from './schemas/siteContent'
+import { post } from './schemas/post'
 
 // Definisikan tipe block content
 const blockContent = {
@@ -50,5 +51,5 @@ const blockContent = {
 
 // Gabungkan semua skema menjadi satu
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [news, virtualTour, facility, blog, author, blockContent],
+  types: [news, virtualTour, facility, author, post, siteContent, blockContent],
 }

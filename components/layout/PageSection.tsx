@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
 type PageSectionProps = {
   id?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
   padding?: "default" | "tight" | "relaxed" | "none";
   container?: boolean;
   className?: string;

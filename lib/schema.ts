@@ -1,20 +1,34 @@
-import site from "@/data/site.json";
+import { fallbackContent } from "@/lib/fallback-content";
+import type { OfficialProfile, SiteSettings } from "@/lib/types/site";
 
-export function preschoolSchema(lat?: number, lng?: number) {
+const defaultSiteSettings = fallbackContent.siteSettings;
+const defaultOfficialProfile = fallbackContent.about.officialProfile;
+
+type PreschoolSchemaOptions = {
+  siteSettings?: SiteSettings;
+  officialProfile?: OfficialProfile;
+  coordinates?: { latitude: number; longitude: number };
+};
+
+export function preschoolSchema({
+  siteSettings = defaultSiteSettings,
+  officialProfile = defaultOfficialProfile,
+  coordinates,
+}: PreschoolSchemaOptions = {}) {
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Preschool",
-    "@id": `${site.siteUrl}#organization`,
-    name: site.schoolName,
+    "@id": `${siteSettings.siteUrl}#organization`,
+    name: siteSettings.schoolName,
     description:
       "Taman Kanak-kanak di Bulaksari, Bantarsari, Cilacap dengan lingkungan hangat dan kegiatan tematik.",
-    url: site.siteUrl,
-    telephone: site.whatsapp,
-    hasMap: site.mapsUrl,
+    url: siteSettings.siteUrl,
+    telephone: siteSettings.whatsapp,
+    hasMap: siteSettings.mapsUrl,
     address: {
       "@type": "PostalAddress",
-      streetAddress: site.address,
-      addressLocality: "Bantarsari",
+      streetAddress: siteSettings.address,
+      addressLocality: officialProfile.locationArea ?? "Bantarsari",
       addressRegion: "Jawa Tengah",
       postalCode: "53258",
       addressCountry: "ID",
@@ -31,16 +45,16 @@ export function preschoolSchema(lat?: number, lng?: number) {
           "Saturday",
         ],
         opens: "07:00",
-        closes: "13:00",
+        closes: siteSettings.openingHours.includes("13") ? "13:00" : "13:00",
       },
     ],
   };
 
-  if (lat && lng) {
+  if (coordinates) {
     jsonLd.geo = {
       "@type": "GeoCoordinates",
-      latitude: lat,
-      longitude: lng,
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
     };
   }
 

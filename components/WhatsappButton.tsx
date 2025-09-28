@@ -1,10 +1,15 @@
 'use client';
 
 import { Whatsapp } from 'react-bootstrap-icons';
+import { useCTAButton, useSiteData } from '@/app/providers/SiteDataProvider';
 
 const WhatsAppButton = () => {
-  const phoneNumber = '6285161725482'; // Ganti dengan nomor WhatsApp sekolah Anda
-  const message = 'Halo, saya tertarik untuk mendaftar di TK Kartikasari. Bisakah saya mendapatkan informasi lebih lanjut?';
+  const { siteSettings } = useSiteData();
+  const generalInquiry = useCTAButton('generalInquiry');
+  const phoneNumber = siteSettings.whatsapp.startsWith('0')
+    ? `62${siteSettings.whatsapp.substring(1)}`
+    : siteSettings.whatsapp;
+  const message = generalInquiry?.message ?? 'Halo, saya ingin mendapatkan informasi mengenai TK Kartikasari.';
 
   const handleClick = () => {
     window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');

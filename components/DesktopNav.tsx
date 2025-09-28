@@ -7,16 +7,17 @@ import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
 
-import { mainNav } from "@/data/navigation";
+import { useSiteData } from "@/app/providers/SiteDataProvider";
 
 export default function DesktopNav() {
+  const { navigation } = useSiteData();
   const pathname = usePathname();
 
   return (
     <nav aria-label="Menu utama" className="hidden flex-1 items-center justify-center lg:flex">
       <ul className="flex items-center gap-1 text-base font-medium text-text-muted">
-        {mainNav.map((item) => {
-          if (item.children) {
+        {navigation.map((item) => {
+          if ("children" in item) {
             const isParentActive = item.children.some(
               (child) => pathname === child.href || pathname.startsWith(`${child.href}/`)
             );
@@ -52,11 +53,11 @@ export default function DesktopNav() {
                       >
                         <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-xs -translate-x-1/2 transform px-4 sm:px-0">
                           <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5">
-                            <div className="relative grid gap-2 bg-white p-3">
-                              {item.children.map((child) => (
-                                <Link
-                                  key={child.href}
-                                  href={child.href}
+                          <div className="relative grid gap-2 bg-white p-3">
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                href={child.href}
                                   className="flex flex-col rounded-lg p-3 transition hover:bg-surfaceAlt"
                                 >
                                   <span className="font-semibold text-text">{child.label}</span>
@@ -72,6 +73,10 @@ export default function DesktopNav() {
                 </Popover>
               </li>
             );
+          }
+
+          if (!("href" in item) || !item.href) {
+            return null;
           }
 
           const isActive =

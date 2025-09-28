@@ -3,24 +3,31 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import type { CTAConfig, CTAKey } from '@/data/cta';
-import { ctaConfigs } from '@/data/cta';
-import site from '@/data/site.json';
-import { cn } from '@/lib/utils'; // Import cn untuk menggabungkan kelas
+import type { CTAButtonConfig } from '@/lib/types/site';
+import { useCTAButton, useSiteData } from '@/app/providers/SiteDataProvider';
+import { cn } from '@/lib/utils';
+import { getBootstrapIcon } from '@/lib/icon-registry';
 
 interface CTAButtonProps {
-  ctaKey: CTAKey;
+  ctaKey: string;
   className?: string;
 }
 
 export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
-  const config = ctaConfigs[ctaKey];
-  const { label, message, variant = 'primary', icon: Icon } = config;
+  const config = useCTAButton(ctaKey) as CTAButtonConfig | undefined;
+  const { siteSettings } = useSiteData();
 
-  const whatsAppNumber = site.whatsapp.startsWith('0')
-    ? `62${site.whatsapp.substring(1)}`
-    : site.whatsapp;
-  const encodedMessage = encodeURIComponent(message);
+  if (!config) {
+    return null;
+  }
+
+  const Icon = getBootstrapIcon(config.icon);
+  const variant = config.variant ?? 'primary';
+
+  const whatsAppNumber = siteSettings.whatsapp.startsWith('0')
+    ? `62${siteSettings.whatsapp.substring(1)}`
+    : siteSettings.whatsapp;
+  const encodedMessage = encodeURIComponent(config.message);
   const href = `https://wa.me/${whatsAppNumber}?text=${encodedMessage}`;
 
   // Objek pemetaan dari varian config ke kelas sistem desain kita
@@ -39,7 +46,7 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
   const buttonContent = (
     <>
       {Icon && <Icon className="h-5 w-5" />}
-      <span>{label}</span>
+      <span>{config.label}</span>
     </>
   );
 

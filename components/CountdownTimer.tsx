@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 
 interface CountdownTimerProps {
   targetDate: string;
@@ -33,7 +33,7 @@ const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
     return () => clearTimeout(timer);
   });
 
-  const timerComponents: JSX.Element[] = [];
+  const timerComponents: ReactNode[] = [];
 
   Object.keys(timeLeft).forEach((interval) => {
     if (!timeLeft[interval as keyof typeof timeLeft]) {

@@ -4,9 +4,6 @@ import React from "react";
 import CTAButton from "@/components/CTAButton";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
-import { aboutMission } from "@/content/about";
-import { officialMilestones, officialProfile } from "@/data/official";
-import site from "@/data/site.json";
 import {
   ClockHistory,
   EnvelopeHeart,
@@ -24,9 +21,24 @@ import {
 import TeacherList from "./TeacherList";
 import HorizontalScrollSection from "@/components/layout/HorizontalScrollSection";
 import AnimateIn from "@/components/AnimateIn";
+import type { OfficialProfile, SiteSettings, TeacherProfile } from "@/lib/types/site";
+import type { HomeTimelineMilestone } from "@/app/types/home";
 
-// Main component for the "About Us" page
-export default function AboutPageContent() {
+type AboutPageContentProps = {
+  mission: string[];
+  milestones: HomeTimelineMilestone[];
+  officialProfile: OfficialProfile;
+  siteSettings: SiteSettings;
+  teachers: TeacherProfile[];
+};
+
+export default function AboutPageContent({
+  mission,
+  milestones,
+  officialProfile,
+  siteSettings,
+  teachers,
+}: AboutPageContentProps) {
   return (
     <>
       <PageHeader
@@ -107,7 +119,7 @@ export default function AboutPageContent() {
           </div>
           <div className="mx-auto w-full max-w-4xl">
             <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {aboutMission.map((point) => (
+              {mission.map((point) => (
                 <AnimateIn
                   key={point}
                   className="flex items-start gap-3 rounded-xl bg-white/60 p-4 text-base text-text-muted backdrop-blur-sm"
@@ -142,12 +154,12 @@ export default function AboutPageContent() {
               <h3 className="text-xl font-semibold text-text">Identitas & Legalitas</h3>
               <ul className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { label: "Nama Sekolah", value: site.schoolName, icon: Mortarboard },
+                  { label: "Nama Sekolah", value: siteSettings.schoolName, icon: Mortarboard },
                   { label: "NPSN", value: officialProfile.npsn, icon: Icon123 },
-                  { label: "Kepala Sekolah", value: site.headmaster, icon: PersonBadge },
+                  { label: "Kepala Sekolah", value: siteSettings.headmaster, icon: PersonBadge },
                   { label: "SK Operasional", value: officialProfile.operationalLicense, icon: ShieldCheck },
                   { label: "Kurikulum", value: officialProfile.curriculum, icon: Mortarboard },
-                  { label: "Jam Belajar", value: site.openingHours, icon: ClockHistory },
+                  { label: "Jam Belajar", value: siteSettings.openingHours, icon: ClockHistory },
                 ].map(({ label, value, icon: Icon }) => (
                   <AnimateIn key={label} className="flex gap-3">
                     <Icon className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" />
@@ -165,10 +177,10 @@ export default function AboutPageContent() {
               <h3 className="text-xl font-semibold text-text">Lokasi & Kontak</h3>
               <ul className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { label: "Alamat", value: site.address, icon: GeoAlt },
+                  { label: "Alamat", value: siteSettings.address, icon: GeoAlt },
                   { label: "Wilayah", value: officialProfile.locationArea, icon: PinMap },
                   { label: "Email", value: officialProfile.email, icon: EnvelopeHeart },
-                  { label: "WhatsApp", value: site.whatsapp, icon: Whatsapp },
+                  { label: "WhatsApp", value: siteSettings.whatsapp, icon: Whatsapp },
                 ].map(({ label, value, icon: Icon }) => (
                   <AnimateIn key={label} className="flex gap-3">
                     <Icon className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" />
@@ -181,7 +193,7 @@ export default function AboutPageContent() {
               </ul>
               <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/50">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.326349585633!2d108.8236106758831!3d-7.429406073145405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e656f506487e49d%3A0x6fd1399435c246ac!2sTK%20Kartika%20Sari!5e0!3m2!1sen!2sid!4v1716960434419!5m2!1sen!2sid"
+                  src={siteSettings.mapsUrl}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -208,7 +220,7 @@ export default function AboutPageContent() {
               Di TK Kartikasari, kami percaya bahwa guru adalah jantung dari pendidikan. Tim kami terdiri dari para pendidik yang berdedikasi, penuh kasih, dan berkompeten di bidangnya.
             </p>
           </div>
-          <TeacherList />
+          <TeacherList teachers={teachers} />
         </AnimateIn>
       </PageSection>
 
@@ -221,7 +233,7 @@ export default function AboutPageContent() {
             </p>
         </div>
         <HorizontalScrollSection>
-            {officialMilestones.map(({ year, title, description }) => (
+            {milestones.map(({ year, title, description }) => (
               <AnimateIn
                 key={year}
                 className="card flex h-full w-[80vw] max-w-sm flex-shrink-0 flex-col space-y-3 bg-white/60 p-6 shadow-soft backdrop-blur-xl"

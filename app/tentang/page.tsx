@@ -1,14 +1,31 @@
 import React from "react";
 import { createPageMetadata } from "@/lib/metadata";
-import { aboutMetaDescription } from "@/content/about";
 import AboutPageContent from "@/components/tentang/AboutPageContent";
+import { getAboutPageData } from "@/lib/sanity.queries";
+import { fallbackContent } from "@/lib/fallback-content";
 
-export const metadata = createPageMetadata({
-  title: "Tentang Kami",
-  description: aboutMetaDescription,
-  path: "/tentang",
-});
+const fallbackDescription = fallbackContent.about.mission[0] ?? fallbackContent.home.heroDescription;
 
-export default function Page() {
-  return <AboutPageContent />;
+export async function generateMetadata() {
+  const { about, siteSettings } = await getAboutPageData();
+  return createPageMetadata({
+    title: "Tentang Kami",
+    description: about.mission[0] ?? fallbackDescription,
+    path: "/tentang",
+    siteSettings,
+  });
+}
+
+export default async function Page() {
+  const { about, teachers, siteSettings } = await getAboutPageData();
+
+  return (
+    <AboutPageContent
+      mission={about.mission}
+      milestones={about.milestones}
+      officialProfile={about.officialProfile}
+      siteSettings={siteSettings}
+      teachers={teachers}
+    />
+  );
 }
