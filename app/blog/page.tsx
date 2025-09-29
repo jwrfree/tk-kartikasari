@@ -5,6 +5,8 @@ import PageHeader from '@/components/layout/PageHeader';
 import { getPosts, Post } from '@/lib/blog'; // Import Post from @/lib/blog
 import { ArrowRight } from 'react-bootstrap-icons';
 
+export const revalidate = 60; // revalidate list every minute to pick up new posts
+
 export default async function BlogListPage() {
   const posts = await getPosts();
 
