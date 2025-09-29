@@ -49,6 +49,11 @@ export default function TeacherList({ teachers }: TeacherListProps) {
           <h3 className="text-2xl font-semibold text-text">{headmaster.name}</h3>
           <p className="text-base text-secondary">{headmaster.position}</p>
           <p className="mt-2 text-base text-text-muted">{headmaster.description}</p>
+          {headmaster.impactStatement ? (
+            <p className="mt-3 text-sm font-semibold text-secondary/80">
+              {headmaster.impactStatement}
+            </p>
+          ) : null}
         </m.div>
       )}
 
@@ -68,6 +73,9 @@ export default function TeacherList({ teachers }: TeacherListProps) {
             <h3 className="text-xl font-semibold text-text">{teacher.name}</h3>
             <p className="text-sm text-secondary">{teacher.position}</p>
             <p className="mt-2 text-sm text-text-muted">{teacher.description}</p>
+            {teacher.impactStatement ? (
+              <p className="mt-3 text-sm font-semibold text-secondary/80">{teacher.impactStatement}</p>
+            ) : null}
           </m.div>
         ))}
       </m.div>

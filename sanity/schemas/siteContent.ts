@@ -408,6 +408,7 @@ export const siteContent = defineType({
             defineField({ name: "name", title: "Nama", type: "string", validation: (rule) => rule.required() }),
             defineField({ name: "position", title: "Jabatan", type: "string", validation: (rule) => rule.required() }),
             defineField({ name: "description", title: "Deskripsi", type: "text", rows: 3 }),
+            defineField({ name: "impactStatement", title: "Pernyataan Dampak", type: "text", rows: 2 }),
             defineField({ name: "image", title: "Foto", type: "image", options: { hotspot: true } }),
           ],
         }),
