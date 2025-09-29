@@ -1,7 +1,10 @@
 
 'use client';
-import { useRef } from 'react';
-import { m, useScroll, useTransform } from 'framer-motion';
+
+import { Children } from 'react';
+import type { ReactElement } from 'react';
+
+import { cn } from '@/lib/utils';
 
 interface HorizontalScrollSectionProps {
   children: React.ReactNode;
@@ -9,20 +12,27 @@ interface HorizontalScrollSectionProps {
 }
 
 export default function HorizontalScrollSection({ children, className }: HorizontalScrollSectionProps) {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-
-  // Dynamically calculate the end of the transform based on the container's scroll width
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-80%']);
-
   return (
-    <section ref={targetRef} className={`relative h-[300vh] ${className}`}>
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <m.div style={{ x }} className="flex items-stretch gap-6 px-12">
-          {children}
-        </m.div>
+    <section
+      className={cn(
+        'relative w-full',
+        className,
+      )}
+      aria-label="Linimasa perjalanan TK Kartikasari"
+    >
+      <div
+        className="flex w-full snap-x snap-mandatory items-stretch gap-6 overflow-x-auto pb-6 pl-4 pr-4 sm:px-12"
+        role="list"
+      >
+        {Children.toArray(children).map((child, index) => (
+          <div
+            key={(child as ReactElement).key ?? index}
+            className="flex-shrink-0 snap-center sm:snap-start"
+            role="listitem"
+          >
+            {child}
+          </div>
+        ))}
       </div>
     </section>
   );

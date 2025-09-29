@@ -47,16 +47,18 @@ export default function AboutPageContent({
         title="Lebih dari Sekadar Sekolah: Rumah Kedua untuk Tumbuh Kembang Anak Anda"
         description={
           <>
-            Memilih sekolah pertama untuk si kecil adalah keputusan besar. Di TK Kartikasari, kami menciptakan
-            lingkungan yang aman, hangat, dan penuh keceriaan—sebuah fondasi di mana anak Anda dapat tumbuh menjadi
-            pribadi yang percaya diri, kreatif, dan siap melangkah ke jenjang pendidikan selanjutnya.
+            <strong>Memilih sekolah pertama untuk si kecil adalah keputusan besar.</strong>{' '}
+            Di TK Kartikasari, kami menciptakan{' '}
+            <strong>lingkungan yang aman, hangat, dan penuh keceriaan</strong>
+            —sebuah fondasi di mana anak Anda dapat tumbuh menjadi pribadi yang percaya diri, kreatif, dan siap melangkah ke
+            jenjang pendidikan selanjutnya.
           </>
         }
       >
         <div className="flex w-full flex-col gap-3 pt-4 sm:w-auto sm:flex-row sm:items-center">
           <CTAButton ctaKey="heroVisit" className="w-full sm:w-auto" />
           <a href="#profil" className="btn-outline w-full text-center sm:w-auto">
-            Lihat profil resmi
+            Lihat Profil Resmi Sekolah
           </a>
         </div>
       </PageHeader>
@@ -82,7 +84,8 @@ export default function AboutPageContent({
               <HouseHeart className="mx-auto h-10 w-10 text-secondary" />
               <h3 className="text-xl font-semibold">Lingkungan Hangat & Aman</h3>
               <p className="text-sm text-text-muted">
-                Kami percaya pendidikan terbaik dimulai saat anak merasa aman dan dihargai seperti di rumah sendiri.
+                <strong>Kami percaya pendidikan terbaik dimulai saat anak merasa aman dan dihargai seperti di rumah</strong>{' '}
+                sendiri.
               </p>
             </AnimateIn>
             <AnimateIn
@@ -91,7 +94,8 @@ export default function AboutPageContent({
               <PersonCheck className="mx-auto h-10 w-10 text-secondary" />
               <h3 className="text-xl font-semibold">Kurikulum Merdeka Personal</h3>
               <p className="text-sm text-text-muted">
-                Pembelajaran terdiferensiasi memastikan setiap anak bertumbuh sesuai minat dan keunikan masing-masing.
+                <strong>Pembelajaran terdiferensiasi memastikan setiap anak bertumbuh sesuai minat</strong> dan keunikan
+                masing-masing.
               </p>
             </AnimateIn>
             <AnimateIn
@@ -100,8 +104,8 @@ export default function AboutPageContent({
               <People className="mx-auto h-10 w-10 text-secondary" />
               <h3 className="text-xl font-semibold">Kemitraan dengan Keluarga</h3>
               <p className="text-sm text-text-muted">
-                Kolaborasi aktif dengan orang tua melalui komunikasi rutin dan refleksi perkembangan agar belajar saling
-                menguatkan.
+                <strong>Kolaborasi aktif dengan orang tua melalui komunikasi rutin dan refleksi perkembangan</strong> agar
+                belajar saling menguatkan.
               </p>
             </AnimateIn>
           </div>
@@ -110,7 +114,7 @@ export default function AboutPageContent({
               href="/program"
               className="inline-flex items-center gap-2 rounded-full bg-white/70 px-6 py-3 text-sm font-semibold text-secondary shadow-soft transition hover:bg-white"
             >
-              Lihat Lebih Lanjut: Bagaimana Kami Mengajar Anak Anda? Lihat Rincian Program Kami Selengkapnya →
+              Pelajari Program Kami →
             </Link>
           </div>
         </AnimateIn>
@@ -123,8 +127,8 @@ export default function AboutPageContent({
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-semibold text-text">Visi & Misi Kami</h2>
             <p className="mt-3 text-base leading-relaxed text-text-muted">
-              Mewujudkan taman kanak-kanak yang penuh kasih, aman, dan inspiratif untuk menumbuhkan kreativitas serta
-              karakter mulia sebagai bekal masa depan anak.
+              <strong>Mewujudkan taman kanak-kanak yang penuh kasih, aman, dan inspiratif</strong> untuk menumbuhkan
+              kreativitas serta karakter mulia sebagai bekal masa depan anak.
             </p>
           </div>
           <div className="mx-auto w-full max-w-4xl">
@@ -134,7 +138,7 @@ export default function AboutPageContent({
                   key={point}
                   className="flex items-start gap-3 rounded-xl bg-white/60 p-4 text-base text-text-muted backdrop-blur-sm"
                 >
-                  <span>{point}</span>
+                  <span className="font-semibold text-text">{point}</span>
                 </AnimateIn>
               ))}
             </ul>
@@ -149,8 +153,8 @@ export default function AboutPageContent({
           <div className="space-y-6 lg:sticky lg:top-24">
             <h2 className="text-3xl font-semibold text-text">Jaminan Kredibilitas & Legalitas Sekolah</h2>
             <p className="text-base leading-relaxed text-text-muted">
-              Transparansi adalah fondasi kepercayaan. Berikut data resmi TK Kartikasari yang menegaskan komitmen kami
-              dalam melayani keluarga Bantarsari dengan amanah dan akuntabel.
+              <strong>Transparansi adalah fondasi kepercayaan.</strong> Berikut data resmi TK Kartikasari yang menegaskan
+              komitmen kami dalam melayani keluarga Bantarsari dengan amanah dan akuntabel.
             </p>
             <div className="flex flex-wrap gap-3">
               <CTAButton ctaKey="ppdbHeadmaster" />
@@ -163,8 +167,8 @@ export default function AboutPageContent({
             >
               <h3 className="text-xl font-semibold text-text">Identitas & Legalitas</h3>
               <p className="text-sm font-medium text-secondary">
-                Kami adalah lembaga pendidikan yang terdaftar dan diakui secara resmi oleh Kemendikbudristek sejak tahun
-                1998.
+                <strong>Kami adalah lembaga pendidikan yang terdaftar dan diakui secara resmi oleh Kemendikbudristek</strong>{' '}
+                sejak tahun 1998.
               </p>
               <ul className="grid gap-4 sm:grid-cols-2">
                 {[
@@ -231,8 +235,8 @@ export default function AboutPageContent({
               Tim Pendidik Kami: Berkomitmen, Berkompeten, dan Penuh Kasih.
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-text-muted">
-              Di TK Kartikasari, guru adalah sahabat belajar pertama bagi anak. Mereka hadir mendampingi emosi, imajinasi,
-              dan rasa ingin tahu agar setiap hari sekolah terasa hangat dan bermakna.
+              <strong>Di TK Kartikasari, guru adalah sahabat belajar pertama bagi anak.</strong> Mereka hadir mendampingi
+              emosi, imajinasi, dan rasa ingin tahu agar setiap hari sekolah terasa hangat dan bermakna.
             </p>
           </div>
           <TeacherList teachers={teachers} />
@@ -243,8 +247,8 @@ export default function AboutPageContent({
         <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-3xl font-semibold text-text">Perjalanan Kami Bersama Bantarsari</h2>
             <p className="mt-3 text-base leading-relaxed text-text-muted">
-              Setiap tahun adalah langkah baru dalam dedikasi kami untuk pendidikan anak usia dini. Perjalanan ini
-              adalah bukti komitmen kami yang terus bertumbuh.
+              <strong>Setiap tahun adalah langkah baru dalam dedikasi kami untuk pendidikan anak usia dini.</strong>{' '}
+              Perjalanan ini adalah bukti komitmen kami yang terus bertumbuh.
             </p>
         </div>
         <HorizontalScrollSection>
@@ -270,9 +274,9 @@ export default function AboutPageContent({
               <h2 className="text-balance text-3xl font-semibold">
                 Lihat Langsung Kehangatan Belajar di Sekolah Kami
               </h2>
-              <p className="max-w-max-w-3xl text-base leading-relaxed text-white/85">
-                Cara terbaik untuk merasakan suasana TK Kartikasari adalah dengan berkunjung langsung. Kami membuka
-                sesi tur sekolah setiap hari Senin dan Kamis. Mari lihat bagaimana anak-anak belajar dengan gembira.
+              <p className="max-w-3xl text-base leading-relaxed text-white/85">
+                <strong>Cara terbaik untuk merasakan suasana TK Kartikasari adalah dengan berkunjung langsung.</strong> Kami
+                membuka sesi tur sekolah setiap hari Senin dan Kamis. Mari lihat bagaimana anak-anak belajar dengan gembira.
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-wrap items-center gap-4">
