@@ -6,7 +6,7 @@ export const kebijakanPrivasi = {
       <p>TK Kartikasari (\"kami\", \"milik kami\") berkomitmen untuk melindungi privasi informasi pribadi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi yang Anda berikan saat menggunakan website kami.</p>
       
       <h2>Informasi yang Kami Kumpulkan</h2>
-      <p>Kami dapat mengumpulkan informasi identifikasi pribadi dari Anda dalam berbagai cara, termasuk, namun tidak terbatas pada, saat Anda mengunjungi situs kami, mendaftar di formulir PPDB online, atau berinteraksi dengan fitur situs lainnya. Informasi yang mungkin dikumpulkan meliputi:</p>
+      <p>Kami dapat mengumpulkan informasi identifikasi pribadi dari Anda dalam berbagai cara, termasuk, namun tidak terbatas pada, saat Anda mengunjungi situs kami, menghubungi admin PPDB melalui WhatsApp, atau mengisi formulir pendaftaran offline di sekolah. Informasi yang mungkin dikumpulkan meliputi:</p>
       <ul class=\"list-disc list-inside space-y-1\">
         <li>Nama lengkap (Orang Tua & Anak)</li>
         <li>Alamat email</li>
@@ -44,13 +44,13 @@ export const syaratDanKetentuan = {
       <p>Selamat datang di website TK Kartikasari. Dengan mengakses atau menggunakan situs web ini, Anda setuju untuk terikat oleh Syarat dan Ketentuan berikut. Harap baca dokumen ini dengan saksama.</p>
 
       <h2>Penggunaan Situs</h2>
-      <p>Situs ini disediakan untuk tujuan informasi dan sebagai sarana pendaftaran online untuk sekolah kami. Anda setuju untuk menggunakan situs ini hanya untuk tujuan yang sah dan dengan cara yang tidak melanggar hak, atau membatasi atau menghambat penggunaan dan kenikmatan situs ini oleh pihak ketiga mana pun.</p>
+      <p>Situs ini disediakan untuk tujuan informasi mengenai sekolah kami dan proses pendaftaran. Anda setuju untuk menggunakan situs ini hanya untuk tujuan yang sah dan dengan cara yang tidak melanggar hak, atau membatasi atau menghambat penggunaan dan kenikmatan situs ini oleh pihak ketiga mana pun.</p>
 
       <h2>Kekayaan Intelektual</h2>
       <p>Semua konten yang disertakan di situs ini, seperti teks, grafik, logo, gambar, dan perangkat lunak, adalah milik TK Kartikasari atau pemasok kontennya dan dilindungi oleh undang-undang hak cipta. Penggunaan konten tanpa izin tertulis dari kami secara tegas dilarang.</p>
 
       <h2>Informasi Pendaftaran</h2>
-      <p>Dengan mengirimkan formulir pendaftaran melalui situs ini, Anda menjamin bahwa semua informasi yang diberikan adalah akurat, terkini, dan lengkap. Memberikan informasi yang tidak akurat dapat mengakibatkan penundaan atau penolakan pendaftaran.</p>
+      <p>Dengan menyerahkan dokumen pendaftaran kepada kami, Anda menjamin bahwa semua informasi yang diberikan adalah akurat, terkini, dan lengkap. Memberikan informasi yang tidak akurat dapat mengakibatkan penundaan atau penolakan pendaftaran.</p>
 
       <h2>Batasan Tanggung Jawab</h2>
       <p>Website dan kontennya disediakan \"sebagaimana adanya\". Meskipun kami berusaha untuk memberikan informasi yang akurat, kami tidak membuat jaminan apa pun, tersurat maupun tersirat, mengenai keakuratan, kelengkapan, atau keandalan informasi. TK Kartikasari tidak akan bertanggung jawab atas kerugian atau kerusakan apa pun yang timbul dari penggunaan situs ini.</p>

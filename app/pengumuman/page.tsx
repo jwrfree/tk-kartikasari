@@ -1,91 +1,56 @@
-import PageHeader from "@/components/layout/PageHeader";
-import PageSection from "@/components/layout/PageSection";
-import data from "@/data/pengumuman.json";
-import { createPageMetadata } from "@/lib/metadata";
+import { client } from '@/lib/sanity';
+import Link from 'next/link';
 
-type Pengumuman = (typeof data)[number];
+// Ambil semua data pengumuman, urutkan dari yang terbaru
+type NewsItem = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  publishedAt: string;
+};
 
-function formatDate(value: string) {
-  return new Date(value).toLocaleDateString("id-ID", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+async function getNewsData(): Promise<NewsItem[]> {
+  const query = `*[_type == "news"] | order(publishedAt desc)`;
+
+  try {
+    const data = await client.fetch<NewsItem[]>(query);
+    return data ?? [];
+  } catch (error) {
+    console.error('Failed to fetch pengumuman from Sanity:', error);
+    return [];
+  }
 }
 
-function isExternal(url: string) {
-  return url.startsWith("http");
-}
-
-const pengumumanDescription =
-  "Pantau kabar terbaru terkait PPDB, agenda orang tua, hingga informasi akademik dan libur sekolah. Daftar berikut akan diperbarui secara berkala.";
-
-export const metadata = createPageMetadata({
-  title: "Pengumuman",
-  description: pengumumanDescription,
-  path: "/pengumuman",
-});
-
-export default function Page() {
-  const items = [...data].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+// Halaman utama untuk menampilkan daftar pengumuman
+export default async function PengumumanPage() {
+  const newsItems = await getNewsData();
 
   return (
-    <>
-      <PageHeader
-        eyebrow="Pengumuman"
-        title="Info Resmi TK Kartikasari"
-        description={pengumumanDescription}
-      />
-
-      <PageSection padding="tight">
-        {items.length === 0 ? (
-          <div className="card p-7 text-base leading-relaxed text-text-muted">
-            Belum ada pengumuman terkini. Silakan kembali beberapa saat lagi atau hubungi sekolah melalui WhatsApp.
-          </div>
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-8 text-center">Pengumuman Sekolah</h1>
+      <div className="space-y-6">
+        {newsItems.length === 0 ? (
+          <p className="text-center text-gray-500">Belum ada pengumuman terbaru saat ini.</p>
         ) : (
-          <div className="space-y-4">
-            {items.map((item: Pengumuman) => {
-              const external = isExternal(item.url);
-              return (
-                <a
-                  key={item.id}
-                  href={item.url}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                  className="group block rounded-3xl border border-border/60 bg-white p-6 transition hover:border-secondary hover:shadow-soft"
-                >
-                  <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide text-secondary">
-                    <span className="rounded-full bg-secondary/10 px-3 py-1 text-secondary">{item.category}</span>
-                    <time dateTime={item.date} className="text-text-muted">
-                      {formatDate(item.date)}
-                    </time>
-                  </div>
-                  <h2 className="mt-4 text-2xl font-semibold text-text">{item.title}</h2>
-                  <p className="mt-3 text-base text-text-muted">{item.excerpt}</p>
-                  <span className="mt-3 inline-flex items-center gap-2 text-base font-semibold text-secondary">
-                    Selengkapnya
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={1.6}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-4 w-4 transition group-hover:translate-x-1"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="m13 6 6 6-6 6" />
-                    </svg>
-                  </span>
-                </a>
-              );
-            })}
-          </div>
+          newsItems.map((item) => (
+            <article key={item._id} className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h2 className="text-xl font-semibold">
+                {/* Buat link ke halaman detail nantinya */}
+                <Link href={`/pengumuman/${item.slug.current}`}>
+                  {item.title}
+                </Link>
+              </h2>
+              <p className="text-gray-500 mt-2">
+                {new Date(item.publishedAt).toLocaleDateString('id-ID', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
+                })}
+              </p>
+            </article>
+          ))
         )}
-      </PageSection>
-    </>
+      </div>
+    </div>
   );
 }

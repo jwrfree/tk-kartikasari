@@ -1,10 +1,13 @@
 
 import Link from 'next/link';
+import Image from 'next/image';
 import PageHeader from '@/components/layout/PageHeader';
-import { blogPosts, BlogPost } from '@/content/blog';
+import { getPosts, Post } from '@/lib/blog'; // Import Post from @/lib/blog
 import { ArrowRight } from 'react-bootstrap-icons';
 
-export default function BlogListPage() {
+export default async function BlogListPage() {
+  const posts = await getPosts();
+
   return (
     <>
       <PageHeader
@@ -15,32 +18,54 @@ export default function BlogListPage() {
 
       <div className="bg-surfaceAlt">
         <div className="content-container py-16 sm:py-20">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
-            ))}
-          </div>
+          {posts.length === 0 ? (
+            <p className="text-center text-text-muted">
+              Belum ada postingan. Silakan tambahkan data di Firestore.
+            </p>
+          ) : (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => (
+                <BlogCard key={post.slug} post={post} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
   );
 }
 
-function BlogCard({ post }: { post: BlogPost }) {
+function BlogCard({ post }: { post: Post }) {
+  const description = post.body?.raw ? post.body.raw.substring(0, 100) + '...' : '';
+
   return (
-    <Link href={`/blog/${post.slug}`}>
-      <div className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-primary/20">
-        <div className="aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
-          <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
+    <Link href={`/blog/${post.slug}`} className="group">
+      <div className="card h-full transform-gpu overflow-hidden bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
+        <div className="relative aspect-[16/9] w-full">
+          {post.coverImage ? (
+            <Image
+              src={post.coverImage}
+              alt={`Gambar cover untuk ${post.title}`}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-surface-muted">
+              <p className="text-sm text-text-disabled">Gambar tidak tersedia</p>
+            </div>
+          )}
         </div>
-        <div className="flex h-full flex-col p-6">
+        <div className="flex flex-col p-6">
           <p className="text-sm text-text-muted">
-            {new Date(post.publishedAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-            <span className="mx-1">·</span>
-            {post.readingTime} min baca
+            {new Date(post.date).toLocaleDateString('id-ID', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
           </p>
           <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
-          <p className="mt-2 flex-grow text-sm text-text-muted">{post.description}</p>
+          <p className="mt-2 flex-grow text-sm text-text-muted">{description}</p>
           <div className="mt-4 flex items-center text-sm font-semibold text-primary">
             Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
           </div>

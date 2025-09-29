@@ -3,14 +3,16 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import site from '@/data/site.json';
 import DesktopNav from '@/components/DesktopNav';
 import MobileNav from '@/components/MobileNav';
 import MobileMenu from '@/components/MobileMenu';
+import { useSiteData } from '@/app/providers/SiteDataProvider';
 
 export default function Header() {
+  const { siteSettings } = useSiteData();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const tagline = siteSettings.tagline?.trim() || 'PAUD hangat di Bantarsari, Cilacap.';
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -48,11 +50,20 @@ export default function Header() {
               className="flex shrink-0 items-center gap-3 text-text transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/60 bg-white/70 shadow-soft backdrop-blur-sm">
-                <img src={site.logo} alt="Logo TK Kartikasari" className="h-8 w-8 object-contain" />
+                <img
+                  src={siteSettings.logoUrl ?? "/logo-minimal-full.png"}
+                  alt={`Logo ${siteSettings.schoolName}`}
+                  className="h-8 w-8 object-contain"
+                />
               </span>
               <span className="flex min-w-0 flex-col leading-tight">
-                <span className="truncate text-base font-semibold md:text-lg">{site.schoolName}</span>
-                <span className="hidden text-xs text-text-muted sm:inline">Bulaksari, Bantarsari, Cilacap</span>
+                <span className="truncate text-base font-semibold md:text-lg">{siteSettings.schoolName}</span>
+                <span
+                  className="hidden text-xs text-text-muted sm:block sm:text-sm"
+                  title={siteSettings.address}
+                >
+                  {tagline}
+                </span>
               </span>
             </Link>
             <DesktopNav />

@@ -1,0 +1,26 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // By default, allow public read access to all collections, but deny all writes.
+    // This will make your site accessible to visitors again.
+    match /{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Override the default rule to allow authenticated users to write to the 'blogs' collection.
+    // For true admin-only access, you would change the condition to:
+    // allow write: if request.auth.token.admin == true;
+    match /blogs/{blogId} {
+      allow write: if request.auth != null;
+    }
+
+    // Allow authenticated users to write to the 'pages' collection.
+    match /pages/{pageId} {
+       allow write: if request.auth != null;
+    }
+  }
+}

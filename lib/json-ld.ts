@@ -1,54 +1,82 @@
 
-import type { BlogPosting, Organization, WebSite, LocalBusiness, EducationalOrganization } from 'schema-dts';
+import type {
+  BlogPosting,
+  Organization,
+  WebSite,
+  EducationalOrganization,
+} from "schema-dts";
 
-import site from '@/data/site.json';
+import { fallbackContent } from "@/lib/fallback-content";
+import type { OfficialProfile, SiteSettings } from "@/lib/types/site";
 
-export function createOrganizationJsonLd(): Organization {
+const DEFAULT_COORDINATES = {
+  latitude: -7.538686670001884,
+  longitude: 108.9757754284218,
+};
+
+const defaultSiteSettings = fallbackContent.siteSettings;
+const defaultOfficialProfile = fallbackContent.about.officialProfile;
+
+function resolveLogoUrl(siteSettings: SiteSettings) {
+  return siteSettings.logoUrl ?? new URL("/logo.png", siteSettings.siteUrl).toString();
+}
+
+export function createOrganizationJsonLd(siteSettings: SiteSettings = defaultSiteSettings): Organization {
   return {
-    '@type': 'Organization',
-    name: site.schoolName,
-    url: site.siteUrl,
-    logo: new URL('/logo.png', site.siteUrl).toString(),
-    sameAs: Object.values(site.socialLinks),
+    "@type": "Organization",
+    name: siteSettings.schoolName,
+    url: siteSettings.siteUrl,
+    logo: resolveLogoUrl(siteSettings),
+    sameAs: siteSettings.socialLinks.map((link) => link.url),
   };
 }
 
-export function createWebSiteJsonLd(): WebSite {
+export function createWebSiteJsonLd(siteSettings: SiteSettings = defaultSiteSettings): WebSite {
   return {
-    '@type': 'WebSite',
-    name: site.schoolName,
-    url: site.siteUrl,
+    "@type": "WebSite",
+    name: siteSettings.schoolName,
+    url: siteSettings.siteUrl,
     potentialAction: {
-      '@type': 'SearchAction',
-      target: `${site.siteUrl}/search?q={search_term_string}`,
-      query: 'required name=search_term_string',
+      "@type": "SearchAction",
+      target: `${siteSettings.siteUrl}/search?q={search_term_string}`,
+      query: "required name=search_term_string",
     },
   };
 }
 
-export function createLocalBusinessJsonLd(): EducationalOrganization {
-    return {
-        '@type': 'School',
-        name: site.schoolName,
-        address: {
-            '@type': 'PostalAddress',
-            streetAddress: 'Jl. K.H. Syarbini Hasan No.2, Sidadadi, Bulaksari',
-            addressLocality: 'Bantarsari',
-            addressRegion: 'Cilacap',
-            postalCode: '53258',
-            addressCountry: 'ID',
-        },
-        telephone: site.whatsapp,
-        openingHours: site.openingHours,
-        geo: {
-            '@type': 'GeoCoordinates',
-            latitude: -7.538686670001884,
-            longitude: 108.9757754284218,
-        },
-        url: site.siteUrl,
-        logo: new URL('/logo.png', site.siteUrl).toString(),
-        image: new URL('/logo.png', site.siteUrl).toString(),
-    };
+type LocalBusinessOptions = {
+  siteSettings?: SiteSettings;
+  officialProfile?: OfficialProfile;
+  coordinates?: { latitude: number; longitude: number };
+};
+
+export function createLocalBusinessJsonLd({
+  siteSettings = defaultSiteSettings,
+  officialProfile = defaultOfficialProfile,
+  coordinates = DEFAULT_COORDINATES,
+}: LocalBusinessOptions = {}): EducationalOrganization {
+  return {
+    "@type": "School",
+    name: siteSettings.schoolName,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteSettings.address,
+      addressLocality: officialProfile.locationArea ?? "Bantarsari",
+      addressRegion: "Cilacap",
+      postalCode: "53258",
+      addressCountry: "ID",
+    },
+    telephone: siteSettings.whatsapp,
+    openingHours: siteSettings.openingHours,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
+    },
+    url: siteSettings.siteUrl,
+    logo: resolveLogoUrl(siteSettings),
+    image: resolveLogoUrl(siteSettings),
+  };
 }
 
 type CreateBlogPostingJsonLdOptions = {
@@ -77,10 +105,10 @@ export function createBlogPostingJsonLd({
     },
     publisher: {
       '@type': 'Organization',
-      name: site.schoolName,
+      name: defaultSiteSettings.schoolName,
       logo: {
         '@type': 'ImageObject',
-        url: new URL('/logo.png', site.siteUrl).toString(),
+        url: resolveLogoUrl(defaultSiteSettings),
       },
     },
     mainEntityOfPage: {

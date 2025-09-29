@@ -1,43 +1,45 @@
 import HomePageContent from "@/components/home/HomePageContent";
 import JsonLd from "@/components/JsonLd";
-import {
-  homeFaqs,
-  homeCredentials,
-  homeHeroDescription,
-  homeHighlights,
-  homeJourney,
-  homeCurriculumPillars,
-  homePrograms,
-  homeStats,
-  homeTimeline,
-} from "@/content/home";
-import { blogPosts } from "@/content/blog";
-import site from "@/data/site.json";
+import { getPosts } from "@/lib/blog";
 import { createPageMetadata } from "@/lib/metadata";
 import { preschoolSchema } from "@/lib/schema";
+import { getHomePageData } from "@/lib/sanity.queries";
 
-export const metadata = createPageMetadata({
-  title: "Beranda",
-  description: homeHeroDescription,
-  path: "/",
-});
+export async function generateMetadata() {
+  const { home, siteSettings } = await getHomePageData();
+  return createPageMetadata({
+    title: "Beranda",
+    description: home.heroDescription,
+    path: "/",
+    siteSettings,
+  });
+}
 
-export default function Page() {
-  const schema = preschoolSchema();
+export default async function Page() {
+  const [{ home, siteSettings, officialProfile, testimonials }, blogPosts] = await Promise.all([
+    getHomePageData(),
+    getPosts(),
+  ]);
+
+  const schema = preschoolSchema({
+    siteSettings,
+    officialProfile,
+  });
 
   return (
     <>
       <HomePageContent
-        schoolName={site.schoolName}
-        stats={homeStats}
-        highlights={homeHighlights}
-        programs={homePrograms}
-        journey={homeJourney}
-        faqs={homeFaqs}
-        credentials={homeCredentials}
-        curriculumPillars={homeCurriculumPillars}
-        timeline={homeTimeline}
-        blogPosts={blogPosts}
+        schoolName={siteSettings.schoolName}
+        stats={home.stats}
+        highlights={home.highlights}
+        programs={home.programs}
+        journey={home.journey}
+        faqs={home.faqs}
+        credentials={home.credentials}
+        curriculumPillars={home.curriculumPillars}
+        timeline={home.timeline}
+        blogPosts={blogPosts.slice(0, 3)}
+        testimonials={testimonials}
       />
       <JsonLd data={schema} />
     </>

@@ -5,6 +5,7 @@ import CTAButton from "@/components/CTAButton";
 import TestimonialList from "@/components/TestimonialList";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
+import HomeDailyAgenda from "./HomeDailyAgenda";
 import type {
   HomeCredential,
   HomeCurriculumPillar,
@@ -15,10 +16,17 @@ import type {
   HomeStat,
   HomeTimelineMilestone,
 } from "@/app/types/home";
-import { BlogPost } from "@/content/blog";
+import type { Post as BlogPost } from "@/lib/blog";
+import type { Testimonial } from "@/lib/types/site";
 import { ArrowRight, CheckCircle } from "react-bootstrap-icons";
 import Link from "next/link";
+import Image from "next/image";
 import AnimateIn from "@/components/AnimateIn";
+import { homeJourney as homeJourneyStatic } from "@/content/home";
+import {
+  ppdbMetaDescription,
+  syaratDanKetentuan as ppdbRequirementsStatic,
+} from "@/content/ppdb";
 
 type HomePageContentProps = {
   schoolName: string;
@@ -31,6 +39,7 @@ type HomePageContentProps = {
   curriculumPillars: HomeCurriculumPillar[];
   timeline: HomeTimelineMilestone[];
   blogPosts: BlogPost[];
+  testimonials: Testimonial[];
 };
 
 export default function HomePageContent({
@@ -44,14 +53,70 @@ export default function HomePageContent({
   curriculumPillars,
   timeline,
   blogPosts,
+  testimonials,
 }: HomePageContentProps) {
+  const teacherStudentRatio =
+    stats.find((item) => item.label.toLowerCase().includes("rasio"))?.value ?? "1 : 8";
+  const schoolNpsn = credentials.find((item) => item.label.toLowerCase() === "npsn")?.value;
+
+  const biayaRequirement = ppdbRequirementsStatic.find((item) =>
+    item.title.toLowerCase().includes("biaya"),
+  );
+  const documentRequirement = ppdbRequirementsStatic.find((item) =>
+    item.title.toLowerCase().includes("dokumen"),
+  );
+
+  const onboardingSteps = [
+    {
+      key: "routine",
+      href: "#pengalaman",
+      icon: "🧭",
+      title: "Kenali Rutinitas & Lingkungan",
+      description:
+        journey[0]?.description ??
+        homeJourneyStatic[0]?.description ??
+        "Lihat seperti apa agenda harian dan suasana pembelajaran yang menenangkan untuk si kecil.",
+      linkLabel: "Lihat rutinitas",
+    },
+    {
+      key: "cost",
+      href: "/biaya",
+      icon: "💡",
+      title: "Cek Perkiraan Biaya",
+      description:
+        biayaRequirement?.description ??
+        "Pelajari struktur biaya dan opsi pembayaran agar Ayah Bunda bisa merencanakan dengan tenang.",
+      linkLabel: "Lihat biaya",
+    },
+    {
+      key: "documents",
+      href: "/ppdb#requirements",
+      icon: "🗂️",
+      title: "Siapkan Dokumen Penting",
+      description:
+        documentRequirement?.description ??
+        "Siapkan dokumen dasar seperti akta kelahiran, KK, dan identitas orang tua untuk kelancaran administrasi.",
+      linkLabel: "Cek syarat",
+    },
+    {
+      key: "apply",
+      href: "/kontak",
+      icon: "📍",
+      title: "Diskusikan Ketersediaan Kuota",
+      description:
+        ppdbMetaDescription ??
+        "Hubungi admin TK Kartikasari untuk mengetahui status kuota terbaru, daftar tunggu, dan jadwal pembaruan PPDB.",
+      linkLabel: "Hubungi admin",
+    },
+  ] as const;
+
   return (
       <main>
         {/* Section 1: Hero (Kail) */}
         <PageSection
           className="relative overflow-hidden"
           padding="none"
-          containerClassName="relative grid gap-16 pb-24 pt-20 md:grid-cols-[1.05fr,0.95fr] md:items-center"
+          containerClassName="relative grid gap-16 pb-24 pt-20 lg:grid-cols-[1.1fr,0.9fr] lg:items-center"
         >
           <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <div className="absolute -top-32 right-16 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
@@ -74,7 +139,7 @@ export default function HomePageContent({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <CTAButton ctaKey="heroVisit" />
               <Link href="/ppdb" className="btn-secondary w-full sm:w-auto">
-                Daftar Sekarang
+                Info PPDB
               </Link>
             </div>
             <div className="grid gap-6 pt-6 sm:grid-cols-2 md:grid-cols-3">
@@ -90,71 +155,85 @@ export default function HomePageContent({
             </div>
           </div>
 
-          <AnimateIn
-            className="relative"
-          >
-            <div className="absolute -top-12 right-10 h-32 w-32 rounded-full bg-accent/40 blur-2xl"  aria-hidden="true" />
-            <div className="absolute -bottom-4 left-0 h-28 w-28 rounded-full bg-secondary/30 blur-2xl md:-bottom-8"  aria-hidden="true" />
-            <div className="relative space-y-5">
-              <div className="card overflow-hidden border-white/60 bg-white/70 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
-                <div className="flex items-center justify-between text-base font-semibold text-text">
-                  <span>Agenda Kurikulum Merdeka</span>
-                  <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
-                    Projek Profil Pelajar Pancasila
-                  </span>
-                </div>
-                <ul className="mt-4 space-y-3 text-base text-text-muted">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
-                      07.00
-                    </span>
-                    Penyambutan hangat, doa, dan pemetaan emosi anak.
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
-                      08.30
-                    </span>
-                    Diskusi nilai Pancasila dan eksplorasi budaya lokal.
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/15 text-xs font-semibold">
-                      10.00
-                    </span>
-                    Sentra pilihan: STEAM, literasi, seni, atau role play terarah.
-                  </li>
-                </ul>
-              </div>
-              <div className="ml-auto w-[85%] rounded-3xl border border-white/60 bg-white/50 p-6 shadow-soft backdrop-blur-xl backdrop-saturate-150">
-                <p className="text-base font-semibold text-secondary">Lingkungan aman & terdata resmi</p>
-                <p className="mt-3 text-base leading-relaxed text-text-muted">
-                  Terdaftar dengan NPSN {credentials[0]?.value ?? "20351273"}, area 440 m² terpantau, dan peralatan ramah anak untuk belajar yang nyaman.
-                </p>
-                <div className="mt-4 flex items-center gap-3 text-base font-semibold text-text">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
-                    😊
-                  </span>
-                  Rasio guru : anak {stats[2]?.value ?? "1 : 8"}
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
-                  <p className="text-base font-semibold text-secondary">Fokus Harian</p>
-                  <p className="mt-2 text-base text-text-muted">
-                    Nilai agama & budi pekerti, jati diri, serta kecakapan literasi sesuai fase fondasi.
-                  </p>
-                </div>
-                <div className="rounded-3xl border border-white/60 bg-white/60 p-5 shadow-soft backdrop-blur-lg backdrop-saturate-150">
-                  <p className="text-base font-semibold text-secondary">Asesmen Autentik</p>
-                  <p className="mt-2 text-base text-text-muted">
-                    Jurnal perkembangan, dokumentasi karya, dan umpan balik personal setiap pekan.
-                  </p>
-                </div>
+          <AnimateIn className="relative flex justify-center">
+            <div className="absolute -top-12 right-6 h-40 w-40 rounded-full bg-accent/30 blur-2xl" aria-hidden="true" />
+            <div className="absolute -bottom-6 left-2 h-36 w-36 rounded-full bg-secondary/25 blur-2xl md:-bottom-10" aria-hidden="true" />
+            <div className="relative w-full max-w-md space-y-5 rounded-[2.5rem] border border-white/60 bg-white/70 p-8 text-center shadow-soft backdrop-blur-xl backdrop-saturate-150">
+              <p className="text-lg font-semibold text-secondary">Belajar aktif & penuh perhatian</p>
+              <p className="text-base leading-relaxed text-text-muted">
+                Kelas kecil dengan guru pendamping personal membantu anak cepat nyaman, bereksplorasi, dan siap melanjutkan ke jenjang berikutnya.
+              </p>
+              <div className="flex items-center justify-center gap-3 text-base font-semibold text-text">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
+                  😊
+                </span>
+                Rasio guru : anak {teacherStudentRatio}
               </div>
             </div>
           </AnimateIn>
         </PageSection>
 
-        {/* Section 2: Keunggulan/Highlights (Janji Utama) - REVISED */}
+        {/* Section 2: Langkah Onboarding */}
+        <PageSection
+          className="relative border-y border-white/50 bg-gradient-to-br from-primary/10 via-white to-secondary/10"
+          padding="tight"
+        >
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <div className="absolute left-8 top-8 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
+            <div className="absolute right-12 bottom-12 h-48 w-48 rounded-full bg-secondary/20 blur-3xl" />
+          </div>
+          <AnimateIn className="relative">
+            <SectionHeader
+              align="center"
+              eyebrow="Mulai dari Sini"
+              eyebrowVariant="primary"
+              title="Alur singkat bergabung bersama TK Kartikasari"
+              description="Gunakan empat langkah ini sebagai panduan mengenal sekolah dan menyiapkan dokumen sebelum periode pendaftaran tatap muka berikutnya dibuka."
+            />
+          </AnimateIn>
+          <div className="relative mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {onboardingSteps.map((step, index) => (
+              <AnimateIn
+                key={step.key}
+                className="h-full"
+              >
+                <Link
+                  href={step.href}
+                  className="focus-visible-ring group flex h-full flex-col justify-between rounded-3xl border border-white/60 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:-translate-y-1 hover:border-primary/60"
+                >
+                  <div>
+                    <span className="inline-flex items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
+                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-primary/15 text-base" aria-hidden="true">
+                        {index + 1}
+                      </span>
+                      Langkah {index + 1}
+                    </span>
+                    <div className="mt-6 flex items-start gap-3">
+                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl" aria-hidden="true">
+                        {step.icon}
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-text">{step.title}</h3>
+                        <p className="mt-3 text-sm leading-relaxed text-text-muted">{step.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
+                    {step.linkLabel} <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
+              </AnimateIn>
+            ))}
+          </div>
+          <div className="relative mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
+            <Link href="/ppdb" className="btn-primary w-full sm:w-auto">
+              Info PPDB 2025/2026
+            </Link>
+            <CTAButton ctaKey="visitSchedule" className="w-full sm:w-auto" />
+          </div>
+        </PageSection>
+
+        {/* Section 3: Keunggulan/Highlights (Janji Utama) - REVISED */}
         <PageSection
           className="relative border-y border-white/50 bg-white/50 backdrop-blur-sm backdrop-saturate-150"
           padding="tight"
@@ -366,6 +445,7 @@ export default function HomePageContent({
             </div>
           </AnimateIn>
           <div className="relative space-y-4">
+            <HomeDailyAgenda npsn={schoolNpsn} teacherStudentRatio={teacherStudentRatio} />
             {journey.map((item) => (
               <AnimateIn
                 key={item.title}
@@ -387,7 +467,7 @@ export default function HomePageContent({
         </PageSection>
         
         {/* Section 6: Testimoni (Bukti Sosial) - REVISED POSITION */}
-        <TestimonialList />
+        <TestimonialList testimonials={testimonials} />
 
         {/* Section 7: Blog */}
         <PageSection id="blog" padding="tight">
@@ -399,27 +479,76 @@ export default function HomePageContent({
               title="Tips Parenting dan Kegiatan Sekolah Terbaru"
               description="Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari."
             />
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {blogPosts.slice(0, 3).map((post) => (
-                <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
-                  <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
-                    <div className="aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
-                      <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
-                    </div>
-                    <div className="flex h-full flex-col p-6">
-                      <p className="text-sm text-text-muted">
-                        {new Date(post.publishedAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-                      </p>
-                      <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
-                      <p className="mt-2 flex-grow text-sm text-text-muted">{post.description}</p>
-                      <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
-                        Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
+            {blogPosts.length > 0 ? (
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {blogPosts.slice(0, 3).map((post) => {
+                  const coverImage = post.coverImage;
+                  const publishedAt = post.date;
+                  const rawBody = post.body?.raw ?? '';
+                  const normalizedBody = rawBody
+                    .replace(/[#*_`>\-]/g, '')
+                    .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                  const description =
+                    normalizedBody.length > 160 ? `${normalizedBody.slice(0, 157)}...` : normalizedBody;
+
+                  return (
+                    <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
+                      <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
+                        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
+                          {coverImage ? (
+                            <Image
+                              src={coverImage}
+                              alt={post.title}
+                              fill
+                              className="object-cover"
+                              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-secondary/10 text-secondary">
+                              <span className="text-sm font-semibold">TK Kartikasari</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex h-full flex-col p-6">
+                          <p className="text-sm text-text-muted">
+                            {new Date(publishedAt).toLocaleDateString('id-ID', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })}
+                          </p>
+                          <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
+                          <p className="mt-2 flex-grow text-sm text-text-muted">
+                            {description || 'Baca kisah terbaru dari TK Kartikasari.'}
+                          </p>
+                          <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
+                            Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
+                          </div>
+                        </div>
+                      </article>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="card border-white/60 bg-white/70 p-8 text-center shadow-soft backdrop-blur-xl">
+                <h3 className="text-xl font-semibold text-text">Belum ada cerita terbaru</h3>
+                <p className="mt-3 text-base leading-relaxed text-text-muted">
+                  Tim kami sedang mempersiapkan artikel yang bisa membantu Ayah dan Bunda. Sementara itu, silakan jelajahi halaman lain atau hubungi kami untuk informasi langsung.
+                </p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                  <Link href="/program" className="btn-primary inline-flex items-center justify-center gap-2">
+                    Lihat program belajar
+                  </Link>
+                  <Link href="/kontak" className="btn-secondary inline-flex items-center justify-center gap-2">
+                    Hubungi kami
+                  </Link>
+                </div>
+              </div>
+            )}
           </AnimateIn>
         </PageSection>
 

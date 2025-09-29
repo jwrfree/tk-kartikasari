@@ -22,12 +22,12 @@ export default function MobileNav({ isOpen, onToggle }: MobileNavProps) {
           <motion.span
             className="absolute left-0 top-1 h-0.5 w-full rounded bg-current"
             animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
           />
           <motion.span
             className="absolute left-0 bottom-1 h-0.5 w-full rounded bg-current"
             animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
           />
         </span>
       </motion.button>

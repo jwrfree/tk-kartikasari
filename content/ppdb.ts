@@ -5,12 +5,12 @@ export type PpdbFaq = {
 };
 
 export const ppdbMetaDescription =
-  "Pendaftaran siswa baru TK Kartikasari tahun ajaran 2024/2025 telah dibuka. Daftar online sekarang melalui formulir pendaftaran kami yang mudah dan cepat. Kuota terbatas!";
+  "Pendaftaran siswa baru TK Kartikasari tahun ajaran 2025/2026 telah ditutup. Hubungi admin kami untuk menanyakan daftar tunggu atau informasi periode penerimaan berikutnya.";
 
 export const syaratDanKetentuan = [
   {
     title: "Usia Calon Siswa",
-    description: "Minimal 4 tahun untuk Kelompok A dan 5 tahun untuk Kelompok B per 31 Juli 2024.",
+    description: "Minimal 4 tahun untuk Kelompok A dan 5 tahun untuk Kelompok B per 31 Juli 2025.",
   },
   {
     title: "Kelengkapan Dokumen",
@@ -28,9 +28,9 @@ export const syaratDanKetentuan = [
 
 export const ppdbFaqs: PpdbFaq[] = [
   {
-    question: "Bagaimana cara mendaftar secara online?",
+    question: "Bagaimana cara mendaftar?",
     answer:
-      "Cukup klik tombol 'Daftar Sekarang' di halaman ini, isi formulir data anak dan orang tua, lalu lakukan konfirmasi. Prosesnya hanya membutuhkan waktu sekitar 5-10 menit.",
+      "Silakan hubungi admin PPDB melalui WhatsApp untuk menjadwalkan kunjungan. Ayah/Bunda dapat membawa anak sekaligus menyerahkan dokumen saat datang ke sekolah.",
   },
   {
     question: "Apa saja yang termasuk dalam SPP bulanan?",
@@ -43,9 +43,9 @@ export const ppdbFaqs: PpdbFaq[] = [
       "Seluruh biaya pendaftaran dialokasikan langsung untuk proses administrasi dan memastikan kuota tidak terisi oleh calon lain. Oleh karena itu, biaya ini bersifat non-refundable. Kami sarankan untuk memastikan semua informasi sudah sesuai sebelum melakukan pembayaran.",
   },
   {
-    question: "Kapan saya akan dihubungi setelah mengirim formulir?",
+    question: "Kapan kami akan dihubungi setelah menyerahkan berkas?",
     answer:
-      "Salah satu perwakilan kami akan menghubungi Ayah/Bunda secara personal melalui WhatsApp dalam 1x24 jam pada hari kerja untuk memverifikasi data dan menjawab pertanyaan awal.",
+      "Tim administrasi akan mengonfirmasi penerimaan berkas dan jadwal tindak lanjut melalui WhatsApp maksimal 1x24 jam pada hari kerja.",
   },
   {
       question: "Apakah ada diskon untuk saudara kandung?",

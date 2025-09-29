@@ -1,15 +1,18 @@
-import site from '@/data/site.json'
+"use client"
+
+import MapEmbedClient from "./MapEmbedClient"
+import { useSiteData } from "@/app/providers/SiteDataProvider"
+
+const MAP_PREVIEW_IMAGE = {
+  src: "/images/map-placeholder.svg",
+  alt: "Pratinjau lokasi TK Kartikasari dalam peta",
+} as const
+
 export default function MapEmbed() {
+  const { siteSettings } = useSiteData();
   return (
     <div className="card overflow-hidden">
-      <iframe
-        src={site.mapsUrl}
-        className="w-full h-[320px]"
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        title="Lokasi TK Kartikasari"
-        aria-label="Lokasi TK Kartikasari"
-      />
+      <MapEmbedClient mapSrc={siteSettings.mapsUrl} previewImage={MAP_PREVIEW_IMAGE} />
     </div>
   )
 }

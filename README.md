@@ -1,25 +1,26 @@
 # TK Kartikasari — Website Resmi
 
-**Website Live: [https://tk-kartikasari.vercel.app](https://tk-kartikasari.vercel.app)**
+**Website Live: [https://tkkartikasari.vercel.app](https://tkkartikasari.vercel.app)**
 
 Selamat datang di repositori resmi website TK Kartikasari Bantarsari. Proyek ini dibangun menggunakan arsitektur modern dengan Next.js (App Router) dan Tailwind CSS untuk memberikan pengalaman pengguna yang cepat, informatif, dan mudah diakses.
 
-Dokumen ini berisi semua yang perlu Anda ketahui tentang proyek, mulai dari fitur, cara kerja, hingga bagaimana cara mengelolanya.
+Dokumen ini berisi ringkasan fitur, cara menjalankan proyek, hingga panduan mengelola konten yang sekarang dipusatkan melalui Sanity.
 
 ## Status Proyek
 
-**Versi 1.0.0 (Stabil):** Website telah berhasil diluncurkan dan saat ini beroperasi penuh.
+**Versi 1.1.0 (Sanity & Reliability Update):** Website beroperasi penuh dengan sumber konten terpusat di Sanity dan lapisan fallback untuk memastikan halaman tetap tampil meski koneksi ke CMS terganggu.
 
 - Untuk melihat riwayat perubahan, silakan kunjungi **[CHANGELOG.md](CHANGELOG.md)**.
-- Untuk rencana pengembangan fitur di masa depan (v2.0), silakan lihat **[Roadmap.md](docs/roadmap.md)**.
+- Untuk rencana pengembangan fitur di masa depan (v2.0), silakan lihat **[docs/roadmap.md](docs/roadmap.md)**.
 
 ## Fitur Utama
 
 - **Arsitektur Multi-Halaman:** Setiap seksi utama (Tentang, Program, PPDB, dll.) adalah halaman terpisah untuk optimasi SEO dan navigasi yang lebih baik.
-- **Desain Responsif:** Tampilan website beradaptasi secara mulus di berbagai perangkat, dari desktop hingga mobile.
-- **Manajemen Konten via Data Files:** Konten dinamis seperti Rincian Biaya, Agenda, dan Pengumuman dikelola melalui file JSON (`/data`), memisahkan data dari kode.
-- **Blog & Artikel:** Sistem blog yang terintegrasi untuk mempublikasikan berita dan artikel.
-- **SEO-Ready:** Dioptimalkan untuk mesin pencari dengan sitemap, `robots.txt`, dan data terstruktur (JSON-LD) untuk setiap halaman.
+- **Konten Terpusat via Sanity:** Semua copy, navigasi, CTA, agenda, galeri, biaya, hingga legalitas diambil dari dokumen `siteContent` Sanity sehingga mudah diperbarui oleh tim non-teknis.
+- **Fallback Konten Otomatis:** Jika CMS tidak dapat dijangkau saat build ataupun runtime, website memanfaatkan data cadangan di `lib/fallback-content.ts` agar pengalaman pengguna tetap utuh.
+- **Desain Responsif & Konsisten:** Tampilan website beradaptasi secara mulus di berbagai perangkat, dengan tone dan UX writing yang terdokumentasi di [docs/ux-writing-guidelines.md](docs/ux-writing-guidelines.md).
+- **Pengalaman Error yang Empatik:** Halaman error global dan halaman 404 khusus menyediakan pesan manusiawi, tombol aksi lanjut, dan link dukungan.
+- **Keamanan & SEO:** Middleware memaksa trafik ke HTTPS, metadata per halaman dioptimalkan, dan JSON-LD terstruktur diinjeksikan secara otomatis.
 - **Integrasi Peta:** Google Maps tersemat untuk memudahkan orang tua menemukan lokasi sekolah.
 
 ## Struktur & Teknologi
@@ -28,17 +29,27 @@ Dokumen ini berisi semua yang perlu Anda ketahui tentang proyek, mulai dari fitu
 - **Styling:** Tailwind CSS
 - **Animasi:** Framer Motion
 - **Bahasa:** TypeScript
-- **Deployment:** Vercel
+- **CMS:** Sanity (dataset `production`)
+- **Deployment:** Vercel dengan middleware redirect HTTPS
 
 ## Mengelola Konten Website
 
-Untuk memperbarui konten, Anda tidak perlu mengubah kode di dalam halaman. Cukup edit file yang sesuai di bawah ini:
+Seluruh konten publik bersumber dari dokumen Sanity `siteContent`. Update dapat dilakukan melalui **Sanity Studio** tanpa menyentuh kode.
 
-- **Rincian Biaya:** Edit file `data/biaya.json`.
-- **Postingan Blog Baru:** Tambahkan entri baru di file `content/blog.ts`.
-- **Jadwal Agenda:** Edit file `data/agenda.json`.
-- **Pengumuman:** Edit file `data/pengumuman.json`.
-- **Gambar Galeri:** Tambahkan file gambar baru ke folder `public/photos/` dan perbarui `data/galeri.json`.
+1. **Jalankan Studio secara lokal** (opsional untuk preview sebelum deploy):
+   ```bash
+   npx sanity dev --host
+   ```
+   Studio mengambil konfigurasi dari `sanity.config.ts`.
+2. **Masuk ke dokumen `Site Content`** dan perbarui:
+   - **Site Settings:** nama sekolah, URL resmi, alamat, kontak WhatsApp, media sosial.
+   - **Navigation & CTA:** label menu, tautan internal, teks tombol aksi utama.
+   - **Halaman Konten:** hero beranda, program, PPDB, agenda, galeri, testimoni, legalitas, hingga FAQ.
+3. **Publish** perubahan untuk menyebarkannya. Build produksi akan membaca data terbaru; selama proses build, fallback lokal memastikan halaman tetap tersaji bila koneksi Sanity bermasalah.
+
+> **Catatan:** Jika Anda menambahkan tipe konten baru di Sanity, sinkronkan tipe tersebut dengan TypeScript di `lib/types/site.ts` dan fallback di `lib/fallback-content.ts`.
+
+Untuk konten blog, gunakan skema `post` di Sanity. Komponen frontend akan otomatis membaca daftar artikel saat fitur blog diaktifkan kembali.
 
 ## Instalasi & Menjalankan Proyek Secara Lokal
 
@@ -63,6 +74,17 @@ Untuk menjalankan proyek ini di komputer Anda:
 
     Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat hasilnya.
 
+### Variabel Lingkungan
+
+Buat file `.env.local` (atau salin `.env`) berisi kredensial berikut:
+
+```bash
+NEXT_PUBLIC_SANITY_PROJECT_ID="<project-id>"
+NEXT_PUBLIC_SANITY_DATASET="production"
+```
+
+Untuk build produksi, pastikan variabel lingkungan yang sama tersedia di platform hosting (mis. Vercel Project Settings).
+
 ## Lisensi
 
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
@@ -75,21 +97,19 @@ Bagian ini mendokumentasikan keputusan arsitektur untuk pengembangan di masa dep
 
 ### Latar Belakang
 
-Saat ini, konten dinamis seperti rincian biaya dan postingan blog dikelola melalui file statis (`.json` atau `.ts`) di dalam repositori. Meskipun pendekatan ini sederhana untuk memulai, ini memiliki keterbatasan untuk fitur yang lebih kompleks seperti dasbor admin atau manipulasi data secara real-time.
+Sebelumnya, konten dinamis seperti rincian biaya dan postingan blog disimpan dalam file statis (`/data`, `/content`). Seiring pertumbuhan kebutuhan, pendekatan tersebut menyulitkan sinkronisasi lintas tim dan menyita waktu saat melakukan pembaruan harian.
 
-### Rencana Migrasi ke Firebase
+### Transisi ke Sanity Headless CMS
 
-Untuk mengatasi keterbatasan tersebut dan membangun fondasi yang kuat, kami telah memutuskan untuk mengadopsi **Firebase** sebagai Backend-as-a-Service (BaaS).
+Untuk mempercepat iterasi konten tanpa harus melakukan redeploy setiap kali ada perubahan, website ini bermigrasi penuh ke **Sanity** sebagai Headless CMS.
 
--   **Hosting Frontend:** Akan tetap di **Vercel** untuk memanfaatkan integrasi terbaiknya dengan Next.js.
--   **Database & Backend:** Akan menggunakan layanan **Firebase**.
-    -   **Firestore:** Data dari file `.json` dan `.ts` (seperti biaya, blog, FAQ) akan dimigrasikan ke database NoSQL Firestore. Ini memungkinkan manajemen data yang lebih mudah dan query yang lebih kuat.
-    -   **Firebase Authentication:** Akan digunakan untuk mengamankan dasbor admin, memungkinkan pengeditan konten yang aman tanpa perlu melakukan perubahan kode.
+- **Satu Dokumen Terpadu:** Seluruh copy, struktur navigasi, CTA, agenda, galeri, biaya, hingga halaman legal tersimpan dalam dokumen `siteContent`. Hal ini memudahkan tim non-teknis memperbarui informasi secara konsisten.
+- **Fallback & Cache:** `SiteDataProvider` memanfaatkan caching Next.js dan fallback lokal sehingga halaman tetap stabil ketika CMS tidak responsif atau saat membangun secara offline.
+- **UX Writing Konsisten:** Dokumen [docs/ux-writing-guidelines.md](docs/ux-writing-guidelines.md) memastikan tone yang empatik dan profesional di seluruh halaman, termasuk pada error state.
+- **Enforced HTTPS:** Middleware bawaan memastikan semua trafik publik dialihkan ke HTTPS untuk menjaga keamanan pengunjung.
 
-### Mengapa Kombinasi Vercel + Firebase?
+### Langkah Berikutnya
 
--   **Kecepatan Pengembangan:** Menggunakan Firebase (Firestore & Auth) secara drastis mengurangi waktu yang dibutuhkan untuk membangun backend yang aman dan skalabel.
--   **Kemudahan untuk Developer:** Memisahkan backend (Firebase) dari frontend (Vercel) menciptakan alur kerja yang bersih. Developer frontend dapat fokus pada UI/UX, sementara data dikelola secara terpusat.
--   **Skalabilitas Biaya:** Paket gratis "Spark" dari Firebase lebih dari cukup untuk kebutuhan awal hingga menengah, menjadikan solusi ini sangat hemat biaya untuk memulai.
-
-Ini adalah *stack* teknologi (Vercel + Next.js + Firebase) yang sangat modern, kuat, dan populer, memberikan keseimbangan sempurna antara pengalaman developer, performa, dan skalabilitas.
+- Mengaktifkan kembali fitur blog publik menggunakan data `post` dari Sanity.
+- Menambah validasi otomatis (mis. linting schema atau webhook) agar perubahan konten besar dapat terpantau.
+- Mengeksplorasi integrasi Studio Embedded di dashboard internal agar admin dapat mengelola konten langsung dari website.
