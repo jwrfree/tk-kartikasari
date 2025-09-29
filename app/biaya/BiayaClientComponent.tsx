@@ -46,8 +46,8 @@ export default function BiayaClientComponent({ biayaPokok }: BiayaClientComponen
       {/* Kolom Rincian Biaya */}
       <div>
         <div className="mb-8">
-          <h3 className="text-3xl font-bold text-text">Rincian Biaya Pokok</h3>
-          <p className="text-lg text-text-muted mt-2">Biaya esensial untuk memulai pendidikan di TK Kartikasari.</p>
+          <h3 className="text-3xl font-bold text-text">Rincian Skema Biaya Pokok (Estimasi)</h3>
+          <p className="text-lg text-text-muted mt-2">Gambaran struktur biaya sementara yang kami gunakan sebagai acuan awal sebelum angka resmi diterbitkan.</p>
         </div>
         <div className="space-y-4">
           {biayaPokok.map((item) => (
@@ -64,8 +64,8 @@ export default function BiayaClientComponent({ biayaPokok }: BiayaClientComponen
 
       {/* Kolom Kalkulator Estimasi */}
       <div className="rounded-2xl bg-primary/5 border border-primary/20 p-8 sticky top-24">
-        <h3 className="text-2xl font-bold text-text text-center">Simulasi Biaya 1 Tahun Pertama</h3>
-        <p className="text-text-muted text-center mt-2">Perkirakan total investasi pendidikan anak Anda.</p>
+        <h3 className="text-2xl font-bold text-text text-center">Simulasi Skema Biaya 1 Tahun Pertama</h3>
+        <p className="text-text-muted text-center mt-2">Gunakan kalkulator ini untuk memahami estimasi awal sebelum kami merilis angka final.</p>
 
         <div className="mt-8">
           {/* Rincian Kalkulasi */}
