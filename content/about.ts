@@ -80,9 +80,9 @@ export const aboutStrengths: StrengthItem[] = [
 ];
 
 export const aboutMission: string[] = [
-  "Menguatkan karakter religius, empati, dan kemandirian melalui pembiasaan harian yang positif.",
-  "Menghadirkan pengalaman Kurikulum Merdeka yang menyenangkan, terdiferensiasi, dan relevan dengan kehidupan anak.",
-  "Membangun kemitraan erat bersama keluarga untuk menyukseskan Projek Profil Pelajar Pancasila dan asesmen autentik.",
-  "Menyediakan lingkungan belajar yang aman, inklusif, dan kaya akan stimulasi positif.",
-  "Mengembangkan literasi, numerasi, serta kecakapan saintifik, teknologi, dan seni sebagai bekal transisi menuju sekolah dasar.",
+  "Menumbuhkan karakter religius, empati, dan kemandirian melalui rutinitas harian yang hangat.",
+  "Menghadirkan kegiatan belajar yang menyenangkan, mudah dipahami, dan sesuai usia anak.",
+  "Membangun kemitraan erat dengan keluarga untuk memastikan pembelajaran anak relevan dan saling mendukung.",
+  "Menjaga lingkungan bermain yang aman, inklusif, dan kaya stimulasi positif.",
+  "Mendorong anak bereksplorasi lewat literasi, numerasi, seni, dan teknologi secara bertahap.",
 ];

@@ -76,6 +76,7 @@ export type TeacherProfile = {
   position: string;
   description: string;
   imageUrl?: string | null;
+  impactStatement?: string | null;
 };
 
 export type ProgramClass = {

@@ -18,7 +18,7 @@ export const generalInquiryCTA: CTAConfig = {
 };
 
 export const heroVisitCTA: CTAConfig = {
-  label: "Daftar PPDB & Tur Sekolah",
+  label: "Daftar PPDB & Jadwalkan Tur Sekolah Hari Ini",
   message:
     "Halo Bu Mintarsih, saya ingin menjadwalkan kunjungan dan mendapatkan info PPDB TK Kartikasari.",
   variant: "primary",

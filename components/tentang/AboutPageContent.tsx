@@ -1,6 +1,7 @@
 
 'use client';
 import React from "react";
+import Link from "next/link";
 import CTAButton from "@/components/CTAButton";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
@@ -99,9 +100,18 @@ export default function AboutPageContent({
               <People className="mx-auto h-10 w-10 text-secondary" />
               <h3 className="text-xl font-semibold">Kemitraan dengan Keluarga</h3>
               <p className="text-sm text-text-muted">
-                Kolaborasi aktif dengan orang tua melalui asesmen autentik untuk pembelajaran yang saling menguatkan.
+                Kolaborasi aktif dengan orang tua melalui komunikasi rutin dan refleksi perkembangan agar belajar saling
+                menguatkan.
               </p>
             </AnimateIn>
+          </div>
+          <div className="flex justify-center">
+            <Link
+              href="/program"
+              className="inline-flex items-center gap-2 rounded-full bg-white/70 px-6 py-3 text-sm font-semibold text-secondary shadow-soft transition hover:bg-white"
+            >
+              Lihat Lebih Lanjut: Bagaimana Kami Mengajar Anak Anda? Lihat Rincian Program Kami Selengkapnya →
+            </Link>
           </div>
         </AnimateIn>
       </PageSection>
@@ -137,10 +147,10 @@ export default function AboutPageContent({
           className="grid items-start gap-12 lg:grid-cols-[0.9fr,1.1fr]"
         >
           <div className="space-y-6 lg:sticky lg:top-24">
-            <h2 className="text-3xl font-semibold text-text">Profil Resmi Sekolah</h2>
+            <h2 className="text-3xl font-semibold text-text">Jaminan Kredibilitas & Legalitas Sekolah</h2>
             <p className="text-base leading-relaxed text-text-muted">
-              Transparansi adalah fondasi kepercayaan. Berikut adalah data resmi TK Kartikasari yang terdaftar di
-              Kemendikbudristek, menegaskan komitmen dan legalitas kami dalam melayani keluarga Bantarsari.
+              Transparansi adalah fondasi kepercayaan. Berikut data resmi TK Kartikasari yang menegaskan komitmen kami
+              dalam melayani keluarga Bantarsari dengan amanah dan akuntabel.
             </p>
             <div className="flex flex-wrap gap-3">
               <CTAButton ctaKey="ppdbHeadmaster" />
@@ -152,6 +162,10 @@ export default function AboutPageContent({
               className="card h-full space-y-5 bg-white/60 p-7 shadow-soft backdrop-blur-xl"
             >
               <h3 className="text-xl font-semibold text-text">Identitas & Legalitas</h3>
+              <p className="text-sm font-medium text-secondary">
+                Kami adalah lembaga pendidikan yang terdaftar dan diakui secara resmi oleh Kemendikbudristek sejak tahun
+                1998.
+              </p>
               <ul className="grid gap-4 sm:grid-cols-2">
                 {[
                   { label: "Nama Sekolah", value: siteSettings.schoolName, icon: Mortarboard },
@@ -214,10 +228,11 @@ export default function AboutPageContent({
         >
           <div className="space-y-3">
             <h2 className="text-balance text-3xl font-semibold text-text">
-              Pendidik Profesional & Penyayang
+              Tim Pendidik Kami: Berkomitmen, Berkompeten, dan Penuh Kasih.
             </h2>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-text-muted">
-              Di TK Kartikasari, kami percaya bahwa guru adalah jantung dari pendidikan. Tim kami terdiri dari para pendidik yang berdedikasi, penuh kasih, dan berkompeten di bidangnya.
+              Di TK Kartikasari, guru adalah sahabat belajar pertama bagi anak. Mereka hadir mendampingi emosi, imajinasi,
+              dan rasa ingin tahu agar setiap hari sekolah terasa hangat dan bermakna.
             </p>
           </div>
           <TeacherList teachers={teachers} />
