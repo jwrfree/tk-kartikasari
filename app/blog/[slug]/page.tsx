@@ -1,11 +1,13 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getPosts, getPostBySlug } from '@/lib/blog'; // Import Post from @/lib/blog
-import { Calendar, Clock, Person } from 'react-bootstrap-icons';
+import { Clock, Person } from 'react-bootstrap-icons';
 import Mdx from '@/components/mdx/Mdx';
 import EngagementSection from '@/components/blog/EngagementSection';
 import { createPageMetadata } from "@/lib/metadata";
 import { calculateReadingTime } from '@/lib/utils';
+
+export const revalidate = 60; // refresh detail pages regularly for new/updated posts
 
 
 // Generate static paths for all blog posts
