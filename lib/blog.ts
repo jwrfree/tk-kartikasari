@@ -2,9 +2,12 @@ import { sanityClient } from './sanity-client';
 import type { Post } from './blog-types';
 import { fallbackPosts } from '@/data/blog-posts';
 
-const isSanityConfigured = Boolean(
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_DATASET,
-);
+const sanityProjectId =
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? process.env.SANITY_PROJECT_ID;
+const sanityDataset =
+  process.env.NEXT_PUBLIC_SANITY_DATASET ?? process.env.SANITY_DATASET;
+
+const isSanityConfigured = Boolean(sanityProjectId && sanityDataset);
 
 /**
  * Fetches all blog posts from Sanity, ordered by date.

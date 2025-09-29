@@ -76,14 +76,21 @@ Untuk menjalankan proyek ini di komputer Anda:
 
 ### Variabel Lingkungan
 
-Buat file `.env.local` (atau salin `.env`) berisi kredensial berikut:
+Buat file `.env.local` (atau salin `.env`) berisi kredensial berikut. Anda bisa
+memakai prefiks `NEXT_PUBLIC_` (dapat diakses di klien) atau versi server-only
+(`SANITY_`). Aplikasi akan otomatis memilih nilai yang tersedia.
 
 ```bash
+# Pilih salah satu gaya penamaan berikut
 NEXT_PUBLIC_SANITY_PROJECT_ID="<project-id>"
 NEXT_PUBLIC_SANITY_DATASET="production"
+# atau
+SANITY_PROJECT_ID="<project-id>"
+SANITY_DATASET="production"
 ```
 
-Untuk build produksi, pastikan variabel lingkungan yang sama tersedia di platform hosting (mis. Vercel Project Settings).
+Untuk build produksi, pastikan variabel lingkungan tersebut tersedia di platform
+hosting (mis. Vercel Project Settings).
 
 ## Lisensi
 
