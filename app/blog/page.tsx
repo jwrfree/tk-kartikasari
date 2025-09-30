@@ -4,8 +4,23 @@ import Image from 'next/image';
 import PageHeader from '@/components/layout/PageHeader';
 import { getPosts, Post } from '@/lib/blog'; // Import Post from @/lib/blog
 import { ArrowRight } from 'react-bootstrap-icons';
+import { createPageMetadata } from '@/lib/metadata';
+import { getGlobalSiteData } from '@/lib/sanity.queries';
 
 export const revalidate = 60; // revalidate list every minute to pick up new posts
+
+const blogDescription =
+  'Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari.';
+
+export async function generateMetadata() {
+  const { siteSettings } = await getGlobalSiteData();
+  return createPageMetadata({
+    title: 'Blog & Berita',
+    description: blogDescription,
+    path: '/blog',
+    siteSettings,
+  });
+}
 
 export default async function BlogListPage() {
   const posts = await getPosts();
@@ -15,7 +30,7 @@ export default async function BlogListPage() {
       <PageHeader
         eyebrow="Blog & Berita"
         title="Tips Parenting dan Kegiatan Sekolah"
-        description="Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari."
+        description={blogDescription}
       />
 
       <div className="bg-surfaceAlt">
@@ -38,7 +53,9 @@ export default async function BlogListPage() {
 }
 
 function BlogCard({ post }: { post: Post }) {
-  const description = post.body?.raw ? post.body.raw.substring(0, 100) + '...' : '';
+  const plainBody = post.body?.raw ? post.body.raw.replace(/\s+/g, ' ').trim() : '';
+  const truncatedBody = plainBody.slice(0, 100);
+  const description = plainBody.length > 100 ? `${truncatedBody}...` : truncatedBody;
 
   return (
     <Link href={`/blog/${post.slug}`} className="group">

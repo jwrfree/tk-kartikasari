@@ -1,6 +1,8 @@
 
 import Link from 'next/link';
 import { AdminShell } from '@/components/admin/AdminShell';
+import { createPageMetadata } from '@/lib/metadata';
+import { getGlobalSiteData } from '@/lib/sanity.queries';
 
 const quickLinks = [
   {
@@ -16,6 +18,16 @@ const quickLinks = [
     cta: 'Kelola berita',
   },
 ];
+
+export async function generateMetadata() {
+  const { siteSettings } = await getGlobalSiteData();
+  return createPageMetadata({
+    title: 'Dasbor Admin',
+    description: 'Kelola konten TK Kartikasari mulai dari informasi utama hingga blog kegiatan dalam satu dasbor terpadu.',
+    path: '/admin',
+    siteSettings,
+  });
+}
 
 export default function AdminPage() {
   return (

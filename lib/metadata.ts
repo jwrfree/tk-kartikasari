@@ -11,6 +11,23 @@ type MetadataOptions = {
   siteSettings?: SiteSettings;
 };
 
+function normalizeDescription(description: string): string {
+  const collapsedWhitespace = description.replace(/\s+/g, " ").trim();
+
+  if (collapsedWhitespace.length <= 155) {
+    return collapsedWhitespace;
+  }
+
+  const truncated = collapsedWhitespace.slice(0, 155);
+  const lastSpace = truncated.lastIndexOf(" ");
+
+  if (lastSpace === -1 || lastSpace < 120) {
+    return `${truncated}…`;
+  }
+
+  return `${truncated.slice(0, lastSpace)}…`;
+}
+
 const defaultSiteSettings = fallbackContent.siteSettings;
 
 export function createPageMetadata({
@@ -23,16 +40,17 @@ export function createPageMetadata({
   const url = new URL(path, siteSettings.siteUrl).toString();
   const fullTitle = `${title} | ${siteSettings.schoolName}`;
   const resolvedImage = image ? new URL(image, siteSettings.siteUrl).toString() : undefined;
+  const normalizedDescription = normalizeDescription(description);
 
   return {
     title,
-    description,
+    description: normalizedDescription,
     alternates: {
       canonical: url,
     },
     openGraph: {
       title: fullTitle,
-      description,
+      description: normalizedDescription,
       url,
       siteName: siteSettings.schoolName,
       type: "website",
@@ -49,7 +67,7 @@ export function createPageMetadata({
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
-      description,
+      description: normalizedDescription,
       images: resolvedImage ? [resolvedImage] : undefined,
     },
   };
