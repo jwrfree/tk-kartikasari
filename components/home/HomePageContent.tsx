@@ -199,7 +199,7 @@ export default function HomePageContent({
               >
                 <Link
                   href={step.href}
-                  className="focus-visible-ring group flex h-full flex-col justify-between rounded-3xl border border-white/60 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:-translate-y-1 hover:border-primary/60"
+                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 group flex h-full flex-col justify-between rounded-3xl border border-white/60 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:-translate-y-1 hover:border-primary/60"
                 >
                   <div>
                     <span className="inline-flex items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
@@ -495,7 +495,11 @@ export default function HomePageContent({
                     normalizedBody.length > 160 ? `${normalizedBody.slice(0, 157)}...` : normalizedBody;
 
                   return (
-                    <Link href={`/blog/${post.slug}`} key={post.slug} className="focus-visible-ring group block rounded-2xl">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      key={post.slug}
+                      className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 group block rounded-2xl"
+                    >
                       <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
                         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
                           {coverImage ? (
