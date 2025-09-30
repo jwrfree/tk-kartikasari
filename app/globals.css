@@ -51,6 +51,24 @@ body {
   @apply rounded-xl border border-border/70 bg-surface shadow-soft backdrop-blur;
 }
 
+@keyframes marquee-slow {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-slow var(--marquee-duration, 36s) linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee[data-paused="true"] {
+  animation-play-state: paused;
+}
+
 /* UPDATED: Changed focus ring to match new orange theme accent */
 .input {
   @apply w-full rounded-xl border border-border/70 bg-white px-4 py-3 text-base text-text placeholder:text-text-muted transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/40;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState, type CSSProperties } from "react";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import PageSection from "@/components/layout/PageSection";
@@ -11,7 +12,22 @@ interface TestimonialListProps {
 }
 
 export default function TestimonialList({ testimonials }: TestimonialListProps) {
-  if (!testimonials || testimonials.length === 0) {
+  const safeTestimonials = useMemo(
+    () => (testimonials?.length ? testimonials : []),
+    [testimonials],
+  );
+  const duplicatedTestimonials = useMemo(
+    () => [...safeTestimonials, ...safeTestimonials],
+    [safeTestimonials],
+  );
+  const [isPaused, setIsPaused] = useState(false);
+  const marqueeDurationSeconds = Math.max(28, safeTestimonials.length * 7 || 0);
+  const marqueeStyle = useMemo(
+    () => ({ "--marquee-duration": `${marqueeDurationSeconds}s` }) as CSSProperties,
+    [marqueeDurationSeconds],
+  );
+
+  if (safeTestimonials.length === 0) {
     return (
       <PageSection id="testimonials" padding="relaxed">
         <div className="card mx-auto max-w-3xl border border-border/70 bg-secondary/5 p-8 text-center text-text-muted">
@@ -56,28 +72,32 @@ export default function TestimonialList({ testimonials }: TestimonialListProps) 
             />
           </m.div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {testimonials.map((t, index) => (
-              <m.blockquote
-                key={t.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="card relative overflow-hidden p-7 text-left"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/6 via-white to-secondary/10" />
-                <div className="relative flex flex-col gap-4">
-                  <div className="flex items-center gap-2 text-lg text-accent">
-                    {Array.from({ length: t.rating ?? 5 }).map((_, starIndex) => (
-                      <span key={starIndex}>★</span>
-                    ))}
+          <div className="mt-14 overflow-hidden">
+            <div
+              className="flex w-max gap-6 animate-marquee"
+              style={marqueeStyle}
+              data-paused={isPaused ? "true" : "false"}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              {duplicatedTestimonials.map((t, index) => (
+                <blockquote
+                  key={`${t.id}-${index}`}
+                  className="card relative w-[min(320px,80vw)] shrink-0 overflow-hidden p-7 text-left"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/6 via-white to-secondary/10" />
+                  <div className="relative flex h-full flex-col gap-4">
+                    <div className="flex items-center gap-2 text-lg text-accent">
+                      {Array.from({ length: t.rating ?? 5 }).map((_, starIndex) => (
+                        <span key={starIndex}>★</span>
+                      ))}
+                    </div>
+                    <p className="text-lg font-medium leading-relaxed text-text">“{t.quote}”</p>
+                    <p className="text-base font-semibold text-text/80">{t.author}</p>
                   </div>
-                  <p className="text-lg font-medium leading-relaxed text-text">“{t.quote}”</p>
-                  <p className="text-base font-semibold text-text/80">{t.author}</p>
-                </div>
-              </m.blockquote>
-            ))}
+                </blockquote>
+              ))}
+            </div>
           </div>
         </div>
       </PageSection>

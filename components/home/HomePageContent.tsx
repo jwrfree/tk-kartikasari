@@ -27,6 +27,10 @@ import {
   ppdbMetaDescription,
   syaratDanKetentuan as ppdbRequirementsStatic,
 } from "@/content/ppdb";
+import { AuroraBackground } from "@/components/reactbits/AuroraBackground";
+import AnimatedCounter from "@/components/reactbits/AnimatedCounter";
+import TimelineSteps from "@/components/reactbits/TimelineSteps";
+import StickyScrollReveal from "@/components/reactbits/StickyScrollReveal";
 
 type HomePageContentProps = {
   schoolName: string;
@@ -113,19 +117,14 @@ export default function HomePageContent({
   return (
       <main>
         {/* Section 1: Hero (Kail) */}
-        <PageSection
-          className="relative overflow-hidden"
-          padding="none"
-          containerClassName="relative grid gap-16 pb-24 pt-20 lg:grid-cols-[1.1fr,0.9fr] lg:items-center"
-        >
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            <div className="absolute -top-32 right-16 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
-            <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-primary/25 blur-3xl" />
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-hero-gradient" />
-          </div>
-          <div
-            className="relative space-y-8"
+        <AuroraBackground className="rounded-b-[2.5rem] border-b border-white/60 bg-gradient-to-br from-white via-secondary/10 to-primary/10">
+          <PageSection
+            padding="none"
+            containerClassName="relative grid gap-16 pb-24 pt-20 lg:grid-cols-[1.1fr,0.9fr] lg:items-center"
           >
+            <div
+              className="relative space-y-8"
+            >
             <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-secondary shadow-soft backdrop-blur-sm backdrop-saturate-150">
               <span className="h-2.5 w-2.5 rounded-full bg-secondary" aria-hidden="true" />
               {schoolName} • Kurikulum Merdeka PAUD
@@ -148,30 +147,33 @@ export default function HomePageContent({
                   key={item.label}
                   className="rounded-3xl border border-white/60 bg-white/60 p-5 text-left shadow-soft backdrop-blur-lg backdrop-saturate-150"
                 >
-                  <p className="text-3xl font-bold text-text">{item.value}</p>
+                  <p className="text-3xl font-bold text-text">
+                    <AnimatedCounter value={item.value} />
+                  </p>
                   <p className="mt-1 text-base text-text-muted">{item.label}</p>
                 </div>
               ))}
             </div>
-          </div>
-
-          <AnimateIn className="relative flex justify-center">
-            <div className="absolute -top-12 right-6 h-40 w-40 rounded-full bg-accent/30 blur-2xl" aria-hidden="true" />
-            <div className="absolute -bottom-6 left-2 h-36 w-36 rounded-full bg-secondary/25 blur-2xl md:-bottom-10" aria-hidden="true" />
-            <div className="relative w-full max-w-md space-y-5 rounded-[2.5rem] border border-white/60 bg-white/70 p-8 text-center shadow-soft backdrop-blur-xl backdrop-saturate-150">
-              <p className="text-lg font-semibold text-secondary">Belajar aktif & penuh perhatian</p>
-              <p className="text-base leading-relaxed text-text-muted">
-                Kelas kecil dengan guru pendamping personal membantu anak cepat nyaman, bereksplorasi, dan siap melanjutkan ke jenjang berikutnya.
-              </p>
-              <div className="flex items-center justify-center gap-3 text-base font-semibold text-text">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
-                  😊
-                </span>
-                Rasio guru : anak {teacherStudentRatio}
-              </div>
             </div>
-          </AnimateIn>
-        </PageSection>
+
+            <AnimateIn className="relative flex justify-center">
+              <div className="absolute -top-12 right-6 h-40 w-40 rounded-full bg-accent/30 blur-2xl" aria-hidden="true" />
+              <div className="absolute -bottom-6 left-2 h-36 w-36 rounded-full bg-secondary/25 blur-2xl md:-bottom-10" aria-hidden="true" />
+              <div className="relative w-full max-w-md space-y-5 rounded-[2.5rem] border border-white/60 bg-white/70 p-8 text-center shadow-soft backdrop-blur-xl backdrop-saturate-150">
+                <p className="text-lg font-semibold text-secondary">Belajar aktif & penuh perhatian</p>
+                <p className="text-base leading-relaxed text-text-muted">
+                  Kelas kecil dengan guru pendamping personal membantu anak cepat nyaman, bereksplorasi, dan siap melanjutkan ke jenjang berikutnya.
+                </p>
+                <div className="flex items-center justify-center gap-3 text-base font-semibold text-text">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
+                    😊
+                  </span>
+                  Rasio guru : anak {teacherStudentRatio}
+                </div>
+              </div>
+            </AnimateIn>
+          </PageSection>
+        </AuroraBackground>
 
         {/* Section 2: Langkah Onboarding */}
         <PageSection
@@ -191,40 +193,7 @@ export default function HomePageContent({
               description="Gunakan empat langkah ini sebagai panduan mengenal sekolah dan menyiapkan dokumen sebelum periode pendaftaran tatap muka berikutnya dibuka."
             />
           </AnimateIn>
-          <div className="relative mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {onboardingSteps.map((step, index) => (
-              <AnimateIn
-                key={step.key}
-                className="h-full"
-              >
-                <Link
-                  href={step.href}
-                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 group flex h-full flex-col justify-between rounded-3xl border border-white/60 bg-white/70 p-7 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:-translate-y-1 hover:border-primary/60"
-                >
-                  <div>
-                    <span className="inline-flex items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary">
-                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-primary/15 text-base" aria-hidden="true">
-                        {index + 1}
-                      </span>
-                      Langkah {index + 1}
-                    </span>
-                    <div className="mt-6 flex items-start gap-3">
-                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl" aria-hidden="true">
-                        {step.icon}
-                      </span>
-                      <div>
-                        <h3 className="text-lg font-semibold text-text">{step.title}</h3>
-                        <p className="mt-3 text-sm leading-relaxed text-text-muted">{step.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
-                    {step.linkLabel} <ArrowRight className="h-4 w-4" />
-                  </span>
-                </Link>
-              </AnimateIn>
-            ))}
-          </div>
+          <TimelineSteps steps={onboardingSteps} className="relative mt-12" />
           <div className="relative mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
             <Link href="/ppdb" className="btn-primary w-full sm:w-auto">
               Info PPDB 2025/2026
@@ -353,14 +322,8 @@ export default function HomePageContent({
         </PageSection>
 
         {/* Section 5: Program & Aktivitas Harian (Eksekusi) */}
-        <PageSection
-          id="program"
-          padding="tight"
-          containerClassName="grid gap-12 lg:grid-cols-[1fr,1fr] lg:items-start"
-        >
-          <AnimateIn
-            className="space-y-6"
-          >
+        <PageSection id="program" padding="tight">
+          <AnimateIn className="max-w-3xl space-y-6">
             <SectionHeader
               eyebrow="Program Kurikulum Merdeka"
               eyebrowVariant="secondary"
@@ -388,37 +351,20 @@ export default function HomePageContent({
               </li>
             </ul>
           </AnimateIn>
-          <div className="grid gap-6">
-            {programs.map((program) => (
-              <AnimateIn
-                key={program.name}
-                className="card h-full border-white/70 bg-white/70 p-7 shadow-soft backdrop-blur-xl backdrop-saturate-150"
-              >
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="space-y-3">
-                    <p className="text-sm font-semibold uppercase tracking-wide text-secondary">
-                      {program.age}
-                    </p>
-                    <h3 className="text-2xl font-semibold text-text">{program.name}</h3>
-                    <p className="text-base leading-relaxed text-text-muted">
-                      {program.description}
-                    </p>
-                  </div>
-                  <span className="inline-flex h-12 min-w-[3rem] items-center justify-center rounded-2xl bg-primary/15 text-2xl" aria-hidden="true">
-                    ✨
-                  </span>
-                </div>
-                <ul className="mt-6 space-y-2 text-base text-text-muted">
-                  {program.points.map((point) => (
-                    <li key={point} className="flex items-start gap-3">
-                      <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" aria-hidden="true" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </AnimateIn>
-            ))}
-          </div>
+          <StickyScrollReveal
+            eyebrow="Sorot Program"
+            heading="Pengalaman belajar yang menyatu dari playgroup hingga TK B"
+            description="Setiap kelas dirancang dengan ritme yang lembut, memadukan eksplorasi terstruktur dan bermain bebas supaya anak belajar tanpa kehilangan rasa aman."
+            items={programs.map((program, index) => ({
+              id: `${program.name}-${index}`,
+              title: program.name,
+              subtitle: program.age,
+              description: program.description,
+              highlights: program.points,
+              icon: "✨",
+            }))}
+            className="mt-12"
+          />
         </PageSection>
 
         <PageSection
@@ -580,27 +526,27 @@ export default function HomePageContent({
 
         {/* Section 9: CTA Final - REVISED */}
         <PageSection className="relative pb-36" padding="tight">
-          <AnimateIn
-            className="card flex flex-col gap-6 overflow-hidden border-white/70 bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-10 text-center md:flex-row md:items-center md:justify-between md:text-left"
-          >
-            <div className="max-w-xl space-y-4">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-secondary backdrop-blur-sm backdrop-saturate-150">
-                Siap Bergabung
-              </span>
-              <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl">
-                Lihat Langsung Bagaimana Anak-Anak Belajar dengan Gembira
-              </h2>
-              <p className="text-base leading-relaxed text-text-muted">
-                Kami mengundang Anda untuk merasakan sendiri suasana hangat di kelas kami. Lihat sentra belajar yang interaktif dan temukan bagaimana projek seru kami menumbuhkan kreativitas serta rasa percaya diri anak.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 md:flex-row md:items-center">
-              <CTAButton ctaKey="visitSchedule" />
-              <a href="#program" className="btn-outline w-full sm:w-auto">
-                Lihat Program Kembali
-              </a>
-            </div>
-          </AnimateIn>
+          <AuroraBackground className="rounded-[2.5rem] border border-white/70 bg-white/60 p-[1.5px]">
+            <AnimateIn className="relative flex flex-col gap-6 rounded-[2.5rem] bg-gradient-to-br from-secondary/10 via-white to-primary/10 p-10 text-center shadow-soft md:flex-row md:items-center md:justify-between md:text-left">
+              <div className="max-w-xl space-y-4">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-secondary backdrop-blur-sm backdrop-saturate-150">
+                  Siap Bergabung
+                </span>
+                <h2 className="text-balance text-3xl font-semibold text-text sm:text-4xl">
+                  Lihat Langsung Bagaimana Anak-Anak Belajar dengan Gembira
+                </h2>
+                <p className="text-base leading-relaxed text-text-muted">
+                  Kami mengundang Anda untuk merasakan sendiri suasana hangat di kelas kami. Lihat sentra belajar yang interaktif dan temukan bagaimana projek seru kami menumbuhkan kreativitas serta rasa percaya diri anak.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 md:flex-row md:items-center">
+                <CTAButton ctaKey="visitSchedule" />
+                <a href="#program" className="btn-outline w-full sm:w-auto">
+                  Lihat Program Kembali
+                </a>
+              </div>
+            </AnimateIn>
+          </AuroraBackground>
         </PageSection>
       </main>
   );
