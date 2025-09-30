@@ -488,6 +488,7 @@ export default function HomePageContent({
                   const normalizedBody = rawBody
                     .replace(/[#*_`>\-]/g, '')
                     .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+                    .replace(/<[^>]+>/g, ' ')
                     .replace(/\s+/g, ' ')
                     .trim();
                   const description =
