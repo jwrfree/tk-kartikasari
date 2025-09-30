@@ -1,9 +1,26 @@
-'use client'
+import { createPageMetadata } from '@/lib/metadata';
+import { getGlobalSiteData } from '@/lib/sanity.queries';
+import StudioPageClient from './StudioPageClient';
 
-import { NextStudio } from 'next-sanity/studio'
+type StudioParams = { sanity?: string[] };
+type StudioProps = { params: Promise<StudioParams> };
 
-import config from '../../../sanity.config'
+export async function generateMetadata({ params }: StudioProps) {
+  const [{ siteSettings }, { sanity = [] }] = await Promise.all([
+    getGlobalSiteData(),
+    params,
+  ]);
+  const pathSegments = ['studio', ...sanity];
+  const path = `/${pathSegments.filter(Boolean).join('/')}`;
+
+  return createPageMetadata({
+    title: 'Studio Konten',
+    description: 'Kelola konten TK Kartikasari langsung dari Sanity Studio dengan antarmuka yang ramah pengguna.',
+    path,
+    siteSettings,
+  });
+}
 
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return <StudioPageClient />;
 }

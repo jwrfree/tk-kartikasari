@@ -6,6 +6,7 @@ import Mdx from '@/components/mdx/Mdx';
 import EngagementSection from '@/components/blog/EngagementSection';
 import { createPageMetadata } from "@/lib/metadata";
 import { calculateReadingTime } from '@/lib/utils';
+import { getGlobalSiteData } from '@/lib/sanity.queries';
 
 export const revalidate = 60; // refresh detail pages regularly for new/updated posts
 
@@ -24,7 +25,10 @@ type BlogPageProps = { params: Promise<BlogPageParams> };
 
 export async function generateMetadata({ params }: BlogPageProps) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const [post, { siteSettings }] = await Promise.all([
+    getPostBySlug(slug),
+    getGlobalSiteData(),
+  ]);
 
   if (!post) {
     return notFound(); // Or return a default metadata object
@@ -32,9 +36,10 @@ export async function generateMetadata({ params }: BlogPageProps) {
 
   return createPageMetadata({
     title: post.title,
-    description: post.body.raw.substring(0, 155), // Use the first 155 chars as a description
+    description: post.body.raw || post.title,
     image: post.coverImage,
     path: `/blog/${post.slug}`,
+    siteSettings,
   });
 }
 

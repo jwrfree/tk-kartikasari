@@ -1,5 +1,17 @@
 
 import { AdminShell } from '@/components/admin/AdminShell';
+import { createPageMetadata } from '@/lib/metadata';
+import { getGlobalSiteData } from '@/lib/sanity.queries';
+
+export async function generateMetadata() {
+  const { siteSettings } = await getGlobalSiteData();
+  return createPageMetadata({
+    title: 'Kelola Konten',
+    description: 'Perbarui teks halaman utama, profil sekolah, dan informasi penting TK Kartikasari melalui panel administrasi.',
+    path: '/admin/content',
+    siteSettings,
+  });
+}
 
 export default function ContentManagementPage() {
   return (

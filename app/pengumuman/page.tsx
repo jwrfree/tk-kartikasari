@@ -1,5 +1,7 @@
 import { client } from '@/lib/sanity';
 import Link from 'next/link';
+import { createPageMetadata } from '@/lib/metadata';
+import { getGlobalSiteData } from '@/lib/sanity.queries';
 
 // Ambil semua data pengumuman, urutkan dari yang terbaru
 type NewsItem = {
@@ -21,6 +23,19 @@ async function getNewsData(): Promise<NewsItem[]> {
   }
 }
 
+const pengumumanDescription =
+  'Temukan informasi resmi, pemberitahuan penting, dan kabar terbaru dari TK Kartikasari untuk orang tua dan wali murid.';
+
+export async function generateMetadata() {
+  const { siteSettings } = await getGlobalSiteData();
+  return createPageMetadata({
+    title: 'Pengumuman',
+    description: pengumumanDescription,
+    path: '/pengumuman',
+    siteSettings,
+  });
+}
+
 // Halaman utama untuk menampilkan daftar pengumuman
 export default async function PengumumanPage() {
   const newsItems = await getNewsData();
@@ -28,6 +43,7 @@ export default async function PengumumanPage() {
   return (
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-8 text-center">Pengumuman Sekolah</h1>
+      <p className="mb-10 text-center text-text-muted">{pengumumanDescription}</p>
       <div className="space-y-6">
         {newsItems.length === 0 ? (
           <p className="text-center text-gray-500">Belum ada pengumuman terbaru saat ini.</p>

@@ -1,7 +1,20 @@
-'use client'
-
 import Link from 'next/link';
 import { Whatsapp } from 'react-bootstrap-icons';
+import { createPageMetadata } from '@/lib/metadata';
+import { getGlobalSiteData } from '@/lib/sanity.queries';
+
+const pageDescription =
+  'Hubungi tim TK Kartikasari melalui WhatsApp untuk memproses pendaftaran peserta didik baru secara cepat dan personal.';
+
+export async function generateMetadata() {
+  const { siteSettings } = await getGlobalSiteData();
+  return createPageMetadata({
+    title: 'Formulir PPDB',
+    description: pageDescription,
+    path: '/ppdb/formulir',
+    siteSettings,
+  });
+}
 
 export default function PpdbFormPage() {
   // TODO: Replace with the actual WhatsApp number
@@ -15,18 +28,21 @@ export default function PpdbFormPage() {
           <h1 className="text-3xl font-bold tracking-tight text-text sm:text-4xl">
             Pendaftaran via WhatsApp
           </h1>
-          <p className="mt-4 text-lg text-text-muted">
-            Untuk mendaftar, silakan hubungi kami langsung melalui WhatsApp.
-          </p>
+          <p className="mt-4 text-lg text-text-muted">{pageDescription}</p>
           <div className="mt-8">
-            <Link href={whatsappLink} className="btn-primary inline-flex items-center gap-2" target="_blank" rel="noopener noreferrer">
+            <Link
+              href={whatsappLink}
+              className="btn-primary inline-flex items-center gap-2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Whatsapp className="h-5 w-5" />
               Chat via WhatsApp
             </Link>
           </div>
-           <div className="mt-8">
+          <div className="mt-8">
             <Link href="/" className="text-sm font-semibold leading-6 text-text-muted">
-                Kembali ke Beranda
+              Kembali ke Beranda
             </Link>
           </div>
         </div>
