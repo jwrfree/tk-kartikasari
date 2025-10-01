@@ -40,7 +40,7 @@ const SITE_CONTENT_QUERY = `*[_type == "siteContent"][0]{
     "officialProfile": aboutPage.officialProfile,
     "milestones": aboutPage.milestones[]{ year, title, description }
   },
-  "teachers": teachers[]{ name, position, description, impactStatement, "imageUrl": image.asset->url },
+  "teachers": teachers[]{ name, position, description, impactStatement, isHeadmaster, "imageUrl": image.asset->url },
   "program": {
     "classes": programPage.classes[]{ name, age, description, focus },
     "learningMethods": programPage.learningMethods[]{ title, description },

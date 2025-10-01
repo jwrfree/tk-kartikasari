@@ -74,9 +74,10 @@ export type AboutPageData = {
 export type TeacherProfile = {
   name: string;
   position: string;
-  description: string;
+  description?: string | null;
   imageUrl?: string | null;
   impactStatement?: string | null;
+  isHeadmaster?: boolean | null;
 };
 
 export type ProgramClass = {

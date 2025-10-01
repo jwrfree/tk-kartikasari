@@ -1,11 +1,10 @@
-import { createClient } from '@sanity/client';
-const config = {
-  projectId:
-    process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? process.env.SANITY_PROJECT_ID,
-  dataset:
-    process.env.NEXT_PUBLIC_SANITY_DATASET ?? process.env.SANITY_DATASET,
-  useCdn: true, // set to `false` to bypass the edge cache
-  apiVersion: '2024-07-15', // use current date (YYYY-MM-DD) to target the latest API version
-};
+import { createClient } from "@sanity/client";
+import { apiVersion, dataset, projectId } from "@/sanity/env";
 
-export const sanityClient = createClient(config);
+export const sanityClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: process.env.NODE_ENV === "production",
+  perspective: "published",
+});

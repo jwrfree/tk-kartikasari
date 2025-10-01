@@ -258,7 +258,7 @@ export default function AboutPageContent({
               emosi, imajinasi, dan rasa ingin tahu agar setiap hari sekolah terasa hangat dan bermakna.
             </p>
           </div>
-          <TeacherList teachers={teachers} />
+          <TeacherList teachers={teachers} headmasterName={siteSettings.headmaster} />
         </AnimateIn>
       </PageSection>
 

@@ -3,6 +3,7 @@ export const teachers = [
   {
     name: "Bu Mintarsih",
     position: "Kepala Sekolah",
+    isHeadmaster: true,
     imageUrl: "/images/teachers/teacher-1.jpg",
     description:
       "Berdedikasi memastikan setiap aspek pendidikan selaras dengan visi sekolah. Beliau menciptakan lingkungan belajar yang aman, berkarakter, dan mendukung pertumbuhan individual setiap anak.",
