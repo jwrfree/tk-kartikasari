@@ -18,8 +18,8 @@ export default function NotFound() {
         </p>
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Button asChild className="sm:w-auto" fullWidth>
-            <Link href="/">
-              Kembali ke beranda
+            <Link href="/" className="inline-flex items-center gap-2">
+              <span>Kembali ke beranda</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
