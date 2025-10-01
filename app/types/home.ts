@@ -25,6 +25,20 @@ export type HomeJourneyItem = {
   icon: string;
 };
 
+export type HomeOnboardingStep = {
+  key: string;
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+  linkLabel: string;
+};
+
+export type HomeAgendaItem = {
+  time: string;
+  description: string;
+};
+
 export type HomeFaq = {
   question: string;
   answer: string;
