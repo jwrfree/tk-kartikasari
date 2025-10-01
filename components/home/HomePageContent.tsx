@@ -1,6 +1,6 @@
-"use client";
+import dynamic from "next/dynamic";
 
-import TestimonialList from "@/components/TestimonialList";
+import PageSection from "@/components/layout/PageSection";
 import type {
   HomeCredential,
   HomeCurriculumPillar,
@@ -43,6 +43,18 @@ import { DailyExperienceSection } from "./sections/DailyExperienceSection";
 import { BlogSection } from "./sections/BlogSection";
 import { FaqSection } from "./sections/FaqSection";
 import { FinalCtaSection } from "./sections/FinalCtaSection";
+
+const TestimonialList = dynamic(() => import("@/components/TestimonialList"), {
+  loading: () => (
+    <PageSection id="testimonials" padding="relaxed">
+      <div className="card mx-auto max-w-3xl space-y-3 border border-border/70 bg-secondary/5 p-8 text-center">
+        <div className="h-4 w-24 animate-pulse rounded-full bg-secondary/30" aria-hidden="true" />
+        <div className="h-5 w-full animate-pulse rounded-full bg-secondary/20" aria-hidden="true" />
+        <div className="mx-auto h-5 w-3/4 animate-pulse rounded-full bg-secondary/20" aria-hidden="true" />
+      </div>
+    </PageSection>
+  ),
+});
 
 type HomePageContentProps = {
   schoolName: string;

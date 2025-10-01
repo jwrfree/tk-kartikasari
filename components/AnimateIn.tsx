@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 
 interface AnimateInProps {
@@ -11,14 +11,23 @@ interface AnimateInProps {
 export default function AnimateIn({ children, className }: AnimateInProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const prefersReducedMotion = useReducedMotion();
+
+  const initial = prefersReducedMotion ? false : { opacity: 0, y: 20 };
+  const animate = prefersReducedMotion
+    ? undefined
+    : isInView
+      ? { opacity: 1, y: 0 }
+      : { opacity: 0, y: 20 };
+  const transition = prefersReducedMotion ? undefined : { duration: 0.5 };
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
+      initial={initial}
+      animate={animate}
+      transition={transition}
     >
       {children}
     </motion.div>

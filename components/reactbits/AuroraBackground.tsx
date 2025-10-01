@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { type PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
@@ -31,6 +31,8 @@ type AuroraBackgroundProps = PropsWithChildren<{
 }>;
 
 export function AuroraBackground({ className, children }: AuroraBackgroundProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className={cn("relative isolate overflow-hidden", className)}>
       <div className="pointer-events-none absolute inset-0 select-none opacity-95" aria-hidden="true">
@@ -41,22 +43,30 @@ export function AuroraBackground({ className, children }: AuroraBackgroundProps)
             style={{
               background: `radial-gradient(circle at 50% 50%, ${gradient.from} 0%, ${gradient.via} 50%, ${gradient.to} 100%)`,
             }}
-            animate={{
-              scale: [1, 1.05, 1],
-              opacity: [0.65, 1, 0.65],
-            }}
-            transition={{
-              duration: 12 + index * 2,
-              repeat: Infinity,
-              repeatType: "mirror",
-              ease: "easeInOut",
-            }}
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    scale: [1, 1.05, 1],
+                    opacity: [0.65, 1, 0.65],
+                  }
+            }
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    duration: 12 + index * 2,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut",
+                  }
+            }
           />
         ))}
         <motion.div
           className="absolute inset-x-0 bottom-[-40%] h-[60%] bg-gradient-to-t from-secondary/20 via-transparent to-transparent"
-          animate={{ opacity: [0.6, 0.8, 0.6] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          animate={prefersReducedMotion ? undefined : { opacity: [0.6, 0.8, 0.6] }}
+          transition={prefersReducedMotion ? undefined : { duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
       <div className="relative">{children}</div>
