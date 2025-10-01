@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -10,7 +10,7 @@ interface MobileNavProps {
 export default function MobileNav({ isOpen, onToggle }: MobileNavProps) {
   return (
     <div className="relative z-50 lg:hidden">
-      <motion.button
+      <button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
@@ -19,18 +19,22 @@ export default function MobileNav({ isOpen, onToggle }: MobileNavProps) {
       >
         <span className="sr-only">Toggle navigation</span>
         <span className="relative block h-5 w-6" aria-hidden>
-          <motion.span
-            className="absolute left-0 top-1 h-0.5 w-full rounded bg-current"
-            animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+          <span
+            className={cn(
+              "absolute left-0 block h-0.5 w-full rounded bg-current transition-transform duration-200 ease-out",
+              isOpen ? "translate-y-2.5 rotate-45" : "translate-y-0 rotate-0",
+            )}
+            style={{ top: "6px" }}
           />
-          <motion.span
-            className="absolute left-0 bottom-1 h-0.5 w-full rounded bg-current"
-            animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+          <span
+            className={cn(
+              "absolute left-0 block h-0.5 w-full rounded bg-current transition-transform duration-200 ease-out",
+              isOpen ? "-translate-y-2.5 -rotate-45" : "translate-y-0 rotate-0",
+            )}
+            style={{ bottom: "6px" }}
           />
         </span>
-      </motion.button>
+      </button>
     </div>
   );
 }
