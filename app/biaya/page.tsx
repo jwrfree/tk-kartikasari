@@ -2,7 +2,7 @@ import PageHeader from '@/components/layout/PageHeader';
 import PageSection from '@/components/layout/PageSection';
 import SectionHeader from '@/components/layout/SectionHeader';
 import BiayaClientComponent from './BiayaClientComponent';
-import { CheckCircle, InfoCircle, Telephone } from 'react-bootstrap-icons';
+import { ArrowRight, CheckCircle, InfoCircle, Telephone } from 'react-bootstrap-icons';
 import AnimateIn from '@/components/AnimateIn';
 import { getBiayaPageData } from '@/lib/sanity.queries';
 import { createPageMetadata } from '@/lib/metadata';
@@ -87,8 +87,12 @@ export default async function BiayaPage() {
           <div className="mt-12 rounded-2xl border border-primary/30 bg-primary/5 p-6 text-center">
             <p className="text-base text-text">
               Ingin membayar dengan lebih ringan?{' '}
-              <a href="#dukungan-finansial" className="font-semibold text-primary underline-offset-4 hover:underline">
-                Lihat Opsi Cicilan dan Diskon Kami di Bawah →
+              <a
+                href="#dukungan-finansial"
+                className="inline-flex items-center gap-1 font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                <span>Lihat Opsi Cicilan dan Diskon Kami di Bawah</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </p>
           </div>
@@ -175,7 +179,13 @@ export default async function BiayaPage() {
                     <h4 className="text-lg font-semibold text-text">Keringanan Biaya/Beasiswa (Untuk Kasus Khusus)</h4>
                     <p className="mt-2 text-sm text-text-muted">
                       Kami percaya pendidikan harus dapat diakses. Jika Anda menghadapi kendala finansial, kami memiliki skema bantuan khusus.{' '}
-                      <a href="/kontak" className="font-semibold text-primary underline-offset-4 hover:underline">Pelajari kriteria dan cara pengajuan →</a>
+                      <a
+                        href="/kontak"
+                        className="inline-flex items-center gap-1 font-semibold text-primary underline-offset-4 hover:underline"
+                      >
+                        <span>Pelajari kriteria dan cara pengajuan</span>
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </a>
                     </p>
                   </div>
                 </div>
