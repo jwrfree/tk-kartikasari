@@ -30,8 +30,8 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-4">
-             <h3 className="text-lg font-semibold leading-6 text-gray-900">{siteSettings.schoolName}</h3>
-            <p className="text-sm leading-6 text-gray-600">
+            <h3 className="text-lg font-semibold leading-6 text-gray-900">{siteSettings.schoolName}</h3>
+            <p className="text-sm leading-6 text-gray-800">
               Membentuk generasi cerdas, ceria, dan berakhlak mulia sejak dini.
             </p>
           </div>
@@ -44,7 +44,7 @@ export default function Footer() {
                 <ul className="mt-6 space-y-4">
                   {exploreLinks.map((item) => (
                     <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                      <Link href={item.href} className="text-sm leading-6 text-gray-700 hover:text-gray-900">
                         {item.name}
                       </Link>
                     </li>
@@ -56,7 +56,7 @@ export default function Footer() {
                 <ul className="mt-6 space-y-4">
                   {legalLinks.map((item) => (
                     <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                      <Link href={item.href} className="text-sm leading-6 text-gray-700 hover:text-gray-900">
                         {item.name}
                       </Link>
                     </li>
@@ -68,7 +68,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-gray-500">
+          <p className="text-xs leading-5 text-gray-800">
             &copy; {new Date().getFullYear()} {siteSettings.schoolName}. Seluruh hak cipta dilindungi.
           </p>
         </div>
