@@ -22,6 +22,7 @@ import {
 import TeacherList from "./TeacherList";
 import HorizontalScrollSection from "@/components/layout/HorizontalScrollSection";
 import AnimateIn from "@/components/AnimateIn";
+import MapEmbed from "@/components/MapEmbed";
 import type { OfficialProfile, SiteSettings, TeacherProfile } from "@/lib/types/site";
 import type { HomeTimelineMilestone } from "@/app/types/home";
 
@@ -209,18 +210,11 @@ export default function AboutPageContent({
                   </AnimateIn>
                 ))}
               </ul>
-              <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/50">
-                <iframe
-                  src={siteSettings.mapsUrl}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={true}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Peta Lokasi TK Kartikasari"
-                ></iframe>
-              </div>
+              <MapEmbed
+                variant="plain"
+                className="rounded-2xl border border-white/50"
+                contentClassName="aspect-video"
+              />
             </AnimateIn>
           </div>
         </AnimateIn>

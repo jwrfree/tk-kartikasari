@@ -3,18 +3,21 @@
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
+import { cn } from "@/lib/utils"
+
 type MapEmbedClientProps = {
   mapSrc: string
   previewImage: {
     src: string
     alt: string
   }
+  className?: string
 }
 
 const PLACEHOLDER_DESCRIPTION =
   "Pratinjau peta TK Kartikasari. Klik tombol di bawah untuk membuka peta interaktif dari Google Maps."
 
-export default function MapEmbedClient({ mapSrc, previewImage }: MapEmbedClientProps) {
+export default function MapEmbedClient({ mapSrc, previewImage, className }: MapEmbedClientProps) {
   const [hasUserActivated, setHasUserActivated] = useState(false)
   const [hasViewportTrigger, setHasViewportTrigger] = useState(false)
   const [shouldRenderIframe, setShouldRenderIframe] = useState(false)
@@ -73,18 +76,18 @@ export default function MapEmbedClient({ mapSrc, previewImage }: MapEmbedClientP
   }
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div ref={containerRef} className={cn("relative w-full", className)}>
       {shouldRenderIframe ? (
         <iframe
           src={mapSrc}
-          className="w-full h-[320px] border-0"
+          className="absolute inset-0 h-full w-full border-0"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title="Lokasi TK Kartikasari"
           aria-label="Lokasi TK Kartikasari"
         />
       ) : (
-        <div className="relative h-[320px] w-full">
+        <div className="relative h-full min-h-[320px] w-full">
           <Image
             src={previewImage.src}
             alt={previewImage.alt}
