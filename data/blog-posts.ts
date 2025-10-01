@@ -1,5 +1,114 @@
 import type { Post } from '@/lib/blog-types';
 
+function sanitizeText(input: string): string {
+  return input
+    .replace(/```/g, '')
+    .replace(/\[(.*?)\]\((.*?)\)/g, '$1')
+    .replace(/[*_`~]/g, '')
+    .replace(/^>\s*/g, '')
+    .replace(/<!---->/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function markdownToPortableText(markdown: string): Post['body'] {
+  const lines = markdown.split('\n');
+  const blocks: Post['body'] = [];
+  let blockIndex = 0;
+  let inCodeBlock = false;
+  const codeBuffer: string[] = [];
+
+  const createBlock = (
+    text: string,
+    style: 'normal' | 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' = 'normal',
+    listItem?: 'bullet' | 'number'
+  ) => {
+    const cleaned = sanitizeText(text);
+    if (!cleaned) {
+      return;
+    }
+
+    const key = `fallback-${blockIndex++}`;
+    blocks.push({
+      _type: 'block',
+      _key: key,
+      style,
+      ...(listItem ? { listItem } : {}),
+      markDefs: [],
+      children: [
+        {
+          _type: 'span',
+          _key: `${key}-span`,
+          text: cleaned,
+          marks: [],
+        },
+      ],
+    });
+  };
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+
+    if (trimmed.startsWith('```')) {
+      if (inCodeBlock) {
+        createBlock(codeBuffer.join('\n'));
+        codeBuffer.length = 0;
+        inCodeBlock = false;
+      } else {
+        inCodeBlock = true;
+      }
+      return;
+    }
+
+    if (inCodeBlock) {
+      codeBuffer.push(line);
+      return;
+    }
+
+    if (!trimmed) {
+      return;
+    }
+
+    const headingMatch = trimmed.match(/^(#{1,4})\s+(.*)$/);
+    if (headingMatch) {
+      const level = headingMatch[1].length;
+      const text = headingMatch[2];
+      const style = (`h${Math.min(level, 4)}`) as 'h1' | 'h2' | 'h3' | 'h4';
+      createBlock(text, style);
+      return;
+    }
+
+    if (/^>\s+/.test(trimmed)) {
+      createBlock(trimmed.replace(/^>\s+/, ''), 'blockquote');
+      return;
+    }
+
+    if (/^[-*+]\s+/.test(trimmed) || /^-\s*\[[xX\s]\]\s+/.test(trimmed)) {
+      const text = trimmed.replace(/^[-*+]\s+/, '').replace(/^\[[xX\s]\]\s+/, '');
+      createBlock(text, 'normal', 'bullet');
+      return;
+    }
+
+    if (/^\d+\.\s+/.test(trimmed)) {
+      const text = trimmed.replace(/^\d+\.\s+/, '');
+      createBlock(text, 'normal', 'number');
+      return;
+    }
+
+    createBlock(trimmed);
+  });
+
+  if (codeBuffer.length > 0) {
+    createBlock(codeBuffer.join('\n'));
+  }
+
+  if (blocks.length === 0) {
+    createBlock(markdown);
+  }
+
+  return blocks;
+}
+
 const markdownContent = `**"Mama, kapan aku mulai sekolah?"** 😊
 
 Pertanyaan polos ini sering muncul ketika anak mulai penasaran dengan dunia TK.
@@ -209,10 +318,7 @@ export const fallbackPosts: Post[] = [
     _id: 'fallback-panduan-persiapan-anak-masuk-tk',
     title: 'Panduan Lengkap Persiapan Anak Masuk TK Pertama Kali',
     date: '2025-09-28T00:00:00+07:00',
-    body: {
-      raw: markdownContent,
-      code: markdownContent,
-    },
+    body: markdownToPortableText(markdownContent),
     slug: 'panduan-persiapan-anak-masuk-tk',
     coverImage:
       'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1200&q=80',

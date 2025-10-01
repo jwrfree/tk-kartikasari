@@ -29,9 +29,8 @@ export const post = defineType({
     }),
     defineField({
       name: "content",
-      title: "Konten (Markdown)",
-      type: "text",
-      rows: 20,
+      title: "Konten",
+      type: "blockContent",
       validation: (rule) => rule.required(),
     }),
     defineField({

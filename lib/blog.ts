@@ -23,7 +23,19 @@ export async function getPosts(): Promise<Post[]> {
     _id,
     title,
     date,
-    "body": content,
+    "body": content[]{
+      ...,
+      markDefs[],
+      children[]{
+        ...,
+        _type == 'span' => {
+          text,
+          marks,
+          _type,
+          _key
+        }
+      }
+    },
     "slug": slug.current,
     "coverImage": mainImage.asset->url
   }`;
@@ -40,10 +52,7 @@ export async function getPosts(): Promise<Post[]> {
       _id: post._id,
       title: post.title,
       date: post.date,
-      body: {
-        raw: post.body || '',
-        code: post.body || '',
-      },
+      body: Array.isArray(post.body) ? post.body : [],
       slug: post.slug,
       coverImage: post.coverImage,
       _raw: {
@@ -71,7 +80,19 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     _id,
     title,
     date,
-    "body": content,
+    "body": content[]{
+      ...,
+      markDefs[],
+      children[]{
+        ...,
+        _type == 'span' => {
+          text,
+          marks,
+          _type,
+          _key
+        }
+      }
+    },
     "slug": slug.current,
     "coverImage": mainImage.asset->url
   }`;
@@ -90,10 +111,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       _id: post._id,
       title: post.title,
       date: post.date,
-      body: {
-        raw: post.body || '',
-        code: post.body || '',
-      },
+      body: Array.isArray(post.body) ? post.body : [],
       slug: post.slug,
       coverImage: post.coverImage,
       _raw: {

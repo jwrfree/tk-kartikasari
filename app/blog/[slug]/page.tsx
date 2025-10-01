@@ -5,7 +5,7 @@ import { Clock, Person } from 'react-bootstrap-icons';
 import Mdx from '@/components/mdx/Mdx';
 import EngagementSection from '@/components/blog/EngagementSection';
 import { createPageMetadata } from "@/lib/metadata";
-import { calculateReadingTime } from '@/lib/utils';
+import { calculateReadingTime, portableTextToPlainText } from '@/lib/utils';
 import { getGlobalSiteData } from '@/lib/sanity.queries';
 
 export const revalidate = 60; // refresh detail pages regularly for new/updated posts
@@ -34,9 +34,11 @@ export async function generateMetadata({ params }: BlogPageProps) {
     return notFound(); // Or return a default metadata object
   }
 
+  const description = portableTextToPlainText(post.body) || post.title;
+
   return createPageMetadata({
     title: post.title,
-    description: post.body.raw || post.title,
+    description,
     image: post.coverImage,
     path: `/blog/${post.slug}`,
     siteSettings,
@@ -51,7 +53,8 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
     return notFound();
   }
 
-  const readingTime = Math.max(1, calculateReadingTime(post.body.raw));
+  const plainBody = portableTextToPlainText(post.body);
+  const readingTime = Math.max(1, calculateReadingTime(plainBody));
 
   return (
     <article className="bg-surfaceAlt">
@@ -94,7 +97,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
 
           {/* Render the markdown content */}
           <div className="prose prose-lg mt-8 max-w-none prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-text prose-p:text-text-muted prose-a:text-primary hover:prose-a:text-primary/80">
-            <Mdx code={post.body.raw} />
+            <Mdx value={post.body} />
           </div>
         </div>
         <div className="mx-auto mt-8 max-w-4xl">
