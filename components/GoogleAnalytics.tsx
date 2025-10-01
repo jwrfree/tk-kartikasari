@@ -3,12 +3,21 @@
 
 import Script from 'next/script';
 
-const GA_MEASUREMENT_ID = 'G-FTRWM80D1S';
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default function GoogleAnalytics() {
+  if (!GA_MEASUREMENT_ID) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(
+        'Google Analytics measurement ID is not set. Analytics script will not be loaded.'
+      );
+    }
+    return null;
+  }
+
   return (
     <>
-      <Script 
+      <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
