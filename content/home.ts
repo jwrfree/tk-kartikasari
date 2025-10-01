@@ -5,10 +5,181 @@ import type {
   HomeFaq,
   HomeHighlight,
   HomeJourneyItem,
+  HomeOnboardingStep,
   HomeProgram,
   HomeStat,
   HomeTimelineMilestone,
+  HomeAgendaItem,
 } from "@/app/types/home";
+
+export const homeHero = {
+  badgeSuffix: "Kurikulum Merdeka PAUD",
+  title: "Awal Terbaik untuk Si Kecil: Belajar Sambil Ceria di Rumah Kedua Mereka",
+  description:
+    "Sebagai TK berpengalaman di Bantarsari, kami menggabungkan tradisi pengajaran yang hangat dengan Kurikulum Merdeka. Kami memastikan setiap anak mendapat perhatian personal dalam lingkungan yang aman, sehingga mereka tumbuh percaya diri, kreatif, dan siap untuk jenjang sekolah berikutnya.",
+  highlight: {
+    title: "Belajar aktif & penuh perhatian",
+    description:
+      "Kelas kecil dengan guru pendamping personal membantu anak cepat nyaman, bereksplorasi, dan siap melanjutkan ke jenjang berikutnya.",
+    ratioLabel: "Rasio guru : anak",
+  },
+  secondaryCtaLabel: "Info PPDB",
+};
+
+export const homeOnboardingCopy = {
+  eyebrow: "Mulai dari Sini",
+  title: "Alur singkat bergabung bersama TK Kartikasari",
+  description:
+    "Ikuti empat langkah ringkas ini untuk mengenal sekolah, menyiapkan berkas, dan memastikan kuota sebelum periode pendaftaran tatap muka dibuka.",
+  primaryCtaLabel: "Info PPDB 2025/2026",
+  steps: [
+    {
+      key: "routine",
+      href: "#pengalaman",
+      icon: "🧭",
+      title: "Jelajahi Rutinitas & Lingkungan",
+      description:
+        "Kenali agenda harian, suasana kelas, dan cara kami mendampingi anak agar cepat nyaman.",
+      linkLabel: "Lihat pengalaman harian",
+    },
+    {
+      key: "cost",
+      href: "/biaya",
+      icon: "💡",
+      title: "Hitung Investasi Pendidikan",
+      description:
+        "Pelajari struktur biaya, jadwal pembayaran, dan opsi keringanan agar rencana keluarga tetap nyaman.",
+      linkLabel: "Buka rincian biaya",
+    },
+    {
+      key: "documents",
+      href: "/ppdb#requirements",
+      icon: "🗂️",
+      title: "Lengkapi Dokumen Awal",
+      description:
+        "Siapkan akta kelahiran, KK, dan identitas orang tua agar proses administrasi berjalan mulus.",
+      linkLabel: "Lihat daftar dokumen",
+    },
+    {
+      key: "apply",
+      href: "/kontak",
+      icon: "📍",
+      title: "Konfirmasi Kuota & Jadwal",
+      description:
+        "Hubungi admin TK Kartikasari untuk mengetahui status kuota terbaru, daftar tunggu, dan jadwal pembaruan PPDB.",
+      linkLabel: "Hubungi admin sekarang",
+    },
+  ] satisfies HomeOnboardingStep[],
+};
+
+export const homeHighlightsCopy = {
+  eyebrow: "Mengapa orang tua mempercayakan anaknya",
+  title: "Tiga janji utama kami untuk ketenangan Ayah & Bunda",
+  description:
+    "Komitmen kami adalah menciptakan lingkungan belajar yang aman secara legal, nyaman untuk anak, dan berakar pada nilai-nilai keindonesiaan.",
+};
+
+export const homeCredentialsCopy = {
+  eyebrow: "Bukti Kepercayaan Anda",
+  title: "Kredensial Resmi dan Perjalanan Panjang yang Teruji",
+  description:
+    "Seluruh informasi sekolah tersimpan di basis data Kemendikbudristek dan diperkuat oleh sejarah layanan kami untuk keluarga Bantarsari.",
+  legalTitle: "Legalitas & Info Resmi",
+  timelineTitle: "Jejak Langkah Kami",
+};
+
+export const homeCurriculumCopy = {
+  eyebrow: "Filosofi Pendidikan Kami",
+  title: "Tiga Pilar Kami dalam Membentuk Karakter Anak",
+  description:
+    "Kami fokus pada tiga area utama untuk memastikan anak tidak hanya pintar, tetapi juga tumbuh menjadi pribadi yang baik, bangga pada budayanya, dan siap untuk belajar lebih lanjut.",
+};
+
+export const homeProgramsCopy = {
+  eyebrow: "Program Kurikulum Merdeka",
+  title: "Jalur Belajar yang Disesuaikan untuk Setiap Anak",
+  description:
+    "Guru inti dan guru pendamping berkolaborasi untuk menyeimbangkan pengembangan karakter, kemampuan dasar, dan kegembiraan bermain melalui projek-projek yang relevan dengan dunia anak.",
+  preparationSteps: [
+    "Observasi minat, gaya belajar, serta diskusi orang tua untuk menentukan kebutuhan utama anak.",
+    "Perumusan tujuan pembelajaran Kurikulum Merdeka dan strategi diferensiasi setiap awal tema.",
+    "Pameran karya, refleksi projek P5, dan laporan portofolio terstruktur di akhir tema.",
+  ],
+  stickyReveal: {
+    eyebrow: "Sorot Program",
+    heading: "Pengalaman belajar yang menyatu dari playgroup hingga TK B",
+    description:
+      "Setiap kelas dirancang dengan ritme yang lembut, memadukan eksplorasi terstruktur dan bermain bebas supaya anak belajar tanpa kehilangan rasa aman.",
+  },
+};
+
+export const homeExperienceCopy = {
+  eyebrow: "Aktivitas Harian",
+  title: "Transisi Lembut yang Menjaga Antusiasme Anak",
+  description:
+    "Rangkaian kegiatan mengikuti struktur Kurikulum Merdeka PAUD: mulai dari pembiasaan nilai, eksplorasi, hingga refleksi dan asesmen autentik.",
+  parentCollab: {
+    title: "Kolaborasi dengan Orang Tua",
+    description:
+      "Orang tua menerima ringkasan harian, refleksi projek P5, dan rekomendasi penguatan karakter untuk diterapkan di rumah.",
+  },
+};
+
+export const homeDailyAgenda = {
+  header: {
+    title: "Agenda Kurikulum Merdeka",
+    badge: "Projek Profil Pelajar Pancasila",
+  },
+  items: [
+    { time: "07.00", description: "Penyambutan hangat, doa, dan pemetaan emosi anak." },
+    { time: "08.30", description: "Diskusi nilai Pancasila dan eksplorasi budaya lokal." },
+    { time: "10.00", description: "Sentra pilihan: STEAM, literasi, seni, atau role play terarah." },
+  ] satisfies HomeAgendaItem[],
+  info: {
+    title: "Lingkungan aman & terdata resmi",
+    description:
+      "Terdaftar dengan NPSN {{npsn}}, area 440 m² terpantau, dan peralatan ramah anak untuk belajar yang nyaman.",
+    ratioLabel: "Rasio guru : anak",
+    defaultNpsn: "20351273",
+  },
+  focusCards: [
+    {
+      title: "Fokus Harian",
+      description: "Nilai agama & budi pekerti, jati diri, serta kecakapan literasi sesuai fase fondasi.",
+    },
+    {
+      title: "Asesmen Autentik",
+      description: "Jurnal perkembangan, dokumentasi karya, dan umpan balik personal setiap pekan.",
+    },
+  ],
+};
+
+export const homeBlogCopy = {
+  eyebrow: "Blog & Berita",
+  title: "Tips Parenting dan Kegiatan Sekolah Terbaru",
+  description:
+    "Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari.",
+  emptyTitle: "Belum ada cerita terbaru",
+  emptyDescription:
+    "Tim kami sedang mempersiapkan artikel yang bisa membantu Ayah dan Bunda. Sementara itu, silakan jelajahi halaman lain atau hubungi kami untuk informasi langsung.",
+  emptyPrimaryCta: "Lihat program belajar",
+  emptySecondaryCta: "Hubungi kami",
+};
+
+export const homeFaqCopy = {
+  eyebrow: "Sering Ditanyakan",
+  title: "Informasi Penting Seputar Pendaftaran",
+  description:
+    "Jika ada pertanyaan lain, kami dengan senang hati menjawab melalui WhatsApp ataupun ketika Anda berkunjung langsung.",
+};
+
+export const homeFinalCtaCopy = {
+  eyebrow: "Siap Bergabung",
+  title: "Lihat Langsung Bagaimana Anak-Anak Belajar dengan Gembira",
+  description:
+    "Kami mengundang Anda untuk merasakan sendiri suasana hangat di kelas kami. Lihat sentra belajar yang interaktif dan temukan bagaimana projek seru kami menumbuhkan kreativitas serta rasa percaya diri anak.",
+  secondaryCtaLabel: "Lihat Program Kembali",
+};
 
 export const homeHeroDescription =
   "Membantu anak tumbuh menjadi pribadi yang ceria dan berkarakter Pancasila. Caranya? Lewat pendampingan personal, kegiatan yang sesuai minat anak, dan projek seru yang membangun kemampuan anak sesuai standar pendidikan nasional.";
