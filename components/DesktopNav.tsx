@@ -30,7 +30,7 @@ export default function DesktopNav() {
                       <Popover.Button
                         className={`flex items-center gap-1 rounded-full px-4 py-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 ${
                           isParentActive || open
-                            ? "bg-pink-500/10 text-pink-500"
+                            ? "bg-white text-pink-700"
                             : "text-text-muted hover:bg-surfaceAlt hover:text-text"
                         }`}
                       >
@@ -91,7 +91,7 @@ export default function DesktopNav() {
                 aria-current={isActive ? "page" : undefined}
                 className={`rounded-full px-4 py-2 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 ${
                   isActive
-                    ? "bg-pink-500/10 text-pink-500"
+                    ? "bg-white text-pink-700"
                     : "text-text-muted hover:bg-surfaceAlt hover:text-text"
                 }`}
               >

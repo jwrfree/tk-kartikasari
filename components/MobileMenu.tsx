@@ -163,7 +163,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                   className={cn(
                                     "block rounded-full px-5 py-2 text-base transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40",
                                     isActive
-                                      ? "text-pink-500"
+                                      ? "bg-white text-pink-700"
                                       : "text-text-muted hover:bg-surfaceAlt hover:text-text",
                                   )}
                                 >
@@ -193,7 +193,9 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
                       "block rounded-full px-4 py-2 font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40",
-                      isActive ? "bg-surfaceAlt font-semibold text-pink-500" : "text-text hover:bg-surfaceAlt",
+                      isActive
+                        ? "bg-white font-semibold text-pink-700"
+                        : "text-text hover:bg-surfaceAlt",
                     )}
                   >
                     {item.label}
