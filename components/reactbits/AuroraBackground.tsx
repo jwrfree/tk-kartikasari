@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { type PropsWithChildren } from "react";
+import { useEffect, useState, type CSSProperties, type PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -30,43 +29,56 @@ type AuroraBackgroundProps = PropsWithChildren<{
   className?: string;
 }>;
 
+type AuroraGradientStyle = CSSProperties & {
+  "--aurora-duration"?: string;
+};
+
 export function AuroraBackground({ className, children }: AuroraBackgroundProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
 
   return (
     <div className={cn("relative isolate overflow-hidden", className)}>
       <div className="pointer-events-none absolute inset-0 select-none opacity-95" aria-hidden="true">
-        {gradients.map((gradient, index) => (
-          <motion.div
-            key={gradient.className}
-            className={cn("absolute rounded-full blur-3xl", gradient.className)}
-            style={{
-              background: `radial-gradient(circle at 50% 50%, ${gradient.from} 0%, ${gradient.via} 50%, ${gradient.to} 100%)`,
-            }}
-            animate={
-              prefersReducedMotion
-                ? undefined
-                : {
-                    scale: [1, 1.05, 1],
-                    opacity: [0.65, 1, 0.65],
-                  }
-            }
-            transition={
-              prefersReducedMotion
-                ? undefined
-                : {
-                    duration: 12 + index * 2,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
-                  }
-            }
-          />
-        ))}
-        <motion.div
-          className="absolute inset-x-0 bottom-[-40%] h-[60%] bg-gradient-to-t from-secondary/20 via-transparent to-transparent"
-          animate={prefersReducedMotion ? undefined : { opacity: [0.6, 0.8, 0.6] }}
-          transition={prefersReducedMotion ? undefined : { duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        {gradients.map((gradient, index) => {
+          const style: AuroraGradientStyle = {
+            background: `radial-gradient(circle at 50% 50%, ${gradient.from} 0%, ${gradient.via} 50%, ${gradient.to} 100%)`,
+          };
+
+          if (!prefersReducedMotion) {
+            style["--aurora-duration"] = `${12 + index * 2}s`;
+          }
+
+          return (
+            <div
+              key={gradient.className}
+              className={cn(
+                "absolute rounded-full blur-3xl",
+                gradient.className,
+                !prefersReducedMotion && "animate-aurora-float",
+              )}
+              style={style}
+            />
+          );
+        })}
+        <div
+          className={cn(
+            "absolute inset-x-0 bottom-[-40%] h-[60%] bg-gradient-to-t from-secondary/20 via-transparent to-transparent",
+            !prefersReducedMotion && "animate-aurora-glow",
+          )}
         />
       </div>
       <div className="relative">{children}</div>

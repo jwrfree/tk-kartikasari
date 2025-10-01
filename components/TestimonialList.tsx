@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState, type CSSProperties } from "react";
-import { LazyMotion, domAnimation, m } from "framer-motion";
 
+import AnimateIn from "@/components/AnimateIn";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import { CardSurface, cardSurfaceVariants } from "@/components/ui/CardSurface";
@@ -44,64 +44,53 @@ export default function TestimonialList({ testimonials }: TestimonialListProps) 
   }
 
   return (
-    <LazyMotion features={domAnimation}>
-      <PageSection
-        id="testimonials"
-        className="relative overflow-hidden"
-        padding="relaxed"
-      >
-        <div className="absolute inset-x-0 top-10 flex justify-center">
-          <div className="h-48 w-48 rounded-full bg-secondary/20 blur-3xl sm:h-72 sm:w-72" />
-        </div>
-        <div className="relative">
-          <m.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-          >
-            <SectionHeader
-              align="center"
-              eyebrow="Suara Orang Tua"
-              eyebrowLeadingVisual={<span className="h-2.5 w-2.5 rounded-full bg-secondary" />}
-              eyebrowVariant="secondary"
-              title="Mereka melihat anak tumbuh lebih percaya diri dan bahagia"
-              description="Cerita asli dari keluarga yang mempercayakan proses belajar anaknya di TK Kartikasari."
-            />
-          </m.div>
+    <PageSection id="testimonials" className="relative overflow-hidden" padding="relaxed">
+      <div className="absolute inset-x-0 top-10 flex justify-center">
+        <div className="h-48 w-48 rounded-full bg-secondary/20 blur-3xl sm:h-72 sm:w-72" />
+      </div>
+      <div className="relative">
+        <AnimateIn>
+          <SectionHeader
+            align="center"
+            eyebrow="Suara Orang Tua"
+            eyebrowLeadingVisual={<span className="h-2.5 w-2.5 rounded-full bg-secondary" />}
+            eyebrowVariant="secondary"
+            title="Mereka melihat anak tumbuh lebih percaya diri dan bahagia"
+            description="Cerita asli dari keluarga yang mempercayakan proses belajar anaknya di TK Kartikasari."
+          />
+        </AnimateIn>
 
-          <div className="mt-14 overflow-x-hidden">
-            <div
-              className="flex w-max gap-6 animate-marquee"
-              style={marqueeStyle}
-              data-paused={isPaused ? "true" : "false"}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
-              {duplicatedTestimonials.map((t, index) => (
-                <blockquote
-                  key={`${t.id}-${index}`}
-                  className={cn(
-                    cardSurfaceVariants({ tone: "translucent", padding: "lg" }),
-                    "relative w-[min(320px,80vw)] shrink-0 overflow-hidden text-left",
-                  )}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/6 via-white to-secondary/10" />
-                  <div className="relative flex h-full flex-col gap-4">
-                    <div className="flex items-center gap-2 text-lg text-accent">
-                      {Array.from({ length: t.rating ?? 5 }).map((_, starIndex) => (
-                        <span key={starIndex}>★</span>
-                      ))}
-                    </div>
-                    <p className="text-lg font-medium leading-relaxed text-text">“{t.quote}”</p>
-                    <p className="text-base font-semibold text-text/80">{t.author}</p>
+        <div className="mt-14 overflow-x-hidden">
+          <div
+            className="flex w-max gap-6 animate-marquee"
+            style={marqueeStyle}
+            data-paused={isPaused ? "true" : "false"}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {duplicatedTestimonials.map((t, index) => (
+              <blockquote
+                key={`${t.id}-${index}`}
+                className={cn(
+                  cardSurfaceVariants({ tone: "translucent", padding: "lg" }),
+                  "relative w-[min(320px,80vw)] shrink-0 overflow-hidden text-left",
+                )}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/6 via-white to-secondary/10" />
+                <div className="relative flex h-full flex-col gap-4">
+                  <div className="flex items-center gap-2 text-lg text-accent">
+                    {Array.from({ length: t.rating ?? 5 }).map((_, starIndex) => (
+                      <span key={starIndex}>★</span>
+                    ))}
                   </div>
-                </blockquote>
-              ))}
-            </div>
+                  <p className="text-lg font-medium leading-relaxed text-text">“{t.quote}”</p>
+                  <p className="text-base font-semibold text-text/80">{t.author}</p>
+                </div>
+              </blockquote>
+            ))}
           </div>
         </div>
-      </PageSection>
-    </LazyMotion>
+      </div>
+    </PageSection>
   );
 }
