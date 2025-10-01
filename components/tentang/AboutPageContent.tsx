@@ -6,6 +6,7 @@ import CTAButton from "@/components/CTAButton";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import {
+  ArrowRight,
   ClockHistory,
   EnvelopeHeart,
   GeoAlt,
@@ -117,8 +118,9 @@ export default function AboutPageContent({
           </div>
           <div className="flex justify-center">
             <Button asChild variant="secondary" size="sm" className="rounded-full px-6 py-3">
-              <Link href="/program" className="gap-2">
-                Pelajari Program Kami →
+              <Link href="/program" className="inline-flex items-center gap-2">
+                <span>Pelajari Program Kami</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
           </div>

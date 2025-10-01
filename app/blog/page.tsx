@@ -86,7 +86,7 @@ function BlogCard({ post }: { post: Post }) {
           <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
           <p className="mt-2 flex-grow text-sm text-text-muted">{description}</p>
           <div className="mt-4 flex items-center text-sm font-semibold text-primary">
-            Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" />
+            Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
           </div>
         </div>
       </div>
