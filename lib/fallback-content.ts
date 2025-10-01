@@ -215,6 +215,7 @@ export const fallbackContent: SiteContent = {
     description: teacher.description,
     imageUrl: teacher.imageUrl,
     impactStatement: teacher.impactStatement,
+    isHeadmaster: teacher.isHeadmaster,
   })),
   program: {
     classes: programClasses,
