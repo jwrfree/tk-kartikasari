@@ -2,6 +2,7 @@
 
 import CTAButton from "@/components/CTAButton";
 import { useSiteData } from "@/app/providers/SiteDataProvider";
+import { Button } from "@/components/ui/Button";
 
 export default function StickyActions() {
   const { siteSettings } = useSiteData();
@@ -17,14 +18,11 @@ export default function StickyActions() {
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <CTAButton ctaKey="generalInquiry" className="w-full sm:w-auto" />
-            <a
-              href={siteSettings.mapsUrl}
-              target="_blank"
-              className="btn-outline w-full sm:w-auto"
-              rel="noreferrer"
-            >
-              Petunjuk Arah
-            </a>
+            <Button asChild variant="outline" fullWidth className="sm:w-auto">
+              <a href={siteSettings.mapsUrl} target="_blank" rel="noreferrer">
+                Petunjuk Arah
+              </a>
+            </Button>
           </div>
         </div>
       </div>

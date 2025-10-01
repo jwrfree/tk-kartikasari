@@ -12,6 +12,7 @@ import AnimateIn from "@/components/AnimateIn";
 import { getPpdbPageData } from "@/lib/sanity.queries";
 import { createPageMetadata } from "@/lib/metadata";
 import { fallbackContent } from "@/lib/fallback-content";
+import { Button } from "@/components/ui/Button";
 
 export async function generateMetadata() {
   const { siteSettings } = await getPpdbPageData();
@@ -61,9 +62,9 @@ export default async function PpdbPage() {
                 <p>
                   Ayah dan Bunda dapat menghubungi admin kami untuk masuk daftar tunggu atau mendapatkan pemberitahuan saat informasi PPDB 2026/2027 tersedia.
                 </p>
-                <Link href="/kontak" className="btn-secondary mt-4 inline-flex">
-                  Hubungi Admin PPDB
-                </Link>
+                <Button asChild variant="secondary" className="mt-4">
+                  <Link href="/kontak">Hubungi Admin PPDB</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -84,9 +85,9 @@ export default async function PpdbPage() {
                   <Step icon={<Wallet className="h-6 w-6 text-primary" />} title="Lengkapi Administrasi di Tempat" description="Serahkan dokumen persyaratan, pilih opsi pembayaran, dan terima konfirmasi langsung dari tim administrasi." />
                 </div>
                 <div className="mt-12">
-                  <Link href="/kontak" className="btn-primary">
-                    Tanya Daftar Tunggu 2026/2027
-                  </Link>
+                  <Button asChild>
+                    <Link href="/kontak">Tanya Daftar Tunggu 2026/2027</Link>
+                  </Button>
                 </div>
               </div>
               <div className="rounded-2xl bg-surface p-8 shadow-lg">
@@ -145,7 +146,9 @@ export default async function PpdbPage() {
             </div>
             <div className="text-center mt-6">
               <p className="text-sm text-text-muted">Ini adalah ringkasan biaya pokok. Untuk melihat rincian lengkap, simulasi, dan kebijakan pembayaran, silakan kunjungi halaman biaya kami.</p>
-              <Link href="/biaya" className="btn-secondary mt-4">Lihat Rincian Biaya Lengkap</Link>
+              <Button asChild variant="secondary" className="mt-4">
+                <Link href="/biaya">Lihat Rincian Biaya Lengkap</Link>
+              </Button>
             </div>
           </div>
         </PageSection>

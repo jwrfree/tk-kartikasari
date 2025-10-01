@@ -6,6 +6,7 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import TimelineSteps from "@/components/reactbits/TimelineSteps";
 import type { HomeOnboardingStep } from "@/app/types/home";
+import { Button } from "@/components/ui/Button";
 
 export type OnboardingCopy = {
   eyebrow: string;
@@ -40,9 +41,9 @@ export function OnboardingSection({ steps, copy }: OnboardingSectionProps) {
       </AnimateIn>
       <TimelineSteps steps={steps} className="relative mt-12" />
       <div className="relative mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
-        <Link href="/ppdb" className="btn-primary w-full sm:w-auto">
-          {copy.primaryCtaLabel}
-        </Link>
+        <Button asChild fullWidth className="sm:w-auto">
+          <Link href="/ppdb">{copy.primaryCtaLabel}</Link>
+        </Button>
         <CTAButton ctaKey="visitSchedule" className="w-full sm:w-auto" />
       </div>
     </PageSection>

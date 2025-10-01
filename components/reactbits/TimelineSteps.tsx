@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 
 type TimelineStep = {
   key: string;
@@ -40,10 +42,14 @@ export default function TimelineSteps({ steps, className }: TimelineStepsProps) 
             aria-hidden="true"
           />
           <div className="flex items-start justify-between gap-4">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-primary/80">
-              <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+            <Badge
+              tone="primary"
+              size="sm"
+              className="uppercase tracking-[0.28em] text-primary/80"
+              leadingVisual={<span className="h-2 w-2 rounded-full bg-primary" />}
+            >
               Langkah {index + 1}
-            </span>
+            </Badge>
             <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-2xl">
               {step.icon}
             </span>
@@ -53,16 +59,15 @@ export default function TimelineSteps({ steps, className }: TimelineStepsProps) 
             <p className="text-sm leading-relaxed text-text-muted">{step.description}</p>
           </div>
           <div className="mt-auto flex flex-wrap items-center gap-3">
-            <Link
-              href={step.href}
-              className="btn-outline btn-sm inline-flex items-center gap-2"
-            >
-              <span>{step.linkLabel}</span>
-              <span aria-hidden="true">→</span>
-            </Link>
-            <span className="rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary/80">
+            <Button asChild variant="outline" size="sm">
+              <Link href={step.href} className="inline-flex items-center gap-2">
+                <span>{step.linkLabel}</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </Button>
+            <Badge tone="secondary" size="sm" className="uppercase text-secondary/80">
               Disiapkan tim PPDB
-            </span>
+            </Badge>
           </div>
           <span
             className="pointer-events-none absolute inset-0 rounded-3xl border border-white/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"

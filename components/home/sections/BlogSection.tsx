@@ -8,6 +8,7 @@ import SectionHeader from "@/components/layout/SectionHeader";
 import { CardSurface } from "@/components/ui/CardSurface";
 import type { Post as BlogPost } from "@/lib/blog";
 import { formatBlogDescription } from "@/lib/home";
+import { Button } from "@/components/ui/Button";
 
 type BlogCopy = {
   eyebrow: string;
@@ -86,12 +87,12 @@ export function BlogSection({ posts, copy }: BlogSectionProps) {
             <h3 className="text-xl font-semibold text-text">{copy.emptyTitle}</h3>
             <p className="mt-3 text-base leading-relaxed text-text-muted">{copy.emptyDescription}</p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Link href="/program" className="btn-primary inline-flex items-center justify-center gap-2">
-                {copy.emptyPrimaryCta}
-              </Link>
-              <Link href="/kontak" className="btn-secondary inline-flex items-center justify-center gap-2">
-                {copy.emptySecondaryCta}
-              </Link>
+              <Button asChild className="sm:w-auto" fullWidth>
+                <Link href="/program">{copy.emptyPrimaryCta}</Link>
+              </Button>
+              <Button asChild variant="secondary" className="sm:w-auto" fullWidth>
+                <Link href="/kontak">{copy.emptySecondaryCta}</Link>
+              </Button>
             </div>
           </CardSurface>
         )}

@@ -2,6 +2,8 @@ import CTAButton from "@/components/CTAButton";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import MapEmbed from "@/components/MapEmbed";
+import { CardSurface } from "@/components/ui/CardSurface";
+import { Badge } from "@/components/ui/Badge";
 import { createPageMetadata } from "@/lib/metadata";
 import { getContactPageData } from "@/lib/sanity.queries";
 
@@ -37,21 +39,23 @@ export default async function Page() {
       />
 
       <PageSection padding="tight" containerClassName="grid gap-6 md:grid-cols-[1.1fr,0.9fr] md:items-start">
-          <div className="card space-y-5 p-7">
-            <h2 className="text-3xl font-semibold">Informasi Sekolah</h2>
-            <ul className="space-y-4 text-base text-text">
+        <CardSurface tone="translucent" padding="xl" className="space-y-5">
+          <h2 className="text-3xl font-semibold">Informasi Sekolah</h2>
+          <ul className="space-y-4 text-base text-text">
             {info.map((item) => (
               <li key={item.label}>
-                <p className="text-xs uppercase tracking-wide text-secondary">{item.label}</p>
-                <p className="mt-1 text-lg font-medium">{item.value}</p>
+                <Badge tone="secondary" size="sm" className="uppercase tracking-wide text-secondary">
+                  {item.label}
+                </Badge>
+                <p className="mt-2 text-lg font-medium">{item.value}</p>
               </li>
             ))}
           </ul>
           <div className="pt-2">
             <CTAButton ctaKey="contactConsultation" className="w-full sm:w-auto" />
           </div>
-        </div>
-        <div className="card space-y-4 bg-secondary/5 p-7 text-base text-text-muted">
+        </CardSurface>
+        <CardSurface tone="soft" padding="xl" className="space-y-4 text-base text-text-muted">
           <h3 className="text-xl font-semibold text-secondary">Cara Berkunjung</h3>
           <p>
             Silakan informasikan kedatangan Anda terlebih dahulu agar kami dapat menyiapkan guru pendamping. Parkir tersedia di
@@ -61,7 +65,7 @@ export default async function Page() {
             Untuk kebutuhan administrasi seperti legalisir rapor atau permohonan surat, mohon bawa fotokopi dokumen yang
             diperlukan.
           </p>
-        </div>
+        </CardSurface>
       </PageSection>
 
       <PageSection padding="tight" containerClassName="space-y-4">

@@ -1,11 +1,27 @@
-export default function InfoCard({ title, children, actionLabel, actionHref }: { title: string; children: React.ReactNode; actionLabel?: string; actionHref?: string }) {
+import type { ReactNode } from "react";
+
+import { CardSurface } from "@/components/ui/CardSurface";
+import { Button } from "@/components/ui/Button";
+
+type InfoCardProps = {
+  title: string;
+  children: ReactNode;
+  actionLabel?: string;
+  actionHref?: string;
+};
+
+export default function InfoCard({ title, children, actionLabel, actionHref }: InfoCardProps) {
   return (
-    <div className="card p-4">
-      <h3 className="font-semibold mb-2">{title}</h3>
-      <div className="text-text-muted mb-3">{children}</div>
-      {actionHref && (
-        <a className="btn" href={actionHref} target="_blank">{actionLabel}</a>
-      )}
-    </div>
-  )
+    <CardSurface tone="soft" padding="md" className="space-y-3">
+      <h3 className="text-lg font-semibold text-text">{title}</h3>
+      <div className="text-sm text-text-muted">{children}</div>
+      {actionHref ? (
+        <Button asChild size="sm" variant="outline">
+          <a href={actionHref} target="_blank" rel="noreferrer">
+            {actionLabel}
+          </a>
+        </Button>
+      ) : null}
+    </CardSurface>
+  );
 }
