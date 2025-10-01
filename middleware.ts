@@ -2,11 +2,17 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   if (process.env.NODE_ENV === 'production') {
-    const proto = request.headers.get('x-forwarded-proto');
+    const forwardedProto = request.headers.get('x-forwarded-proto');
+    const normalizedForwardedProto = forwardedProto
+      ?.split(',')[0]
+      ?.trim()
+      .toLowerCase();
+    const isForwardedHttps = normalizedForwardedProto === 'https';
+    const isRequestHttps = request.nextUrl.protocol === 'https:';
 
-    if (proto === 'http') {
+    if (!isForwardedHttps && !isRequestHttps) {
       const url = request.nextUrl.clone();
-      url.protocol = 'https';
+      url.protocol = 'https:';
       return NextResponse.redirect(url, 308);
     }
   }
