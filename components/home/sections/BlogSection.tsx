@@ -1,14 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "react-bootstrap-icons";
 
 import AnimateIn from "@/components/AnimateIn";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import { CardSurface } from "@/components/ui/CardSurface";
 import type { Post as BlogPost } from "@/lib/blog";
-import { formatBlogDescription } from "@/lib/home";
 import { Button } from "@/components/ui/Button";
+import { BlogPreviewCard } from "@/components/blog/BlogPreviewCard";
 
 type BlogCopy = {
   eyebrow: string;
@@ -34,53 +32,9 @@ export function BlogSection({ posts, copy }: BlogSectionProps) {
         <SectionHeader eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
         {hasPosts ? (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts.slice(0, 3).map((post) => {
-              const coverImage = post.coverImage;
-              const publishedAt = post.date;
-              const rawBody = post.body?.raw ?? "";
-              const description = formatBlogDescription(rawBody) || "Baca kisah terbaru dari TK Kartikasari.";
-
-              return (
-                <Link
-                  href={`/blog/${post.slug}`}
-                  key={post.slug}
-                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 group block rounded-2xl"
-                >
-                  <article className="card h-full transform-gpu bg-white/60 shadow-soft backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-primary/20">
-                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-2xl">
-                      {coverImage ? (
-                        <Image
-                          src={coverImage}
-                          alt={post.title}
-                          fill
-                          className="object-cover"
-                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-secondary/10 text-secondary">
-                          <span className="text-sm font-semibold">TK Kartikasari</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex h-full flex-col p-6">
-                      <p className="text-sm text-text-muted">
-                        {new Date(publishedAt).toLocaleDateString("id-ID", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </p>
-                      <h3 className="mt-2 text-lg font-semibold text-text">{post.title}</h3>
-                      <p className="mt-2 flex-grow text-sm text-text-muted">{description}</p>
-                      <div className="mt-4 flex items-center text-sm font-semibold text-primary transition-transform group-hover:translate-x-1">
-                        Baca selengkapnya <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              );
-            })}
+            {posts.slice(0, 3).map((post) => (
+              <BlogPreviewCard key={post.slug} post={post} />
+            ))}
           </div>
         ) : (
           <CardSurface tone="soft" padding="xl" className="text-center shadow-soft backdrop-blur-xl">

@@ -209,6 +209,8 @@ export const fallbackPosts: Post[] = [
     _id: 'fallback-panduan-persiapan-anak-masuk-tk',
     title: 'Panduan Lengkap Persiapan Anak Masuk TK Pertama Kali',
     date: '2025-09-28T00:00:00+07:00',
+    caption:
+      '8 langkah persiapan anak masuk TK dengan tips yang hangat untuk orang tua.',
     body: {
       raw: markdownContent,
       code: markdownContent,

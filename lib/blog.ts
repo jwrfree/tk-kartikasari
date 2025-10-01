@@ -23,6 +23,7 @@ export async function getPosts(): Promise<Post[]> {
     _id,
     title,
     date,
+    caption,
     "body": content,
     "slug": slug.current,
     "coverImage": mainImage.asset->url
@@ -40,6 +41,7 @@ export async function getPosts(): Promise<Post[]> {
       _id: post._id,
       title: post.title,
       date: post.date,
+      caption: post.caption,
       body: {
         raw: post.body || '',
         code: post.body || '',
@@ -71,6 +73,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     _id,
     title,
     date,
+    caption,
     "body": content,
     "slug": slug.current,
     "coverImage": mainImage.asset->url
@@ -90,6 +93,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       _id: post._id,
       title: post.title,
       date: post.date,
+      caption: post.caption,
       body: {
         raw: post.body || '',
         code: post.body || '',

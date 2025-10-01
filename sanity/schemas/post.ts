@@ -28,6 +28,14 @@ export const post = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "caption",
+      title: "Kutipan Singkat",
+      type: "string",
+      description:
+        "Gunakan 1-2 kalimat pendek (maksimal 120 karakter) untuk preview di homepage.",
+      validation: (rule) => rule.max(120),
+    }),
+    defineField({
       name: "content",
       title: "Konten (Markdown)",
       type: "text",
