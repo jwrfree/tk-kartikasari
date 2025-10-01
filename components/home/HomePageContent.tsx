@@ -75,42 +75,42 @@ export default function HomePageContent({
       key: "routine",
       href: "#pengalaman",
       icon: "🧭",
-      title: "Kenali Rutinitas & Lingkungan",
+      title: "Jelajahi Rutinitas & Lingkungan",
       description:
         journey[0]?.description ??
         homeJourneyStatic[0]?.description ??
-        "Lihat seperti apa agenda harian dan suasana pembelajaran yang menenangkan untuk si kecil.",
-      linkLabel: "Lihat rutinitas",
+        "Kenali agenda harian, suasana kelas, dan cara kami mendampingi anak agar cepat nyaman.",
+      linkLabel: "Lihat pengalaman harian",
     },
     {
       key: "cost",
       href: "/biaya",
       icon: "💡",
-      title: "Cek Perkiraan Biaya",
+      title: "Hitung Investasi Pendidikan",
       description:
         biayaRequirement?.description ??
-        "Pelajari struktur biaya dan opsi pembayaran agar Ayah Bunda bisa merencanakan dengan tenang.",
-      linkLabel: "Lihat biaya",
+        "Pelajari struktur biaya, jadwal pembayaran, dan opsi keringanan agar rencana keluarga tetap nyaman.",
+      linkLabel: "Buka rincian biaya",
     },
     {
       key: "documents",
       href: "/ppdb#requirements",
       icon: "🗂️",
-      title: "Siapkan Dokumen Penting",
+      title: "Lengkapi Dokumen Awal",
       description:
         documentRequirement?.description ??
-        "Siapkan dokumen dasar seperti akta kelahiran, KK, dan identitas orang tua untuk kelancaran administrasi.",
-      linkLabel: "Cek syarat",
+        "Siapkan akta kelahiran, KK, dan identitas orang tua agar proses administrasi berjalan mulus.",
+      linkLabel: "Lihat daftar dokumen",
     },
     {
       key: "apply",
       href: "/kontak",
       icon: "📍",
-      title: "Diskusikan Ketersediaan Kuota",
+      title: "Konfirmasi Kuota & Jadwal",
       description:
         ppdbMetaDescription ??
         "Hubungi admin TK Kartikasari untuk mengetahui status kuota terbaru, daftar tunggu, dan jadwal pembaruan PPDB.",
-      linkLabel: "Hubungi admin",
+      linkLabel: "Hubungi admin sekarang",
     },
   ] as const;
 
@@ -190,7 +190,7 @@ export default function HomePageContent({
               eyebrow="Mulai dari Sini"
               eyebrowVariant="primary"
               title="Alur singkat bergabung bersama TK Kartikasari"
-              description="Gunakan empat langkah ini sebagai panduan mengenal sekolah dan menyiapkan dokumen sebelum periode pendaftaran tatap muka berikutnya dibuka."
+              description="Ikuti empat langkah ringkas ini untuk mengenal sekolah, menyiapkan berkas, dan memastikan kuota sebelum periode pendaftaran tatap muka dibuka."
             />
           </AnimateIn>
           <TimelineSteps steps={onboardingSteps} className="relative mt-12" />
