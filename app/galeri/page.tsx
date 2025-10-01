@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import PageHeader from "@/components/layout/PageHeader";
@@ -41,12 +42,15 @@ export default async function Page() {
                 key={item.id}
                 className="overflow-hidden rounded-3xl border border-border/60 bg-white shadow-sm transition hover:shadow-soft"
               >
-                <img
-                  src={item.imageUrl}
-                  alt={item.description || item.title}
-                  loading="lazy"
-                  className="h-56 w-full object-cover"
-                />
+                <div className="relative h-56 w-full">
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.description || item.title}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
                 <figcaption className="space-y-1 p-4 text-base">
                   <p className="font-semibold text-text">{item.title}</p>
                   <p className="text-sm text-text-muted">{item.description}</p>
