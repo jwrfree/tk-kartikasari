@@ -1,6 +1,6 @@
-import { sanityClient } from './sanity-client';
-import type { Post } from './blog-types';
-import { fallbackPosts } from '@/data/blog-posts';
+import { fallbackPosts } from "@/data/blog-posts";
+import type { Post } from "./blog-types";
+import { sanityClient } from "./sanity-client";
 
 const sanityProjectId =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? process.env.SANITY_PROJECT_ID;
@@ -43,8 +43,8 @@ export async function getPosts(): Promise<Post[]> {
       date: post.date,
       caption: post.caption,
       body: {
-        raw: post.body || '',
-        code: post.body || '',
+        raw: post.body || "",
+        code: post.body || "",
       },
       slug: post.slug,
       coverImage: post.coverImage,
@@ -53,7 +53,7 @@ export async function getPosts(): Promise<Post[]> {
       },
     }));
   } catch (error) {
-    console.error('Failed to fetch blog posts from Sanity:', error);
+    console.error("Failed to fetch blog posts from Sanity:", error);
     return fallbackPosts;
   }
 }
@@ -95,8 +95,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       date: post.date,
       caption: post.caption,
       body: {
-        raw: post.body || '',
-        code: post.body || '',
+        raw: post.body || "",
+        code: post.body || "",
       },
       slug: post.slug,
       coverImage: post.coverImage,

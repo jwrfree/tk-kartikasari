@@ -1,21 +1,21 @@
 
-import PageHeader from '@/components/layout/PageHeader';
-import { getPosts } from '@/lib/blog';
-import { createPageMetadata } from '@/lib/metadata';
-import { getGlobalSiteData } from '@/lib/sanity.queries';
-import { BlogPreviewCard } from '@/components/blog/BlogPreviewCard';
+import PageHeader from "@/components/layout/PageHeader";
+import { BlogPreviewCard } from "@/components/blog/BlogPreviewCard";
+import { getPosts } from "@/lib/blog";
+import { createPageMetadata } from "@/lib/metadata";
+import { getGlobalSiteData } from "@/lib/sanity.queries";
 
 export const revalidate = 60; // revalidate list every minute to pick up new posts
 
 const blogDescription =
-  'Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari.';
+  "Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari.";
 
 export async function generateMetadata() {
   const { siteSettings } = await getGlobalSiteData();
   return createPageMetadata({
-    title: 'Blog & Berita',
+    title: "Blog & Berita",
     description: blogDescription,
-    path: '/blog',
+    path: "/blog",
     siteSettings,
   });
 }
