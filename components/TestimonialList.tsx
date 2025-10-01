@@ -70,7 +70,7 @@ export default function TestimonialList({ testimonials }: TestimonialListProps) 
             />
           </m.div>
 
-          <div className="mt-14 overflow-hidden">
+          <div className="mt-14 overflow-x-hidden">
             <div
               className="flex w-max gap-6 animate-marquee"
               style={marqueeStyle}
