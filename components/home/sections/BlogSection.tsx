@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "react-bootstrap-icons";
 
+import type { PortableTextBlock, PortableTextSpan } from "@portabletext/types";
+
 import AnimateIn from "@/components/AnimateIn";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
@@ -9,6 +11,26 @@ import { CardSurface } from "@/components/ui/CardSurface";
 import type { Post as BlogPost } from "@/lib/blog";
 import { formatBlogDescription } from "@/lib/home";
 import { Button } from "@/components/ui/Button";
+
+function isPortableTextSpan(child: PortableTextBlock["children"][number]): child is PortableTextSpan {
+  return typeof child === "object" && child !== null && "text" in child;
+}
+
+function portableTextToPlainText(blocks: PortableTextBlock[] | undefined): string {
+  if (!blocks?.length) {
+    return "";
+  }
+
+  return blocks
+    .map((block) => {
+      const text = block.children?.map((child) => (isPortableTextSpan(child) ? child.text : "")).join("") ?? "";
+
+      return text.trim();
+    })
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+}
 
 type BlogCopy = {
   eyebrow: string;
@@ -37,7 +59,7 @@ export function BlogSection({ posts, copy }: BlogSectionProps) {
             {posts.slice(0, 3).map((post) => {
               const coverImage = post.coverImage;
               const publishedAt = post.date;
-              const rawBody = post.body?.raw ?? "";
+              const rawBody = portableTextToPlainText(post.body);
               const description = formatBlogDescription(rawBody) || "Baca kisah terbaru dari TK Kartikasari.";
 
               return (
