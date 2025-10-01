@@ -5,6 +5,8 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
+import { CardSurface, cardSurfaceVariants } from "@/components/ui/CardSurface";
+import { cn } from "@/lib/utils";
 import type { Testimonial } from "@/lib/types/site";
 
 interface TestimonialListProps {
@@ -30,13 +32,13 @@ export default function TestimonialList({ testimonials }: TestimonialListProps) 
   if (safeTestimonials.length === 0) {
     return (
       <PageSection id="testimonials" padding="relaxed">
-        <div className="card mx-auto max-w-3xl border border-border/70 bg-secondary/5 p-8 text-center text-text-muted">
+        <CardSurface tone="soft" padding="xl" className="mx-auto max-w-3xl space-y-4 text-center text-text-muted">
           <h2 className="text-3xl font-semibold text-text">Testimoni segera hadir</h2>
-          <p className="mt-4 text-base">
+          <p className="text-base">
             Kami sedang menghimpun cerita terbaru dari orang tua murid. Kembali lagi nanti untuk membaca pengalaman mereka
             bersama TK Kartikasari.
           </p>
-        </div>
+        </CardSurface>
       </PageSection>
     );
   }
@@ -60,12 +62,8 @@ export default function TestimonialList({ testimonials }: TestimonialListProps) 
           >
             <SectionHeader
               align="center"
-              eyebrow={
-                <span className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-secondary" />
-                  Suara Orang Tua
-                </span>
-              }
+              eyebrow="Suara Orang Tua"
+              eyebrowLeadingVisual={<span className="h-2.5 w-2.5 rounded-full bg-secondary" />}
               eyebrowVariant="secondary"
               title="Mereka melihat anak tumbuh lebih percaya diri dan bahagia"
               description="Cerita asli dari keluarga yang mempercayakan proses belajar anaknya di TK Kartikasari."
@@ -83,7 +81,10 @@ export default function TestimonialList({ testimonials }: TestimonialListProps) 
               {duplicatedTestimonials.map((t, index) => (
                 <blockquote
                   key={`${t.id}-${index}`}
-                  className="card relative w-[min(320px,80vw)] shrink-0 overflow-hidden p-7 text-left"
+                  className={cn(
+                    cardSurfaceVariants({ tone: "translucent", padding: "lg" }),
+                    "relative w-[min(320px,80vw)] shrink-0 overflow-hidden text-left",
+                  )}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/6 via-white to-secondary/10" />
                   <div className="relative flex h-full flex-col gap-4">

@@ -6,6 +6,25 @@ Format file ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en
 
 ---
 
+## [1.2.0] - 2025-10-01
+
+### Added
+
+-   Komponen desain baru `Button` dan `Badge` dengan sistem varian cva agar gaya CTA dan label konsisten lintas halaman.
+-   Varian utilitas `.btn-ghost` dan `.btn-subtle` di stylesheet global untuk mendukung kasus tombol tambahan.
+
+### Changed
+
+-   Mengganti CTA di halaman beranda, galeri, kontak, PPDB, error, dan 404 agar memakai komponen tombol baru serta memperbarui badge section.
+-   Menata ulang section halaman "Tentang" dan komponen testimoni dengan `CardSurface` sehingga kartu informasi, milestone, dan skeleton loading mengikuti pola design system.
+-   Menyelaraskan gaya skeleton testimonial dan fallback konten dengan tone lembut yang sama.
+
+### Removed
+
+-   Rute `/admin` dan komponen pendukung karena proses unggah konten kini dipusatkan melalui halaman Studio.
+
+---
+
 ## [1.1.0] - 2025-09-30
 
 ### Added

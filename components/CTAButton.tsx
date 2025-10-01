@@ -1,12 +1,12 @@
 
 'use client';
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import type { CTAButtonConfig } from '@/lib/types/site';
-import { useCTAButton, useSiteData } from '@/app/providers/SiteDataProvider';
-import { cn } from '@/lib/utils';
-import { getBootstrapIcon } from '@/lib/icon-registry';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import type { CTAButtonConfig } from "@/lib/types/site";
+import { useCTAButton, useSiteData } from "@/app/providers/SiteDataProvider";
+import { getBootstrapIcon } from "@/lib/icon-registry";
+import { Button } from "@/components/ui/Button";
 
 interface CTAButtonProps {
   ctaKey: string;
@@ -22,7 +22,7 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
   }
 
   const Icon = getBootstrapIcon(config.icon);
-  const variant = config.variant ?? 'primary';
+  const variant = config.variant ?? "primary";
 
   const whatsAppNumber = siteSettings.whatsapp.startsWith('0')
     ? `62${siteSettings.whatsapp.substring(1)}`
@@ -32,11 +32,11 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
 
   // Objek pemetaan dari varian config ke kelas sistem desain kita
   const variantMap = {
-    primary: 'btn-primary',
-    secondary: 'btn-secondary',
-    outline: 'btn-outline',
-    ghost: 'btn-ghost', // Anda bisa menambahkan .btn-ghost jika perlu
-  };
+    primary: "primary",
+    secondary: "secondary",
+    outline: "outline",
+    ghost: "ghost",
+  } as const;
 
   const motionProps = {
     whileHover: { scale: 1.02 },
@@ -52,18 +52,15 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
 
   return (
     <motion.div {...motionProps} className={`relative w-full sm:w-auto ${className}`}>
-      <Link
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        // Menggunakan kelas dari sistem desain global
-        className={cn(
-          'btn w-full', // <-- Kelas dasar btn
-          variantMap[variant] // <-- Kelas varian dinamis
-        )}
+      <Button
+        asChild
+        variant={variantMap[variant as keyof typeof variantMap] ?? "primary"}
+        fullWidth
       >
-        {buttonContent}
-      </Link>
+        <Link href={href} target="_blank" rel="noopener noreferrer">
+          {buttonContent}
+        </Link>
+      </Button>
     </motion.div>
   );
 }

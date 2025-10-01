@@ -7,6 +7,8 @@ import { AuroraBackground } from "@/components/reactbits/AuroraBackground";
 import AnimatedCounter from "@/components/reactbits/AnimatedCounter";
 import type { HomeStat } from "@/app/types/home";
 import { CardSurface } from "@/components/ui/CardSurface";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 
 export type HeroCopy = {
   badgeSuffix: string;
@@ -35,17 +37,21 @@ export function HeroSection({ schoolName, stats, teacherStudentRatio, copy }: He
         containerClassName="relative grid gap-16 pb-24 pt-20 lg:grid-cols-[1.1fr,0.9fr] lg:items-center"
       >
         <div className="relative space-y-8">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-secondary shadow-soft backdrop-blur-sm backdrop-saturate-150">
-            <span className="h-2.5 w-2.5 rounded-full bg-secondary" aria-hidden="true" />
+          <Badge
+            tone="surface"
+            size="md"
+            className="text-sm normal-case text-secondary shadow-soft"
+            leadingVisual={<span className="h-2.5 w-2.5 rounded-full bg-secondary" />}
+          >
             {schoolName} • {copy.badgeSuffix}
-          </span>
+          </Badge>
           <h1 className="text-balance text-4xl font-bold leading-tight text-text sm:text-5xl">{copy.title}</h1>
           <p className="max-w-xl text-pretty text-lg text-text-muted sm:text-xl">{copy.description}</p>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <CTAButton ctaKey="heroVisit" />
-            <Link href="/ppdb" className="btn-secondary w-full sm:w-auto">
-              {copy.secondaryCtaLabel}
-            </Link>
+            <Button asChild variant="secondary" fullWidth className="sm:w-auto">
+              <Link href="/ppdb">{copy.secondaryCtaLabel}</Link>
+            </Button>
           </div>
           <div className="grid gap-6 pt-6 sm:grid-cols-2 md:grid-cols-3">
             {stats.map((item) => (

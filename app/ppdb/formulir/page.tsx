@@ -1,7 +1,8 @@
-import Link from 'next/link';
-import { Whatsapp } from 'react-bootstrap-icons';
-import { createPageMetadata } from '@/lib/metadata';
-import { getGlobalSiteData } from '@/lib/sanity.queries';
+import Link from "next/link";
+import { Whatsapp } from "react-bootstrap-icons";
+import { createPageMetadata } from "@/lib/metadata";
+import { getGlobalSiteData } from "@/lib/sanity.queries";
+import { Button } from "@/components/ui/Button";
 
 const pageDescription =
   'Hubungi tim TK Kartikasari melalui WhatsApp untuk memproses pendaftaran peserta didik baru secara cepat dan personal.';
@@ -30,15 +31,12 @@ export default function PpdbFormPage() {
           </h1>
           <p className="mt-4 text-lg text-text-muted">{pageDescription}</p>
           <div className="mt-8">
-            <Link
-              href={whatsappLink}
-              className="btn-primary inline-flex items-center gap-2"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Whatsapp className="h-5 w-5" />
-              Chat via WhatsApp
-            </Link>
+            <Button asChild>
+              <Link href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <Whatsapp className="h-5 w-5" />
+                Chat via WhatsApp
+              </Link>
+            </Button>
           </div>
           <div className="mt-8">
             <Link href="/" className="text-sm font-semibold leading-6 text-text-muted">

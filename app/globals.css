@@ -90,19 +90,27 @@ body {
 
 /* Tombol aksi utama (Call to Action) - UPDATED: Changed to pink-orange gradient */
 .btn-primary {
-  @apply btn bg-gradient-to-r from-pink-500 to-orange-500 text-white shadow-floating hover:brightness-[1.05] hover:shadow-xl;
+  @apply bg-gradient-to-r from-pink-500 to-orange-500 text-white shadow-floating hover:brightness-[1.05] hover:shadow-xl;
 }
 
 .btn-primary:disabled {
-    @apply btn bg-gradient-to-r from-pink-500/50 to-orange-500/50 text-white/80 shadow-none cursor-not-allowed opacity-70;
+  @apply cursor-not-allowed bg-gradient-to-r from-pink-500/50 to-orange-500/50 text-white/80 opacity-70 shadow-none;
 }
 
 /* Tombol aksi sekunder - UPDATED: Changed to use pink as the new primary accent */
 .btn-secondary {
-  @apply btn bg-pink-500/10 text-pink-500 hover:bg-pink-500/20;
+  @apply bg-pink-500/10 text-pink-500 hover:bg-pink-500/20;
 }
 
 /* Tombol outline/tersier */
 .btn-outline {
-  @apply btn border border-border bg-transparent text-text-muted hover:bg-surface hover:text-text;
+  @apply border border-border bg-transparent text-text-muted hover:bg-surface hover:text-text;
+}
+
+.btn-ghost {
+  @apply bg-transparent text-text hover:bg-border/40;
+}
+
+.btn-subtle {
+  @apply bg-white/80 text-text hover:bg-white;
 }

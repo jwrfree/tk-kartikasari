@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/Badge";
 
 type SectionHeaderProps = {
   eyebrow?: ReactNode;
   eyebrowVariant?: "primary" | "secondary" | "surface" | "muted";
+  eyebrowLeadingVisual?: ReactNode;
   title: string;
   description?: ReactNode;
   align?: "left" | "center";
@@ -13,16 +15,10 @@ type SectionHeaderProps = {
   descriptionClassName?: string;
 };
 
-const eyebrowStyles: Record<NonNullable<SectionHeaderProps["eyebrowVariant"]>, string> = {
-  primary: "bg-primary/15 text-primary",
-  secondary: "bg-secondary/15 text-secondary",
-  surface: "border border-white/60 bg-white/60 text-secondary backdrop-blur-sm backdrop-saturate-150",
-  muted: "bg-border/40 text-text",
-};
-
 export default function SectionHeader({
   eyebrow,
   eyebrowVariant = "primary",
+  eyebrowLeadingVisual,
   title,
   description,
   align = "left",
@@ -39,14 +35,14 @@ export default function SectionHeader({
       )}
     >
       {eyebrow ? (
-        <span
-          className={cn(
-            "inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide",
-            eyebrowStyles[eyebrowVariant],
-          )}
+        <Badge
+          tone={eyebrowVariant}
+          size="md"
+          leadingVisual={eyebrowLeadingVisual}
+          className={cn("uppercase", align === "center" ? "mx-auto" : "")}
         >
           {eyebrow}
-        </span>
+        </Badge>
       ) : null}
       <h2
         className={cn(

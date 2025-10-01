@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/Button"
 
 type MapEmbedClientProps = {
   mapSrc: string
@@ -101,14 +102,9 @@ export default function MapEmbedClient({ mapSrc, previewImage, className }: MapE
             <p className="text-sm md:text-base" aria-live="polite">
               {PLACEHOLDER_DESCRIPTION}
             </p>
-            <button
-              type="button"
-              onClick={handleActivate}
-              className="btn btn-primary"
-              aria-label="Aktifkan peta interaktif"
-            >
+            <Button type="button" onClick={handleActivate} aria-label="Aktifkan peta interaktif">
               Lihat peta interaktif
-            </button>
+            </Button>
           </div>
         </div>
       )}

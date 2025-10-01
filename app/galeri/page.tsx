@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
+import { CardSurface } from "@/components/ui/CardSurface";
+import { Button } from "@/components/ui/Button";
 import { createPageMetadata } from "@/lib/metadata";
 import { getGalleryPageData } from "@/lib/sanity.queries";
 import type { GalleryItem } from "@/lib/types/site";
@@ -53,18 +55,18 @@ export default async function Page() {
             ))}
           </div>
         ) : (
-          <div className="card border border-border/70 bg-secondary/5 p-8 text-center">
+          <CardSurface tone="soft" padding="xl" className="text-center shadow-soft backdrop-blur-xl">
             <h2 className="text-2xl font-semibold text-text">Dokumentasi segera hadir</h2>
             <p className="mt-3 text-base text-text-muted">
               Tim kami sedang mengkurasi foto kegiatan terbaru agar dapat dibagikan kepada orang tua. Jika Anda membutuhkan
               informasi tambahan, silakan hubungi kami melalui kanal resmi sekolah.
             </p>
             <div className="mt-6 flex justify-center">
-              <Link href="/kontak" className="btn-primary w-full sm:w-auto">
-                Hubungi TK Kartikasari
-              </Link>
+              <Button asChild fullWidth className="sm:w-auto">
+                <Link href="/kontak">Hubungi TK Kartikasari</Link>
+              </Button>
             </div>
-          </div>
+          </CardSurface>
         )}
       </PageSection>
     </>
