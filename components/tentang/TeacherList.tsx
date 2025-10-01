@@ -1,29 +1,7 @@
 
 import Image from "next/image";
-import { m } from "framer-motion";
 import { Person, PersonBadge } from "react-bootstrap-icons";
 import type { TeacherProfile } from "@/lib/types/site";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
 
 interface TeacherListProps {
   teachers: TeacherProfile[];
@@ -102,14 +80,9 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
 
   if (!headmaster && otherTeachers.length === 0) {
     return (
-      <m.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        className="text-base text-text-muted"
-      >
+      <p className="text-base text-text-muted">
         Data guru belum tersedia. Silakan tambahkan profil melalui Sanity Studio untuk menampilkannya di halaman ini.
-      </m.p>
+      </p>
     );
   }
 
@@ -117,13 +90,7 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
     <div className="space-y-12">
       {/* Headmaster Section */}
       {headmaster && (
-        <m.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto max-w-sm text-center"
-        >
+        <div className="mx-auto max-w-sm text-center">
           <TeacherAvatar name={headmaster.name} imageUrl={headmaster.imageUrl} icon={PersonBadge} size="lg" />
           <h3 className="text-2xl font-semibold text-text">{headmaster.name}</h3>
           <p className="text-base text-secondary">{headmaster.position}</p>
@@ -135,20 +102,14 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
               {headmaster.impactStatement}
             </p>
           ) : null}
-        </m.div>
+        </div>
       )}
 
       {/* Other Teachers Section */}
       {otherTeachers.length > 0 ? (
-        <m.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {otherTeachers.map((teacher, index) => (
-            <m.div key={index} variants={itemVariants} className="text-center">
+            <div key={index} className="text-center">
               <TeacherAvatar
                 name={teacher.name}
                 imageUrl={teacher.imageUrl}
@@ -164,9 +125,9 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
               {teacher.impactStatement ? (
                 <p className="mt-3 text-sm font-semibold text-secondary/80">{teacher.impactStatement}</p>
               ) : null}
-            </m.div>
+            </div>
           ))}
-        </m.div>
+        </div>
       ) : null}
     </div>
   );

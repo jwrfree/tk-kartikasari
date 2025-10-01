@@ -1,7 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight } from "react-bootstrap-icons";
 
 import { cn } from "@/lib/utils";
@@ -23,6 +23,35 @@ type TimelineStepsProps = {
 };
 
 export default function TimelineSteps({ steps, className }: TimelineStepsProps) {
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = itemRefs.current.findIndex((element) => element === entry.target);
+          if (entry.isIntersecting && index !== -1) {
+            setVisibleSteps((current) =>
+              current.includes(index) ? current : [...current, index],
+            );
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-20% 0px -20%" },
+    );
+
+    itemRefs.current.forEach((element) => {
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [steps.length]);
+
   return (
     <ol className={cn("relative grid gap-6 lg:grid-cols-2", className)}>
       <div
@@ -30,13 +59,18 @@ export default function TimelineSteps({ steps, className }: TimelineStepsProps) 
         aria-hidden="true"
       />
       {steps.map((step, index) => (
-        <motion.li
+        <li
           key={step.key}
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.45, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative flex h-full flex-col gap-6 overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-8 shadow-soft backdrop-blur-xl backdrop-saturate-150"
+          ref={(element) => {
+            itemRefs.current[index] = element;
+          }}
+          className={cn(
+            "group relative flex h-full transform-gpu flex-col gap-6 overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-8 shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-all duration-500 ease-out",
+            visibleSteps.includes(index)
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0",
+          )}
+          style={{ transitionDelay: visibleSteps.includes(index) ? `${index * 0.05}s` : undefined }}
         >
           <span
             className="pointer-events-none absolute inset-x-0 top-0 h-1.5 origin-left scale-x-95 bg-gradient-to-r from-primary/40 via-secondary/40 to-primary/40 transition-transform duration-500 group-hover:scale-x-100"
@@ -74,7 +108,7 @@ export default function TimelineSteps({ steps, className }: TimelineStepsProps) 
             className="pointer-events-none absolute inset-0 rounded-3xl border border-white/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             aria-hidden="true"
           />
-        </motion.li>
+        </li>
       ))}
     </ol>
   );

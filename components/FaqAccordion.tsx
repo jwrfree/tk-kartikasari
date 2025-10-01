@@ -1,8 +1,10 @@
 
 "use client";
 
+import { clsx } from "clsx";
 import { useId, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+
+import AnimateIn from "@/components/AnimateIn";
 
 export type FaqItem = {
   question: string;
@@ -47,71 +49,66 @@ export default function FaqAccordion({
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         const contentId = `${baseId}-${index}`;
+        const cardClassName = clsx(
+          "card overflow-hidden border-white/70 bg-white/70 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-colors duration-200",
+          isOpen && "border-secondary/60 bg-white",
+        );
 
-        return (
-          <motion.div
-            key={item.question}
-            initial={revealOnView ? { opacity: 0, y: 40 } : false}
-            whileInView={revealOnView ? { opacity: 1, y: 0 } : undefined}
-            viewport={revealOnView ? { once: true, amount: 0.3 } : undefined}
-            transition={{
-              duration: 0.55,
-              delay: revealOnView ? index * itemDelay : undefined,
-            }}
-            // UPDATED: .card class already provides rounding, overflow-hidden will enforce it.
-            className={`card overflow-hidden border-white/70 bg-white/70 text-left shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-colors duration-200 ${
-              isOpen ? "border-secondary/60 bg-white" : ""
-            }`}
-          >
+        const content = (
+          <>
             <button
               type="button"
               onClick={() => toggleIndex(index)}
               aria-expanded={isOpen}
               aria-controls={contentId}
-              // UPDATED: Added rounded-xl to ensure the focus outline is also rounded.
               className="flex w-full items-center gap-4 rounded-xl px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             >
               <span className="flex-1 text-lg font-semibold text-text">{item.question}</span>
-              {/* UPDATED: Changed from rounded-full to rounded-xl for consistency */}
               <span className="relative inline-flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-secondary/10 text-secondary">
                 <span className="absolute h-0.5 w-4 rounded bg-current" aria-hidden />
-                <motion.span
+                <span
                   aria-hidden
-                  className="absolute h-4 w-0.5 rounded bg-current"
-                  animate={{ scaleY: isOpen ? 0 : 1 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  style={{ originY: 0.5 }}
+                  className={clsx(
+                    "absolute h-4 w-0.5 rounded bg-current transition-transform duration-200 ease-out",
+                    isOpen ? "scale-y-0" : "scale-y-100",
+                  )}
+                  style={{ transformOrigin: "center" }}
                 />
               </span>
             </button>
-            <AnimatePresence initial={false}>
-              {isOpen ? (
-                <motion.div
-                  key="content"
-                  id={contentId}
-                  initial="collapsed"
-                  animate="open"
-                  exit="collapsed"
-                  variants={{
-                    open: { height: "auto", opacity: 1 },
-                    collapsed: { height: 0, opacity: 0 },
-                  }}
-                  transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
-                  className="px-6"
-                >
-                  <motion.p
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="pb-6 text-base leading-relaxed text-text-muted"
-                  >
-                    {item.answer}
-                  </motion.p>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </motion.div>
+            <div
+              id={contentId}
+              role="region"
+              aria-hidden={!isOpen}
+              className={clsx(
+                "grid px-6 transition-[grid-template-rows] duration-300 ease-out",
+                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+              )}
+            >
+              <div
+                className={clsx(
+                  "overflow-hidden text-base leading-relaxed text-text-muted transition-all duration-300 ease-out",
+                  isOpen ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0",
+                )}
+              >
+                <p className="pb-6">{item.answer}</p>
+              </div>
+            </div>
+          </>
+        );
+
+        if (revealOnView) {
+          return (
+            <AnimateIn key={item.question} className={cardClassName} delay={index * itemDelay}>
+              {content}
+            </AnimateIn>
+          );
+        }
+
+        return (
+          <div key={item.question} className={cardClassName}>
+            {content}
+          </div>
         );
       })}
     </div>

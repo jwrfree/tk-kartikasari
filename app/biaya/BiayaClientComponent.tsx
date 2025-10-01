@@ -1,7 +1,6 @@
-'use client'
+'use client';
 
-import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useMemo, useEffect } from 'react';
 import { formatRupiah } from '@/utils/currency';
 
 // Definisikan tipe untuk properti komponen
@@ -18,6 +17,7 @@ interface BiayaClientComponentProps {
 
 export default function BiayaClientComponent({ biayaPokok }: BiayaClientComponentProps) {
   const [sppBulan, setSppBulan] = useState(12);
+  const [isHighlightingTotal, setIsHighlightingTotal] = useState(false);
 
   const biayaSekaliBayar = useMemo(() => 
     biayaPokok.filter(b => b.category === 'sekali bayar'), 
@@ -40,6 +40,12 @@ export default function BiayaClientComponent({ biayaPokok }: BiayaClientComponen
   );
 
   const totalEstimasi = totalSekaliBayar + totalBulanan;
+
+  useEffect(() => {
+    setIsHighlightingTotal(true);
+    const timeoutId = window.setTimeout(() => setIsHighlightingTotal(false), 300);
+    return () => window.clearTimeout(timeoutId);
+  }, [totalEstimasi]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -96,18 +102,13 @@ export default function BiayaClientComponent({ biayaPokok }: BiayaClientComponen
           <div className="mt-6 pt-6 border-t border-primary/20">
              <div className="flex justify-between items-center">
                 <span className="text-lg font-medium text-text">Estimasi Total Tahun Pertama</span>
-                <AnimatePresence mode="wait">
-                  <motion.span 
-                    key={totalEstimasi}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-2xl font-bold text-primary"
-                  >
-                    {formatRupiah(totalEstimasi)}
-                  </motion.span>
-                </AnimatePresence>
+                <span
+                  className={`text-2xl font-bold text-primary transition-opacity duration-300 ${
+                    isHighlightingTotal ? 'opacity-80' : 'opacity-100'
+                  }`}
+                >
+                  {formatRupiah(totalEstimasi)}
+                </span>
             </div>
           </div>
         </div>

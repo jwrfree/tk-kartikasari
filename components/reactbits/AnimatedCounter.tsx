@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useInView } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -59,11 +58,39 @@ function parseValue(rawValue: string): ParsedValue {
 export default function AnimatedCounter({ value, className, durationMs = 1600 }: AnimatedCounterProps) {
   const { prefix, number, suffix, decimals } = useMemo(() => parseValue(value), [value]);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20% 0px" });
+  const [hasEnteredView, setHasEnteredView] = useState(() => number === null);
   const [progress, setProgress] = useState(() => (number === null ? 1 : 0));
 
   useEffect(() => {
-    if (!isInView || number === null) {
+    const element = ref.current;
+    if (!element || number === null) {
+      return;
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      setHasEnteredView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHasEnteredView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { root: null, threshold: 0.2, rootMargin: "-20% 0px" },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [number]);
+
+  useEffect(() => {
+    if (!hasEnteredView || number === null) {
       return;
     }
 
@@ -85,7 +112,7 @@ export default function AnimatedCounter({ value, className, durationMs = 1600 }:
     return () => {
       cancelAnimationFrame(animationFrame);
     };
-  }, [durationMs, isInView, number]);
+  }, [durationMs, hasEnteredView, number]);
 
   const formattedValue = useMemo(() => {
     if (number === null) {

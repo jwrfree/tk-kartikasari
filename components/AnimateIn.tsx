@@ -1,35 +1,92 @@
 "use client";
 
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { clsx } from "clsx";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 interface AnimateInProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
+  /**
+   * Optional delay (in seconds) before the entrance transition starts.
+   * Useful for staggering multiple AnimateIn components.
+   */
+  delay?: number;
 }
 
-export default function AnimateIn({ children, className }: AnimateInProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const prefersReducedMotion = useReducedMotion();
+export default function AnimateIn({ children, className, delay = 0 }: AnimateInProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const initial = prefersReducedMotion ? false : { opacity: 0, y: 20 };
-  const animate = prefersReducedMotion
-    ? undefined
-    : isInView
-      ? { opacity: 1, y: 0 }
-      : { opacity: 0, y: 20 };
-  const transition = prefersReducedMotion ? undefined : { duration: 0.5 };
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+      if (mediaQuery.matches) {
+        setIsInView(true);
+      }
+    };
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updatePreference);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const node = ref.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry?.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.2,
+      },
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [prefersReducedMotion]);
+
+  const transitionDelay = !prefersReducedMotion && isInView && delay > 0 ? `${delay}s` : undefined;
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      className={className}
-      initial={initial}
-      animate={animate}
-      transition={transition}
+      className={clsx(
+        "transition-all duration-500 ease-out",
+        prefersReducedMotion
+          ? null
+          : isInView
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0",
+        className,
+      )}
+      style={{ transitionDelay }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

@@ -2,7 +2,6 @@
 'use client';
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import type { CTAButtonConfig } from "@/lib/types/site";
 import { useCTAButton, useSiteData } from "@/app/providers/SiteDataProvider";
 import { getBootstrapIcon } from "@/lib/icon-registry";
@@ -38,11 +37,6 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
     ghost: "ghost",
   } as const;
 
-  const motionProps = {
-    whileHover: { scale: 1.02 },
-    whileTap: { scale: 0.98 },
-  };
-
   const buttonContent = (
     <>
       {Icon && <Icon className="h-5 w-5" />}
@@ -51,7 +45,9 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
   );
 
   return (
-    <motion.div {...motionProps} className={`relative w-full sm:w-auto ${className}`}>
+    <div
+      className={`relative w-full transform-gpu transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98] sm:w-auto ${className}`}
+    >
       <Button
         asChild
         variant={variantMap[variant as keyof typeof variantMap] ?? "primary"}
@@ -61,6 +57,6 @@ export default function CTAButton({ ctaKey, className }: CTAButtonProps) {
           {buttonContent}
         </Link>
       </Button>
-    </motion.div>
+    </div>
   );
 }

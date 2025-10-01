@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
+import AnimateIn from "@/components/AnimateIn";
 import { cn } from "@/lib/utils";
 
 type StickyScrollRevealItem = {
@@ -24,6 +24,7 @@ type StickyScrollRevealProps = {
 
 export default function StickyScrollReveal({ eyebrow, heading, description, items, className }: StickyScrollRevealProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -37,6 +38,9 @@ export default function StickyScrollReveal({ eyebrow, heading, description, item
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setActiveIndex(index);
+              setVisibleIndices((current) =>
+                current.includes(index) ? current : [...current, index],
+              );
             }
           });
         },
@@ -61,13 +65,7 @@ export default function StickyScrollReveal({ eyebrow, heading, description, item
   return (
     <section className={cn("relative", className)}>
       <div className="grid gap-10 lg:grid-cols-[0.85fr,1.15fr] lg:items-start">
-        <motion.aside
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.45 }}
-          className="sticky top-24 space-y-6 rounded-3xl border border-white/60 bg-white/70 p-8 shadow-soft backdrop-blur-xl backdrop-saturate-150"
-        >
+        <AnimateIn className="sticky top-24 space-y-6 rounded-3xl border border-white/60 bg-white/70 p-8 shadow-soft backdrop-blur-xl backdrop-saturate-150">
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-secondary">
               {eyebrow ?? "Program Utama"}
@@ -95,23 +93,23 @@ export default function StickyScrollReveal({ eyebrow, heading, description, item
               </ul>
             ) : null}
           </div>
-        </motion.aside>
+        </AnimateIn>
 
         <div className="space-y-6">
           {items.map((item, index) => (
-            <motion.div
+            <div
               key={item.id}
               ref={(element) => {
                 itemRefs.current[index] = element;
               }}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
               className={cn(
-                "relative overflow-hidden rounded-3xl border border-white/60 bg-white/60 p-7 shadow-soft backdrop-blur-lg transition-all duration-500",
+                "relative overflow-hidden rounded-3xl border border-white/60 bg-white/60 p-7 shadow-soft backdrop-blur-lg transition-all duration-500 ease-out",
                 activeIndex === index ? "ring-2 ring-secondary/50" : "hover:border-secondary/50",
+                visibleIndices.includes(index)
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-8 opacity-0",
               )}
+              style={{ transitionDelay: visibleIndices.includes(index) ? `${index * 0.05}s` : undefined }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-white to-primary/10 opacity-80" aria-hidden="true" />
               <div className="relative space-y-4">
@@ -140,7 +138,7 @@ export default function StickyScrollReveal({ eyebrow, heading, description, item
                   </ul>
                 ) : null}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
