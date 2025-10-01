@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight } from "react-bootstrap-icons";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -62,7 +63,7 @@ export default function TimelineSteps({ steps, className }: TimelineStepsProps) 
             <Button asChild variant="outline" size="sm">
               <Link href={step.href} className="inline-flex items-center gap-2">
                 <span>{step.linkLabel}</span>
-                <span aria-hidden="true">→</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
             <Badge tone="secondary" size="sm" className="uppercase text-secondary/80">
