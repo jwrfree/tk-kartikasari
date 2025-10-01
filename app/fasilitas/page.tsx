@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import { createPageMetadata } from "@/lib/metadata";
@@ -83,10 +85,12 @@ export default async function FasilitasPage() {
                                 {/* Gambar Fasilitas */}
                                 <div className={`relative aspect-square lg:aspect-[4/3] rounded-xl bg-surfaceAlt border border-border flex items-center justify-center overflow-hidden shadow-md ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                                     {facility.image ? (
-                                        <img 
-                                            src={urlFor(facility.image).width(800).height(600).url()} 
-                                            alt={facility.name} 
-                                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                        <Image
+                                            src={urlFor(facility.image).width(800).height(600).url()}
+                                            alt={facility.name}
+                                            fill
+                                            sizes="(min-width: 1024px) 50vw, 100vw"
+                                            className="object-cover transition-transform duration-300 hover:scale-105"
                                         />
                                     ) : (
                                         <div className="text-center text-text-muted">

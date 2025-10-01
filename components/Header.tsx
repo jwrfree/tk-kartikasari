@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import DesktopNav from '@/components/DesktopNav';
 import MobileNav from '@/components/MobileNav';
@@ -50,10 +51,13 @@ export default function Header() {
               className="flex shrink-0 items-center gap-3 text-text transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/60 bg-white/70 shadow-soft backdrop-blur-sm">
-                <img
-                  src={siteSettings.logoUrl ?? "/logo-minimal-full.png"}
+                <Image
+                  src={siteSettings.logoUrl ?? '/logo-minimal-full.png'}
                   alt={`Logo ${siteSettings.schoolName}`}
+                  width={32}
+                  height={32}
                   className="h-8 w-8 object-contain"
+                  priority
                 />
               </span>
               <span className="flex min-w-0 flex-col leading-tight">
