@@ -33,8 +33,8 @@ function parseValue(rawValue: string): ParsedValue {
     };
   }
 
-  const prefix = match.groups.prefix ?? "";
-  const suffix = match.groups.suffix ?? "";
+  const prefix = match.groups.prefix?.trim() ?? "";
+  const suffix = match.groups.suffix?.trim() ?? "";
   const numericPart = match.groups.number.replaceAll(".", "").replace(",", ".");
   const number = Number.parseFloat(numericPart);
   const decimals = match.groups.number.includes(",") || match.groups.number.includes(".") ? 1 : 0;
@@ -60,7 +60,7 @@ export default function AnimatedCounter({ value, className, durationMs = 1600 }:
   const { prefix, number, suffix, decimals } = useMemo(() => parseValue(value), [value]);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20% 0px" });
-  const [displayValue, setDisplayValue] = useState(value);
+  const [progress, setProgress] = useState(() => (number === null ? 1 : 0));
 
   useEffect(() => {
     if (!isInView || number === null) {
@@ -72,15 +72,10 @@ export default function AnimatedCounter({ value, className, durationMs = 1600 }:
 
     const step = (now: number) => {
       const elapsed = now - start;
-      const progress = Math.min(elapsed / durationMs, 1);
-      const eased = easeOutCubic(progress);
-      const current = number * eased;
-      const formatted = new Intl.NumberFormat("id-ID", {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      }).format(current);
-      setDisplayValue(`${prefix}${formatted}${suffix}`.trim());
-      if (progress < 1) {
+      const linearProgress = Math.min(elapsed / durationMs, 1);
+      setProgress(easeOutCubic(linearProgress));
+
+      if (linearProgress < 1) {
         animationFrame = requestAnimationFrame(step);
       }
     };
@@ -90,17 +85,36 @@ export default function AnimatedCounter({ value, className, durationMs = 1600 }:
     return () => {
       cancelAnimationFrame(animationFrame);
     };
-  }, [decimals, durationMs, isInView, number, prefix, suffix]);
+  }, [durationMs, isInView, number]);
 
-  useEffect(() => {
+  const formattedValue = useMemo(() => {
     if (number === null) {
-      setDisplayValue(value);
+      return value;
     }
-  }, [number, value]);
+
+    const current = number * progress;
+
+    return new Intl.NumberFormat("id-ID", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }).format(current);
+  }, [decimals, number, progress, value]);
+
+  if (number === null) {
+    return (
+      <span ref={ref} className={cn("tabular-nums", className)}>
+        {value}
+      </span>
+    );
+  }
 
   return (
-    <span ref={ref} className={cn("tabular-nums", className)}>
-      {displayValue}
+    <span ref={ref} className={cn("inline-flex items-baseline gap-1 tabular-nums", className)}>
+      {prefix ? <span className="text-text">{prefix}</span> : null}
+      <span className="bg-gradient-to-r from-secondary via-primary to-accent bg-clip-text text-transparent">
+        {formattedValue}
+      </span>
+      {suffix ? <span className="text-text">{suffix}</span> : null}
     </span>
   );
 }
