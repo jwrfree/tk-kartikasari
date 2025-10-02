@@ -1,5 +1,5 @@
 
-import { client } from "@/lib/sanity";
+import { fetchSanityData } from "@/lib/sanity-client";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from '@portabletext/types';
 import { notFound } from 'next/navigation';
@@ -13,14 +13,28 @@ type NewsDetail = {
   body: PortableTextBlock[];
 };
 
+const SANITY_SKIP_MESSAGE = "Sanity fetch skipped after previous network failure";
+let hasLoggedPengumumanDetailError = false;
+let hasLoggedPengumumanDetailSkip = false;
+
 async function getNewsDetail(slug: string): Promise<NewsDetail | null> {
   const query = `*[_type == "news" && slug.current == $slug][0]`;
 
   try {
-    const data = await client.fetch<NewsDetail | null>(query, { slug });
+    const data = await fetchSanityData<NewsDetail | null>(query, { slug });
     return data ?? null;
   } catch (error) {
-    console.error(`Failed to fetch pengumuman detail for slug "${slug}":`, error);
+    if (!hasLoggedPengumumanDetailError) {
+      console.error(`Failed to fetch pengumuman detail for slug "${slug}":`, error);
+      hasLoggedPengumumanDetailError = true;
+    } else if (
+      !hasLoggedPengumumanDetailSkip &&
+      error instanceof Error &&
+      error.message.includes(SANITY_SKIP_MESSAGE)
+    ) {
+      console.warn('Skipping pengumuman detail fetch after previous Sanity network failure.');
+      hasLoggedPengumumanDetailSkip = true;
+    }
     return null;
   }
 }

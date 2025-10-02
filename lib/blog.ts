@@ -1,4 +1,4 @@
-import { sanityClient } from './sanity-client';
+import { fetchSanityData } from './sanity-client';
 import type { Post } from './blog-types';
 import { fallbackPosts } from '@/data/blog-posts';
 
@@ -8,6 +8,18 @@ const sanityDataset =
   process.env.NEXT_PUBLIC_SANITY_DATASET ?? process.env.SANITY_DATASET;
 
 const isSanityConfigured = Boolean(sanityProjectId && sanityDataset);
+
+let hasLoggedPostsError = false;
+let hasLoggedPostsSkip = false;
+let hasLoggedSinglePostError = false;
+let hasLoggedSinglePostSkip = false;
+
+function isSkipAfterNetworkFailure(error: unknown): error is Error {
+  return (
+    error instanceof Error &&
+    error.message.includes('Sanity fetch skipped after previous network failure')
+  );
+}
 
 /**
  * Fetches all blog posts from Sanity, ordered by date.
@@ -41,7 +53,7 @@ export async function getPosts(): Promise<Post[]> {
   }`;
 
   try {
-    const sanityPosts = await sanityClient.fetch(query);
+    const sanityPosts = await fetchSanityData<Post[]>(query);
 
     if (!Array.isArray(sanityPosts) || sanityPosts.length === 0) {
       return fallbackPosts;
@@ -60,7 +72,13 @@ export async function getPosts(): Promise<Post[]> {
       },
     }));
   } catch (error) {
-    console.error('Failed to fetch blog posts from Sanity:', error);
+    if (!hasLoggedPostsError) {
+      console.error('Failed to fetch blog posts from Sanity:', error);
+      hasLoggedPostsError = true;
+    } else if (!hasLoggedPostsSkip && isSkipAfterNetworkFailure(error)) {
+      console.warn('Skipping Sanity blog fetch after previous network failure.');
+      hasLoggedPostsSkip = true;
+    }
     return fallbackPosts;
   }
 }
@@ -100,7 +118,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const params = { slug };
 
   try {
-    const post = await sanityClient.fetch(query, params);
+    const post = await fetchSanityData<Post | null>(query, params);
 
     if (!post) {
       return fallbackPosts.find((item) => item.slug === slug) ?? null;
@@ -119,7 +137,13 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       },
     };
   } catch (error) {
-    console.error(`Failed to fetch blog post with slug "${slug}":`, error);
+    if (!hasLoggedSinglePostError) {
+      console.error(`Failed to fetch blog post with slug "${slug}":`, error);
+      hasLoggedSinglePostError = true;
+    } else if (!hasLoggedSinglePostSkip && isSkipAfterNetworkFailure(error)) {
+      console.warn('Skipping Sanity blog fetch after previous network failure.');
+      hasLoggedSinglePostSkip = true;
+    }
     return fallbackPosts.find((item) => item.slug === slug) ?? null;
   }
 }

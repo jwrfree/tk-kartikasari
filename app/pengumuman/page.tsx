@@ -1,7 +1,11 @@
-import { client } from '@/lib/sanity';
+import { fetchSanityData } from '@/lib/sanity-client';
 import Link from 'next/link';
 import { createPageMetadata } from '@/lib/metadata';
 import { getGlobalSiteData } from '@/lib/sanity.queries';
+
+const SANITY_SKIP_MESSAGE = 'Sanity fetch skipped after previous network failure';
+let hasLoggedPengumumanListError = false;
+let hasLoggedPengumumanListSkip = false;
 
 // Ambil semua data pengumuman, urutkan dari yang terbaru
 type NewsItem = {
@@ -15,10 +19,20 @@ async function getNewsData(): Promise<NewsItem[]> {
   const query = `*[_type == "news"] | order(publishedAt desc)`;
 
   try {
-    const data = await client.fetch<NewsItem[]>(query);
+    const data = await fetchSanityData<NewsItem[]>(query);
     return data ?? [];
   } catch (error) {
-    console.error('Failed to fetch pengumuman from Sanity:', error);
+    if (!hasLoggedPengumumanListError) {
+      console.error('Failed to fetch pengumuman from Sanity:', error);
+      hasLoggedPengumumanListError = true;
+    } else if (
+      !hasLoggedPengumumanListSkip &&
+      error instanceof Error &&
+      error.message.includes(SANITY_SKIP_MESSAGE)
+    ) {
+      console.warn('Skipping pengumuman fetch after previous Sanity network failure.');
+      hasLoggedPengumumanListSkip = true;
+    }
     return [];
   }
 }

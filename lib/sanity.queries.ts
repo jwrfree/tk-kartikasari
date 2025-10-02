@@ -1,8 +1,11 @@
 import { cache } from "react";
 
-import { sanityClient } from "@/lib/sanity-client";
+import { fetchSanityData } from "@/lib/sanity-client";
 import { fallbackContent } from "@/lib/fallback-content";
 import type { SiteContent } from "@/lib/types/site";
+
+let hasLoggedSiteContentError = false;
+let hasLoggedSiteContentSkip = false;
 
 const SITE_CONTENT_QUERY = `*[_type == "siteContent"][0]{
   "siteSettings": {
@@ -170,10 +173,20 @@ function mergeContent(data: RawSiteContent): SiteContent {
 
 export const getSiteContent = cache(async (): Promise<SiteContent> => {
   try {
-    const data = await sanityClient.fetch<RawSiteContent>(SITE_CONTENT_QUERY);
+    const data = await fetchSanityData<RawSiteContent>(SITE_CONTENT_QUERY);
     return mergeContent(data);
   } catch (error) {
-    console.error("Failed to fetch site content from Sanity:", error);
+    if (!hasLoggedSiteContentError) {
+      console.error("Failed to fetch site content from Sanity:", error);
+      hasLoggedSiteContentError = true;
+    } else if (
+      !hasLoggedSiteContentSkip &&
+      error instanceof Error &&
+      error.message.includes("Sanity fetch skipped after previous network failure")
+    ) {
+      console.warn("Sanity fetch skipped after previous network failure.");
+      hasLoggedSiteContentSkip = true;
+    }
     return fallbackContent;
   }
 });
