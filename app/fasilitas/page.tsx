@@ -3,7 +3,7 @@ import Image from "next/image";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import { createPageMetadata } from "@/lib/metadata";
-import { sanityClient } from "@/lib/sanity-client";
+import { fetchSanityData } from "@/lib/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import { CheckCircle, Image as ImageIcon, PlayCircleFill } from "react-bootstrap-icons";
 import AnimateIn from "@/components/AnimateIn";
@@ -28,18 +28,36 @@ type Facility = {
     image?: unknown;
 };
 
+const SANITY_SKIP_MESSAGE = "Sanity fetch skipped after previous network failure";
+let hasLoggedFasilitasError = false;
+let hasLoggedFasilitasSkip = false;
+
 // Mengambil data dari Sanity
 async function getFacilitiesData(): Promise<{ virtualTour: VirtualTour; facilities: Facility[] }> {
     try {
-        const virtualTour = await sanityClient.fetch<VirtualTour>('*[_type == "virtualTour"][0]');
-        const facilities = await sanityClient.fetch<Facility[]>('*[_type == "facility"] | order(_createdAt asc)');
+        const virtualTour = await fetchSanityData<VirtualTour>(
+            '*[_type == "virtualTour"][0]'
+        );
+        const facilities = await fetchSanityData<Facility[]>(
+            '*[_type == "facility"] | order(_createdAt asc)'
+        );
 
         return {
             virtualTour: virtualTour ?? null,
             facilities: facilities ?? [],
         };
     } catch (error) {
-        console.error('Failed to fetch fasilitas from Sanity:', error);
+        if (!hasLoggedFasilitasError) {
+            console.error('Failed to fetch fasilitas from Sanity:', error);
+            hasLoggedFasilitasError = true;
+        } else if (
+            !hasLoggedFasilitasSkip &&
+            error instanceof Error &&
+            error.message.includes(SANITY_SKIP_MESSAGE)
+        ) {
+            console.warn('Skipping fasilitas fetch after previous Sanity network failure.');
+            hasLoggedFasilitasSkip = true;
+        }
         return { virtualTour: null, facilities: [] };
     }
 }
