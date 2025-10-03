@@ -9,7 +9,7 @@ const parsedTimeout = Number.parseInt(
   10,
 );
 const DEFAULT_FETCH_TIMEOUT_MS = Number.isNaN(parsedTimeout)
-  ? 1000
+  ? 10000
   : Math.max(0, parsedTimeout);
 
 const NETWORK_ERROR_CODES = new Set([
