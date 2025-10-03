@@ -8,8 +8,13 @@ const parsedTimeout = Number.parseInt(
   process.env.SANITY_FETCH_TIMEOUT_MS ?? "",
   10,
 );
+
+const DEFAULT_BUILD_FETCH_TIMEOUT_MS = 10000;
+const DEFAULT_RUNTIME_FETCH_TIMEOUT_MS = 3000;
 const DEFAULT_FETCH_TIMEOUT_MS = Number.isNaN(parsedTimeout)
-  ? 1000
+  ? process.env.NEXT_RUNTIME
+    ? DEFAULT_RUNTIME_FETCH_TIMEOUT_MS
+    : DEFAULT_BUILD_FETCH_TIMEOUT_MS
   : Math.max(0, parsedTimeout);
 
 const NETWORK_ERROR_CODES = new Set([
@@ -22,7 +27,24 @@ const NETWORK_ERROR_CODES = new Set([
   "ENETUNREACH",
 ]);
 
-let skipSanityRequests = false;
+const SKIP_SANITY_REQUESTS_MESSAGE =
+  "Sanity fetch skipped after previous network failure.";
+const SKIP_SANITY_REQUESTS_DURATION_MS = 60_000;
+
+let skipSanityRequestsUntil = 0;
+
+function shouldSkipSanityRequests() {
+  if (skipSanityRequestsUntil === 0) {
+    return false;
+  }
+
+  if (skipSanityRequestsUntil <= Date.now()) {
+    skipSanityRequestsUntil = 0;
+    return false;
+  }
+
+  return true;
+}
 
 export const sanityClient = createClient({
   projectId,
@@ -37,10 +59,8 @@ export async function fetchSanityData<T>(
   params: SanityQueryParams = {},
   timeoutMs: number = DEFAULT_FETCH_TIMEOUT_MS,
 ): Promise<T> {
-  if (skipSanityRequests) {
-    throw new Error(
-      "Sanity fetch skipped after previous network failure.",
-    );
+  if (shouldSkipSanityRequests()) {
+    throw new Error(SKIP_SANITY_REQUESTS_MESSAGE);
   }
 
   const controller = new AbortController();
@@ -74,11 +94,12 @@ export async function fetchSanityData<T>(
 
   try {
     const result = await timedFetch;
-    skipSanityRequests = false;
+    skipSanityRequestsUntil = 0;
     return result;
   } catch (error) {
     if (isNetworkError(error)) {
-      skipSanityRequests = true;
+      skipSanityRequestsUntil =
+        Date.now() + SKIP_SANITY_REQUESTS_DURATION_MS;
     }
 
     throw error;
