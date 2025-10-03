@@ -3,7 +3,7 @@ import Image from "next/image";
 import PageHeader from "@/components/layout/PageHeader";
 import PageSection from "@/components/layout/PageSection";
 import { createPageMetadata } from "@/lib/metadata";
-import { fetchSanityData } from "@/lib/sanity-client";
+import { SANITY_NETWORK_SKIP_MESSAGE, fetchSanityData } from "@/lib/sanity-client";
 import { urlFor } from "@/lib/sanity-image";
 import { CheckCircle, Image as ImageIcon, PlayCircleFill } from "react-bootstrap-icons";
 import AnimateIn from "@/components/AnimateIn";
@@ -28,7 +28,6 @@ type Facility = {
     image?: unknown;
 };
 
-const SANITY_SKIP_MESSAGE = "Sanity fetch skipped after previous network failure";
 let hasLoggedFasilitasError = false;
 let hasLoggedFasilitasSkip = false;
 
@@ -53,7 +52,7 @@ async function getFacilitiesData(): Promise<{ virtualTour: VirtualTour; faciliti
         } else if (
             !hasLoggedFasilitasSkip &&
             error instanceof Error &&
-            error.message.includes(SANITY_SKIP_MESSAGE)
+            error.message.includes(SANITY_NETWORK_SKIP_MESSAGE)
         ) {
             console.warn('Skipping fasilitas fetch after previous Sanity network failure.');
             hasLoggedFasilitasSkip = true;

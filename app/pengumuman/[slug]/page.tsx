@@ -1,5 +1,5 @@
 
-import { fetchSanityData } from "@/lib/sanity-client";
+import { SANITY_NETWORK_SKIP_MESSAGE, fetchSanityData } from "@/lib/sanity-client";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from '@portabletext/types';
 import { notFound } from 'next/navigation';
@@ -13,7 +13,6 @@ type NewsDetail = {
   body: PortableTextBlock[];
 };
 
-const SANITY_SKIP_MESSAGE = "Sanity fetch skipped after previous network failure";
 let hasLoggedPengumumanDetailError = false;
 let hasLoggedPengumumanDetailSkip = false;
 
@@ -30,7 +29,7 @@ async function getNewsDetail(slug: string): Promise<NewsDetail | null> {
     } else if (
       !hasLoggedPengumumanDetailSkip &&
       error instanceof Error &&
-      error.message.includes(SANITY_SKIP_MESSAGE)
+      error.message.includes(SANITY_NETWORK_SKIP_MESSAGE)
     ) {
       console.warn('Skipping pengumuman detail fetch after previous Sanity network failure.');
       hasLoggedPengumumanDetailSkip = true;

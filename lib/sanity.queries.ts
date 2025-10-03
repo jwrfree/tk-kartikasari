@@ -1,6 +1,9 @@
 import { cache } from "react";
 
-import { fetchSanityData } from "@/lib/sanity-client";
+import {
+  SANITY_NETWORK_SKIP_MESSAGE,
+  fetchSanityData,
+} from "@/lib/sanity-client";
 import { fallbackContent } from "@/lib/fallback-content";
 import type { SiteContent } from "@/lib/types/site";
 
@@ -182,7 +185,7 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     } else if (
       !hasLoggedSiteContentSkip &&
       error instanceof Error &&
-      error.message.includes("Sanity fetch skipped after previous network failure")
+      error.message.includes(SANITY_NETWORK_SKIP_MESSAGE)
     ) {
       console.warn("Sanity fetch skipped after previous network failure.");
       hasLoggedSiteContentSkip = true;

@@ -1,4 +1,4 @@
-import { fetchSanityData } from './sanity-client';
+import { SANITY_NETWORK_SKIP_MESSAGE, fetchSanityData } from './sanity-client';
 import type { Post } from './blog-types';
 import { fallbackPosts } from '@/data/blog-posts';
 
@@ -17,7 +17,7 @@ let hasLoggedSinglePostSkip = false;
 function isSkipAfterNetworkFailure(error: unknown): error is Error {
   return (
     error instanceof Error &&
-    error.message.includes('Sanity fetch skipped after previous network failure')
+    error.message.includes(SANITY_NETWORK_SKIP_MESSAGE)
   );
 }
 
