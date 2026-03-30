@@ -1,14 +1,14 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { UsersIcon, SparklesIcon, ArrowRightIcon } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
 
 import CTAButton from "@/components/CTAButton";
-import AnimateIn from "@/components/AnimateIn";
 import PageSection from "@/components/layout/PageSection";
-import { AuroraBackground } from "@/components/reactbits/AuroraBackground";
 import AnimatedCounter from "@/components/reactbits/AnimatedCounter";
 import type { HomeStat } from "@/app/types/home";
-import { CardSurface } from "@/components/ui/CardSurface";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 
 export type HeroCopy = {
   badgeSuffix: string;
@@ -30,60 +30,141 @@ type HeroSectionProps = {
 };
 
 export function HeroSection({ schoolName, stats, teacherStudentRatio, copy }: HeroSectionProps) {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { 
+        duration: 0.8, 
+        ease: [0.16, 1, 0.3, 1]
+      } 
+    },
+  };
+
   return (
-    <AuroraBackground className="rounded-b-[2.5rem] border-b border-white/60 bg-gradient-to-br from-white via-secondary/10 to-primary/10">
+    <section className="relative min-h-[90vh] overflow-hidden bg-background pt-24 lg:pt-0">
+      {/* Background Accent Gradients */}
+      <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-primary/10 blur-[120px]" aria-hidden="true" />
+      <div className="absolute top-1/2 left-1/4 h-64 w-64 rounded-full bg-secondary/5 blur-[100px]" aria-hidden="true" />
+
       <PageSection
         padding="none"
-        containerClassName="relative grid gap-16 pb-24 pt-20 lg:grid-cols-[1.1fr,0.9fr] lg:items-center"
+        containerClassName="relative z-10 grid min-h-[90vh] items-center gap-12 lg:grid-cols-2 lg:gap-20"
       >
-        <div className="relative space-y-8">
-          <Badge
-            tone="surface"
-            size="md"
-            className="text-sm normal-case text-secondary shadow-soft"
-            leadingVisual={<span className="h-2.5 w-2.5 rounded-full bg-secondary" />}
-          >
-            {schoolName} • {copy.badgeSuffix}
-          </Badge>
-          <h1 className="text-balance text-4xl font-bold leading-tight text-text sm:text-5xl">{copy.title}</h1>
-          <p className="max-w-xl text-pretty text-lg text-text-muted sm:text-xl">{copy.description}</p>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <CTAButton ctaKey="heroVisit" />
-            <Button asChild variant="secondary" fullWidth className="sm:w-auto">
-              <Link href="/ppdb">{copy.secondaryCtaLabel}</Link>
-            </Button>
+        {/* Left Side: Content Box */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col justify-center space-y-10 py-12 lg:py-32"
+        >
+          <motion.div variants={itemVariants} className="inline-flex w-fit items-center gap-3 rounded-full border border-primary/20 bg-white/60 px-5 py-2 text-sm font-bold text-primary shadow-soft backdrop-blur-xl">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+            </span>
+            <span className="tracking-wide uppercase">{schoolName} • {copy.badgeSuffix}</span>
+          </motion.div>
+
+          <div className="space-y-6">
+            <motion.h1 
+              variants={itemVariants}
+              className="max-w-[15ch] text-balance font-sans text-5xl font-[950] leading-[1.05] tracking-tight text-foreground/90 md:text-7xl xl:text-8xl"
+            >
+              Awal Terbaik untuk <span className="text-secondary italic font-serif">Si Kecil.</span>
+            </motion.h1>
+
+            <motion.p 
+              variants={itemVariants}
+              className="max-w-xl text-pretty text-lg leading-relaxed text-foreground/60 md:text-xl"
+            >
+              {copy.description}
+            </motion.p>
           </div>
-          <div className="grid gap-6 pt-6 sm:grid-cols-2 md:grid-cols-3">
+
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-5">
+            <CTAButton ctaKey="heroVisit" className="btn-primary min-w-[200px]" />
+            <Link 
+              href="/ppdb" 
+              className="group flex items-center gap-2 rounded-2xl bg-secondary/5 px-8 py-4 text-base font-bold text-secondary transition-all hover:bg-secondary/10"
+            >
+              <span>{copy.secondaryCtaLabel}</span>
+              <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+
+          {/* Stats Bar */}
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-8 pt-8">
             {stats.map((item) => (
-              <CardSurface key={item.label} tone="translucent" padding="lg" className="text-left">
-                <p className="text-3xl font-bold text-text">
+              <div key={item.label} className="group relative">
+                <p className="text-3xl font-[900] text-foreground/90 md:text-4xl">
                   <AnimatedCounter value={item.value} />
                 </p>
-                <p className="mt-1 text-base text-text-muted">{item.label}</p>
-              </CardSurface>
+                <p className="max-w-[150px] text-xs font-bold leading-tight uppercase tracking-widest text-foreground/40 transition-colors group-hover:text-primary">
+                  {item.label}
+                </p>
+              </div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <AnimateIn className="relative flex justify-center">
-          <div className="absolute -top-12 right-6 h-40 w-40 rounded-full bg-accent/30 blur-2xl" aria-hidden="true" />
-          <div className="absolute -bottom-6 left-2 h-36 w-36 rounded-full bg-secondary/25 blur-2xl md:-bottom-10" aria-hidden="true" />
-          <CardSurface
-            tone="translucent"
-            padding="xl"
-            className="relative w-full max-w-md space-y-5 rounded-[2.5rem] text-center"
+        {/* Right Side: High-Impact Image Frame */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, x: 50 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+          className="relative h-[500px] w-full lg:h-[700px]"
+        >
+          {/* Main Image Frame with Premium Border */}
+          <div className="relative h-full w-full overflow-hidden rounded-[3rem] border-[12px] border-white shadow-premium">
+            <Image
+              src="/images/hero-main.png"
+              alt="Anak-anak belajar dengan gembira di TK Kartikasari"
+              fill
+              className="object-cover transition-transform duration-1000 hover:scale-105"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          </div>
+
+          {/* Floating High-Trust Card */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="absolute bottom-8 -left-8 right-8 rounded-[2.5rem] border border-white/60 bg-white/80 p-8 shadow-premium backdrop-blur-2xl md:-left-12 md:bottom-12 md:p-10"
           >
-            <p className="text-lg font-semibold text-secondary">{copy.highlight.title}</p>
-            <p className="text-base leading-relaxed text-text-muted">{copy.highlight.description}</p>
-            <div className="flex items-center justify-center gap-3 text-base font-semibold text-text">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-lg" aria-hidden="true">
-                😊
-              </span>
-              {copy.highlight.ratioLabel} {teacherStudentRatio}
+            <div className="flex items-start gap-6">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary shadow-floating">
+                <UsersIcon className="h-7 w-7 text-white" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-black text-foreground/90">{copy.highlight.title}</h3>
+                <p className="text-sm leading-relaxed text-foreground/60">{copy.highlight.description}</p>
+                <div className="inline-block rounded-full bg-secondary/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-secondary">
+                  Rasio {teacherStudentRatio} • Terakreditasi
+                </div>
+              </div>
             </div>
-          </CardSurface>
-        </AnimateIn>
+          </motion.div>
+
+          {/* Decorative Elements */}
+          <div className="absolute -z-10 -bottom-6 -right-6 h-32 w-32 rounded-full bg-accent/20 blur-2xl" />
+          <div className="absolute -z-10 -top-6 -right-6 h-64 w-64 rounded-full bg-secondary/10 blur-3xl opacity-50" />
+        </motion.div>
       </PageSection>
-    </AuroraBackground>
+    </section>
   );
 }

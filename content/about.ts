@@ -1,4 +1,3 @@
-
 export type AboutHighlight = string;
 
 export type ExperiencePillar = {
@@ -17,72 +16,63 @@ export type StrengthItem = {
 };
 
 export const aboutMetaDescription =
-  "Selama lebih dari dua dekade TK Kartikasari mendampingi anak Bantarsari dengan Kurikulum Merdeka PAUD yang hangat, projek Profil Pelajar Pancasila, dan kemitraan erat bersama orang tua.";
+  "Kenali siapa TK Kartikasari, bagaimana guru mendampingi anak, dan apa yang membuat sekolah ini terasa meyakinkan bagi keluarga.";
 
 export const aboutHeaderHighlights: AboutHighlight[] = [
-  "Berawal dari mimpi pendidik lokal Bantarsari",
-  "26 tahun terdaftar di Kemendikbudristek",
-  "Lingkungan belajar 440 m² yang aman",
+  "Sekolah pertama untuk keluarga sekitar Bantarsari",
+  "Data sekolah mudah dicek",
+  "Pendampingan dekat sejak masa adaptasi",
 ];
 
 export const aboutExperiencePillars: ExperiencePillar[] = [
   {
-    title: "Legalitas & kredibilitas",
-    description:
-      "NPSN 20351273 dan SK operasional resmi menjadi dasar kami menjaga rasa aman dan kepercayaan keluarga Bantarsari.",
+    title: "Sekolah yang mudah dipercaya",
+    description: "Data penting sekolah terbuka, mudah dicek, dan tidak disembunyikan di balik bahasa promosi.",
   },
   {
-    title: "Pembelajaran merdeka",
-    description:
-      "Guru menyiapkan asesmen autentik dan pembelajaran terdiferensiasi yang mengikuti ritme kesiapan tiap anak.",
+    title: "Guru yang dekat dengan anak",
+    description: "Pendampingan dimulai dari mengenali ritme dan kebutuhan anak, bukan langsung mengejar banyak target.",
   },
   {
-    title: "Kolaborasi orang tua",
-    description:
-      "Kelas parenting, showcase projek, dan percakapan harian membuat nilai sekolah berlanjut utuh di rumah.",
+    title: "Komunikasi yang tidak berjarak",
+    description: "Orang tua tahu ke mana harus bertanya dan tetap mendapat konteks tentang keseharian anak di sekolah.",
   },
 ];
 
 export const aboutDailyRhythm: DailyRhythmItem[] = [
   {
-    title: "Pembiasaan & doa pagi",
-    description:
-      "Anak diajak refleksi syukur, mengecek emosi, dan menyiapkan tujuan belajar harian.",
+    title: "Anak datang dan merasa disambut",
+    description: "Guru membantu anak masuk ke ritme pagi tanpa tergesa-gesa.",
   },
   {
-    title: "Eksplorasi diferensiasi",
-    description:
-      "Rotasi sentra literasi, STEAM, seni, dan role play menyesuaikan minat serta kesiapan anak.",
+    title: "Anak ikut kegiatan yang bisa dipahami",
+    description: "Aktivitas dibuat cukup teratur untuk menenangkan, cukup hidup untuk membuat anak tertarik.",
   },
   {
-    title: "Refleksi Projek P5",
-    description:
-      "Anak menceritakan temuan, mendokumentasikan karya, lalu menutup hari dengan doa dan pesan karakter.",
+    title: "Anak pulang dengan cerita",
+    description: "Hari sekolah ditutup dengan pengalaman yang bisa dibawa pulang dan diceritakan lagi di rumah.",
   },
 ];
 
 export const aboutStrengths: StrengthItem[] = [
   {
-    title: "Suasana kelas yang hangat",
-    description:
-      "Sapaan personal, area transisi yang nyaman, dan rutinitas positif membuat anak percaya diri sejak pagi.",
+    title: "Tidak terasa terlalu besar atau terlalu ramai",
+    description: "Bagi banyak anak, suasana seperti ini membuat proses adaptasi lebih masuk akal.",
   },
   {
-    title: "Projek autentik yang bermakna",
-    description:
-      "Sentra indoor-outdoor di lahan 440 m² menghadirkan pengalaman kontekstual yang relevan dengan kehidupan anak.",
+    title: "Fokus pada pengalaman nyata anak",
+    description: "Yang dibicarakan bukan hanya program, tetapi bagaimana anak menjalani hari di sekolah.",
   },
   {
-    title: "Kemitraan keluarga yang nyata",
-    description:
-      "Guru berpengalaman rutin berbagi portofolio, coaching singkat, dan refleksi sehingga orang tua merasa dilibatkan.",
+    title: "Orang tua tahu langkah berikutnya",
+    description: "Mulai dari bertanya, datang, sampai mendaftar, alurnya dibuat lebih jelas.",
   },
 ];
 
 export const aboutMission: string[] = [
-  "Menumbuhkan karakter religius, empati, dan kemandirian melalui rutinitas harian yang hangat.",
-  "Menghadirkan kegiatan belajar yang menyenangkan, mudah dipahami, dan sesuai usia anak.",
-  "Membangun kemitraan erat dengan keluarga untuk memastikan pembelajaran anak relevan dan saling mendukung.",
-  "Menjaga lingkungan bermain yang aman, inklusif, dan kaya stimulasi positif.",
-  "Mendorong anak bereksplorasi lewat literasi, numerasi, seni, dan teknologi secara bertahap.",
+  "Membuat sekolah pertama terasa cukup aman untuk anak jalani setiap hari.",
+  "Membantu anak mengenal rutinitas, teman, dan guru tanpa tekanan berlebihan.",
+  "Menjaga komunikasi dengan keluarga tetap jelas dan mudah diikuti.",
+  "Membangun kebiasaan baik lewat kegiatan yang sederhana dan sesuai usia anak.",
+  "Membantu anak lebih siap mengikuti kegiatan bersama dari waktu ke waktu.",
 ];

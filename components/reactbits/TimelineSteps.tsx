@@ -7,6 +7,7 @@ import { ArrowRight } from "react-bootstrap-icons";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { DynamicIcon } from "@/components/DynamicIcon";
 
 type TimelineStep = {
   key: string;
@@ -65,49 +66,39 @@ export default function TimelineSteps({ steps, className }: TimelineStepsProps) 
             itemRefs.current[index] = element;
           }}
           className={cn(
-            "group relative flex h-full transform-gpu flex-col gap-6 overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-8 shadow-soft backdrop-blur-xl backdrop-saturate-150 transition-all duration-500 ease-out",
+            "group relative flex h-full transform-gpu flex-col gap-6 overflow-hidden rounded-[2rem] border border-white/60 bg-white/50 p-8 shadow-soft backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-1 hover:bg-white/60 hover:shadow-premium ring-1 ring-black/5",
             visibleSteps.includes(index)
               ? "translate-y-0 opacity-100"
               : "translate-y-8 opacity-0",
           )}
           style={{ transitionDelay: visibleSteps.includes(index) ? `${index * 0.05}s` : undefined }}
         >
-          <span
-            className="pointer-events-none absolute inset-x-0 top-0 h-1.5 origin-left scale-x-95 bg-gradient-to-r from-primary/40 via-secondary/40 to-primary/40 transition-transform duration-500 group-hover:scale-x-100"
-            aria-hidden="true"
-          />
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center justify-between gap-4">
             <Badge
-              tone="primary"
+              tone="surface"
               size="sm"
-              className="uppercase tracking-[0.28em] text-primary/80"
-              leadingVisual={<span className="h-2 w-2 rounded-full bg-primary" />}
+              className="font-bold border-primary/20 text-primary"
+              leadingVisual={<span className="h-1.5 w-1.5 rounded-full bg-primary" />}
             >
               Langkah {index + 1}
             </Badge>
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-2xl">
-              {step.icon}
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 shadow-inner group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <DynamicIcon name={step.icon} className="h-6 w-6" />
             </span>
           </div>
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-text sm:text-xl">{step.title}</h3>
-            <p className="text-sm leading-relaxed text-text-muted">{step.description}</p>
+            <h3 className="font-sans text-xl font-bold text-foreground sm:text-2xl">{step.title}</h3>
+            <p className="text-base leading-relaxed text-foreground/60">{step.description}</p>
           </div>
-          <div className="mt-auto flex flex-wrap items-center gap-3">
-            <Button asChild variant="outline" size="sm">
-              <Link href={step.href} className="inline-flex items-center gap-2">
-                <span>{step.linkLabel}</span>
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            </Button>
-            <Badge tone="secondary" size="sm" className="uppercase text-secondary/80">
-              Disiapkan tim PPDB
-            </Badge>
+          <div className="mt-8 flex items-center">
+            <Link 
+              href={step.href} 
+              className="inline-flex items-center gap-2 text-sm font-bold text-primary group/link"
+            >
+              <span className="border-b border-primary/30 group-hover/link:border-primary transition-colors">{step.linkLabel}</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" aria-hidden="true" />
+            </Link>
           </div>
-          <span
-            className="pointer-events-none absolute inset-0 rounded-3xl border border-white/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-            aria-hidden="true"
-          />
         </li>
       ))}
     </ol>

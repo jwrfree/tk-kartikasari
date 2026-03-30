@@ -16,6 +16,9 @@ export type HomeProgram = {
   age: string;
   description: string;
   points: string[];
+  forWho?: string;
+  whatChildrenDo?: string[];
+  whatParentsNotice?: string;
 };
 
 export type HomeJourneyItem = {

@@ -1,16 +1,19 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 
-import CTAButton from "@/components/CTAButton";
-import { useSiteData } from "@/app/providers/SiteDataProvider";
+import CTAButton from '@/components/CTAButton';
+import { useSiteData } from '@/app/providers/SiteDataProvider';
+import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
+import { CardSurface } from '@/components/ui/CardSurface';
 
 interface EngagementSectionProps {
   slug: string;
 }
 
 function normalizeWhatsappNumber(value: string) {
-  return value.replace(/[^0-9]/g, "");
+  return value.replace(/[^0-9]/g, '');
 }
 
 export default function EngagementSection({ slug }: EngagementSectionProps) {
@@ -20,7 +23,7 @@ export default function EngagementSection({ slug }: EngagementSectionProps) {
     try {
       return new URL(`/blog/${slug}`, siteSettings.siteUrl).toString();
     } catch (error) {
-      console.error("Failed to build article URL", error);
+      console.error('Failed to build article URL', error);
       return `${siteSettings.siteUrl}/blog/${slug}`;
     }
   }, [siteSettings.siteUrl, slug]);
@@ -37,47 +40,46 @@ export default function EngagementSection({ slug }: EngagementSectionProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 4000);
     } catch (error) {
-      console.error("Failed to copy link", error);
+      console.error('Failed to copy link', error);
     }
   };
 
   return (
-    <section className="mt-12 rounded-2xl border border-primary/10 bg-primary/5 p-6 shadow-sm">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <h2 className="text-xl font-semibold text-primary">Bagikan Artikel Ini</h2>
-          <p className="text-sm text-text-muted">
-            Ceritakan pengalaman Anda kepada sesama orang tua dan bantu kami menjangkau lebih banyak keluarga.
-          </p>
+    <section className="mt-12">
+      <CardSurface tone="gradient" padding="xl" className="space-y-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-3">
+            <Badge tone="surface" size="sm">
+              Bagikan artikel
+            </Badge>
+            <h2 className="text-2xl font-semibold text-foreground">Bagikan jika menurut Anda tulisan ini membantu.</h2>
+            <p className="text-sm text-text-muted">
+              Tautan ini bisa diteruskan ke keluarga lain yang sedang mencari gambaran sekolah atau butuh konteks yang
+              sama.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button type="button" onClick={handleCopyLink} variant="outline">
+              {copied ? 'Tautan Disalin' : 'Salin Tautan'}
+            </Button>
+            <Button asChild>
+              <a href={whatsappShareUrl} target="_blank" rel="noopener noreferrer">
+                Bagikan ke WhatsApp
+              </a>
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10"
-          >
-            {copied ? "Tautan Disalin" : "Salin Tautan"}
-          </button>
-          <a
-            href={whatsappShareUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/90"
-          >
-            Bagikan ke WhatsApp
-          </a>
-        </div>
-      </div>
 
-      <div className="mt-8 rounded-xl bg-white p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-text">Ingin Diskusi Lebih Lanjut?</h3>
-        <p className="mt-2 text-sm text-text-muted">
-          Tim kami siap membantu Anda memahami program dan kegiatan di TK Kartikasari. Silakan hubungi kami kapan pun Anda siap.
-        </p>
-        <div className="mt-4">
-          <CTAButton ctaKey="contactConsultation" className="w-full sm:w-auto" />
-        </div>
-      </div>
+        <CardSurface tone="translucent" padding="lg" className="space-y-4">
+          <h3 className="text-lg font-semibold text-text">Ingin tanya langsung?</h3>
+          <p className="text-sm text-text-muted">
+            Jika ada hal yang ingin dikonfirmasi setelah membaca artikel ini, Anda bisa langsung menghubungi sekolah.
+          </p>
+          <div className="pt-2">
+            <CTAButton ctaKey="contactConsultation" className="w-full sm:w-auto" />
+          </div>
+        </CardSurface>
+      </CardSurface>
     </section>
   );
 }

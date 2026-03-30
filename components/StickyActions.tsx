@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import CTAButton from "@/components/CTAButton";
-import { useSiteData } from "@/app/providers/SiteDataProvider";
-import { Button } from "@/components/ui/Button";
+import CTAButton from '@/components/CTAButton';
+import { useSiteData } from '@/app/providers/SiteDataProvider';
+import { Button } from '@/components/ui/Button';
 
 export default function StickyActions() {
   const { siteSettings } = useSiteData();
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 hidden pb-[calc(env(safe-area-inset-bottom,0)+1.5rem)] md:block">
-      <div className="container pointer-events-auto">
-        <div className="flex flex-col gap-4 rounded-3xl border border-border/70 bg-surface/95 px-5 py-5 shadow-soft backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-custom pointer-events-auto">
+        <div className="flex flex-col gap-4 rounded-[1.75rem] border border-border/70 bg-surface/95 px-5 py-5 shadow-soft backdrop-blur sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-base font-semibold text-primary">Siap membantu orang tua baru</p>
+            <p className="text-base font-semibold text-primary">Perlu tanya langsung?</p>
             <p className="text-base text-text-muted sm:text-lg">
-              Hubungi Bu Mintarsih atau dapatkan petunjuk arah menuju sekolah kami.
+              Hubungi sekolah untuk cek kuota, menjadwalkan kunjungan, atau melihat rute menuju lokasi.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

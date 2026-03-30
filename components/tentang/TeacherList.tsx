@@ -1,7 +1,6 @@
-
-import Image from "next/image";
-import { Person, PersonBadge } from "react-bootstrap-icons";
-import type { TeacherProfile } from "@/lib/types/site";
+import Image from 'next/image';
+import { Person, PersonBadge } from 'react-bootstrap-icons';
+import type { TeacherProfile } from '@/lib/types/site';
 
 interface TeacherListProps {
   teachers: TeacherProfile[];
@@ -13,19 +12,19 @@ function TeacherAvatar({
   imageUrl,
   icon: Icon,
   size,
-  variant = "primary",
+  variant = 'primary',
 }: {
   name: string;
   imageUrl?: string | null;
   icon: typeof Person | typeof PersonBadge;
-  size: "lg" | "md";
-  variant?: "primary" | "neutral";
+  size: 'lg' | 'md';
+  variant?: 'primary' | 'neutral';
 }) {
-  const dimension = size === "lg" ? 192 : 160;
+  const dimension = size === 'lg' ? 192 : 160;
   const backgroundClass =
-    variant === "primary"
-      ? "bg-secondary/10 text-secondary shadow-lg"
-      : "bg-gray-200/60 text-gray-500 shadow-md";
+    variant === 'primary'
+      ? 'border border-secondary/20 bg-secondary/10 text-secondary shadow-soft'
+      : 'border border-border/70 bg-surface-alt text-text-muted shadow-soft';
 
   return (
     <div
@@ -41,7 +40,7 @@ function TeacherAvatar({
           sizes="(max-width: 768px) 160px, 192px"
         />
       ) : (
-        <Icon className={size === "lg" ? "h-24 w-24" : "h-20 w-20"} />
+        <Icon className={size === 'lg' ? 'h-24 w-24' : 'h-20 w-20'} />
       )}
     </div>
   );
@@ -54,7 +53,7 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
       return true;
     }
 
-    return teacher.position.toLowerCase().includes("kepala sekolah");
+    return teacher.position.toLowerCase().includes('kepala sekolah');
   });
 
   const fallbackHeadmasterName = headmasterName?.trim().toLowerCase();
@@ -64,8 +63,8 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
     (headmasterName
       ? {
           name: headmasterName,
-          position: "Kepala Sekolah",
-          description: "Informasi kepala sekolah dapat diperbarui melalui Sanity Studio.",
+          position: 'Kepala Sekolah',
+          description: 'Informasi kepala sekolah dapat diperbarui melalui Sanity Studio.',
           impactStatement: null,
           imageUrl: null,
           isHeadmaster: true,
@@ -81,7 +80,7 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
   if (!headmaster && otherTeachers.length === 0) {
     return (
       <p className="text-base text-text-muted">
-        Data guru belum tersedia. Silakan tambahkan profil melalui Sanity Studio untuk menampilkannya di halaman ini.
+        Profil guru belum tersedia saat ini. Informasi tim pendidik akan ditampilkan di sini setelah data diperbarui.
       </p>
     );
   }
@@ -95,12 +94,10 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
           <h3 className="text-2xl font-semibold text-text">{headmaster.name}</h3>
           <p className="text-base text-secondary">{headmaster.position}</p>
           {headmaster.description ? (
-            <p className="mt-2 text-base text-text-muted">{headmaster.description}</p>
+            <p className="mt-2 text-base leading-relaxed text-text-muted">{headmaster.description}</p>
           ) : null}
           {headmaster.impactStatement ? (
-            <p className="mt-3 text-sm font-semibold text-secondary/80">
-              {headmaster.impactStatement}
-            </p>
+            <p className="mt-3 text-sm font-semibold text-secondary/80">{headmaster.impactStatement}</p>
           ) : null}
         </div>
       )}
@@ -109,7 +106,7 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
       {otherTeachers.length > 0 ? (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {otherTeachers.map((teacher, index) => (
-            <div key={index} className="text-center">
+            <div key={index} className="card px-5 py-8 text-center">
               <TeacherAvatar
                 name={teacher.name}
                 imageUrl={teacher.imageUrl}
@@ -119,9 +116,7 @@ export default function TeacherList({ teachers, headmasterName }: TeacherListPro
               />
               <h3 className="text-xl font-semibold text-text">{teacher.name}</h3>
               <p className="text-sm text-secondary">{teacher.position}</p>
-              {teacher.description ? (
-                <p className="mt-2 text-sm text-text-muted">{teacher.description}</p>
-              ) : null}
+              {teacher.description ? <p className="mt-2 text-sm text-text-muted">{teacher.description}</p> : null}
               {teacher.impactStatement ? (
                 <p className="mt-3 text-sm font-semibold text-secondary/80">{teacher.impactStatement}</p>
               ) : null}

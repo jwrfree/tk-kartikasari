@@ -1,15 +1,16 @@
 import HomePageContent from "@/components/home/HomePageContent";
 import JsonLd from "@/components/JsonLd";
+import { homeHeroDescription } from "@/content/home";
 import { getPosts } from "@/lib/blog";
 import { createPageMetadata } from "@/lib/metadata";
 import { preschoolSchema } from "@/lib/schema";
 import { getHomePageData } from "@/lib/sanity.queries";
 
 export async function generateMetadata() {
-  const { home, siteSettings } = await getHomePageData();
+  const { siteSettings } = await getHomePageData();
   return createPageMetadata({
     title: "Beranda",
-    description: home.heroDescription,
+    description: homeHeroDescription,
     path: "/",
     siteSettings,
   });

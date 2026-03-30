@@ -1,13 +1,17 @@
-import { fetchSanityData } from '@/lib/sanity-client';
 import Link from 'next/link';
+
+import PageHeader from '@/components/layout/PageHeader';
+import PageSection from '@/components/layout/PageSection';
+import { CardSurface } from '@/components/ui/CardSurface';
+import { FactRail } from '@/components/ui/FactRail';
 import { createPageMetadata } from '@/lib/metadata';
 import { getGlobalSiteData } from '@/lib/sanity.queries';
+import { fetchSanityData } from '@/lib/sanity-client';
 
 const SANITY_SKIP_MESSAGE = 'Sanity fetch skipped after previous network failure';
 let hasLoggedPengumumanListError = false;
 let hasLoggedPengumumanListSkip = false;
 
-// Ambil semua data pengumuman, urutkan dari yang terbaru
 type NewsItem = {
   _id: string;
   title: string;
@@ -25,11 +29,7 @@ async function getNewsData(): Promise<NewsItem[]> {
     if (!hasLoggedPengumumanListError) {
       console.error('Failed to fetch pengumuman from Sanity:', error);
       hasLoggedPengumumanListError = true;
-    } else if (
-      !hasLoggedPengumumanListSkip &&
-      error instanceof Error &&
-      error.message.includes(SANITY_SKIP_MESSAGE)
-    ) {
+    } else if (!hasLoggedPengumumanListSkip && error instanceof Error && error.message.includes(SANITY_SKIP_MESSAGE)) {
       console.warn('Skipping pengumuman fetch after previous Sanity network failure.');
       hasLoggedPengumumanListSkip = true;
     }
@@ -50,37 +50,84 @@ export async function generateMetadata() {
   });
 }
 
-// Halaman utama untuk menampilkan daftar pengumuman
 export default async function PengumumanPage() {
   const newsItems = await getNewsData();
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-8 text-center">Pengumuman Sekolah</h1>
-      <p className="mb-10 text-center text-text-muted">{pengumumanDescription}</p>
-      <div className="space-y-6">
-        {newsItems.length === 0 ? (
-          <p className="text-center text-gray-500">Belum ada pengumuman terbaru saat ini.</p>
-        ) : (
-          newsItems.map((item) => (
-            <article key={item._id} className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <h2 className="text-xl font-semibold">
-                {/* Buat link ke halaman detail nantinya */}
-                <Link href={`/pengumuman/${item.slug.current}`}>
-                  {item.title}
-                </Link>
-              </h2>
-              <p className="text-gray-500 mt-2">
-                {new Date(item.publishedAt).toLocaleDateString('id-ID', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric'
-                })}
+    <>
+      <PageHeader
+        eyebrow="Pengumuman"
+        title="Informasi penting sekolah ditampilkan rapi supaya keluarga cepat menangkap intinya."
+        description={pengumumanDescription}
+      />
+
+      <PageSection padding="relaxed">
+        <div className="editorial-grid items-start">
+          <div className="space-y-4">
+            <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.9rem]">
+              Orang tua dapat melihat kabar penting sekolah dengan urutan dan konteks yang jelas.
+            </h2>
+            <p className="max-w-2xl text-base leading-relaxed text-text-muted">
+              Saat ada perubahan jadwal, informasi administrasi, atau pemberitahuan penting lain, daftar ini membantu
+              keluarga menemukannya tanpa harus menebak-nebak mana yang paling baru.
+            </p>
+          </div>
+          <FactRail
+            eyebrow="Pengumuman"
+            title="Tiga hal yang penting di daftar ini."
+            items={[
+              {
+                label: 'Sifat',
+                value: 'Resmi',
+                description: 'Digunakan untuk pemberitahuan penting kepada orang tua dan wali murid.',
+              },
+              {
+                label: 'Urutan',
+                value: 'Terbaru di atas',
+                description: 'Informasi yang paling relevan muncul lebih dulu.',
+              },
+              {
+                label: 'Lanjutan',
+                value: 'Buka detail',
+                description: 'Setiap item punya halaman detail agar informasi tidak dipotong berlebihan.',
+              },
+            ]}
+            sticky
+          />
+        </div>
+      </PageSection>
+
+      <PageSection padding="relaxed" tone="muted">
+        <div className="space-y-4">
+          {newsItems.length === 0 ? (
+            <CardSurface tone="soft" padding="xl" className="mx-auto max-w-3xl text-center">
+              <h2 className="text-2xl font-semibold text-text">Belum ada pengumuman terbaru</h2>
+              <p className="mt-3 text-base text-text-muted">
+                Ketika ada informasi penting, pengumuman terbaru akan muncul di sini.
               </p>
-            </article>
-          ))
-        )}
-      </div>
-    </div>
+            </CardSurface>
+          ) : (
+            newsItems.map((item) => (
+              <Link key={item._id} href={`/pengumuman/${item.slug.current}`} className="block group">
+                <CardSurface
+                  tone="translucent"
+                  padding="xl"
+                  className="transition duration-300 group-hover:-translate-y-1"
+                >
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-secondary">
+                    {new Date(item.publishedAt).toLocaleDateString('id-ID', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold text-text">{item.title}</h2>
+                </CardSurface>
+              </Link>
+            ))
+          )}
+        </div>
+      </PageSection>
+    </>
   );
 }

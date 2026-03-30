@@ -1,12 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { motion, type Variants } from "framer-motion";
 
 import CTAButton from "@/components/CTAButton";
-import AnimateIn from "@/components/AnimateIn";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import TimelineSteps from "@/components/reactbits/TimelineSteps";
 import type { HomeOnboardingStep } from "@/app/types/home";
-import { Button } from "@/components/ui/Button";
 
 export type OnboardingCopy = {
   eyebrow: string;
@@ -23,29 +24,49 @@ type OnboardingSectionProps = {
 export function OnboardingSection({ steps, copy }: OnboardingSectionProps) {
   return (
     <PageSection
-      className="relative border-y border-white/50 bg-gradient-to-br from-primary/10 via-white to-secondary/10"
-      padding="tight"
+      className="relative overflow-hidden border-y border-white/20 bg-surface-alt/50"
+      padding="relaxed"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute left-8 top-8 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
-        <div className="absolute right-12 bottom-12 h-48 w-48 rounded-full bg-secondary/20 blur-3xl" />
+      {/* Decorative Background Elements */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -left-20 top-0 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute -right-20 bottom-0 h-[500px] w-[500px] rounded-full bg-secondary/5 blur-[120px]" />
       </div>
-      <AnimateIn className="relative">
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative"
+      >
         <SectionHeader
           align="center"
           eyebrow={copy.eyebrow}
           eyebrowVariant="primary"
           title={copy.title}
           description={copy.description}
+          className="mb-16"
         />
-      </AnimateIn>
-      <TimelineSteps steps={steps} className="relative mt-12" />
-      <div className="relative mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
-        <Button asChild fullWidth className="sm:w-auto">
-          <Link href="/ppdb">{copy.primaryCtaLabel}</Link>
-        </Button>
-        <CTAButton ctaKey="visitSchedule" className="w-full sm:w-auto" />
-      </div>
+      </motion.div>
+
+      <TimelineSteps steps={steps} className="relative z-10" />
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="relative mt-20 flex flex-col items-center gap-6 sm:flex-row sm:justify-center"
+      >
+        <Link 
+          href="/ppdb" 
+          className="btn btn-primary min-w-[200px]"
+        >
+          {copy.primaryCtaLabel}
+        </Link>
+        <CTAButton ctaKey="visitSchedule" className="min-w-[200px]" />
+      </motion.div>
     </PageSection>
   );
 }

@@ -12,370 +12,471 @@ import type {
   HomeAgendaItem,
 } from "@/app/types/home";
 
+type NarrativeItem = {
+  title: string;
+  description: string;
+};
+
+type FactItem = {
+  label: string;
+  value: string;
+  description?: string;
+};
+
 export const homeHero = {
-  badgeSuffix: "Kurikulum Merdeka PAUD",
-  title: "Awal Terbaik untuk Si Kecil: Belajar Sambil Ceria di Rumah Kedua Mereka",
+  eyebrow: "TK untuk usia 4-6 tahun di Bantarsari",
+  title: "Sekolah pertama yang bikin anak cepat nyaman, dan orang tua cepat yakin.",
   description:
-    "Sebagai TK berpengalaman di Bantarsari, kami menggabungkan tradisi pengajaran yang hangat dengan Kurikulum Merdeka. Kami memastikan setiap anak mendapat perhatian personal dalam lingkungan yang aman, sehingga mereka tumbuh percaya diri, kreatif, dan siap untuk jenjang sekolah berikutnya.",
-  highlight: {
-    title: "Belajar aktif & penuh perhatian",
-    description:
-      "Kelas kecil dengan guru pendamping personal membantu anak cepat nyaman, bereksplorasi, dan siap melanjutkan ke jenjang berikutnya.",
-    ratioLabel: "Rasio guru : anak",
-  },
-  secondaryCtaLabel: "Info PPDB",
-};
-
-export const homeOnboardingCopy = {
-  eyebrow: "Mulai dari Sini",
-  title: "Alur singkat bergabung bersama TK Kartikasari",
-  description:
-    "Ikuti empat langkah ringkas ini untuk mengenal sekolah, menyiapkan berkas, dan memastikan kuota sebelum periode pendaftaran tatap muka dibuka.",
-  primaryCtaLabel: "Info PPDB 2025/2026",
-  steps: [
-    {
-      key: "routine",
-      href: "#pengalaman",
-      icon: "🧭",
-      title: "Jelajahi Rutinitas & Lingkungan",
-      description:
-        "Kenali agenda harian, suasana kelas, dan cara kami mendampingi anak agar cepat nyaman.",
-      linkLabel: "Lihat pengalaman harian",
-    },
-    {
-      key: "cost",
-      href: "/biaya",
-      icon: "💡",
-      title: "Hitung Investasi Pendidikan",
-      description:
-        "Pelajari struktur biaya, jadwal pembayaran, dan opsi keringanan agar rencana keluarga tetap nyaman.",
-      linkLabel: "Buka rincian biaya",
-    },
-    {
-      key: "documents",
-      href: "/ppdb#requirements",
-      icon: "🗂️",
-      title: "Lengkapi Dokumen Awal",
-      description:
-        "Siapkan akta kelahiran, KK, dan identitas orang tua agar proses administrasi berjalan mulus.",
-      linkLabel: "Lihat daftar dokumen",
-    },
-    {
-      key: "apply",
-      href: "/kontak",
-      icon: "📍",
-      title: "Konfirmasi Kuota & Jadwal",
-      description:
-        "Hubungi admin TK Kartikasari untuk mengetahui status kuota terbaru, daftar tunggu, dan jadwal pembaruan PPDB.",
-      linkLabel: "Hubungi admin sekarang",
-    },
-  ] satisfies HomeOnboardingStep[],
-};
-
-export const homeHighlightsCopy = {
-  eyebrow: "Mengapa orang tua mempercayakan anaknya",
-  title: "Tiga janji utama kami untuk ketenangan Ayah & Bunda",
-  description:
-    "Komitmen kami adalah menciptakan lingkungan belajar yang aman secara legal, nyaman untuk anak, dan berakar pada nilai-nilai keindonesiaan.",
-};
-
-export const homeCredentialsCopy = {
-  eyebrow: "Bukti Kepercayaan Anda",
-  title: "Kredensial Resmi dan Perjalanan Panjang yang Teruji",
-  description:
-    "Seluruh informasi sekolah tersimpan di basis data Kemendikbudristek dan diperkuat oleh sejarah layanan kami untuk keluarga Bantarsari.",
-  legalTitle: "Legalitas & Info Resmi",
-  timelineTitle: "Jejak Langkah Kami",
-};
-
-export const homeCurriculumCopy = {
-  eyebrow: "Filosofi Pendidikan Kami",
-  title: "Tiga Pilar Kami dalam Membentuk Karakter Anak",
-  description:
-    "Kami fokus pada tiga area utama untuk memastikan anak tidak hanya pintar, tetapi juga tumbuh menjadi pribadi yang baik, bangga pada budayanya, dan siap untuk belajar lebih lanjut.",
-};
-
-export const homeProgramsCopy = {
-  eyebrow: "Program Kurikulum Merdeka",
-  title: "Jalur Belajar yang Disesuaikan untuk Setiap Anak",
-  description:
-    "Guru inti dan guru pendamping berkolaborasi untuk menyeimbangkan pengembangan karakter, kemampuan dasar, dan kegembiraan bermain melalui projek-projek yang relevan dengan dunia anak.",
-  preparationSteps: [
-    "Observasi minat, gaya belajar, serta diskusi orang tua untuk menentukan kebutuhan utama anak.",
-    "Perumusan tujuan pembelajaran Kurikulum Merdeka dan strategi diferensiasi setiap awal tema.",
-    "Pameran karya, refleksi projek P5, dan laporan portofolio terstruktur di akhir tema.",
+    "Kami membantu anak berani masuk kelas, kenal guru, dan menikmati rutinitas sekolah sejak minggu-minggu awal. Orang tua mendapat proses yang jelas, kabar yang rutin, dan kesempatan melihat suasana sekolah langsung sebelum memutuskan.",
+  secondaryCtaLabel: "Lihat kegiatan harian",
+  proofItems: [
+    { label: "Rasio kecil", value: "1 : 8" },
+    { label: "Terdaftar resmi", value: `NPSN ${officialProfile.npsn}` },
+    { label: "Pendampingan harian", value: "Update singkat untuk orang tua" },
   ],
-  stickyReveal: {
-    eyebrow: "Sorot Program",
-    heading: "Pengalaman belajar yang menyatu dari playgroup hingga TK B",
-    description:
-      "Setiap kelas dirancang dengan ritme yang lembut, memadukan eksplorasi terstruktur dan bermain bebas supaya anak belajar tanpa kehilangan rasa aman.",
-  },
+};
+
+export const homeFirstWeek = {
+  eyebrow: "1. Apakah anak saya bakal nyaman?",
+  title: "Di minggu pertama, fokus kami bukan membuat anak terlihat pintar. Fokus kami membuat anak mau datang lagi besok.",
+  description:
+    "Anak tidak langsung dituntut ikut semua kegiatan. Guru membantu transisi pelan-pelan sampai anak tahu siapa yang menyambutnya, di mana ia duduk, kapan ia bermain, dan kapan ia pulang.",
+  items: [
+    {
+      title: "Hari pertama tidak dikejar target",
+      description:
+        "Kalau anak masih ingin melihat dulu, itu wajar. Guru akan mengenalkan ruang, teman, dan rutinitas tanpa memaksa anak langsung aktif.",
+    },
+    {
+      title: "Ada guru yang benar-benar mengenali anak",
+      description:
+        "Kami memperhatikan bagaimana anak masuk kelas, merespons teman, dan menenangkan diri. Dari situ guru tahu cara mendampingi yang paling pas.",
+    },
+    {
+      title: "Orang tua tetap tahu perkembangannya",
+      description:
+        "Di masa adaptasi, orang tua tidak dibiarkan menebak-nebak. Kami memberi kabar singkat tentang bagaimana anak menjalani harinya.",
+    },
+  ] satisfies NarrativeItem[],
+  factItems: [
+    {
+      label: "Masa adaptasi",
+      value: "Pelan tapi jelas",
+      description: "Anak tidak dibiarkan bingung menghadapi ritme baru sendirian.",
+    },
+    {
+      label: "Pendampingan",
+      value: "Guru mengenali anak",
+      description: "Bukan hanya mengajar, tetapi juga membaca kebutuhan transisinya.",
+    },
+    {
+      label: "Komunikasi",
+      value: "Kabar singkat harian",
+      description: "Orang tua tahu apa yang terjadi tanpa harus menunggu lama.",
+    },
+  ] satisfies FactItem[],
 };
 
 export const homeExperienceCopy = {
-  eyebrow: "Aktivitas Harian",
-  title: "Transisi Lembut yang Menjaga Antusiasme Anak",
+  eyebrow: "2. Kesehariannya seperti apa?",
+  title: "Sehari di sekolah cukup sederhana: datang, kenal guru, bermain terarah, istirahat, lalu pulang sambil bawa cerita.",
   description:
-    "Rangkaian kegiatan mengikuti struktur Kurikulum Merdeka PAUD: mulai dari pembiasaan nilai, eksplorasi, hingga refleksi dan asesmen autentik.",
+    "Kami tidak membangun hari sekolah dari istilah rumit. Yang paling penting adalah ritme yang bisa dipahami anak, cukup teratur untuk membuatnya tenang, dan cukup hidup untuk membuatnya antusias datang lagi.",
   parentCollab: {
-    title: "Kolaborasi dengan Orang Tua",
+    title: "Yang diterima orang tua",
     description:
-      "Orang tua menerima ringkasan harian, refleksi projek P5, dan rekomendasi penguatan karakter untuk diterapkan di rumah.",
+      "Orang tua mendapat gambaran singkat tentang kegiatan anak, perubahan adaptasi, dan hal yang bisa dilanjutkan lagi di rumah.",
   },
 };
 
 export const homeDailyAgenda = {
   header: {
-    title: "Agenda Kurikulum Merdeka",
-    badge: "Projek Profil Pelajar Pancasila",
+    title: "Contoh ritme satu pagi",
+    badge: "Bukan jadwal kaku",
   },
   items: [
-    { time: "07.00", description: "Penyambutan hangat, doa, dan pemetaan emosi anak." },
-    { time: "08.30", description: "Diskusi nilai Pancasila dan eksplorasi budaya lokal." },
-    { time: "10.00", description: "Sentra pilihan: STEAM, literasi, seni, atau role play terarah." },
+    { time: "07.00", description: "Anak datang, disambut guru, lalu masuk kelas tanpa diburu-buru." },
+    { time: "08.00", description: "Ada kegiatan bersama, cerita singkat, dan permainan yang membuat anak mulai merasa ikut." },
+    { time: "09.15", description: "Anak memilih atau mengikuti kegiatan utama sesuai ritme kelas hari itu." },
   ] satisfies HomeAgendaItem[],
   info: {
-    title: "Lingkungan aman & terdata resmi",
+    title: "Yang orang tua biasanya rasakan",
     description:
-      "Terdaftar dengan NPSN {{npsn}}, area 440 m² terpantau, dan peralatan ramah anak untuk belajar yang nyaman.",
+      "Rutinitas yang jelas membuat anak lebih mudah tenang. Dari sisi orang tua, proses ini terasa lebih meyakinkan karena tidak serba mendadak.",
     ratioLabel: "Rasio guru : anak",
     defaultNpsn: "20351273",
   },
   focusCards: [
     {
-      title: "Fokus Harian",
-      description: "Nilai agama & budi pekerti, jati diri, serta kecakapan literasi sesuai fase fondasi.",
+      title: "Bukan sekadar ramai",
+      description: "Kegiatan dibuat aktif, tetapi tetap punya ritme yang mudah diikuti anak.",
     },
     {
-      title: "Asesmen Autentik",
-      description: "Jurnal perkembangan, dokumentasi karya, dan umpan balik personal setiap pekan.",
+      title: "Bukan sekadar duduk belajar",
+      description: "Anak bergerak, berbicara, mencoba, lalu pulang dengan pengalaman yang bisa diceritakan.",
     },
   ],
 };
 
-export const homeBlogCopy = {
-  eyebrow: "Blog & Berita",
-  title: "Tips Parenting dan Kegiatan Sekolah Terbaru",
+export const homeParentUpdates = {
+  eyebrow: "3. Apa yang orang tua terima setiap hari?",
+  title: "Orang tua tidak perlu menebak-nebak hari anak di sekolah.",
   description:
-    "Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari.",
+    "Kepercayaan tumbuh saat orang tua tahu apa yang benar-benar terjadi, bukan hanya mendengar kesan umum seperti 'hari ini baik-baik saja'.",
+  items: [
+    {
+      title: "Kabar singkat yang relevan",
+      description: "Bukan laporan panjang, tetapi cukup untuk tahu anak ikut apa, bagaimana suasananya, dan apa yang menonjol hari itu.",
+    },
+    {
+      title: "Titik yang perlu dilanjutkan di rumah",
+      description: "Jika ada hal yang sedang dilatih atau perlu diperhatikan, orang tua mendapat konteks yang jelas.",
+    },
+    {
+      title: "Percakapan dengan guru tidak terasa jauh",
+      description: "Kalau ada pertanyaan atau kekhawatiran, jalur komunikasinya langsung dan tidak berputar-putar.",
+    },
+  ] satisfies NarrativeItem[],
+};
+
+export const homeSchoolFit = {
+  eyebrow: "4. Sekolah ini cocok untuk siapa?",
+  title: "Cocok untuk keluarga yang mencari sekolah kecil dengan ritme jelas, bukan sekolah yang ingin terlihat heboh.",
+  description:
+    "TK Kartikasari cocok untuk orang tua yang ingin anak nyaman dulu, lalu berkembang pelan-pelan dengan pendampingan yang terasa dekat dan proses yang mudah dipahami.",
+  items: [
+    {
+      title: "Cocok jika anak masih butuh waktu adaptasi",
+      description: "Kami tidak menuntut semua anak langsung berani. Anak boleh masuk pelan-pelan sampai benar-benar merasa aman.",
+    },
+    {
+      title: "Cocok jika orang tua ingin proses yang jelas",
+      description: "Mulai dari kunjungan, status PPDB, hingga kabar harian dibuat seterang mungkin supaya tidak membingungkan keluarga.",
+    },
+    {
+      title: "Cocok jika Anda lebih peduli suasana daripada jargon",
+      description: "Kami tetap mengikuti standar pendidikan resmi, tetapi yang kami tunjukkan ke orang tua adalah pengalaman nyata anak di kelas.",
+    },
+  ] satisfies NarrativeItem[],
+};
+
+export const homeHighlightsCopy = {
+  eyebrow: "Yang biasanya ingin dipastikan orang tua",
+  title: "Sebelum bertanya soal kurikulum, orang tua biasanya ingin memastikan tiga hal ini dulu.",
+  description:
+    "Apakah anak cepat nyaman, apakah sekolah ini jelas dan resmi, dan apakah orang tua akan benar-benar tahu perkembangan anak sehari-hari.",
+};
+
+export const homeHighlights: HomeHighlight[] = [
+  {
+    icon: "Heart",
+    title: "Anak lebih mudah tenang saat masuk kelas",
+    description:
+      "Kami memberi waktu adaptasi yang wajar, mengenalkan rutinitas dengan pelan, dan memastikan anak tahu siapa yang mendampinginya.",
+  },
+  {
+    icon: "ShieldCheck",
+    title: "Sekolah ini mudah dicek dan mudah dihubungi",
+    description:
+      `Data resmi sekolah dapat diverifikasi, jalur komunikasi jelas, dan orang tua tahu harus bertanya ke mana saat butuh kepastian.`,
+  },
+  {
+    icon: "ChatSquareText",
+    title: "Orang tua tetap mendapat konteks harian",
+    description:
+      "Bukan hanya tahu anak berangkat dan pulang, tetapi juga tahu bagaimana hari itu berjalan dan apa yang sedang dilatih di sekolah.",
+  },
+];
+
+export const homeProgramsCopy = {
+  eyebrow: "5. Anak melakukan apa di sekolah?",
+  title: "Anak tidak dipaksa belajar dengan ritme yang sama.",
+  description:
+    "Program kami dibagi berdasarkan fase usia, tetapi yang paling penting adalah bagaimana anak menjalani hari: bergerak, berbicara, mencoba, menunggu giliran, dan pelan-pelan lebih siap mengikuti kegiatan bersama.",
+};
+
+export const homePrograms: HomeProgram[] = [
+  {
+    name: "Kelompok A",
+    age: "Usia 4-5 tahun",
+    description: "Fase ini cocok untuk anak yang masih belajar nyaman berada di sekolah, mengikuti arahan sederhana, dan mulai terbiasa dengan rutinitas bersama.",
+    points: [
+      "Anak banyak diajak mengenali kelas, mengikuti kegiatan singkat, dan belajar menyelesaikan aktivitas sederhana sampai selesai.",
+      "Permainan dibuat untuk melatih keberanian bicara, menunggu giliran, merapikan alat, dan merasa aman bersama teman.",
+      "Orang tua biasanya mulai melihat anak lebih paham ritme pagi dan tidak terlalu tegang saat berangkat sekolah.",
+    ],
+    forWho: "Untuk anak yang masih butuh pendampingan transisi dan ritme yang tidak terburu-buru.",
+    whatChildrenDo: [
+      "Mendengarkan cerita pendek, bermain peran, mencoba kegiatan sensorik, dan mengikuti permainan kelompok kecil.",
+      "Belajar menyampaikan kebutuhan sederhana, meminta bantuan, dan menyelesaikan aktivitas sampai akhir.",
+    ],
+    whatParentsNotice: "Anak mulai lebih siap berpisah sebentar dari orang tua dan lebih mudah bercerita tentang sekolah.",
+  },
+  {
+    name: "Kelompok B",
+    age: "Usia 5-6 tahun",
+    description: "Fase ini cocok untuk anak yang sudah lebih siap mengikuti kegiatan kelompok dan mulai menguatkan dasar literasi, numerasi, serta kemandirian sebelum masuk SD.",
+    points: [
+      "Anak mengikuti kegiatan yang lebih terarah, tetapi tetap lewat cara yang dekat dengan dunia bermain dan percakapan.",
+      "Ada latihan untuk mendengar instruksi, menyampaikan pendapat, mengenal simbol, berhitung konkret, dan menyelesaikan tugas singkat.",
+      "Orang tua biasanya melihat anak lebih siap mengikuti rutinitas, lebih berani tampil, dan lebih terbiasa menyelesaikan hal sampai tuntas.",
+    ],
+    forWho: "Untuk anak yang mulai siap mengikuti kegiatan lebih terarah sebelum masuk sekolah dasar.",
+    whatChildrenDo: [
+      "Belajar mengenal huruf, angka, pola, dan instruksi sederhana lewat kegiatan yang dekat dengan keseharian anak.",
+      "Latihan bercerita, kerja kelompok kecil, dan menyelesaikan aktivitas dengan arahan yang lebih jelas.",
+    ],
+    whatParentsNotice: "Anak lebih terbiasa mengikuti aturan sederhana, lebih siap duduk fokus, dan lebih berani menjawab atau bercerita.",
+  },
+  {
+    name: "Kegiatan tambahan",
+    age: "Jadwal tematik dan hari tertentu",
+    description: "Di luar kegiatan inti, anak mendapat pengalaman tambahan yang membuat sekolah terasa hidup, bukan hanya rutinitas kelas yang berulang.",
+    points: [
+      "Ada kegiatan tematik, karya bersama, dan aktivitas luar ruang yang memberi variasi tanpa membuat anak kewalahan.",
+      "Anak mendapat kesempatan mencoba bidang yang berbeda: seni, gerak, kegiatan keagamaan, atau proyek sederhana.",
+      "Bagi orang tua, kegiatan tambahan ini membantu melihat minat anak lebih awal tanpa harus memaksa memilih terlalu cepat.",
+    ],
+    forWho: "Untuk keluarga yang ingin anak mencoba banyak pengalaman tanpa suasana belajar yang terlalu berat.",
+    whatChildrenDo: [
+      "Mengikuti kegiatan tematik, presentasi karya, atau aktivitas luar ruang yang dekat dengan pengalaman sehari-hari.",
+      "Mencoba bidang yang berbeda untuk melihat apa yang paling membuat anak tertarik dan bertahan fokus.",
+    ],
+    whatParentsNotice: "Anak pulang dengan cerita yang lebih beragam dan mulai terlihat minat yang paling ia sukai.",
+  },
+];
+
+export const homeCredentialsCopy = {
+  eyebrow: "Apa buktinya sekolah ini serius?",
+  title: "Yang paling sering dicari orang tua kami taruh terbuka di sini.",
+  description:
+    "Legalitas, identitas sekolah, dan jejak perjalanannya tidak kami sembunyikan di bagian bawah. Orang tua bisa melihat data penting sebelum memutuskan datang.",
+  legalTitle: "Fakta sekolah",
+  timelineTitle: "Perjalanan sekolah",
+};
+
+export const homeCredentials: HomeCredential[] = [
+  {
+    label: "NPSN",
+    value: officialProfile.npsn,
+    description: "Data resmi sekolah yang bisa dicek kembali oleh orang tua.",
+  },
+  {
+    label: "SK Operasional",
+    value: officialProfile.operationalLicense,
+    description: "Menunjukkan bahwa sekolah ini berjalan dengan dasar yang jelas.",
+  },
+  {
+    label: "Jam Belajar",
+    value: "07.00-13.00",
+    description: "Orang tua bisa membayangkan ritme harian anak sejak awal.",
+  },
+  {
+    label: "Kontak Resmi",
+    value: officialProfile.email ?? "Admin sekolah",
+    description: "Jalur komunikasi tidak berhenti di satu nomor pribadi saja.",
+  },
+  {
+    label: "Wilayah",
+    value: officialProfile.locationArea ?? "Bantarsari dan sekitarnya",
+    description: "Menegaskan posisi sekolah di lingkungan yang dilayani.",
+  },
+];
+
+export const homeCurriculumCopy = {
+  eyebrow: "Apa yang dibawa anak pulang dari sekolah?",
+  title: "Bukan hanya hasil karya, tetapi juga ritme, kebiasaan, dan keberanian kecil yang makin terlihat.",
+  description:
+    "Kami tetap mengikuti acuan pendidikan resmi, tetapi yang lebih penting bagi orang tua adalah perubahan yang bisa dirasakan dari hari ke hari.",
+};
+
+export const homeCurriculumPillars: HomeCurriculumPillar[] = [
+  {
+    title: "Anak lebih paham rutinitas",
+    subtitle: "Kebiasaan harian",
+    points: [
+      "Lebih siap berangkat, lebih tahu kapan mendengar, kapan bermain, dan kapan merapikan.",
+      "Mulai mengenal pola kegiatan dan tidak terlalu mudah bingung saat berganti aktivitas.",
+      "Pulang dengan ritme yang lebih stabil dan bisa diceritakan di rumah.",
+    ],
+  },
+  {
+    title: "Anak lebih berani berinteraksi",
+    subtitle: "Sosial dan emosi",
+    points: [
+      "Belajar menyapa, menunggu giliran, menyampaikan kebutuhan, dan bermain bersama teman.",
+      "Guru membantu anak yang masih pemalu untuk masuk ke situasi sosial dengan lebih tenang.",
+      "Keberanian tumbuh lewat pengalaman kecil yang diulang, bukan lewat tekanan.",
+    ],
+  },
+  {
+    title: "Anak lebih siap ikut kegiatan",
+    subtitle: "Kesiapan belajar",
+    points: [
+      "Mulai terbiasa mendengar instruksi singkat dan menyelesaikan aktivitas sampai selesai.",
+      "Belajar mengenal simbol, cerita, angka, dan pola lewat kegiatan yang dekat dengan dunia anak.",
+      "Kesiapan belajar tumbuh sambil jalan, bukan dikejar sekaligus.",
+    ],
+  },
+];
+
+export const homeOnboardingCopy = {
+  eyebrow: "Kalau cocok, langkah saya apa?",
+  title: "Mulai dari kunjungan, bukan langsung formulir.",
+  description:
+    "Untuk sekolah pertama, keluarga biasanya perlu lihat suasana dulu. Karena itu, alurnya kami buat sederhana: lihat kegiatannya, pahami biayanya, siapkan dokumen dasar, lalu konfirmasi ke admin.",
+  primaryCtaLabel: "Lihat status PPDB",
+  steps: [
+    {
+      key: "routine",
+      href: "#kegiatan-harian",
+      icon: "Compass",
+      title: "Lihat dulu kegiatan hariannya",
+      description: "Pastikan ritme sekolahnya terasa cocok untuk anak dan keluarga Anda.",
+      linkLabel: "Lihat kegiatan harian",
+    },
+    {
+      key: "cost",
+      href: "/biaya",
+      icon: "Wallet",
+      title: "Cek gambaran biayanya",
+      description: "Lihat struktur biaya pokok dulu sebelum menanyakan angka resminya ke sekolah.",
+      linkLabel: "Lihat halaman biaya",
+    },
+    {
+      key: "documents",
+      href: "/ppdb#requirements",
+      icon: "FileText",
+      title: "Siapkan dokumen dasar",
+      description: "Akta lahir, KK, identitas orang tua, dan dokumen lain yang biasanya diminta saat pendaftaran.",
+      linkLabel: "Lihat daftar dokumen",
+    },
+    {
+      key: "apply",
+      href: "/kontak",
+      icon: "MapPin",
+      title: "Hubungi admin untuk langkah berikutnya",
+      description: "Tanyakan status PPDB, jadwal kunjungan, atau kemungkinan daftar tunggu jika kuota sedang penuh.",
+      linkLabel: "Hubungi admin",
+    },
+  ] satisfies HomeOnboardingStep[],
+};
+
+export const homeVisitExpectation = {
+  eyebrow: "Apa yang terjadi saat kunjungan?",
+  title: "Kunjungan seharusnya membantu orang tua menilai suasana, bukan membuat bingung.",
+  description:
+    "Saat datang, keluarga sebaiknya bisa melihat ruang kelas, merasakan ritme sekolah, bertemu orang yang akan mendampingi anak, dan tahu langkah berikutnya dengan jelas.",
+  items: [
+    "Anda bisa melihat seperti apa ruang kelas dan ritme anak selama di sekolah.",
+    "Anda bisa bertanya langsung tentang adaptasi anak, kegiatan harian, dan komunikasi dengan guru.",
+    "Anda tahu dokumen apa yang perlu disiapkan serta siapa yang harus dihubungi setelah pulang.",
+  ],
+};
+
+export const homeBlogCopy = {
+  eyebrow: "Cerita sekolah dan catatan untuk orang tua",
+  title: "Tulisan yang membantu orang tua memahami sekolah, bukan sekadar mengisi halaman.",
+  description:
+    "Blog dipakai untuk membagikan cerita kegiatan, tips sederhana, dan konteks yang membantu orang tua mengenal cara sekolah ini bekerja.",
   emptyTitle: "Belum ada cerita terbaru",
   emptyDescription:
-    "Tim kami sedang mempersiapkan artikel yang bisa membantu Ayah dan Bunda. Sementara itu, silakan jelajahi halaman lain atau hubungi kami untuk informasi langsung.",
+    "Saat artikel baru belum tersedia, keluarga tetap bisa melihat program, biaya, atau langsung bertanya ke sekolah.",
   emptyPrimaryCta: "Lihat program belajar",
   emptySecondaryCta: "Hubungi kami",
 };
 
 export const homeFaqCopy = {
-  eyebrow: "Sering Ditanyakan",
-  title: "Informasi Penting Seputar Pendaftaran",
+  eyebrow: "Pertanyaan yang biasanya muncul sebelum datang",
+  title: "Jawaban singkat untuk hal-hal yang paling sering ditanyakan orang tua.",
   description:
-    "Jika ada pertanyaan lain, kami dengan senang hati menjawab melalui WhatsApp ataupun ketika Anda berkunjung langsung.",
+    "Kalau setelah membaca ini Anda masih ragu, langkah terbaik tetap datang atau bertanya langsung ke sekolah.",
 };
 
 export const homeFinalCtaCopy = {
-  eyebrow: "Siap Bergabung",
-  title: "Lihat Langsung Bagaimana Anak-Anak Belajar dengan Gembira",
+  eyebrow: "Kalau masih menimbang-nimbang",
+  title: "Datang lihat dulu. Keputusan soal sekolah pertama memang sebaiknya tidak diambil dari brosur saja.",
   description:
-    "Kami mengundang Anda untuk merasakan sendiri suasana hangat di kelas kami. Lihat sentra belajar yang interaktif dan temukan bagaimana projek seru kami menumbuhkan kreativitas serta rasa percaya diri anak.",
-  secondaryCtaLabel: "Lihat Program Kembali",
+    "Kunjungan membantu orang tua menilai apakah suasananya cocok, apakah orang-orangnya terasa meyakinkan, dan apakah anak terlihat bisa menjalani hari dengan nyaman di sini.",
+  secondaryCtaLabel: "Tanya dulu lewat kontak",
 };
 
 export const homeHeroDescription =
-  "Membantu anak tumbuh menjadi pribadi yang ceria dan berkarakter Pancasila. Caranya? Lewat pendampingan personal, kegiatan yang sesuai minat anak, dan projek seru yang membangun kemampuan anak sesuai standar pendidikan nasional.";
+  "Sekolah pertama yang membantu anak cepat nyaman dan membantu orang tua cepat yakin lewat proses yang jelas, pendampingan harian, dan suasana belajar yang bisa dilihat langsung.";
 
 export const homeStats: HomeStat[] = [
   {
     value: `${officialProfile.yearsOperating}+`,
-    label: "Tahun mendampingi keluarga Bantarsari sejak 1998",
-  },
-  {
-    value: "PAUD Merdeka",
-    label: "Kurikulum yang membebaskan anak bereksplorasi",
+    label: "Tahun sekolah ini mendampingi keluarga sekitar",
   },
   {
     value: "1 : 8",
-    label: "Rasio guru dan anak agar setiap anak diperhatikan",
-  },
-];
-
-export const homeHighlights: HomeHighlight[] = [
-  {
-    icon: "🛡️",
-    title: "Pilihan Tenang untuk Ayah & Bunda",
-    description: `Sekolah kami terdaftar resmi (NPSN: ${officialProfile.npsn}) dan memiliki izin operasional sejak 1998. Ayah dan Bunda juga akan mendapat info harian lewat WhatsApp agar selalu tenang.`,
+    label: "Rasio kecil untuk membantu anak lebih mudah dikenali",
   },
   {
-    icon: "🤗",
-    title: "Anak Cepat Nyaman & Berani",
-    description:
-      "Kami menyambut setiap anak dengan hangat dan memantau suasana hatinya. Rata-rata, anak sudah merasa nyaman dan berani di sekolah dalam tiga hari pertama.",
-  },
-  {
-    icon: "🧠",
-    title: "Hati Tetap Indonesia, Siap Mendunia",
-    description:
-      "Dengan rasio guru dan anak 1:8, kami memastikan setiap anak mendapat perhatian. Kegiatan gotong royong dan pilihan sentra belajar membantu anak tumbuh mandiri, cerdas, dan cinta Indonesia.",
-  },
-];
-
-export const homePrograms: HomeProgram[] = [
-  {
-    name: "Kelas A • Fondasi Merdeka",
-    age: "Usia 4–5 tahun",
-    description:
-      "Kelas peralihan yang fokus pada adaptasi, kemandirian, serta menanamkan nilai-nilai baik.",
-    points: [
-      "Projek seru seputar rasa syukur, peduli sesama, dan cinta lingkungan.",
-      "Pilihan kegiatan belajar yang sesuai dengan gaya anak (visual, pendengaran, gerakan).",
-      "Laporan harian berupa foto dan cerita singkat dibagikan kepada orang tua.",
-    ],
-  },
-  {
-    name: "Kelas B • Siap Sekolah Dasar",
-    age: "Usia 5–6 tahun",
-    description:
-      "Menguatkan kemampuan baca-tulis-hitung (calistung) dan rasa percaya diri dengan konteks dunia anak.",
-    points: [
-      "Projek sains dan seni yang asyik, seperti merancang bangunan dari bahan daur ulang atau belajar lewat musik dan gerak.",
-      "Latihan bercerita dan tampil di depan teman untuk menumbuhkan keberanian.",
-      "Rencana belajar yang dibuat khusus untuk setiap anak, disepakati bersama keluarga di setiap awal tema.",
-    ],
-  },
-  {
-    name: "Kegiatan Seru Tambahan",
-    age: "Jumat kreatif & pekan tematik",
-    description:
-      "Kegiatan di luar kelas untuk mengasah bakat dan memperkaya karakter anak.",
-    points: [
-      "Pameran karya bersama setiap akhir tema untuk merayakan hasil belajar anak.",
-      "Pilihan kelas seperti mengaji (tahfidz), menari, memasak, dan komputer dasar.",
-      "Mengundang narasumber dari lingkungan sekitar (misal: polisi, pemadam kebakaran).",
-    ],
+    value: "Update harian",
+    label: "Orang tua tetap tahu bagaimana hari anak berjalan",
   },
 ];
 
 export const homeJourney: HomeJourneyItem[] = [
   {
     time: "07.00",
-    title: "Sambut Pagi Ceria",
-    description:
-      "Guru menyapa setiap anak, mengecek suhu tubuh, dan mengajak berdoa bersama sebelum mulai bermain.",
-    icon: "🌅",
+    title: "Datang dan disambut",
+    description: "Anak masuk kelas dengan bantuan guru, bukan dibiarkan menyesuaikan diri sendiri.",
+    icon: "sunrise",
   },
   {
     time: "08.00",
-    title: "Lingkar Karakter Pancasila",
-    description:
-      "Duduk melingkar sambil mendengarkan cerita baik, menyanyikan lagu daerah, dan berbagi rasa bangga menjadi anak Indonesia.",
-    icon: "🇮🇩",
+    title: "Kegiatan bersama singkat",
+    description: "Ada cerita, sapaan, atau permainan kecil supaya anak mulai merasa ikut.",
+    icon: "circle",
   },
   {
     time: "09.15",
-    title: "Bermain di Sentra Pilihan",
-    description:
-      "Anak bebas memilih sentra main yang disuka: seni, sains, balok, atau main peran, sambil ditemani guru.",
-    icon: "🧩",
+    title: "Kegiatan utama",
+    description: "Anak bermain, mencoba, atau mengerjakan aktivitas sesuai ritme kelas hari itu.",
+    icon: "play",
   },
   {
     time: "10.30",
-    title: "Eksplorasi di Luar Ruang",
-    description:
-      "Saatnya berkebun, bermain air, atau melakukan percobaan sederhana untuk lebih peduli pada alam.",
-    icon: "🌿",
+    title: "Istirahat dan bergerak",
+    description: "Anak punya jeda supaya hari sekolah tidak terasa menekan.",
+    icon: "leaf",
   },
   {
     time: "11.15",
-    title: "Cerita Hari Ini & Pulang",
-    description:
-      "Anak menceritakan hasil karyanya dengan bangga, menggambar perasaan hari ini di jurnal, lalu menutup hari dengan doa.",
-    icon: "📘",
+    title: "Pulang sambil bawa cerita",
+    description: "Hari ditutup dengan kegiatan akhir yang membuat anak punya sesuatu untuk diceritakan di rumah.",
+    icon: "book",
   },
 ];
 
 export const homeFaqs: HomeFaq[] = [
   {
-    question: "Apa bedanya TK Kartikasari dengan yang lain?",
+    question: "Kalau anak saya pemalu, apakah dia akan dipaksa ikut semua kegiatan?",
     answer:
-      "Sejak 1998, kami menciptakan lingkungan belajar yang hangat seperti di rumah, terdaftar secara resmi, dan kini menjadi salah satu sekolah penggerak Kurikulum Merdeka di Bantarsari.",
+      "Tidak. Di masa awal, guru membantu anak masuk ke ritme kelas pelan-pelan. Yang paling kami jaga adalah agar anak tidak merasa takut datang lagi ke sekolah besok.",
   },
   {
-    question: "Kurikulumnya seperti apa?",
+    question: "Bagaimana saya tahu anak saya baik-baik saja di sekolah?",
     answer:
-      "Kami memakai Kurikulum Merdeka. Artinya, anak-anak lebih banyak diajak bereksplorasi lewat projek seru, dan cara belajarnya disesuaikan dengan minat dan kesiapan setiap anak.",
+      "Orang tua mendapat kabar singkat tentang kegiatan dan suasana anak. Kalau ada hal yang perlu diteruskan di rumah atau dibicarakan lebih lanjut, kami sampaikan dengan jelas.",
   },
   {
-    question: "Bagaimana cara saya tahu perkembangan anak?",
+    question: "Apakah sekolah ini terlalu fokus akademik untuk usia TK?",
     answer:
-      "Setiap hari, guru akan mengirimkan cerita singkat dan foto kegiatan anak. Kami juga ada laporan resmi berupa portofolio karya anak di setiap akhir tema dan semester.",
+      "Tidak. Anak tetap belajar mengenal huruf, angka, dan kebiasaan dasar, tetapi caranya lewat kegiatan yang sesuai usia dan tidak membuat anak tertekan.",
   },
   {
-    question: "Bagaimana jika anak saya pemalu atau sulit beradaptasi?",
+    question: "Kapan waktu terbaik untuk datang berkunjung?",
     answer:
-      "Jangan khawatir. Tiga hari pertama adalah masa perkenalan. Akan ada satu guru yang mendampingi anak secara khusus, dan kami akan terus berkomunikasi dengan Ayah/Bunda lewat WhatsApp.",
+      "Sebelum mendaftar. Dengan datang lebih dulu, orang tua bisa melihat suasana kelas, ritme sekolah, dan bertanya langsung soal adaptasi anak maupun proses PPDB.",
   },
   {
-    question: "Apakah orang tua perlu terlibat di sekolah?",
+    question: "Kalau kuota sedang penuh, apa yang bisa saya lakukan?",
     answer:
-      "Tentu, kami sangat senang jika orang tua terlibat! Ada kelas parenting, sesi berbagi saat anak selesai projek, dan diskusi rutin dengan guru untuk mendukung tumbuh kembang anak.",
-  },
-];
-
-export const homeCredentials: HomeCredential[] = [
-  {
-    label: "NPSN",
-    value: officialProfile.npsn,
-    description: "Terdaftar di database resmi Kemendikbudristek.",
-  },
-  {
-    label: "SK Operasional",
-    value: officialProfile.operationalLicense,
-    description: "Izin resmi penyelenggaraan pendidikan sejak 1998.",
-  },
-  {
-    label: "Kurikulum Acuan",
-    value: officialProfile.curriculum,
-    description: "Menerapkan Kurikulum Merdeka dan Projek Profil Pelajar Pancasila.",
-  },
-  {
-    label: "Luas Lahan",
-    value: officialProfile.landArea,
-    description: "Area aman untuk bermain di dalam dan di luar ruangan.",
-  },
-  {
-    label: "Kontak Resmi",
-    value: officialProfile.email,
-    description: "Email resmi untuk keperluan surat-menyurat dan administrasi.",
-  },
-];
-
-export const homeCurriculumPillars: HomeCurriculumPillar[] = [
-  {
-    title: "Hati yang Baik & Sopan Santun",
-    subtitle: "Dasar dari segalanya",
-    points: [
-      "Kegiatan rutin yang menanamkan rasa syukur, empati, dan peduli sesama.",
-      "Membiasakan ibadah, doa, dan tata krama dalam kegiatan sehari-hari.",
-      "Kerja sama dengan orang tua untuk melanjutkan kebiasaan baik di rumah.",
-    ],
-  },
-  {
-    title: "Bangga Jadi Anak Indonesia",
-    subtitle: "Mengenal akar budaya",
-    points: [
-      "Mengenal budaya lokal Cilacap dan keberagaman Indonesia lewat permainan.",
-      "Projek gotong royong, menghargai perbedaan, dan berbagi dengan lingkungan sekitar.",
-      "Program \"Aku Anak Hebat\" untuk membangun rasa percaya diri dan kemandirian.",
-    ],
-  },
-  {
-    title: "Calistung & Kreativitas",
-    subtitle: "Bekal siap sekolah dasar",
-    points: [
-      "Belajar baca, tulis, hitung (calistung) lewat cara yang asyik dan sesuai minat anak.",
-      "Percobaan sains sederhana, pengenalan komputer, dan kegiatan seni yang aman.",
-      "Perkembangan anak dinilai dari hasil karyanya dan cerita yang ia sampaikan.",
-    ],
+      "Hubungi admin untuk menanyakan status terbaru, kemungkinan daftar tunggu, dan kapan informasi periode berikutnya diumumkan.",
   },
 ];
 

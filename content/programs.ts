@@ -1,9 +1,11 @@
-
 export type ProgramClass = {
   name: string;
   age: string;
   description: string;
   focus: string[];
+  forWho: string;
+  whatChildrenDo: string[];
+  whatParentsNotice: string;
 };
 
 export type LearningMethod = {
@@ -18,80 +20,92 @@ export type WeeklyScheduleItem = {
 };
 
 export const programsMetaDescription =
-  "Program TK Kartikasari menerapkan Kurikulum Merdeka PAUD, Projek Profil Pelajar Pancasila, dan pendampingan terdiferensiasi untuk anak usia dini di Bantarsari.";
+  "Program TK Kartikasari membantu anak usia 4-6 tahun menjalani sekolah pertama dengan ritme yang jelas, pendampingan yang dekat, dan kegiatan yang sesuai usia.";
 
 export const programClasses: ProgramClass[] = [
   {
-    name: "Kelas A • Tumbuh Ceria & Mandiri",
-    age: "Usia 4–5 tahun",
+    name: "Kelompok A",
+    age: "Usia 4-5 tahun",
     description:
-      "Fokus adaptasi, pengenalan nilai agama, dan kemandirian melalui projek tematik yang menyenangkan.",
+      "Untuk anak yang masih belajar nyaman berada di sekolah, mengikuti kegiatan singkat, dan mulai mengenal rutinitas bersama.",
     focus: [
-      "Pembiasaan doa, gratitude journal sederhana, dan merapikan alat setelah bermain.",
-      "Eksplorasi sensorik dan motorik halus di sentra seni, konstruksi, dan eksperimen sains sederhana.",
-      "Cerita kontekstual untuk memperkaya kosa kata, ekspresi emosi, dan empati.",
+      "Masuk kelas dengan lebih tenang, mengenal guru, dan mengikuti permainan singkat bersama teman.",
+      "Belajar merapikan alat, menunggu giliran, meminta bantuan, dan menyelesaikan aktivitas sederhana.",
+      "Pulih lebih cepat saat bingung atau malu karena guru membantu transisinya pelan-pelan.",
     ],
+    forWho: "Untuk anak yang masih butuh waktu adaptasi dan ritme yang tidak terburu-buru.",
+    whatChildrenDo: [
+      "Mendengarkan cerita pendek, bermain peran, mencoba aktivitas sensorik, dan ikut permainan kelompok kecil.",
+      "Belajar mengikuti arahan sederhana tanpa suasana yang terlalu menekan.",
+    ],
+    whatParentsNotice: "Anak mulai lebih paham rutinitas pagi dan lebih siap berpisah sebentar dari orang tua.",
   },
   {
-    name: "Kelas B • Transisi Siap Sekolah Dasar",
-    age: "Usia 5–6 tahun",
+    name: "Kelompok B",
+    age: "Usia 5-6 tahun",
     description:
-      "Penguatan literasi, numerasi, dan kepemimpinan sesuai capaian Kurikulum Merdeka dan kebutuhan lokal.",
+      "Untuk anak yang mulai siap mengikuti kegiatan lebih terarah sambil menguatkan kesiapan dasar sebelum masuk sekolah dasar.",
     focus: [
-      "Projek berbasis sains, teknologi, dan seni bertema lingkungan pesisir, budaya Cilacap, dan teknologi sederhana.",
-      "Latihan menulis nama, membaca suku kata, serta berhitung konkret melalui permainan.",
-      "Presentasi mini, diskusi kelompok, dan refleksi diri untuk membangun percaya diri.",
+      "Mengenal huruf, angka, pola, dan instruksi sederhana lewat kegiatan yang dekat dengan dunia anak.",
+      "Berlatih bercerita, bekerja dalam kelompok kecil, dan menyelesaikan aktivitas sampai tuntas.",
+      "Tetap belajar lewat pengalaman yang bergerak dan berbicara, bukan lewat tekanan akademik yang terlalu cepat.",
     ],
+    forWho: "Untuk anak yang sudah mulai siap duduk fokus lebih lama dan mengikuti kegiatan kelompok dengan lebih mantap.",
+    whatChildrenDo: [
+      "Mengikuti kegiatan yang lebih terarah, tetapi tetap lewat permainan, percakapan, dan aktivitas konkret.",
+      "Belajar menyampaikan pendapat, menjawab pertanyaan, dan memulai tugas sederhana sendiri.",
+    ],
+    whatParentsNotice: "Anak lebih siap mengikuti rutinitas, lebih berani menjawab, dan lebih terbiasa menyelesaikan tugas kecil.",
   },
 ];
 
 export const programLearningMethods: LearningMethod[] = [
   {
-    title: "Pembelajaran terdiferensiasi",
+    title: "Anak tidak dipaksa sama cepat",
     description:
-      "Menyesuaikan konten, proses, dan produk belajar sesuai kesiapan, minat, serta gaya belajar anak.",
+      "Guru menyesuaikan ritme kegiatan dengan kesiapan anak, jadi yang cepat tidak bosan dan yang masih adaptasi tidak langsung tertinggal.",
   },
   {
-    title: "Asesmen autentik & portofolio",
+    title: "Kemajuan dilihat dari keseharian",
     description:
-      "Observasi harian, catatan anekdot, dan portofolio digital yang dibagikan teratur kepada orang tua.",
+      "Kami tidak menilai anak dari hasil sekali duduk. Guru melihat bagaimana anak ikut kegiatan, merespons arahan, dan bertumbuh dari minggu ke minggu.",
   },
   {
-    title: "Kolaborasi orang tua",
+    title: "Orang tua tetap mendapat konteks",
     description:
-      "Pertemuan coaching, kanal komunikasi resmi, dan refleksi projek P5 menjaga kesinambungan di rumah.",
+      "Yang dibagikan bukan istilah rumit, tetapi hal yang benar-benar perlu diketahui orang tua tentang keseharian anak di sekolah.",
   },
   {
-    title: "Projek Profil Pelajar Pancasila",
+    title: "Kegiatan dekat dengan dunia anak",
     description:
-      "Tema gotong royong, toleransi, dan cinta lingkungan diwujudkan dalam projek mingguan anak.",
+      "Belajar dibangun dari cerita, permainan, percobaan sederhana, kegiatan kelompok, dan aktivitas yang mudah dipahami anak.",
   },
 ];
 
 export const programWeeklySchedule: WeeklyScheduleItem[] = [
   {
     day: "Senin",
-    theme: "Pembukaan tema & Profil Pelajar Pancasila",
-    highlight: "Lingkar pagi, perumusan tujuan tema, dan penguatan nilai karakter.",
+    theme: "Masuk ritme minggu baru",
+    highlight: "Anak menata ulang rutinitas, mendengar arahan awal minggu, dan masuk ke kegiatan bersama.",
   },
   {
     day: "Selasa",
-    theme: "Eksplorasi sains & lingkungan",
-    highlight: "Eksperimen alam, observasi kebun, dan dokumentasi temuan anak.",
+    theme: "Banyak mencoba",
+    highlight: "Hari yang cocok untuk eksplorasi, percobaan sederhana, dan kegiatan yang mengundang rasa ingin tahu.",
   },
   {
     day: "Rabu",
-    theme: "Karya Budaya, Sains, & Teknologi",
-    highlight: "Kreasi seni, musik daerah, dan teknologi sederhana berbasis kearifan lokal.",
+    theme: "Berkarya dan bercerita",
+    highlight: "Anak mengolah ide lewat gambar, musik, permainan peran, atau aktivitas tangan.",
   },
   {
     day: "Kamis",
-    theme: "Literasi & numerasi kontekstual",
-    highlight: "Permainan bahasa, membaca cerita, dan berhitung konkret dalam kehidupan sehari-hari.",
+    theme: "Menguatkan kesiapan dasar",
+    highlight: "Ada kegiatan yang membantu anak lebih siap mendengar instruksi, mengenal simbol, dan menyelesaikan aktivitas.",
   },
   {
     day: "Jumat",
-    theme: "Projek P5 & ekstrakurikuler",
-    highlight: "Gotong royong, showcase karya, serta pilihan tahfidz, tari, atau kelas memasak.",
+    theme: "Menutup minggu dengan pengalaman berbeda",
+    highlight: "Biasanya ada kegiatan tematik, karya bersama, atau aktivitas tambahan yang membuat minggu terasa lengkap.",
   },
 ];

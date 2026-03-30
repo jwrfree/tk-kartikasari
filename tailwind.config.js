@@ -1,64 +1,85 @@
-
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./content/**/*.{js,ts,jsx,tsx,mdx}",
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './content/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
+    },
     extend: {
       colors: {
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        canvas: 'hsl(var(--canvas))',
         primary: {
-          50: "#fff3ec",
-          100: "#ffe0d2",
-          200: "#ffc1ac",
-          400: "#ff9471",
-          500: "#ff7b54",
-          600: "#ff6236",
-          700: "#ff4e1c",
-          DEFAULT: "#ff7b54",
+          50: 'hsl(18 56% 96%)',
+          100: 'hsl(18 54% 90%)',
+          200: 'hsl(18 50% 82%)',
+          500: 'hsl(var(--primary))',
+          600: 'hsl(17 50% 48%)',
+          700: 'hsl(17 46% 40%)',
+          DEFAULT: 'hsl(var(--primary))',
         },
         secondary: {
-          50: "#f6f5ff",
-          100: "#e4e2ff",
-          200: "#c6c4ff",
-          500: "#605dff",
-          600: "#514bf5",
-          DEFAULT: "#605dff",
+          50: 'hsl(102 14% 95%)',
+          100: 'hsl(102 15% 90%)',
+          200: 'hsl(102 16% 82%)',
+          500: 'hsl(var(--secondary))',
+          600: 'hsl(102 10% 41%)',
+          700: 'hsl(145 14% 23%)',
+          DEFAULT: 'hsl(var(--secondary))',
         },
         accent: {
-          DEFAULT: "#ffc857",
+          50: 'hsl(43 74% 93%)',
+          500: 'hsl(var(--accent))',
+          DEFAULT: 'hsl(var(--accent))',
         },
+        surface: {
+          DEFAULT: 'hsl(var(--surface))',
+          alt: 'hsl(var(--surface-alt))',
+        },
+        surfaceAlt: 'hsl(var(--surface-alt))',
+        'surface-muted': 'hsl(var(--surface-muted))',
         text: {
-          DEFAULT: "#1b1c1f",
-          muted: "#5b616e",
+          DEFAULT: 'hsl(var(--foreground))',
+          muted: 'hsl(var(--text-muted))',
+          disabled: 'hsl(var(--text-disabled))',
         },
-        surface: "#ffffff",
-        surfaceAlt: "#f5f7fb",
-        border: "#e6e8f4",
+        border: 'hsl(var(--border))',
       },
       fontFamily: {
-        // Menggunakan variabel CSS dari next/font
-        sans: ["var(--font-inter)", ...fontFamily.sans],
+        sans: ['var(--font-body)', ...fontFamily.sans],
+        display: ['var(--font-display)', ...fontFamily.serif],
       },
       borderRadius: {
-        xl: "1.25rem",
-        "2xl": "1.75rem",
-        "3xl": "2.5rem",
+        xl: '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
+        full: '9999px',
       },
       boxShadow: {
-        card: "0 10px 40px rgba(96,93,255,0.07)",
-        floating: "0 12px 50px rgba(255,123,84,0.2)",
-        soft: "0 8px 30px rgba(15,23,42,0.05)",
+        soft: 'var(--shadow-soft)',
+        premium: 'var(--shadow-premium)',
+        floating: '0 20px 48px -24px rgba(31, 42, 36, 0.45)',
       },
       backgroundImage: {
-        "grid-dots": "radial-gradient(circle at 1px 1px, rgba(96,93,255,0.15) 1px, transparent 0)",
-        "hero-gradient": "linear-gradient(135deg, rgba(255,123,84,0.16) 0%, rgba(96,93,255,0.14) 40%, rgba(255,200,87,0.2) 100%)",
+        'editorial-glow':
+          'radial-gradient(circle at top left, rgba(197, 106, 74, 0.2), transparent 36%), radial-gradient(circle at bottom right, rgba(215, 164, 65, 0.18), transparent 28%)',
+        'paper-fade': 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%)',
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require('@tailwindcss/typography')],
 };

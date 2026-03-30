@@ -1,21 +1,28 @@
+'use client';
 
-"use client";
-
-import { usePathname } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsappButton";
-import { useSiteData } from "@/app/providers/SiteDataProvider";
+import { usePathname } from 'next/navigation';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import WhatsAppButton from '@/components/WhatsappButton';
+import BackToTop from '@/components/ui/BackToTop';
+import { useSiteData } from '@/app/providers/SiteDataProvider';
+import { useState, useEffect } from 'react';
 
 // SimpleFooter component for the login page
 function SimpleFooter() {
   const { siteSettings } = useSiteData();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <footer className="bg-gray-100" aria-labelledby="footer-heading">
+    <footer className="border-t border-border/70 bg-surfaceAlt" aria-labelledby="footer-heading">
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
-        <div className="border-t border-gray-900/10 pt-8">
-          <p className="text-xs leading-5 text-gray-500 text-center">
-            &copy; {new Date().getFullYear()} {siteSettings.schoolName}. All rights reserved.
+        <div className="pt-6">
+          <p className="text-center text-xs leading-5 text-text-muted">
+            &copy; {mounted ? new Date().getFullYear() : ''} {siteSettings.schoolName}. All rights reserved.
           </p>
         </div>
       </div>
@@ -25,7 +32,7 @@ function SimpleFooter() {
 
 export default function LayoutClient({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login";
+  const isLoginPage = pathname === '/login';
 
   return (
     <>
@@ -33,6 +40,7 @@ export default function LayoutClient({ children }: { children: React.ReactNode }
       <main>{children}</main>
       {isLoginPage ? <SimpleFooter /> : <Footer />}
       {!isLoginPage && <WhatsAppButton />}
+      {!isLoginPage && <BackToTop />}
     </>
   );
 }

@@ -1,6 +1,6 @@
 export const kebijakanPrivasi = {
-  title: "Kebijakan Privasi",
-  effectiveDate: "26 Mei 2024",
+  title: 'Kebijakan Privasi',
+  effectiveDate: '26 Mei 2024',
   body: `
     <div class=\"space-y-4\">
       <p>TK Kartikasari (\"kami\", \"milik kami\") berkomitmen untuk melindungi privasi informasi pribadi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi yang Anda berikan saat menggunakan website kami.</p>
@@ -31,14 +31,14 @@ export const kebijakanPrivasi = {
       <p>Kami tidak menjual, memperdagangkan, atau menyewakan informasi identifikasi pribadi pengguna kepada pihak lain. Informasi Anda hanya akan digunakan untuk keperluan internal TK Kartikasari.</p>
 
       <h2>Perubahan pada Kebijakan Privasi Ini</h2>
-      <p>Kami memiliki keleluasaan untuk memperbarui kebijakan privasi ini kapan saja. Ketika kami melakukannya, kami akan merevisi tanggal efektif di bagian atas halaman ini. Kami mendorong Anda untuk sering memeriksa halaman ini untuk setiap perubahan agar tetap mendapat informasi tentang bagaimana kami membantu melindungi informasi pribadi yang kami kumpulkan.</p>
+      <p>Kebijakan privasi ini dapat kami perbarui sewaktu-waktu. Jika ada perubahan, kami akan memperbarui tanggal efektif di bagian atas dokumen agar Anda dapat melihat versi terbaru dengan mudah.</p>
     </div>
   `,
 };
 
 export const syaratDanKetentuan = {
-  title: "Syarat dan Ketentuan",
-  effectiveDate: "26 Mei 2024",
+  title: 'Syarat dan Ketentuan',
+  effectiveDate: '26 Mei 2024',
   body: `
     <div class=\"space-y-4\">
       <p>Selamat datang di website TK Kartikasari. Dengan mengakses atau menggunakan situs web ini, Anda setuju untuk terikat oleh Syarat dan Ketentuan berikut. Harap baca dokumen ini dengan saksama.</p>
@@ -62,8 +62,8 @@ export const syaratDanKetentuan = {
 };
 
 export const disklaimer = {
-  title: "Disklaimer",
-  effectiveDate: "26 Mei 2024",
+  title: 'Disklaimer',
+  effectiveDate: '26 Mei 2024',
   body: `
     <div class=\"space-y-4\">
       <p>Informasi yang disediakan oleh TK Kartikasari di website ini hanya untuk tujuan informasi umum. Semua informasi di situs ini disediakan dengan itikad baik, namun kami tidak membuat pernyataan atau jaminan apa pun, baik tersurat maupun tersirat, mengenai keakuratan, kecukupan, validitas, keandalan, ketersediaan, atau kelengkapan informasi apa pun di situs ini.</p>

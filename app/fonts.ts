@@ -1,6 +1,13 @@
+import { Fraunces, Plus_Jakarta_Sans } from 'next/font/google';
 
-import "@fontsource-variable/inter";
+export const bodyFont = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
 
-export const inter = {
-  className: "font-inter",
-} as const;
+export const displayFont = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});

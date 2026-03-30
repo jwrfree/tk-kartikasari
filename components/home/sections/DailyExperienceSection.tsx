@@ -3,6 +3,7 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeader from "@/components/layout/SectionHeader";
 import { CardSurface } from "@/components/ui/CardSurface";
 import HomeDailyAgenda from "@/components/home/HomeDailyAgenda";
+import { DynamicIcon } from "@/components/DynamicIcon";
 import type { HomeJourneyItem, HomeAgendaItem } from "@/app/types/home";
 
 type ExperienceCopy = {
@@ -84,7 +85,7 @@ export function DailyExperienceSection({
           >
             <div className="flex items-center gap-3">
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-2xl" aria-hidden="true">
-                {item.icon}
+                <DynamicIcon name={item.icon} className="h-6 w-6 text-secondary" />
               </span>
               <div>
                 <p className="text-sm font-semibold text-secondary">{item.time} WIB</p>

@@ -1,40 +1,39 @@
-
 export const teachers = [
   {
-    name: "Bu Mintarsih",
-    position: "Kepala Sekolah",
+    name: 'Bu Mintarsih',
+    position: 'Kepala Sekolah',
     isHeadmaster: true,
-    imageUrl: "/images/teachers/teacher-1.jpg",
+    imageUrl: '/images/teachers/teacher-1.jpg',
     description:
-      "Berdedikasi memastikan setiap aspek pendidikan selaras dengan visi sekolah. Beliau menciptakan lingkungan belajar yang aman, berkarakter, dan mendukung pertumbuhan individual setiap anak.",
+      'Mengawal arah sekolah, ritme belajar, dan komunikasi dengan keluarga agar semua berjalan jelas dari hari ke hari.',
     impactStatement:
-      "Prinsip: Setiap anak adalah individu unik yang berhak mendapat awal terbaik, itulah janji TK Kartikasari.",
+      'Prinsipnya sederhana: anak perlu merasa cukup tenang lebih dulu sebelum guru mengajak mereka melangkah lebih jauh.',
   },
   {
-    name: "Ibu Guru A",
-    position: "Guru Kelas A",
-    imageUrl: "/images/teachers/teacher-2.jpg",
+    name: 'Ibu Guru A',
+    position: 'Guru Kelas A',
+    imageUrl: '/images/teachers/teacher-2.jpg',
     description:
-      "Ahli merancang kegiatan berbasis permainan dan eksplorasi kreatif. Beliau mengubah rasa ingin tahu anak menjadi pengetahuan, membuat proses belajar selalu aktif dan penuh semangat.",
+      'Fokus mendampingi anak yang masih belajar nyaman di sekolah melalui permainan, percakapan singkat, dan aktivitas yang mudah diikuti.',
     impactStatement:
-      "Ia memastikan setiap anak merasa didengar sehingga keberanian mencoba hal baru tumbuh dari hari ke hari.",
+      'Perannya paling terasa saat anak mulai mau masuk kelas, mencoba aktivitas baru, dan bertahan lebih lama dalam rutinitas.',
   },
   {
-    name: "Ibu Guru B",
-    position: "Guru Kelas B",
-    imageUrl: "/images/teachers/teacher-3.jpg",
+    name: 'Ibu Guru B',
+    position: 'Guru Kelas B',
+    imageUrl: '/images/teachers/teacher-3.jpg',
     description:
-      "Fokus pada pengembangan keterampilan sosial-emosional dan kemandirian. Dengan pendekatan yang sabar, beliau membantu anak membangun rasa percaya diri dan kemampuan berinteraksi.",
+      'Mendampingi anak yang mulai siap mengikuti kegiatan lebih terarah sambil tetap menjaga suasana belajar tidak terasa menekan.',
     impactStatement:
-      "Kehangatannya membuat anak berani mengungkapkan perasaan dan bangga atas setiap kemajuan kecil.",
+      'Banyak anak mulai lebih siap menjawab, bekerja sama, dan menyelesaikan tugas kecil setelah ritmenya terasa pas.',
   },
   {
-    name: "Bapak Guru C",
-    position: "Guru Olahraga",
-    imageUrl: "/images/teachers/teacher-4.jpg",
+    name: 'Bapak Guru C',
+    position: 'Guru Olahraga',
+    imageUrl: '/images/teachers/teacher-4.jpg',
     description:
-      "Mengenalkan gaya hidup sehat melalui aktivitas fisik yang terstruktur dan aman. Beliau menanamkan nilai sportivitas dan kerja sama tim sejak dini melalui permainan yang menyenangkan.",
+      'Mengajak anak bergerak, menunggu giliran, dan mengikuti aturan sederhana lewat permainan fisik yang sesuai usia.',
     impactStatement:
-      "Energinya menularkan rasa gembira sehingga anak memahami arti sportif dan saling menyemangati teman.",
+      'Kegiatan fisik dipakai untuk membantu anak lebih siap mengikuti arahan dan menikmati kerja sama dengan teman.',
   },
 ];

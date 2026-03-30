@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
+import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-const buttonVariants = cva("btn", {
+const buttonVariants = cva('btn', {
   variants: {
     variant: {
-      primary: "btn-primary",
-      secondary: "btn-secondary",
-      outline: "btn-outline",
-      ghost: "btn-ghost",
-      subtle: "btn-subtle",
+      primary: 'btn-primary',
+      secondary: 'btn-secondary',
+      outline: 'btn-outline',
+      ghost: 'btn-ghost',
+      subtle: 'btn-subtle',
     },
     size: {
-      default: "", // inherits base paddings
-      sm: "btn-sm",
-      lg: "px-7 py-3.5 text-lg",
-      icon: "h-11 w-11 items-center justify-center rounded-xl p-0",
+      default: '',
+      sm: 'btn-sm',
+      lg: 'min-h-[3.75rem] px-7 py-4 text-base',
+      icon: 'h-11 w-11 rounded-full p-0',
     },
     fullWidth: {
-      true: "w-full",
+      true: 'w-full',
     },
   },
   defaultVariants: {
-    variant: "primary",
-    size: "default",
+    variant: 'primary',
+    size: 'default',
   },
 });
 
@@ -39,17 +39,11 @@ export interface ButtonProps
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, fullWidth, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
+    const Comp = asChild ? Slot : 'button';
 
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, fullWidth }), className)}
-        ref={ref}
-        {...props}
-      />
-    );
+    return <Comp className={cn(buttonVariants({ variant, size, fullWidth }), className)} ref={ref} {...props} />;
   },
 );
-Button.displayName = "Button";
+Button.displayName = 'Button';
 
 export { buttonVariants };
