@@ -6,13 +6,11 @@ import FaqAccordion from '@/components/FaqAccordion';
 import TestimonialList from '@/components/TestimonialList';
 import { getPpdbPageData } from '@/lib/sanity.queries';
 import { createPageMetadata } from '@/lib/metadata';
-import { fallbackContent } from '@/lib/fallback-content';
 import { ppdbFaqs, ppdbMetaDescription, syaratDanKetentuan } from '@/content/ppdb';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { CardSurface } from '@/components/ui/CardSurface';
 import { FactRail } from '@/components/ui/FactRail';
-import { StatusPanel } from '@/components/ui/StatusPanel';
 import { formatRupiah } from '@/utils/currency';
 
 export async function generateMetadata() {
@@ -27,7 +25,6 @@ export async function generateMetadata() {
 
 export default async function PpdbPage() {
   const { ppdb, biaya, testimonials } = await getPpdbPageData();
-  const timeline = ppdb.timeline.length > 0 ? ppdb.timeline : fallbackContent.ppdb.timeline;
   const requirements = syaratDanKetentuan;
   const faqs = ppdbFaqs;
   const strukturBiaya = biaya.costStructure
@@ -47,22 +44,26 @@ export default async function PpdbPage() {
       />
 
       <PageSection padding="tight">
-        <StatusPanel
-          state="closed"
-          title="PPDB 2025/2026 sudah ditutup karena kuota penuh."
-          description={
-            <>
-              Seluruh kursi untuk tahun ajaran 2025/2026 telah terisi per <strong>5 Juli 2025</strong>. Keluarga yang
-              masih berminat dapat menghubungi admin untuk masuk daftar tunggu atau meminta notifikasi saat informasi
-              PPDB <strong>2026/2027</strong> diumumkan.
-            </>
-          }
-          action={
+        <CardSurface tone="soft" padding="xl" className="space-y-4">
+          <Badge tone="secondary" size="sm">
+            Status perlu dikonfirmasi
+          </Badge>
+          <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl">
+            Konfirmasi status PPDB langsung ke admin sekolah.
+          </h2>
+          <p className="max-w-3xl text-base leading-relaxed text-text-muted">
+            Informasi kuota dapat berubah. Hubungi admin untuk mengetahui apakah pendaftaran masih dibuka, apakah ada
+            daftar tunggu, dan langkah yang paling relevan untuk keluarga Anda saat ini.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Button asChild>
-              <Link href="/kontak">Hubungi Admin PPDB</Link>
+              <Link href="/kontak">Cek status PPDB</Link>
             </Button>
-          }
-        />
+            <Button asChild variant="outline">
+              <Link href="/biaya">Lihat ringkasan biaya</Link>
+            </Button>
+          </div>
+        </CardSurface>
       </PageSection>
 
       <PageSection padding="relaxed">
@@ -72,26 +73,28 @@ export default async function PpdbPage() {
               Alur operasional
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.9rem]">
-              Kalau cocok, jalurnya sederhana: tanya kuota, datang, lalu lengkapi administrasi.
+              Mulai dari konfirmasi status, lalu tentukan langkah yang paling relevan.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-              Urutan ini membantu keluarga bergerak dengan tenang. Anda tidak perlu mengumpulkan berkas terlalu awal
-              atau datang tanpa tahu apa yang ingin dilihat.
+              Dengan urutan ini, keluarga tidak perlu menebak-nebak. Anda bisa mulai dari kuota, kebutuhan anak,
+              gambaran biaya, lalu memutuskan apakah perlu kunjungan atau sudah siap ke administrasi awal.
             </p>
             <div className="space-y-4">
               {[
                 {
                   title: 'Tanya status dan kuota',
                   description:
-                    'Hubungi admin via WhatsApp untuk memastikan periode, daftar tunggu, atau jadwal kunjungan terdekat.',
+                    'Hubungi admin via WhatsApp untuk memastikan status pendaftaran, daftar tunggu, dan kelompok yang paling relevan untuk anak Anda.',
                 },
                 {
-                  title: 'Datang dan lihat sekolah',
-                  description: 'Lihat suasana kelas, temui guru, dan nilai apakah ritme sekolah cocok untuk anak.',
+                  title: 'Bahas kebutuhan anak dan biaya awal',
+                  description:
+                    'Gunakan percakapan awal untuk menanyakan ritme sekolah, dokumen dasar, dan gambaran biaya sebelum memutuskan langkah berikutnya.',
                 },
                 {
-                  title: 'Lengkapi administrasi',
-                  description: 'Jika sudah cocok, siapkan dokumen dasar dan lanjutkan ke tahap administrasi.',
+                  title: 'Lanjutkan ke langkah yang paling pas',
+                  description:
+                    'Jika sudah cukup jelas, Anda bisa menjadwalkan kunjungan atau langsung menyiapkan administrasi awal.',
                 },
               ].map((step, index) => (
                 <div
@@ -117,8 +120,8 @@ export default async function PpdbPage() {
             items={[
               {
                 label: 'Status',
-                value: 'Closed / waitlist',
-                description: 'Anda langsung tahu apakah masih bisa daftar atau harus masuk daftar tunggu.',
+                value: 'Konfirmasi ke admin',
+                description: 'Status terbaru tidak perlu ditebak karena bisa ditanyakan langsung.',
               },
               {
                 label: 'Dokumen',
@@ -149,7 +152,7 @@ export default async function PpdbPage() {
                 Checklist dokumen
               </Badge>
               <h2 className="max-w-[14ch] text-balance text-3xl font-semibold">
-                Sebelum datang, siapkan dokumen dasarnya dulu.
+                Sebelum lanjut, siapkan dokumen dasarnya dulu.
               </h2>
             </div>
             <div className="grid gap-3">
@@ -172,7 +175,7 @@ export default async function PpdbPage() {
               </h2>
             </div>
             <div className="space-y-4">
-              {timeline.map((item) => (
+              {ppdb.timeline.map((item) => (
                 <div
                   key={`${item.date}-${item.title}`}
                   className="grid gap-2 border-t border-border/60 pt-4 first:border-t-0 first:pt-0 sm:grid-cols-[140px,1fr]"

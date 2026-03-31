@@ -11,7 +11,7 @@ import { createPageMetadata } from '@/lib/metadata';
 import { getGlobalSiteData } from '@/lib/sanity.queries';
 
 const pageDescription =
-  'Gunakan jalur WhatsApp untuk menanyakan status kuota, menjadwalkan kunjungan, atau meminta langkah pendaftaran berikutnya.';
+  'Gunakan jalur WhatsApp untuk menanyakan status kuota, kelompok yang sesuai, dan langkah pendaftaran sebelum menyiapkan berkas.';
 
 function normalizeWhatsappNumber(value: string) {
   return value.replace(/[^0-9]/g, '');
@@ -36,7 +36,7 @@ export default async function PpdbFormPage() {
     <>
       <PageHeader
         eyebrow="Formulir PPDB"
-        title="Mulai dari percakapan yang jelas sebelum mengisi atau mengirim berkas."
+        title="Mulai dari chat singkat dengan admin sebelum menyiapkan atau mengirim berkas."
         description={pageDescription}
       />
 
@@ -48,7 +48,8 @@ export default async function PpdbFormPage() {
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold">Hubungi admin PPDB via WhatsApp.</h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-              Anda bisa menanyakan kuota, jadwal kunjungan, daftar tunggu, atau dokumen awal yang sebaiknya disiapkan.
+              Anda bisa menanyakan kuota, kelompok yang sesuai, daftar tunggu, atau dokumen awal yang perlu disiapkan
+              sebelum lanjut.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button asChild>
@@ -74,8 +75,8 @@ export default async function PpdbFormPage() {
               },
               {
                 label: 'Tujuan',
-                value: 'Kunjungan atau pendaftaran',
-                description: 'Jelaskan apakah Anda ingin survei dulu atau siap melanjutkan proses.',
+                value: 'Cek kuota atau lanjut daftar',
+                description: 'Sampaikan apakah Anda baru ingin memastikan status atau sudah siap menyiapkan berkas awal.',
               },
               {
                 label: 'Dokumen awal',

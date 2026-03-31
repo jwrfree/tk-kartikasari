@@ -5,9 +5,9 @@ export const teachers = [
     isHeadmaster: true,
     imageUrl: '/images/teachers/teacher-1.jpg',
     description:
-      'Mengawal arah sekolah, ritme belajar, dan komunikasi dengan keluarga agar semua berjalan jelas dari hari ke hari.',
+      'Mengawal arah sekolah, ritme belajar, dan komunikasi dengan keluarga agar kegiatan harian berjalan rapi.',
     impactStatement:
-      'Prinsipnya sederhana: anak perlu merasa cukup tenang lebih dulu sebelum guru mengajak mereka melangkah lebih jauh.',
+      'Fokus utamanya adalah membantu anak merasa tenang lebih dulu sebelum diajak masuk lebih jauh ke kegiatan kelas.',
   },
   {
     name: 'Ibu Guru A',
@@ -16,16 +16,16 @@ export const teachers = [
     description:
       'Fokus mendampingi anak yang masih belajar nyaman di sekolah melalui permainan, percakapan singkat, dan aktivitas yang mudah diikuti.',
     impactStatement:
-      'Perannya paling terasa saat anak mulai mau masuk kelas, mencoba aktivitas baru, dan bertahan lebih lama dalam rutinitas.',
+      'Pendampingannya terlihat saat anak mulai mau masuk kelas, mencoba aktivitas baru, dan bertahan lebih lama di rutinitas sekolah.',
   },
   {
     name: 'Ibu Guru B',
     position: 'Guru Kelas B',
     imageUrl: '/images/teachers/teacher-3.jpg',
     description:
-      'Mendampingi anak yang mulai siap mengikuti kegiatan lebih terarah sambil tetap menjaga suasana belajar tidak terasa menekan.',
+      'Mendampingi anak yang mulai siap mengikuti kegiatan lebih terarah sambil menjaga suasana belajar tetap ringan.',
     impactStatement:
-      'Banyak anak mulai lebih siap menjawab, bekerja sama, dan menyelesaikan tugas kecil setelah ritmenya terasa pas.',
+      'Di tahap ini anak biasanya mulai lebih siap menjawab, bekerja sama, dan menyelesaikan tugas kecil sampai selesai.',
   },
   {
     name: 'Bapak Guru C',

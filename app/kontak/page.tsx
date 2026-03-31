@@ -1,15 +1,18 @@
+import Link from 'next/link';
+
 import CTAButton from '@/components/CTAButton';
 import PageHeader from '@/components/layout/PageHeader';
 import PageSection from '@/components/layout/PageSection';
 import MapEmbed from '@/components/MapEmbed';
 import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
 import { CardSurface } from '@/components/ui/CardSurface';
 import { FactRail } from '@/components/ui/FactRail';
 import { createPageMetadata } from '@/lib/metadata';
 import { getContactPageData } from '@/lib/sanity.queries';
 
 const contactDescription =
-  'Kami siap membantu informasi seputar PPDB, jadwal kunjungan sekolah, maupun kebutuhan administrasi lainnya. Gunakan detail di bawah ini atau langsung hubungi kami melalui WhatsApp.';
+  'Gunakan halaman ini untuk menanyakan kuota, biaya terbaru, kelompok yang cocok, dan langkah pendaftaran TK Kartikasari langsung ke sekolah.';
 
 export async function generateMetadata() {
   const { siteSettings } = await getContactPageData();
@@ -23,13 +26,18 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const { siteSettings } = await getContactPageData();
+  const whatsappNumber = siteSettings.whatsapp.startsWith('0') ? `62${siteSettings.whatsapp.slice(1)}` : siteSettings.whatsapp;
+  const institutionalMessage = encodeURIComponent(
+    'Halo, saya ingin menanyakan observasi, magang, atau studi banding ke TK Kartikasari. Berikut asal instansi dan tujuan kami.',
+  );
+  const institutionalWhatsappHref = `https://wa.me/${whatsappNumber}?text=${institutionalMessage}`;
 
   return (
     <>
       <PageHeader
         eyebrow="Kontak"
-        title="Hubungi sekolah dengan jalur yang jelas, lalu datang di waktu yang paling pas."
-        description="Halaman ini merangkum siapa yang dihubungi, kapan sebaiknya datang, dan informasi apa yang sebaiknya disiapkan sebelum berkunjung."
+        title="Gunakan halaman ini untuk mulai membahas pendaftaran dengan sekolah."
+        description="Hubungi sekolah untuk menanyakan kuota, kelompok yang sesuai, biaya terbaru, atau langkah administrasi. Jika memang diperlukan, kunjungan bisa dijadwalkan setelah itu."
       >
         <CTAButton ctaKey="contactConsultation" className="sm:w-auto" />
       </PageHeader>
@@ -38,26 +46,29 @@ export default async function Page() {
         <div className="editorial-grid items-start">
           <div className="space-y-5">
             <Badge tone="secondary" size="sm">
-              Datang atau bertanya
+              Mulai percakapan
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.9rem]">
-              Sebelum berkunjung, pastikan dulu tujuan Anda jelas: survei sekolah, tanya PPDB, atau urusan administrasi.
+              Mulailah dari hal yang paling penting: kuota, kecocokan anak, biaya awal, dan langkah daftar.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-              Dengan begitu tim sekolah bisa menyiapkan waktu yang tepat, dan kunjungan Anda tidak terasa tergesa-gesa.
+              Dengan percakapan awal seperti ini, Anda tidak perlu datang dalam keadaan bingung. Sekolah bisa membantu
+              menjelaskan apakah cukup lewat chat, perlu kunjungan, atau sudah waktunya menyiapkan administrasi awal.
             </p>
             <CardSurface tone="gradient" padding="xl" className="space-y-4">
-              <h3 className="text-2xl font-semibold">Sebelum datang</h3>
+              <h3 className="text-2xl font-semibold">Sebelum chat</h3>
               <div className="space-y-3">
                 <p className="text-sm leading-relaxed text-text-muted">
-                  Kabari lebih dulu jika Anda ingin melihat suasana sekolah saat kegiatan berlangsung.
+                  Sampaikan usia anak atau kelompok yang sedang Anda pertimbangkan agar sekolah bisa memberi jawaban yang
+                  lebih relevan.
                 </p>
                 <p className="text-sm leading-relaxed text-text-muted">
-                  Jika tujuan Anda soal PPDB, siapkan pertanyaan tentang kuota, jadwal kunjungan, dan dokumen dasar.
+                  Jika tujuan Anda soal PPDB, tanyakan dulu kuota, biaya terbaru, dan dokumen dasar yang sebaiknya
+                  disiapkan.
                 </p>
                 <p className="text-sm leading-relaxed text-text-muted">
-                  Jika tujuan Anda administrasi, sampaikan lebih dulu dokumen apa yang perlu dibawa agar staf bisa
-                  menyiapkan tindak lanjutnya.
+                  Jika setelah itu perlu melihat sekolah langsung, barulah kunjungan dijadwalkan di waktu yang paling
+                  pas.
                 </p>
               </div>
             </CardSurface>
@@ -65,13 +76,13 @@ export default async function Page() {
 
           <FactRail
             eyebrow="Informasi sekolah"
-            title="Detail yang biasanya dicatat lebih dulu sebelum keluarga menghubungi sekolah."
+            title="Detail sekolah yang biasanya dicatat sebelum keluarga menghubungi admin."
             items={[
-              { label: 'Alamat', value: siteSettings.address },
               { label: 'WhatsApp', value: siteSettings.whatsapp },
-              ...(siteSettings.email ? [{ label: 'Email', value: siteSettings.email }] : []),
               { label: 'Kepala sekolah', value: siteSettings.headmaster },
               { label: 'Jam buka', value: siteSettings.openingHours },
+              { label: 'Alamat', value: siteSettings.address },
+              ...(siteSettings.email ? [{ label: 'Email', value: siteSettings.email }] : []),
             ]}
             sticky
           />
@@ -85,10 +96,47 @@ export default async function Page() {
               Peta lokasi
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl">
-              Gunakan peta ini untuk memastikan rute dan area sekitar sebelum berangkat.
+              Peta tetap tersedia jika Anda perlu memastikan titik sekolah sebelum berangkat.
             </h2>
           </div>
           <MapEmbed contentClassName="aspect-[16/8]" />
+        </div>
+      </PageSection>
+
+      <PageSection padding="relaxed">
+        <div className="grid gap-5 md:grid-cols-[1.1fr,0.9fr]">
+          <CardSurface tone="translucent" padding="xl" className="space-y-4">
+            <Badge tone="secondary" size="sm">
+              Keperluan institusional
+            </Badge>
+            <h2 className="max-w-[16ch] text-balance text-3xl font-semibold">
+              Jika Anda datang dari kampus atau lembaga, gunakan jalur ini.
+            </h2>
+            <p className="max-w-2xl text-base leading-relaxed text-text-muted">
+              Kirim pesan singkat berisi nama instansi, tujuan, jumlah peserta, dan usulan waktu. Jalur ini kami
+              pisahkan agar pertanyaan PPDB dan kebutuhan observasi atau magang tidak tercampur.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild>
+                <a href={institutionalWhatsappHref} target="_blank" rel="noopener noreferrer">
+                  Kirim via WhatsApp
+                </a>
+              </Button>
+              {siteSettings.email ? (
+                <Button asChild variant="outline">
+                  <Link href={`mailto:${siteSettings.email}`}>Kirim via email</Link>
+                </Button>
+              ) : null}
+            </div>
+          </CardSurface>
+          <CardSurface tone="soft" padding="xl" className="space-y-4">
+            <h3 className="text-2xl font-semibold">Informasi yang sebaiknya dicantumkan</h3>
+            <div className="space-y-3 text-sm leading-relaxed text-text-muted">
+              <p>Nama instansi atau kampus.</p>
+              <p>Tujuan kedatangan: observasi, magang, audit, atau studi banding.</p>
+              <p>Perkiraan jumlah peserta dan waktu yang diusulkan.</p>
+            </div>
+          </CardSurface>
         </div>
       </PageSection>
     </>

@@ -25,32 +25,32 @@ type FactItem = {
 
 export const homeHero = {
   eyebrow: "TK untuk usia 4-6 tahun di Bantarsari",
-  title: "Sekolah pertama yang bikin anak cepat nyaman, dan orang tua cepat yakin.",
+  title: "Sedang menimbang TK untuk anak Anda? Lihat kecocokannya, lalu bahas langkah daftarnya dengan sekolah.",
   description:
-    "Kami membantu anak berani masuk kelas, kenal guru, dan menikmati rutinitas sekolah sejak minggu-minggu awal. Orang tua mendapat proses yang jelas, kabar yang rutin, dan kesempatan melihat suasana sekolah langsung sebelum memutuskan.",
-  secondaryCtaLabel: "Lihat kegiatan harian",
+    "TK Kartikasari melayani keluarga Bantarsari dan sekitarnya yang mencari kelas kecil, guru yang mengenali anak, dan alur komunikasi yang langsung ke sekolah. Di sini Anda bisa melihat seperti apa pagi berjalan, gambaran biaya awal, dan cara memulai tanya kuota atau langkah daftar.",
+  secondaryCtaLabel: "Lihat apakah cocok",
   proofItems: [
     { label: "Rasio kecil", value: "1 : 8" },
     { label: "Terdaftar resmi", value: `NPSN ${officialProfile.npsn}` },
-    { label: "Pendampingan harian", value: "Update singkat untuk orang tua" },
+    { label: "Langkah daftar", value: "Lewat admin sekolah" },
   ],
 };
 
 export const homeFirstWeek = {
   eyebrow: "1. Apakah anak saya bakal nyaman?",
-  title: "Di minggu pertama, fokus kami bukan membuat anak terlihat pintar. Fokus kami membuat anak mau datang lagi besok.",
+  title: "Di minggu pertama, target kami sederhana: anak mau datang lagi besok.",
   description:
-    "Anak tidak langsung dituntut ikut semua kegiatan. Guru membantu transisi pelan-pelan sampai anak tahu siapa yang menyambutnya, di mana ia duduk, kapan ia bermain, dan kapan ia pulang.",
+    "Anak tidak langsung dituntut ikut semua kegiatan. Guru membantu masa awal sampai anak tahu siapa yang menyambutnya, di mana ia duduk, kapan ia bermain, dan kapan ia pulang.",
   items: [
     {
       title: "Hari pertama tidak dikejar target",
       description:
-        "Kalau anak masih ingin melihat dulu, itu wajar. Guru akan mengenalkan ruang, teman, dan rutinitas tanpa memaksa anak langsung aktif.",
+        "Kalau anak masih ingin melihat dulu, itu wajar. Guru mengenalkan ruang, teman, dan rutinitas tanpa memaksa anak langsung aktif.",
     },
     {
       title: "Ada guru yang benar-benar mengenali anak",
       description:
-        "Kami memperhatikan bagaimana anak masuk kelas, merespons teman, dan menenangkan diri. Dari situ guru tahu cara mendampingi yang paling pas.",
+        "Guru memperhatikan cara anak masuk kelas, merespons teman, dan menenangkan diri. Dari situ pendekatan pendampingannya bisa lebih pas.",
     },
     {
       title: "Orang tua tetap tahu perkembangannya",
@@ -61,27 +61,27 @@ export const homeFirstWeek = {
   factItems: [
     {
       label: "Masa adaptasi",
-      value: "Pelan tapi jelas",
-      description: "Anak tidak dibiarkan bingung menghadapi ritme baru sendirian.",
+      value: "Masuk pelan-pelan",
+      description: "Anak dikenalkan pada guru, ruang kelas, dan urutan pagi sedikit demi sedikit.",
     },
     {
       label: "Pendampingan",
       value: "Guru mengenali anak",
-      description: "Bukan hanya mengajar, tetapi juga membaca kebutuhan transisinya.",
+      description: "Guru memperhatikan cara anak masuk kelas, merespons teman, dan menenangkan diri.",
     },
     {
       label: "Komunikasi",
-      value: "Kabar singkat harian",
-      description: "Orang tua tahu apa yang terjadi tanpa harus menunggu lama.",
+      value: "Kabar dari sekolah",
+      description: "Orang tua mendapat kabar singkat, terutama saat anak masih beradaptasi atau ada hal penting.",
     },
   ] satisfies FactItem[],
 };
 
 export const homeExperienceCopy = {
   eyebrow: "2. Kesehariannya seperti apa?",
-  title: "Sehari di sekolah cukup sederhana: datang, kenal guru, bermain terarah, istirahat, lalu pulang sambil bawa cerita.",
+  title: "Pagi di sekolah berjalan dengan urutan yang mudah diikuti anak.",
   description:
-    "Kami tidak membangun hari sekolah dari istilah rumit. Yang paling penting adalah ritme yang bisa dipahami anak, cukup teratur untuk membuatnya tenang, dan cukup hidup untuk membuatnya antusias datang lagi.",
+    "Sekolah dimulai pukul 07.00 dengan sambutan guru, kegiatan bersama singkat, lalu aktivitas utama. Urutan yang rapi membuat anak lebih cepat paham apa yang sedang terjadi dan apa yang akan dilakukan berikutnya.",
   parentCollab: {
     title: "Yang diterima orang tua",
     description:
@@ -100,71 +100,71 @@ export const homeDailyAgenda = {
     { time: "09.15", description: "Anak memilih atau mengikuti kegiatan utama sesuai ritme kelas hari itu." },
   ] satisfies HomeAgendaItem[],
   info: {
-    title: "Yang orang tua biasanya rasakan",
+    title: "Dari sisi orang tua",
     description:
-      "Rutinitas yang jelas membuat anak lebih mudah tenang. Dari sisi orang tua, proses ini terasa lebih meyakinkan karena tidak serba mendadak.",
+      "Urutan pagi yang rapi membantu anak tahu apa yang terjadi lebih dulu. Orang tua juga lebih mudah membayangkan bagaimana anak menjalani waktu di sekolah.",
     ratioLabel: "Rasio guru : anak",
     defaultNpsn: "20351273",
   },
   focusCards: [
     {
-      title: "Bukan sekadar ramai",
-      description: "Kegiatan dibuat aktif, tetapi tetap punya ritme yang mudah diikuti anak.",
+      title: "Aktif dengan urutan yang rapi",
+      description: "Anak bergerak dan bermain, tetapi perpindahan kegiatannya tetap mudah diikuti.",
     },
     {
-      title: "Bukan sekadar duduk belajar",
-      description: "Anak bergerak, berbicara, mencoba, lalu pulang dengan pengalaman yang bisa diceritakan.",
+      title: "Ada waktu bergerak dan mencoba",
+      description: "Anak tidak hanya duduk mendengar. Ada waktu untuk bicara, mencoba, dan pulang membawa cerita.",
     },
   ],
 };
 
 export const homeParentUpdates = {
   eyebrow: "3. Apa yang orang tua terima setiap hari?",
-  title: "Orang tua tidak perlu menebak-nebak hari anak di sekolah.",
+  title: "Orang tua bisa tahu bagaimana hari anak berjalan di sekolah.",
   description:
-    "Kepercayaan tumbuh saat orang tua tahu apa yang benar-benar terjadi, bukan hanya mendengar kesan umum seperti 'hari ini baik-baik saja'.",
+    "Saat ada hal penting atau anak masih di masa awal adaptasi, orang tua mendapat kabar tentang kegiatan anak, suasana harinya, dan hal yang sedang dibantu guru.",
   items: [
     {
-      title: "Kabar singkat yang relevan",
-      description: "Bukan laporan panjang, tetapi cukup untuk tahu anak ikut apa, bagaimana suasananya, dan apa yang menonjol hari itu.",
+      title: "Kabar singkat dari guru",
+      description: "Isinya ringkas: anak ikut kegiatan apa, bagaimana suasana harinya, dan apakah ada hal yang perlu diperhatikan.",
     },
     {
-      title: "Titik yang perlu dilanjutkan di rumah",
-      description: "Jika ada hal yang sedang dilatih atau perlu diperhatikan, orang tua mendapat konteks yang jelas.",
+      title: "Hal yang bisa dilanjutkan di rumah",
+      description: "Jika ada kebiasaan atau latihan yang sedang dibantu di sekolah, orang tua mendapat konteks untuk meneruskannya di rumah.",
     },
     {
-      title: "Percakapan dengan guru tidak terasa jauh",
-      description: "Kalau ada pertanyaan atau kekhawatiran, jalur komunikasinya langsung dan tidak berputar-putar.",
+      title: "Kalau perlu bertanya, jalurnya langsung",
+      description: "Saat ada pertanyaan atau kekhawatiran, orang tua tahu harus menghubungi siapa di sekolah.",
     },
   ] satisfies NarrativeItem[],
 };
 
 export const homeSchoolFit = {
   eyebrow: "4. Sekolah ini cocok untuk siapa?",
-  title: "Cocok untuk keluarga yang mencari sekolah kecil dengan ritme jelas, bukan sekolah yang ingin terlihat heboh.",
+  title: "Untuk keluarga yang mencari kelas kecil, suasana yang lebih tenang, dan alur daftar yang tidak berputar-putar.",
   description:
-    "TK Kartikasari cocok untuk orang tua yang ingin anak nyaman dulu, lalu berkembang pelan-pelan dengan pendampingan yang terasa dekat dan proses yang mudah dipahami.",
+    "Bagian ini paling relevan untuk orang tua yang ingin anak lebih dulu merasa aman di sekolah, dikenal gurunya, lalu bertumbuh lewat rutinitas yang rapi dari hari ke hari.",
   items: [
     {
-      title: "Cocok jika anak masih butuh waktu adaptasi",
+      title: "Untuk anak yang masih butuh waktu adaptasi",
       description: "Kami tidak menuntut semua anak langsung berani. Anak boleh masuk pelan-pelan sampai benar-benar merasa aman.",
     },
     {
-      title: "Cocok jika orang tua ingin proses yang jelas",
-      description: "Mulai dari kunjungan, status PPDB, hingga kabar harian dibuat seterang mungkin supaya tidak membingungkan keluarga.",
+      title: "Untuk orang tua yang ingin tahu langkahnya dari awal",
+      description: "Mulai dari melihat kecocokan, menanyakan status PPDB, sampai membahas dokumen dasar, alurnya dibuat mudah diikuti keluarga.",
     },
     {
-      title: "Cocok jika Anda lebih peduli suasana daripada jargon",
-      description: "Kami tetap mengikuti standar pendidikan resmi, tetapi yang kami tunjukkan ke orang tua adalah pengalaman nyata anak di kelas.",
+      title: "Untuk keluarga yang ingin melihat praktiknya",
+      description: "Kami tetap mengikuti standar pendidikan resmi, tetapi yang ditunjukkan ke orang tua adalah apa yang benar-benar dijalani anak di kelas.",
     },
   ] satisfies NarrativeItem[],
 };
 
 export const homeHighlightsCopy = {
-  eyebrow: "Yang biasanya ingin dipastikan orang tua",
-  title: "Sebelum bertanya soal kurikulum, orang tua biasanya ingin memastikan tiga hal ini dulu.",
+  eyebrow: "Yang perlu dipastikan di awal",
+  title: "Tiga hal yang biasanya dicek orang tua sebelum menghubungi sekolah.",
   description:
-    "Apakah anak cepat nyaman, apakah sekolah ini jelas dan resmi, dan apakah orang tua akan benar-benar tahu perkembangan anak sehari-hari.",
+    "Apakah anak bisa cepat nyaman, apakah sekolahnya jelas dan resmi, dan apakah orang tua akan mendapat kabar yang berguna tentang keseharian anak.",
 };
 
 export const homeHighlights: HomeHighlight[] = [
@@ -190,9 +190,9 @@ export const homeHighlights: HomeHighlight[] = [
 
 export const homeProgramsCopy = {
   eyebrow: "5. Anak melakukan apa di sekolah?",
-  title: "Anak tidak dipaksa belajar dengan ritme yang sama.",
+  title: "Program dibagi mengikuti tahap usia dan kesiapan anak.",
   description:
-    "Program kami dibagi berdasarkan fase usia, tetapi yang paling penting adalah bagaimana anak menjalani hari: bergerak, berbicara, mencoba, menunggu giliran, dan pelan-pelan lebih siap mengikuti kegiatan bersama.",
+    "Orang tua bisa melihat perbedaannya dari kegiatan harian: bagaimana anak bergerak, berbicara, mencoba, menunggu giliran, dan bertahap lebih siap ikut kegiatan bersama.",
 };
 
 export const homePrograms: HomeProgram[] = [
@@ -248,9 +248,9 @@ export const homePrograms: HomeProgram[] = [
 
 export const homeCredentialsCopy = {
   eyebrow: "Apa buktinya sekolah ini serius?",
-  title: "Yang paling sering dicari orang tua kami taruh terbuka di sini.",
+  title: "Data sekolah yang paling sering dicari orang tua bisa dicek di sini.",
   description:
-    "Legalitas, identitas sekolah, dan jejak perjalanannya tidak kami sembunyikan di bagian bawah. Orang tua bisa melihat data penting sebelum memutuskan datang.",
+    "Legalitas, identitas sekolah, dan jejak perjalanannya kami tampilkan terbuka supaya orang tua bisa mengecek dulu sebelum melanjutkan percakapan.",
   legalTitle: "Fakta sekolah",
   timelineTitle: "Perjalanan sekolah",
 };
@@ -322,9 +322,9 @@ export const homeCurriculumPillars: HomeCurriculumPillar[] = [
 
 export const homeOnboardingCopy = {
   eyebrow: "Kalau cocok, langkah saya apa?",
-  title: "Mulai dari kunjungan, bukan langsung formulir.",
+  title: "Kalau sudah pas, langkah berikutnya bisa langsung dimulai.",
   description:
-    "Untuk sekolah pertama, keluarga biasanya perlu lihat suasana dulu. Karena itu, alurnya kami buat sederhana: lihat kegiatannya, pahami biayanya, siapkan dokumen dasar, lalu konfirmasi ke admin.",
+    "Lihat dulu ritme sekolahnya, cek biaya intinya, siapkan dokumen dasar, lalu hubungi admin sekolah untuk menanyakan kuota dan langkah daftar yang paling sesuai.",
   primaryCtaLabel: "Lihat status PPDB",
   steps: [
     {
@@ -332,7 +332,7 @@ export const homeOnboardingCopy = {
       href: "#kegiatan-harian",
       icon: "Compass",
       title: "Lihat dulu kegiatan hariannya",
-      description: "Pastikan ritme sekolahnya terasa cocok untuk anak dan keluarga Anda.",
+      description: "Periksa apakah urutan paginya sesuai dengan kebutuhan anak dan ritme keluarga Anda.",
       linkLabel: "Lihat kegiatan harian",
     },
     {
@@ -356,7 +356,7 @@ export const homeOnboardingCopy = {
       href: "/kontak",
       icon: "MapPin",
       title: "Hubungi admin untuk langkah berikutnya",
-      description: "Tanyakan status PPDB, jadwal kunjungan, atau kemungkinan daftar tunggu jika kuota sedang penuh.",
+      description: "Tanyakan status kuota, langkah pendaftaran, atau dokumen yang perlu disiapkan lebih dulu.",
       linkLabel: "Hubungi admin",
     },
   ] satisfies HomeOnboardingStep[],
@@ -364,9 +364,9 @@ export const homeOnboardingCopy = {
 
 export const homeVisitExpectation = {
   eyebrow: "Apa yang terjadi saat kunjungan?",
-  title: "Kunjungan seharusnya membantu orang tua menilai suasana, bukan membuat bingung.",
+  title: "Setelah berkunjung, orang tua seharusnya pulang dengan gambaran yang lebih jelas.",
   description:
-    "Saat datang, keluarga sebaiknya bisa melihat ruang kelas, merasakan ritme sekolah, bertemu orang yang akan mendampingi anak, dan tahu langkah berikutnya dengan jelas.",
+    "Saat datang, keluarga sebaiknya bisa melihat ruang kelas, merasakan ritme pagi, bertemu guru, dan tahu langkah berikutnya tanpa perlu bertanya berulang-ulang.",
   items: [
     "Anda bisa melihat seperti apa ruang kelas dan ritme anak selama di sekolah.",
     "Anda bisa bertanya langsung tentang adaptasi anak, kegiatan harian, dan komunikasi dengan guru.",
@@ -376,7 +376,7 @@ export const homeVisitExpectation = {
 
 export const homeBlogCopy = {
   eyebrow: "Cerita sekolah dan catatan untuk orang tua",
-  title: "Tulisan yang membantu orang tua memahami sekolah, bukan sekadar mengisi halaman.",
+  title: "Tulisan yang membantu orang tua memahami kegiatan sekolah.",
   description:
     "Blog dipakai untuk membagikan cerita kegiatan, tips sederhana, dan konteks yang membantu orang tua mengenal cara sekolah ini bekerja.",
   emptyTitle: "Belum ada cerita terbaru",
@@ -387,22 +387,22 @@ export const homeBlogCopy = {
 };
 
 export const homeFaqCopy = {
-  eyebrow: "Pertanyaan yang biasanya muncul sebelum datang",
+  eyebrow: "Pertanyaan sebelum menghubungi sekolah",
   title: "Jawaban singkat untuk hal-hal yang paling sering ditanyakan orang tua.",
   description:
-    "Kalau setelah membaca ini Anda masih ragu, langkah terbaik tetap datang atau bertanya langsung ke sekolah.",
+    "Kalau setelah membaca ini masih ada yang belum pasti, hubungi sekolah untuk menanyakan kuota, kelompok yang sesuai, dan langkah berikutnya.",
 };
 
 export const homeFinalCtaCopy = {
   eyebrow: "Kalau masih menimbang-nimbang",
-  title: "Datang lihat dulu. Keputusan soal sekolah pertama memang sebaiknya tidak diambil dari brosur saja.",
+  title: "Kalau sudah dapat gambaran, lanjutkan ke pertanyaan yang paling penting.",
   description:
-    "Kunjungan membantu orang tua menilai apakah suasananya cocok, apakah orang-orangnya terasa meyakinkan, dan apakah anak terlihat bisa menjalani hari dengan nyaman di sini.",
-  secondaryCtaLabel: "Tanya dulu lewat kontak",
+    "Mulai dari kuota, kelompok yang sesuai, biaya terbaru, dan dokumen dasar. Setelah itu baru lebih mudah menentukan apakah perlu kunjungan atau sudah siap lanjut.",
+  secondaryCtaLabel: "Lihat cara menghubungi sekolah",
 };
 
 export const homeHeroDescription =
-  "Sekolah pertama yang membantu anak cepat nyaman dan membantu orang tua cepat yakin lewat proses yang jelas, pendampingan harian, dan suasana belajar yang bisa dilihat langsung.";
+  "Lihat kecocokan TK Kartikasari untuk anak Anda, pahami biaya awal, lalu bahas kuota dan langkah pendaftaran langsung dengan sekolah.";
 
 export const homeStats: HomeStat[] = [
   {
@@ -471,7 +471,7 @@ export const homeFaqs: HomeFaq[] = [
   {
     question: "Kapan waktu terbaik untuk datang berkunjung?",
     answer:
-      "Sebelum mendaftar. Dengan datang lebih dulu, orang tua bisa melihat suasana kelas, ritme sekolah, dan bertanya langsung soal adaptasi anak maupun proses PPDB.",
+      "Setelah menanyakan kuota dan kebutuhan anak lebih dulu. Jika informasinya sudah sesuai, keluarga bisa menjadwalkan kunjungan untuk melihat kelas, ritme sekolah, dan bertemu guru.",
   },
   {
     question: "Kalau kuota sedang penuh, apa yang bisa saya lakukan?",

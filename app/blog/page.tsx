@@ -15,7 +15,7 @@ import { getGlobalSiteData } from '@/lib/sanity.queries';
 export const revalidate = 60;
 
 const blogDescription =
-  'Ikuti artikel terbaru dari kami untuk mendapatkan wawasan seputar dunia pendidikan anak usia dini dan melihat keseruan kegiatan di TK Kartikasari.';
+  'Baca cerita kelas, catatan kegiatan, dan tulisan singkat yang membantu orang tua mengenal keseharian TK Kartikasari.';
 
 export async function generateMetadata() {
   const { siteSettings } = await getGlobalSiteData();
@@ -48,8 +48,8 @@ export default async function BlogListPage() {
               Di sini kami membagikan cerita kelas, tips sederhana, dan konteks yang sering ditanyakan orang tua.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-              Bukan semua keluarga bisa datang setiap saat. Karena itu tulisan-tulisan ini membantu Anda mengenal cara
-              sekolah bekerja lewat cerita yang lebih konkret.
+              Tulisan-tulisan ini membantu orang tua melihat bagaimana kegiatan sekolah berjalan, bahkan saat belum sempat
+              datang langsung.
             </p>
           </div>
 
@@ -64,13 +64,13 @@ export default async function BlogListPage() {
               },
               {
                 label: 'Nada',
-                value: 'Jelas dan ringan',
+                value: 'Ringan dibaca',
                 description: 'Bahasanya dibuat mudah dibaca tanpa banyak istilah teknis.',
               },
               {
                 label: 'Kapan dibaca',
-                value: 'Sebelum atau sesudah kunjungan',
-                description: 'Artikel bisa membantu Anda datang dengan pertanyaan yang lebih terarah.',
+                value: 'Sebelum chat atau kunjungan',
+                description: 'Artikel bisa membantu Anda mengenal sekolah sebelum menghubungi admin.',
               },
             ]}
             sticky
@@ -83,7 +83,8 @@ export default async function BlogListPage() {
           <CardSurface tone="soft" padding="xl" className="mx-auto max-w-3xl text-center">
             <h2 className="text-2xl font-semibold text-text">Belum ada artikel terbaru</h2>
             <p className="mt-3 text-base text-text-muted">
-              Konten sedang disiapkan. Kembali lagi nanti untuk membaca cerita dan pembaruan terbaru dari sekolah.
+              Tulisan baru sedang disiapkan. Untuk sementara, Anda masih bisa melihat program, biaya, atau menghubungi
+              sekolah langsung.
             </p>
           </CardSurface>
         ) : (

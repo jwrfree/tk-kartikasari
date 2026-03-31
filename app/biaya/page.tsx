@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Telephone } from 'react-bootstrap-icons';
 
+import CTAButton from '@/components/CTAButton';
 import PageHeader from '@/components/layout/PageHeader';
 import PageSection from '@/components/layout/PageSection';
 import BiayaClientComponent from './BiayaClientComponent';
@@ -16,7 +17,7 @@ export async function generateMetadata() {
   return createPageMetadata({
     title: 'Rincian Biaya',
     description:
-      'Dapatkan informasi lengkap dan transparan mengenai rincian biaya pendidikan di TK Kartikasari, termasuk uang pangkal, SPP, dan opsi pembayaran yang fleksibel.',
+      'Lihat gambaran biaya TK Kartikasari, pahami komponen utamanya, lalu konfirmasi angka terbaru dan langkah pendaftaran ke sekolah.',
     path: '/biaya',
     siteSettings,
   });
@@ -44,32 +45,30 @@ export default async function BiayaPage() {
     <>
       <PageHeader
         eyebrow="Biaya"
-        title="Biaya kami tampilkan sebagai gambaran awal supaya keluarga bisa menghitung dengan tenang."
-        description="Di sini Anda bisa melihat komponen utama, estimasi tahun pertama, dan jalur bertanya jika membutuhkan angka terbaru."
+        title="Lihat gambaran biaya dulu, lalu konfirmasi angka terbaru sebelum mendaftar."
+        description="Halaman ini membantu keluarga memahami komponen utama dan estimasi tahun pertama. Untuk angka terbaru, kuota, atau langkah yang paling relevan, lanjutkan ke admin sekolah."
       >
-        <Button asChild variant="outline">
-          <Link href="/kontak">Tanya biaya terbaru</Link>
-        </Button>
+        <CTAButton ctaKey="contactConsultation" className="sm:w-auto" />
       </PageHeader>
 
       <PageSection padding="tight">
         <div className="grid gap-5 lg:grid-cols-[1.1fr,0.9fr]">
           <CardSurface tone="gradient" padding="xl" className="space-y-4">
             <Badge tone="surface" size="sm">
-              Catatan penting
+              Sebelum bertanya
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold">
-              Angka yang tampil dipakai untuk membantu perencanaan awal.
+              Angka di halaman ini dipakai untuk gambaran awal, bukan keputusan akhir.
             </h2>
             <p className="max-w-3xl text-base leading-relaxed text-text-muted">
-              Komponen yang tampil membantu keluarga memahami susunan biaya masuk dan tahun pertama. Angka resmi tetap
-              mengikuti pembaruan administrasi sekolah.
+              Gunakan halaman ini untuk memahami susunan biaya masuk dan tahun pertama. Setelah itu, konfirmasi angka
+              terbaru dan kaitannya dengan status kuota langsung ke sekolah.
             </p>
-            <Button asChild>
-              <a href="https://wa.me/6281234567890">
+            <Button asChild variant="outline">
+              <Link href="/ppdb">
                 <Telephone className="h-4 w-4" />
-                Hubungi Admin PPDB
-              </a>
+                Lihat langkah PPDB
+              </Link>
             </Button>
           </CardSurface>
 
@@ -127,16 +126,14 @@ export default async function BiayaPage() {
               Langkah berikutnya
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold">
-              Jika butuh angka terbaru, tanyakan langsung sebelum mengambil keputusan.
+              Jika angkanya sudah masuk akal, lanjutkan ke admin untuk bahas kuota dan langkah daftar.
             </h2>
             <p className="text-base leading-relaxed text-text-muted">
-              Admin sekolah bisa membantu menjelaskan biaya terbaru, ketersediaan kuota, dan hal-hal yang relevan dengan
-              situasi keluarga Anda.
+              Admin sekolah bisa membantu menjelaskan angka terbaru, ketersediaan kuota, dan langkah administrasi yang
+              paling relevan dengan situasi keluarga Anda.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild>
-                <Link href="/kontak">Hubungi sekolah</Link>
-              </Button>
+              <CTAButton ctaKey="contactConsultation" className="w-full sm:w-auto" />
               <Button asChild variant="outline">
                 <Link href="/ppdb">Lihat halaman PPDB</Link>
               </Button>

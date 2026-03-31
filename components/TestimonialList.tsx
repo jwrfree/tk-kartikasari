@@ -49,7 +49,7 @@ export default function TestimonialList({ testimonials }: TestimonialListProps) 
             eyebrowLeadingVisual={<span className="h-2.5 w-2.5 rounded-full bg-secondary" />}
             eyebrowVariant="secondary"
             title="Cerita keluarga setelah anak mulai lebih terbiasa dengan sekolah"
-            description="Pengalaman ini memberi gambaran tentang proses kecil yang mereka lihat dari hari ke hari."
+            description="Pengalaman ini memberi gambaran tentang perubahan yang mereka lihat dari hari ke hari."
           />
         </AnimateIn>
 

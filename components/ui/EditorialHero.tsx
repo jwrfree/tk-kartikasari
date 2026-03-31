@@ -84,10 +84,10 @@ export function EditorialHero({
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/18 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/70">
-              Lihat suasana sekolah
+              Gambaran sekolah
             </p>
             <p className="mt-3 max-w-md text-balance font-display text-2xl leading-tight sm:text-[2rem]">
-              Datang, lihat ritme paginya, lalu nilai apakah tempat ini terasa cocok untuk anak.
+              Lihat kelasnya, kenali gurunya, lalu nilai apakah ritme paginya cocok untuk anak.
             </p>
             {mediaCaption ? (
               <p className="mt-3 max-w-md text-sm leading-relaxed text-white/80">{mediaCaption}</p>

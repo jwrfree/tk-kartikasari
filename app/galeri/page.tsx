@@ -11,7 +11,7 @@ import { getGalleryPageData } from '@/lib/sanity.queries';
 import type { GalleryItem } from '@/lib/types/site';
 
 const galeriDescription =
-  'Lihat suasana kelas, kegiatan, dan momen harian anak di TK Kartikasari melalui dokumentasi yang ringkas dan mudah dipindai.';
+  'Lihat suasana kelas, kegiatan, dan momen harian anak di TK Kartikasari lewat foto-foto yang diberi konteks singkat.';
 
 export async function generateMetadata() {
   const { siteSettings } = await getGalleryPageData();
@@ -31,7 +31,7 @@ export default async function Page() {
     <>
       <PageHeader
         eyebrow="Galeri"
-        title="Potret kegiatan sekolah membantu keluarga membayangkan suasana hari-hari anak di sini."
+        title="Galeri ini membantu keluarga melihat seperti apa hari-hari anak di sekolah."
         description={galeriDescription}
       />
 
@@ -39,12 +39,11 @@ export default async function Page() {
         <div className="editorial-grid items-start">
           <div className="space-y-4">
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.9rem]">
-              Foto yang baik membantu orang tua melihat apakah sekolah ini terasa hidup, tertata, dan cukup dekat dengan
-              anak.
+              Foto membantu orang tua melihat kegiatan, suasana kelas, dan cara anak berinteraksi di sekolah.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-              Karena itu kami menampilkan dokumentasi dengan caption singkat dan urutan yang tidak terasa seperti
-              katalog padat.
+              Karena itu tiap foto disertai keterangan singkat, supaya orang tua tidak hanya melihat gambar tanpa
+              konteks.
             </p>
           </div>
           <FactRail
@@ -64,7 +63,7 @@ export default async function Page() {
               {
                 label: 'Fallback',
                 value: 'Tetap rapi tanpa foto',
-                description: 'Jika konten belum tersedia, layout tidak terasa kosong atau rusak.',
+                description: 'Jika konten belum tersedia, halaman tetap utuh dan mudah dipahami.',
               },
             ]}
             sticky
@@ -100,8 +99,8 @@ export default async function Page() {
           <CardSurface tone="soft" padding="xl" className="mx-auto max-w-3xl text-center">
             <h2 className="text-2xl font-semibold text-text">Dokumentasi segera hadir</h2>
             <p className="mt-3 text-base text-text-muted">
-              Tim kami sedang mengkurasi foto kegiatan terbaru agar dapat dibagikan kepada orang tua. Jika Anda
-              membutuhkan informasi tambahan, silakan hubungi kami melalui kanal resmi sekolah.
+              Foto kegiatan terbaru sedang disiapkan. Jika Anda perlu konteks lebih cepat, hubungi sekolah melalui kanal
+              resmi yang tersedia.
             </p>
             <div className="mt-6 flex justify-center">
               <Button asChild fullWidth className="sm:w-auto">

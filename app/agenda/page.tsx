@@ -38,7 +38,7 @@ export default async function Page() {
     <>
       <PageHeader
         eyebrow="Agenda"
-        title="Tanggal penting sekolah ditampilkan rapi supaya keluarga cepat menangkap yang perlu dicatat."
+        title="Lihat tanggal penting sekolah yang perlu dicatat keluarga."
         description={agendaDescription}
       />
 
@@ -49,11 +49,10 @@ export default async function Page() {
               Kalender keluarga
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.9rem]">
-              Tanggal penting diposisikan sebagai panduan keluarga, bukan sekadar daftar acara.
+              Agenda ini membantu keluarga melihat kegiatan terdekat tanpa membuka banyak detail dulu.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-              Anda bisa melihat kegiatan yang akan datang, kapan waktunya, dan di mana lokasinya tanpa harus membuka
-              banyak detail dulu.
+              Tanggal, waktu, dan lokasi ditampilkan di depan supaya mudah disimpan atau diteruskan ke keluarga.
             </p>
           </div>
           <FactRail
@@ -72,8 +71,8 @@ export default async function Page() {
               },
               {
                 label: 'Manfaat',
-                value: 'Mudah disimpan keluarga',
-                description: 'Struktur dibuat ringan dipindai tanpa elemen dekoratif berlebih.',
+                value: 'Mudah dicatat',
+                description: 'Strukturnya dibuat ringan dipindai agar keluarga cepat menangkap informasi inti.',
               },
             ]}
             sticky

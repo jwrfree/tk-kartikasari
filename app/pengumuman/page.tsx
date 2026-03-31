@@ -38,7 +38,7 @@ async function getNewsData(): Promise<NewsItem[]> {
 }
 
 const pengumumanDescription =
-  'Temukan informasi resmi, pemberitahuan penting, dan kabar terbaru dari TK Kartikasari untuk orang tua dan wali murid.';
+  'Lihat pemberitahuan penting dan informasi resmi dari TK Kartikasari untuk orang tua dan wali murid.';
 
 export async function generateMetadata() {
   const { siteSettings } = await getGlobalSiteData();
@@ -57,7 +57,7 @@ export default async function PengumumanPage() {
     <>
       <PageHeader
         eyebrow="Pengumuman"
-        title="Informasi penting sekolah ditampilkan rapi supaya keluarga cepat menangkap intinya."
+        title="Pemberitahuan penting sekolah dikumpulkan di satu tempat."
         description={pengumumanDescription}
       />
 
@@ -65,11 +65,11 @@ export default async function PengumumanPage() {
         <div className="editorial-grid items-start">
           <div className="space-y-4">
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.9rem]">
-              Orang tua dapat melihat kabar penting sekolah dengan urutan dan konteks yang jelas.
+              Orang tua bisa melihat kabar penting sekolah dari yang terbaru lebih dulu.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
               Saat ada perubahan jadwal, informasi administrasi, atau pemberitahuan penting lain, daftar ini membantu
-              keluarga menemukannya tanpa harus menebak-nebak mana yang paling baru.
+              keluarga menemukannya tanpa harus mencari ke banyak tempat.
             </p>
           </div>
           <FactRail
@@ -84,7 +84,7 @@ export default async function PengumumanPage() {
               {
                 label: 'Urutan',
                 value: 'Terbaru di atas',
-                description: 'Informasi yang paling relevan muncul lebih dulu.',
+                description: 'Kabar yang baru terbit langsung muncul di bagian atas daftar.',
               },
               {
                 label: 'Lanjutan',

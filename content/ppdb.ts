@@ -4,7 +4,7 @@ export type PpdbFaq = {
 };
 
 export const ppdbMetaDescription =
-  "Lihat status PPDB TK Kartikasari, pahami dokumen yang perlu disiapkan, dan hubungi admin untuk jadwal kunjungan atau daftar tunggu.";
+  "Konfirmasi status PPDB TK Kartikasari, pahami dokumen dasar yang perlu disiapkan, dan hubungi admin untuk kuota atau langkah berikutnya.";
 
 export const syaratDanKetentuan = [
   {
@@ -29,7 +29,7 @@ export const ppdbFaqs: PpdbFaq[] = [
   {
     question: "Apakah saya harus datang dulu sebelum mendaftar?",
     answer:
-      "Sebaiknya ya. Kunjungan membantu orang tua melihat suasana sekolah, mengenal guru, dan memastikan ritmenya cocok untuk anak sebelum melanjutkan proses administrasi.",
+      "Tidak harus. Mulailah dari chat dengan admin untuk menanyakan kuota, kebutuhan anak, dan dokumen dasar. Jika setelah itu keluarga perlu melihat kelas atau bertemu guru, kunjungan bisa dijadwalkan.",
   },
   {
     question: "Kalau kuota sedang penuh, apa yang bisa saya lakukan?",

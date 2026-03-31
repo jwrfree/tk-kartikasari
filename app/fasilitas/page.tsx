@@ -64,7 +64,7 @@ export default async function FasilitasPage() {
     <>
       <PageHeader
         eyebrow="Fasilitas"
-        title="Lihat ruang yang benar-benar dipakai anak, bukan sekadar daftar fasilitas."
+        title="Lihat ruang yang dipakai anak setiap hari di sekolah."
         description="Halaman ini membantu keluarga memahami bagaimana ruang kelas, area bermain, dan fasilitas pendukung dipakai dalam keseharian sekolah."
       />
 
@@ -74,7 +74,7 @@ export default async function FasilitasPage() {
           title={virtualTour?.title || 'Jelajahi sekolah kami'}
           description={
             virtualTour?.description ||
-            'Lihat gambaran singkat lingkungan sekolah sebelum Anda datang langsung berkunjung.'
+            'Lihat gambaran singkat lingkungan sekolah sebelum bertanya lebih lanjut atau menjadwalkan kunjungan.'
           }
         >
           {virtualTour?.videoUrl ? (
@@ -98,10 +98,11 @@ export default async function FasilitasPage() {
               Lingkungan belajar
             </Badge>
             <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl lg:text-[2.9rem]">
-              Orang tua bisa menilai apakah ruang sekolah terasa cukup rapi, terang, dan nyaman untuk anak.
+              Orang tua bisa melihat seperti apa kelas, area bermain, dan ruang pendukung dipakai anak di sini.
             </h2>
             <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-              Setiap area dijelaskan lewat fungsinya dalam keseharian, bukan hanya disebut namanya satu per satu.
+              Setiap area dijelaskan lewat kegiatannya, supaya keluarga tidak hanya melihat nama ruang, tetapi juga
+              fungsinya dalam keseharian anak.
             </p>
           </div>
           <FactRail
@@ -111,17 +112,17 @@ export default async function FasilitasPage() {
               {
                 label: 'Keamanan',
                 value: 'Ruang yang ramah anak',
-                description: 'Visual dan copy menekankan kenyamanan serta keteraturan.',
+                description: 'Keluarga bisa melihat apakah ruangnya terang, tertata, dan mudah dipakai anak.',
               },
               {
                 label: 'Fungsi',
-                value: 'Bukan sekadar nama ruang',
-                description: 'Setiap area dijelaskan lewat manfaatnya bagi proses belajar.',
+                value: 'Fungsi tiap area',
+                description: 'Setiap area dijelaskan lewat kegiatan yang biasa dilakukan anak di sana.',
               },
               {
                 label: 'Fallback',
                 value: 'Tetap utuh tanpa foto',
-                description: 'Jika dokumentasi belum lengkap, presentasi tidak kehilangan struktur.',
+                description: 'Jika dokumentasi belum lengkap, halaman tetap bisa dipakai tanpa terasa terputus.',
               },
             ]}
             sticky
@@ -135,7 +136,7 @@ export default async function FasilitasPage() {
             <CardSurface tone="soft" padding="xl" className="text-center">
               <h2 className="text-2xl font-semibold text-text">Data fasilitas belum tersedia</h2>
               <p className="mt-3 text-base text-text-muted">
-                Dokumentasi fasilitas akan ditambahkan setelah konten terbaru tersedia.
+                Dokumentasi fasilitas akan ditambahkan begitu konten terbarunya siap ditampilkan.
               </p>
             </CardSurface>
           ) : (

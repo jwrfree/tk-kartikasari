@@ -54,8 +54,8 @@ export default function AboutPageContent({
     <>
       <PageHeader
         eyebrow="Tentang TK Kartikasari"
-        title="Kenali cara sekolah ini bekerja sebelum Anda memutuskan datang atau mendaftar."
-        description="Halaman ini merangkum apa yang kami pegang, bagaimana guru mendampingi anak, dan fakta sekolah yang biasanya ingin dipastikan orang tua lebih dulu."
+        title="Kenali sekolah ini dulu sebelum memutuskan apakah perlu lanjut ke pendaftaran."
+        description="Halaman ini merangkum cara sekolah bekerja, siapa guru yang menyambut anak, dan fakta dasar yang biasanya dicek orang tua sebelum menghubungi sekolah."
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <CTAButton ctaKey="heroVisit" className="sm:w-auto" />
@@ -68,11 +68,11 @@ export default function AboutPageContent({
       <StorySection
         id="cerita-kami"
         eyebrow="Cara kami mendampingi"
-        title="Kami tidak mulai dari target besar. Kami mulai dari membuat anak mau datang, mau ikut, lalu pelan-pelan lebih berani."
-        description="Untuk anak usia dini, kemajuan sering terlihat dari hal kecil: mau masuk gerbang, mau duduk sebentar, mau menjawab, lalu mau mencoba lagi besok. Guru kami bekerja dari perubahan kecil seperti itu."
+        title="Untuk anak usia dini, titik awalnya sederhana: mau masuk, mau ikut, lalu makin berani dari hari ke hari."
+        description="Kami tidak berharap semua anak langsung aktif di hari pertama. Guru lebih dulu membantu anak mengenal suasana, guru, dan rutinitas sampai sekolah terasa lebih akrab."
         aside={
           <QuoteBlock
-            quote="Kalau anak merasa cukup tenang, guru lebih mudah mengenali kebutuhannya dan orang tua lebih mudah melihat perkembangannya."
+            quote="Kalau anak sudah tenang, guru lebih mudah membantu dan orang tua juga lebih mudah melihat kemajuannya."
             author={siteSettings.headmaster}
             subtitle="Cara kami bekerja"
           />
@@ -123,8 +123,8 @@ export default function AboutPageContent({
           <CardSurface tone="translucent" padding="lg" className="space-y-4">
             <h3 className="text-2xl font-semibold">Siapa sekolah ini</h3>
             <p className="text-sm leading-relaxed text-text-muted">
-              TK Kartikasari melayani keluarga yang mencari sekolah pertama dengan ritme yang jelas, komunikasi yang
-              mudah diikuti, dan pendampingan yang terasa dekat sejak masa adaptasi.
+              TK Kartikasari melayani keluarga yang mencari sekolah pertama dengan kelas yang lebih tenang, komunikasi
+              yang mudah diikuti, dan guru yang cepat mengenali anak sejak masa awal sekolah.
             </p>
             <div className="space-y-3">
               {aboutMission.map((point) => (
@@ -139,8 +139,8 @@ export default function AboutPageContent({
           <CardSurface tone="soft" padding="lg" className="space-y-4">
             <h3 className="text-2xl font-semibold">Yang biasanya terasa bagi keluarga</h3>
             <p className="text-sm leading-relaxed text-text-muted">
-              Banyak orang tua tidak butuh kalimat promosi yang panjang. Mereka ingin tahu apakah sekolah ini terasa
-              cukup jelas, cukup stabil, dan cukup manusiawi untuk dijalani anak setiap hari.
+              Banyak keluarga datang dengan pertanyaan sederhana: siapa yang menyambut anak, seperti apa kelasnya, dan
+              apakah alur komunikasinya mudah diikuti dari awal.
             </p>
             <div className="space-y-3">
               {aboutStrengths.map((item) => (
@@ -177,8 +177,7 @@ export default function AboutPageContent({
             Perjalanan
           </Badge>
           <h2 className="mt-4 text-balance text-3xl font-semibold sm:text-4xl">
-            Jejak sekolah ini cukup singkat dibaca, cukup untuk menunjukkan bahwa kami bukan sekolah yang baru muncul
-            kemarin.
+            Jejak sekolah ini kami tampilkan singkat supaya keluarga tahu sekolah ini sudah lama hadir di lingkungan sekitar.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-text-muted">
             Timeline ini membantu keluarga melihat bagaimana sekolah bertumbuh dan tetap hadir untuk masyarakat sekitar.
@@ -204,21 +203,23 @@ export default function AboutPageContent({
         <div className="mx-auto max-w-5xl">
           <CardSurface tone="gradient" padding="xl" className="space-y-5 text-center sm:text-left">
             <Badge tone="surface" size="sm" className="mx-auto sm:mx-0">
-              Kunjungan sekolah
+              Langkah berikutnya
             </Badge>
             <div className="space-y-4 sm:flex sm:items-end sm:justify-between sm:gap-8 sm:space-y-0">
               <div className="space-y-3">
                 <h2 className="max-w-[14ch] text-balance text-3xl font-semibold sm:text-4xl">
-                  Kalau ingin menilai kecocokannya, datang dan lihat jam sekolah berjalan.
+                  Kalau sekolah ini terasa cocok, lanjutkan ke pembahasan kuota dan langkah daftar.
                 </h2>
                 <p className="max-w-2xl text-base leading-relaxed text-text-muted">
-                  Kunjungan membantu Anda melihat ritme kelas, cara guru menyapa anak, dan suasana ruang belajar apa
-                  adanya.
+                  Anda bisa mulai dari percakapan singkat dengan sekolah untuk menanyakan kuota, kebutuhan anak, dan
+                  langkah yang paling tepat. Jika perlu, kunjungan bisa dijadwalkan setelah itu.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:w-auto sm:flex-row">
                 <CTAButton ctaKey="heroVisit" className="sm:w-auto" />
-                <CTAButton ctaKey="ppdbHeadmaster" className="sm:w-auto" />
+                <Button asChild variant="outline" className="sm:w-auto">
+                  <Link href="/ppdb">Lihat alur PPDB</Link>
+                </Button>
               </div>
             </div>
           </CardSurface>

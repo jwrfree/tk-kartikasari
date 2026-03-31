@@ -6,11 +6,11 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { createOrganizationJsonLd, createWebSiteJsonLd, createLocalBusinessJsonLd } from '@/lib/json-ld';
 import { bodyFont, displayFont } from '@/app/fonts';
-import { fallbackContent } from '@/lib/fallback-content';
+import { fallbackSiteSettings } from '@/lib/fallback-content';
 import { SiteDataProvider } from '@/app/providers/SiteDataProvider';
 import { getGlobalSiteData } from '@/lib/sanity.queries';
 
-const fallbackSite = fallbackContent.siteSettings;
+const fallbackSite = fallbackSiteSettings;
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: `%s - ${fallbackSite.schoolName}`,
   },
   description:
-    'Sekolah pertama yang membantu anak cepat nyaman dan membantu orang tua cepat yakin lewat proses yang jelas.',
+    'Lihat kecocokan TK Kartikasari untuk anak Anda, pahami biaya awal, lalu hubungi sekolah untuk kuota dan langkah daftar.',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
